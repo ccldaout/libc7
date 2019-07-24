@@ -1,0 +1,192 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7args c7args.h
+ *  コマンドライン引数のオプション解析
+ *
+ * コマンドライン引数のオプションを解析するには、
+ * 各オプションの特徴を構造体で定義し、
+ * オプション検出時に呼ばれるハンドラを準備することから始まる。
+ * それを解析機に登録したあと、実際の引数(いわゆる main() の argv)を
+ * 渡すことで解析が行われる。
+ */
+//@{
+
+
+/// @name オプション定義
+//@{
+#define C7_ARGS_PRMC_UNLIM	///< オプションのパラメータ数に制限が無いことを意味する。
+
+/** オプションがとるパラメータの種類。
+ *
+ * オプションが異なる種類のパラメータをとる場合は ::C7_ARGS_T_ANY を指定して、
+ * ハンドラ内で独自に解析しなければならない。
+ */
+typedef enum {
+    C7_ARGS_T_none,		///< パラメータは取らない
+    C7_ARGS_T_INT,		///< 整数型
+    C7_ARGS_T_REAL,		///< 実数型
+    C7_ARGS_T_KEY,		///< リスト内のキーワード
+    C7_ARGS_T_REX,		///< 拡張正規表現に一致する文字列
+    C7_ARGS_T_DTV,		///< 本機能専用の時刻形式。<BR>
+                                ///< [[[YY]MMDD]hhmm][.ss] または .\ (ドット)。
+    C7_ARGS_T_ANY,		///< 任意文字列
+} c7_args_type_t;
+
+/** オプション解析後に呼び出される関数の形式。c7_args_parse() で説明する。
+ */
+typedef c7_bool_t (*c7_args_handler_t)(
+    c7_args_t ap,
+    const c7_args_params_t *params,
+    void *__uctx);
+
+/** オプションの特徴を定義する構造体。
+ *
+ * 一つのオプションに対して、オプション文字列や概要、パラメータ数や種類などの情報を定義する。
+ *
+ * @code
+static c7_bool_t option_inline(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+{
+   ...
+} 
+
+static c7_bool_t option_highlight(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+{
+   ...
+}
+
+static c7_args_optdef_t OptionDefs[] = {
+    {
+	.long_opt = "inline",
+	.short_opt = "i",
+	.optrepr = "replace original without backup",
+	.handler = option_inline },
+    ...
+    {
+	.long_opt = "highlight",
+	.short_opt = "H",
+	.optrepr = "highlight replaced string",
+	.prmrepr = "highlight mode (default:color)",
+	.prmword = "HIGHLIGHT",
+	.prmtype = C7_ARGS_T_KEY,
+	.conds = (char *[]) { "none", "color", NULL },
+	.prmc_min = 0,
+	.prmc_max = 1,
+	.handler = option_highlight },
+    ...
+};
+ * @endcode
+ */
+typedef struct {
+    char *long_opt;		///< ロングオプション名 (先頭の'--'は除く)
+    char *short_opt;		///< 一文字オプション名 (先頭の'-'は除く)
+    char *optrepr;		///< オプションの概要
+    char *prmrepr;		///< パラメータの概要
+    char *prmword;		///< パラメータを表現する短かい単語 (エラーやUsageで使用される)
+    c7_args_type_t prmtype;	///< パラメータの種類
+    char **conds;		///< パラメータの種類に関する追加情報<BR>
+                                /// ::C7_ARGS_T_KEY の場合はキーワードのリスト(NULLで終了する)<BR>
+                                /// ::C7_ARGS_T_REX の場合は拡張正規表現のリスト(NULLで終了する)
+    unsigned int prmc_min;	///< パラメータの最小数
+    unsigned int prmc_max;	///< パラメータの最大数。C7_ARGS_PRMC_UNLIM を指定すると無制限になる。
+    /* パラメータの最大数
+     * ::prmc_min と合わせてパラメータ数に関する条件を表現する。
+     * prmc_min| prmc_max|
+     * --------|---------|-----
+     *        0|       0 |パラメータはとらない。(::C7_ARGS_T_none)
+     *        0|       1 |パラメータは省略可能かまたは1つ。
+     *        1|       1 |パラメータを必ず1つとる
+     *        0|       n |パラメータは 0 個から n 個以下。
+     *        1|       n |パラメータは 1 個から n 個以下。
+     *        0|       C7_ARGS_PRMC_UNLIM |パラメータは 0 個以上任意。
+     *        1|       C7_ARGS_PRMC_UNLIM |パラメータは 1 個以上任意。
+     *        m|       n                  |パラメータは m 個以上 n 個以下。
+     *        m|       C7_ARGS_PRMC_UNLIM |パラメータは m 個以上任意。
+     */
+    c7_args_handler_t handler;	///< オプション解析後に呼び出される関数
+} c7_args_optdef_t;
+//@}
+
+
+/// @name オプション解析結果
+//@{
+/** ::C7_ARGS_T_DTV のパラメータの表現形式
+ */
+typedef enum {
+    C7_ARGS_TIME_DOT,	///< '.' のみ指定された
+    C7_ARGS_TIME_NOSEC,	///< 秒の指定がなかった
+    C7_ARGS_TIME_SEC,	///< 秒の指定があった
+} c7_args_prm_time_t;			///< 指定された文字列の形式
+
+
+/** オプションに指定されたパラメータの解析結果を保持する。
+ */
+typedef struct {
+    c7_args_type_t type;	///< ::c7_args_optdef_t.prmtype と同じ値
+    int keyindex;		///< ::C7_ARGS_T_KEY や ::C7_ARGS_T_REX の場合の、
+                                ///< 一致した ::c7_args_optdef_t.conds[] のインデックス。
+    union {
+	int64_t i;		///< ::C7_ARGS_T_INT の場合
+	double r;		///< ::C7_ARGS_T_REAL の場合
+	const char *s;		///< ::C7_ARGS_T_KEY また ::C7_ARGS_T_ANY
+	const char **rxv;	///< ::C7_ARGS_T_REX の場合のマッチング文字列<BR>
+                                ///< rxv[0] は正規表現全体、rxv[1],.\ .\ .\  は部分一致で '(' の順。
+	struct {
+	    time_t v;			///< time_t値
+	    c7_args_prm_time_t form;	///< 指定された文字列の形式
+	} tm;			///< ::C7_ARGS_T_DTV の場合
+    } u;			///< type 毎の解析値
+} c7_args_prm_t;
+
+/** オプションの解析結果を保持する。
+ */
+typedef struct {
+    const c7_args_optdef_t *optdef;	///< 関連するオプションの定義
+    const char *specified_prm;		///< 指定されたオプション文字列。"-O" や "--option" のような文字列。
+    int prmc;				///< 解析されたパラメータの個数
+    c7_args_prm_t *prmv;		///< 解析されたパラメータのデータ。prmv[0]〜prmv[prmc-1]
+} c7_args_params_t;
+//@}
+
+
+/// @name オプション解析API
+//@{
+typedef struct c7_args_t_ *c7_args_t;	///< オプション解析オブジェクト
+
+/** オプション解析オブジェクトを生成する。
+ */
+c7_args_t c7_args_init(void);
+
+/** オプション解析オブジェクト ap にオプション定義 optv を追加する。この関数を繰り返し呼んでも良い。
+ */
+c7_bool_t c7_args_add_list(c7_args_t ap,
+			   const c7_args_optdef_t *optv,
+			   int optc);
+
+/** オプション解析オブジェクト ap から Usage 表示用の文字列を構成し、C7文字列 sbp に追加する。
+ * expl_off はオプションの概要を表示するカラム位置。
+ */
+c7_str_t *c7_args_usage(c7_args_t ap,
+			c7_str_t *sbp,
+			int expl_off);
+
+/** 引数 argv をオプション解析オブジェクト ap で解析する。
+ *
+ * - argv[0] は最初の引数でなければならない。
+ * - 解析できたオプションに対して、オプション定義に指定したハンドラが呼び出される。
+ *   この時 __uctx の値がハンドラの最終引数に渡される。
+ * - オプションでない引数を検出したらそこで解析を停止し、その引数を先頭とする引数リストを戻す。
+ *   argv[0]..argv[n] がオプションとオプション引数で、argv[n+1] が非オプションの場合、&argv[n+1] が戻されるということ。
+ * - 解析結果のメモリは、同一の解析オブジェクト ap に対して次に c7_args_parse() を呼び出すか、
+ *   c7_args_free() を呼び出すと解放される。解析結果の文字列などを永続的に使用したい場合は呼び出し側で複製する必要がある。
+ */
+char **c7_args_parse(c7_args_t ap,
+		     char **argv,
+		     void *__uctx);	// argv[0] is 1st argument
+
+/** オプション解析オブジェクト ap を解放する。解析結果の情報も解放される。
+ */
+void c7_args_free(c7_args_t);
+//@}
+
+
+//@}

@@ -1,0 +1,181 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7file c7file.h
+ * ファイルまたはファイル名の操作
+ */
+//@{
+
+
+/// @name パス名に関する処理
+//@{
+/** パス名 path のファイル名部分を戻す。
+ */
+const char *c7_path_name(const char *path);
+
+/** ファイル名 file のサフィクス(最後の'.\ ')もしくは終端を戻す。\n
+ * 注意: file にディレクトリ部分があると正しく動作しない。
+ */
+const char *c7_path_suffix(const char *file);
+
+/** [libc7ライブラリ向け] 特殊ファイルのパス名を決定する。
+ *
+ * @param sbp 決定したパス名を設定するC7文字列。NULLの場合は c7_str_new_sg() で確保される。
+ * @param dir_envname_op ディレクトリを指定する環境変数名。NULLを指定した場合は "C7_ROOT_DIR" が渡されたものとし扱われる。
+ * @param name ファイル名。suffix で指定するサフィクス文字列を含んでいてもよい。
+ * @param suffix サフィクス文字列。先頭文字が '.\ ' であることを仮定する。
+ * @return sbp が戻される。NULL が指定されていた場合は c7_str_new_sg() の結果が戻される。
+ *
+ * パス名は以下の手順で決められる。
+ * 1. name の後尾が suffix  と一致しなければ、name に suffix を追加したものを name として扱う。
+ * 2. name に '/' が含まれていれば、それを sbp にコピーして関数から戻る。
+ * 3. dir_envname_op が NULL でなくて、それが環境変数として定義されていたら、環境変数の値をディレクトリとする。
+ * 4. dir_envname_op が NULL の場合、C7_ROOT_DIR が環境変数として定義されていたら、その値をディレクトリとする。
+ * 5. 3., 4. のいずれでもなければ "${HOME}/.c7" をディレクトリとする。
+ * 6. 3., 4., 5. で決まったディレクトリが存在すれば、そのディレクトリと name を結合したものを sbp に設定して関数から戻る。
+ * 7. ディレクトリが存在しなければ、"${HOME}/." と name を結合したものを sbp に設定して関数から戻る。
+ */
+c7_str_t *c7_file_special_path(c7_str_t *sbp,
+			       const char *dir_envname_op,
+			       const char *name,
+			       const char *suffix);	// include '.'
+
+/** ファイル name を pathlistv, default_suffix に基づいて検索する。
+ *
+ * @param sbp 検索して見つかったパス名を設定するC7文字列。NULLを指定することはできない。
+ * @param name 検索したいファイルの名前。
+ * @param pathlistv 検索パス文字列のNULL終端の配列。各 pathlistv[i] に対して c7_streval_env()
+ *                  で環境変数の参照を評価し、その結果を PATH 環境変数同様 ':' で分割したものを
+ *                  検索対象のディレクトリとする。
+ * @param suffix name が '.' を含まない場合に追加されるサフィクス文字列。先頭文字が '.' であることを仮定する。
+ * @return 存在するファイルが見つかれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。
+ *
+ * 1. name が '.' を含まなければ name に default_suffix を追加したものを name として扱う。
+ * 2. name が '/' から始まっていれば(絶対パス)、この name でファイルの存在を確認する。
+ *    ファイルが存在すれば sbp にファイル名を設定し C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ * 3. pathlistv[n] が NULL となるまで n をインクリメントしながら、pathlistv[n] で決まる
+ *    ディレクトリのリストを先頭から順に検索する。ファイルの存在が最初に確認されたディレクトリで、
+ *    パス名(ディレクトリ名＋name)を sbp に設定し、C7_TRUE を戻す。
+ * 4. ファイルが見つからなければ C7_FALSE を戻す。
+ */
+c7_bool_t c7_file_search(c7_str_t *sbp,
+			 const char *name,
+			 const char **pathlistv,
+			 const char *suffix);
+//@}
+
+
+/// @name 標準ライブラリ関数の特殊版
+//@{
+/** 可能な限り一行分('\\n')を読み込む fgets() の拡張版。
+ *
+ * - fgets() の結果に '\\n' が含まれるまで、fgets() を繰り返し呼び出し、
+ *   sbp に読み込み結果を追加していく。
+ * - '\\n' を読み込んだら c7_strbuf(sbp) を戻す。
+ * - '\\n' を読み込む前に fgets() が NULL を戻したら、sbp へ '\\n' を追加して、
+ *   エラーがなければ c7_strbuf(sbp) を戻す。
+ * - sbp への追加でエラーが発生したら NULL を戻す。
+ * - EOFに達した場合も NULL が戻るが、この場合 c7_status_has_error() は C7_FALSE となる。
+ */
+char *c7_fgets(c7_str_t *sbp, FILE *fp);
+//@}
+
+
+/// @name ファイル名単位での入出力
+//@{
+/** バッファの内容で path 名のファイルを書き込む。
+ *
+ * - path は open(path, O_WRONLY|O_CREAT|O_TRUNC, mode) でオープンされる。
+ * - size バイトを書き込めた場合だけ C7_TRUE を戻す。
+ */
+c7_bool_t c7_file_write(const char *path, int mode, void *buf, size_t size);
+
+/** バッファの内容で path 名のファイルを可能な限り安全に書き換える。
+ *
+ * @param path 書き換えの対象となるファイル名。存在しなければエラーとなる。
+ * @param buf 書き換え後のファイルの内容となるデータ
+ * @param size データbufのバイト数
+ * @param bck_suffix 既存ファイルをバックアップとして残す場合のサフィクス。
+ *                   NULLポインタであればバックアップは残らない。
+ * @return 書き換えに成功すれば C7_TRUE を戻す。失敗した場合は C7_FALSE を戻す。
+ *	   その場合、ファイル path は元のままである。
+ *
+ * バッファ buf の内容で一度テンポラリファイルを作成し、シグナルブロックした
+ * うえでファイルの rename を行う。bck_suffix にNULLが指定された場合であっても、
+ * 既存ファイルは一旦バックアップファイルとして rename されるため、仮に、
+ * SIGKILL などで強制終了された場合でも、既存ファイルはバックアップ名の可能性
+ * があるとしても存在している。
+ */
+c7_bool_t c7_file_rewrite(const char *path, void *buf, size_t size,
+			  const char *bck_suffix);
+
+/** ファイル path (もしくは標準入力)から buf に size バイトのデータを読み込む。
+ *
+ * @param path 読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。
+ * @param buf 読み込んだデータを格納するバッファ。
+ * @param size 読み込むバイト数。
+ * @return read(2)が -1 を戻した場合は -1。それ以外は size までに未達のバイト数 (size - 読み込めたバイト数) を戻す。
+ */
+ssize_t c7_file_read(const char *path, void *buf, size_t size);
+
+/** ファイル path (もしくは標準入力)からEOFまで全データを読み込む。
+ *
+ * @param path 読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。
+ * @param sizep_o NULLポインタでなければ、*sizep_o に実際に読み込んだバイト数を格納する。
+ * @return read(2) や realloc(3)  がエラーとなれば NULL ポインタを戻し、そうでなければ、
+ *         realloc() で確保されたバッファを戻す。このバッファは読み込んだ全データを保持するが、
+ *         テキスト処理向けに 1byte 余分に確保されており、そこには 0x0 (null character) が格納されている。
+ *         当然、sizep_o に戻すバイト数に、この余分は含まれていない。
+ */
+void *c7_file_read_x(const char *path, size_t *sizep_o);
+
+/** テキストファイル path (もしくは標準入力)からEOFまで全データを読み込み行の配列として戻す。
+ *
+ * @param path 読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。
+ * @param nlinep_o NULLポインタでなければ *nlinep_o に行数を格納する。
+ * @return 処理に失敗するとNULLポインタを戻し、
+ *	   成功した場合はファイルの内容を1行毎('\\n'で)の文字列に分割した配列として戻す。
+ *         この配列を strv として、読み込んだ行数を n とすると、strv[n] には NULL ポインタが設定されている。
+ *         strv[0]〜strv[n-2] までの文字列には '\\n' が存在するが、最終行である strv[n-1] に '\\n' が
+ *         あるかどうかは元データによる。\n
+ *         データが不要になった場合は、strv を free しなければならない。
+ *         free は返却値に対してのみ行い、各 strv[i] に対して行ってはならない。
+ */
+char **c7_file_readlines_x(const char *path, size_t *nlinep_o);
+//@}
+
+
+/// @name ファイルの簡易 mmap インターフェース
+//@{
+/** ファイル path を読み込み専用で mmap する。 
+ *
+ * @param path mmapするファイル名。存在する必要がある。
+ * @param sizep_o NULLの場合、mmapするサイズをファイルのサイズから自動的に得る。
+ *		  *sizep_o が 0 の場合、mmapするサイズをファイルのサイズから自動的に得て、*sizep_o にその値を格納する。
+ *                *sizep_o が 0 でなければ、それを mmapするサイズとする。*sizep_o に指定した値が実際のファイルサイズよりも大きい場合、ファイルサイズの拡張(ftruncate)が試みられる。
+ * @return 成功すれば mmap したアドレスを戻し、失敗すれば NULL を戻す((void*)-1 ではない)。
+ *         失敗するとすれば、open(2), fstat(2), ftruncate(2), mmap(2) のいずれかで発生する。
+ */
+void *c7_file_mmap_r(const char *path, size_t *sizep_o);
+
+/** ファイル path を読み書き両用で mmap する。 
+ *
+ * @param path mmapするファイル名。
+ * @param sizep_io NULLの場合、mmapするサイズをファイルのサイズから自動的に得る。
+ *		  *sizep_io が 0 の場合、mmapするサイズをファイルのサイズから自動的に得て、*sizep_io にその値を格納する。
+ *                *sizep_io が 0 でなければ、それを mmapするサイズとする。*sizep_io に指定した値が実際のファイルサイズよりも大きい場合、ファイルサイズの拡張(ftruncate)が試みられる。
+ * @param create ファイル path が存在しない場合に作成するかどうかを指定する。
+ * @return 成功すれば mmap したアドレスを戻し、失敗すれば NULL を戻す((void*)-1 ではない)。
+ *         失敗するとすれば、open(2), fstat(2), ftruncate(2), mmap(2) のいずれかで発生する。
+ *
+ * @remark ファイルが存在しない時に sizep_io にNULLポインタ、あるいは *sizep_io が 0 の場合、
+ *         ファイルが新規作成されたとしてもサイズが 0 のため mmap が失敗するだろう。
+ */
+void *c7_file_mmap_rw(const char *path, size_t *sizep_io, c7_bool_t create);
+
+/** mmap したメモリを munmap する。
+ */
+void c7_file_munmap(void *addr, size_t size);
+//@}
+
+
+//@}

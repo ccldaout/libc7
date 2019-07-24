@@ -1,0 +1,173 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7proc c7proc.h
+ * 基本的なプロセス生成と子プロセス終了のハンドリング
+ */
+//@{
+
+
+/// @name 子プロセス終了のハンドリング
+//@{
+/** (fork前に) SIGCHLDハンドラ登録用のスロットを確保する。
+ *
+ * @param callback プロセス終了時に呼び出す関数。この関数は c7_cleaner_waitprocs() から呼び出される。
+ *                 pid は終了したプロセスのPID、wait_status は非負(≧0)なら子プロセスが exit() した値。
+ *                 負(＜0)なら、その絶対値が子プロセスが kill() された時のシグナル番号となる。
+ * @param __param callbackに与える引数。
+ * @return スロットの確保に成功すればスロット番号(≧0)を、失敗すれば C7_SYSERR を戻す。
+ *
+ * この関数は SIGCHLDシグナルハンドラを経由して子プロセス終了時のハンドリングしたい場合に、
+ * 子プロセスを生成するまえに呼び出す。先に呼び出すのは、子プロセス起動後にスロットを確保
+ * できない場合の処理が難しくなるためである。
+ */
+int c7_cleaner_reserve(void (*callback)(pid_t pid,
+					int wait_status,
+					void *__param),
+		       void *__param);
+
+/** (子プロセスの起動に成功した場合に) 事前確保したスロットに子プロセスのPIDを登録する。
+ *
+ * @param reserved_slot c7_clearner_reserve()で確保しておいたスロット番号。
+ * @param newpid 起動に成功した子プロセスのPID。
+ *
+ * @note reserved_slot が事前に確保されたものでなければ abort() する。
+ */
+void c7_cleaner_register(int reserved_slot, pid_t newpid);
+
+/** 登録ずみのプロセスIDで終了したものについて callback を呼び出す。
+ *
+ * この関数は、c7_clearner_register()で登録された全てのプロセスIDについて、
+ * WNOHANG フラグつきで waitpid(2) を呼び出し、終了状態を調べる。
+ * プロセスが終了していれば、c7_cleaner_reserve() で登録した callback を呼び出す。
+ * その際、wait_status 引数には、プロセスが exit() で終了していれば exit() に渡された値を、
+ * kill() により終了していればシグナル番号を負にしたものを渡す。
+ * callback 関数から戻れば、このプロセス用に確保していたスロットは解放される。
+ *
+ * @remark
+ * libc7の想定環境(linux や cyginw)では、libc7.so のロード時にシグナル処理機構の
+ * c7signal が初期化され、SIGCHLDのシグナルハンドラから c7_cleaner_waitprocs() が呼ばれる
+ * ようにセットアップされる。アプリケーションの main 関数以降で、SIGCHLD のシグナルハンドラ
+ * を変更していない限り、この関数は呼び出す必要はない。
+ */
+void c7_cleaner_waitprocs(void);
+
+/** (子プロセスの起動に失敗した場合に) 事前確保したスロットを解放する。
+ *
+ * 通常、この関数は c7_cleaner_reserve() で確保したあと、子プロセスの起動に失敗した
+ * 場合に呼び出す。
+ */
+void c7_cleaner_free(int reserved_slot);
+//@}
+
+
+/// @name プロセスの生成
+//@{
+/** プログラム progname を引数 argv で子プロセスとして起動する。
+ *
+ * @param progname 起動するプログラム名。execvp() の第一引数に渡される。
+ * @param argv プログラム起動時の引数。execvp() の第二引数に渡される。
+ * @param tmp_fdnum_in_child 子プロセスに引き継ぐ必要のない記述子の番号を指定する。
+ *                           この記述子の番号はプログラムの execvp() の正否を確認するために
+ *                           子プロセス側で用いられ、execvp() 前に close-on-exec を設定することにより、
+ *			     execvp() が成功した子プロセスには残らない。
+ * @param preexec fork後の子プロセス側で execvp() の前に呼ばれる関数。NULLの場合は特に何もしない。
+ *                一般的なケースでは、例えば親子で pipe() 等を使って通信する場合に、子プロセス側
+ *                の記述子を事前に決めた番号にする(でなければ、子側の番号を何かで伝えなければならない)。
+ *                この関数では、そのような子プロセス側にとってのセットアップが必要な場合に指定する。
+ * @param postwait 子プロセス終了時に呼び出される関数。これが NULL でなれば、
+ *                 c7_proc_spawn() 内部で、c7_cleaner_reserve(), c7_cleanr_register() を適切に
+ *		   呼び出して登録を行う。
+ * @param __param preexec() や postwait() に渡す引数。
+ * @return 子プロセスでのプログラムの起動に成功すれば子プロセスのPIDを戻し、失敗すれば C7_SYSERR を戻す。
+ * 
+ * この関数では、fork 後に execvp が成功したかどうかまでを判断できる。execvp が失敗した場合の errno の
+ * 値は親プロセスへと戻され、親プロセスの errno に設定される。もちろん、c7status 機能でエラー情報も残される。
+ */
+pid_t c7_proc_spawn(const char *progname,
+		    char **argv,	
+		    int tmp_fdnum_in_child,
+		    c7_bool_t (*preexec)(const char *progname,
+					 char **argv,
+					 void *__param),
+		    void (*postwait)(pid_t pid,
+				     int status,
+				     void *__param),
+		    void *__param);
+
+/** プロセスID pid プロセスの終了を待つ。
+ *
+ * @param pid 待機するプロセスのPID。
+ * @return pidで指定したプロセスの waitpid() に失敗すれば C7_PROC_WAIT_ERR が戻る。
+ *         waitpid() に成功した場合、
+ *	   プロセスが exit() した場合は終了値(≧0)を戻し、
+ *	   プロセスが kill() された場合はシグナル番号を負にして戻す。
+ *
+ * @note C7_PROC_WAIT_ERR は 255 よりも大きな値であるが、これは exit() に指定できる値が 0〜255 であることに依存している。
+ */
+int c7_proc_wait(pid_t pid);	// >=0:exit_status, <0:-signal_number
+//@}
+
+
+/// @name フィルタ型プロセスの生成
+//@{
+/** フィルタプロセスオブジェクト。
+ */
+typedef struct c7_filter_t_ *c7_filter_t;
+
+/** フィルタプロセスを起動する。
+ *
+ * @param fd0 フィルタプロセスの標準入力(記述子0)に接続される記述子。C7_SYSERR を指定した場合は、/dev/null が接続される。
+ * @param fd1 フィルタプロセスの標準出力(記述子1)に接続される記述子。C7_SYSERR を指定した場合は、/dev/null が接続される。
+ * @param av 起動するフィルタプログラム。execvp(av[0], av) として起動される。
+ * @return フィルタプログラムを起動できた場合はフィルタプロセスオブジェクトを戻す。失敗した場合は NULL を戻す。
+ *
+ * フィルタプログラムの起動においては、標準入力と標準出力を fd0, fd1 引数に従って準備し, 
+ * 標準エラー出力(記述子2)には /dev/null を接続する。3以上の記述子は close(2) される。
+ */
+c7_filter_t c7_filter_start(int fd0, int fd1, char **av);
+
+/** フィルタプロセスの終了を待機する。
+ *
+ * @param filter フィルタプロセスオブジェクト。この関数から抜けるときにフィルタプロセスオブジェクトは破棄される。
+ * @param stsp NULLポインタでなければ終了値を示す値(c7_proc_wait()の戻り値)が戻される。
+ * @return フィルタプロセスが exit(0) した場合は C7_TRUE を、そうでなければ C7_FALSE を戻す。
+ *
+ * フィルタプロセスの終了は SIGCHLD では補足できず、必ず c7_filter_wait() により同期的に終了を待つしかできない。
+ */
+c7_bool_t c7_filter_wait(c7_filter_t filter, int *stsp);
+
+/** フィルタプロセスに SIGKILL を送り、終了まで待機する。
+ *
+ * @param filter 強制終了するフィルタプロセスオブジェクト。この関数から抜けるときにフィルタプロセスオブジェクトは破棄される。
+ */
+void c7_filter_kill(c7_filter_t filter);
+//@}
+
+
+/// @name popen()拡張版
+//@{
+/** av で指定されるプログラムを起動して、プロセスから読むまたはプロセスに書くためのFILEオブジェクトを戻す。
+ *
+ * @param redir_o プログラムへの入力または出力としてリダイレクトされるファイル名。
+ *                - mode が "r" の場合、redir_o は起動されるプログラムの標準入力と接続される。
+ *                - mode が "w" の場合、redir_o は起動されるプログラムの標準出力と接続される。
+ *                - redir_o が NULL の場合は代りに /dev/null が用いられる。
+ * @param mode 戻されるFILEオブジェクトのモード。"r" はプログラムの出力を読む場合で、"w" はプログラムの入力として書く場合。
+ * @param av 起動されるプログラム。execvp(av[0], av) として起動される。
+ * @return プログラムを起動できれば mode に応じた FILEオブジェクトが戻され、失敗すれば NULL が戻される。
+ *
+ * @remark 戻されたFILEオブジェクトを fclose(3) でクローズすると、プロセス情報を含めた制御データがメモリリークする。
+ *         また、プログラムが走行する前に 3以上の記述は close(2) される。
+ */
+FILE *c7_popen(const char *redir_o, const char *mode, char **av);
+
+/** c7_popen() で起動したプログラムの終了を待ち FILEオブジェクトをクローズする。
+ *
+ * @param fp c7_popen()の戻り値でなければならない。
+ * @return 処理に成功すれば 0 を戻し、失敗すれば EOF を戻す。
+ */
+int c7_pclose(FILE *fp);
+//@}
+
+
+//@}

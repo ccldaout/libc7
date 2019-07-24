@@ -1,0 +1,34 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7fd c7fd.h
+ * ファイル記述に対する操作(主に fcntl のラッパー)
+ */
+//@{
+
+
+/** fd の指すファイル全体に対するアドバイザリロックの開始/終了
+ */
+c7_bool_t c7_fd_advlock(int fd, c7_bool_t enable);
+
+/** fd に対する Non-blocking I/O フラグのオン/オフ
+ */
+c7_bool_t c7_fd_setnonblock(int fd, c7_bool_t enable);
+
+/** fd に対する Non-blocking I/O フラグ設定値を *status で戻す。
+ */
+c7_bool_t c7_fd_getnonblock(int fd, c7_bool_t *status);
+
+/** fd に対する Close-on-exec フラグのオン/オフ
+ */
+c7_bool_t c7_fd_setcloexec(int fd, c7_bool_t enable);
+
+/** fd に対する Close-on-exec フラグ設定値を *status で戻す。
+ */
+c7_bool_t c7_fd_getcloexec(int fd, c7_bool_t *status);
+
+/** *fdp の記述子の値を lowest 以上の最小の未使用の番号に変更し *fdp で戻す。
+ */
+c7_bool_t c7_fd_renumber(int *fdp, int lowest);
+
+
+//@}

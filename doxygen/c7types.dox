@@ -1,0 +1,78 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7types c7types.h
+ *  基本的な型やマクロの定義を行う。
+ */
+//@{
+
+
+#include <c7config.h>
+#include <errno.h>
+#include <limits.h>
+#include <stddef.h>
+#include <sys/types.h>
+
+
+/** (擬似)ブール型。C7_CONFIG_BOOL_INTマクロが定義されていた場合は列挙でなく
+ * int型となる。
+ */
+typedef enum c7_bool_t_ {
+    C7_FALSE,			///< 偽 (C言語規格上で正確)
+    C7_TRUE			///< 真 (C言語規格上では不正確)
+} c7_bool_t;
+
+
+/** @name 時刻関連
+ */
+//@{
+/** libc7上でのタイムスタンプの型。マイクロ秒単位の整数。
+ */
+typedef int64_t c7_time_t;
+
+/** c7_time_t での 1 秒の表現。
+ */
+#define C7_TIME_S_us	((c7_time_t)1000000)
+//@}
+
+
+/** @name システムコール系の戻り値
+ */
+//@{
+#define C7_SYSERR      	(-1)		///< 失敗
+#define C7_SYSOK	(0)		///< 成功
+#define C7_SYSNOERR	C7_SYSOK	///< 失敗でない
+//@}
+
+
+/** @name C7ログ機能の詳細度レベル。
+ * レベルの高い方をフィルタする使い方。
+ */
+//@{
+// log level: 0..7
+#define C7_LOG_MIN	(0U)		///< 最小レベル
+#define C7_LOG_MAX	(7U)		///< 最大レベル
+#define C7_LOG_ALW	C7_LOG_MIN	///< 常に表示あるいは記録
+#define C7_LOG_ERR	(1U)		///< エラーレベル
+#define C7_LOG_WRN	(2U)		///< 警告レベル
+#define C7_LOG_INF	(3U)		///< 情報レベル
+#define C7_LOG_BRF	(4U)		///< 簡潔な追加情報
+#define C7_LOG_DTL	(5U)		///< 詳細な追加情報
+#define C7_LOG_TRC	(6U)		///< トレース (記録内容は短かいが大量)
+#define C7_LOG_DBG	C7_LOG_MAX	///< デバッグ
+//@}
+
+
+/** _v の値を 二の累乗値 _power_of_2 でアライメント
+ */
+#define c7_align(_v, _power_of_2)	(1 + (((_v)-1) | ((_power_of_2)-1)))
+
+/** 配列 _a の要素数を算出
+ */
+#define c7_numberof(_a)			((ssize_t)(sizeof(_a)/sizeof((_a)[0])))
+
+/** TLS (thread local storage) の修飾子
+ */
+#define c7_thread_local	__thread
+
+
+//@}

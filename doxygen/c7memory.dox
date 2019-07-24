@@ -1,0 +1,255 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7memory c7memory.h
+ *  メモリ取得関数の拡張機能を提供する。
+ *
+ *  - 標準ライブラリのメモリ取得関数にエラー時の処理を追加
+ *  - 取得したメモリをグループ化する機能
+ *  - 可変バッファ
+ */
+//@{
+
+
+/*----------------------------------------------------------------------------
+                           standard memory function
+----------------------------------------------------------------------------*/
+
+/** @name fundamental
+ * 基本的なメモリ取得関数
+ *
+ * 標準ライブラリ関数でメモリ確保に失敗した場合に c7status を用いてエラー情報をスレッド毎に保存する。
+ */
+
+//@{
+
+/** メモリを確保したうえで複製する。 
+ *
+ * @param addr コピー対象のアドレス 
+ * @param size コピー対象のサイズ(bytes)
+ * @return メモリの確保に成功すれば確保したアドレスを戻す。失敗すれば NULL を戻す。
+ * @see malloc(3)
+ */
+void *c7_memdup(const void *addr, size_t size);
+
+/** メモリを確保に失敗したら c7status でエラー情報を記録する標準関数の拡張版
+ */
+void *c7_malloc(size_t z);
+
+/** メモリを確保に失敗したら c7status でエラー情報を記録する標準関数の拡張版
+ */
+void *c7_calloc(size_t n, size_t z);
+
+/** メモリを確保に失敗したら c7status でエラー情報を記録する標準関数の拡張版
+ */
+void *c7_realloc(void *p, size_t n);
+
+//@}
+
+
+/*----------------------------------------------------------------------------
+                                 memory group
+----------------------------------------------------------------------------*/
+
+/** @name memory group
+ * メモリ管理のグループ化.
+ *
+ * 一連の動的確保したメモリをグループとして管理する。一度の操作でグループ内のメモリを開放することができる。
+ */
+//@{
+
+/** メモリグループオブジェクトへのポインタ。
+ *
+ * メモリグループオブジェクトの詳細は関知しないこと。このポインタのことを略してメモリグループと呼ぶ。
+ * <b>メモリグループへのアクセスはスレッドセーフではないため、複数スレッドで同一のメモリグループを
+ * 使用する場合は呼び出し側で排他制御する必要がある。</b>
+ */
+typedef struct c7_mgroup_t_ *c7_mgroup_t;
+
+/** スレッド毎に固有のメモリグループを得る。
+ *
+ * @return スレッド単位で初期化されたメモリグループを戻す。
+ *
+ * @note このメモリグループは c7_thread_start() もしくは c7_thread_run() で起動した
+ *	スレッドでのみ意味を持ち、スレッド終了時にこのメモリグループは開放される。
+ *	スレッド生存期間中には確保しておきたいが終了後に開放したいが、TLS (thread
+ *	local storage) のように事前には確保できない動的メモリに適している。
+ */
+c7_mgroup_t c7_mg_thread_local(void);
+
+/** メモリグループを作成して戻す。
+ */
+c7_mgroup_t c7_mg_new(void);
+
+/** c7_memdup() のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。
+ */
+void *c7_mg_memdup(c7_mgroup_t mg, const void *addr, size_t size);
+
+/** malloc のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。
+ */
+void *c7_mg_malloc(c7_mgroup_t mg, size_t size);
+
+/** calloc のメモリグループ版。mg が NULL ポインタの場合は c7_calloc() を呼びグループ化しない。
+ */
+void *c7_mg_calloc(c7_mgroup_t mg, size_t n, size_t z);
+
+/** realloc のメモリグループ版。mg が NULL ポインタの場合は c7_realloc() を呼びグループ化しない。<BR>
+ *  u_addr が mg とは異なるメモリグループであった場合、本来所属するメモリグループにそのまま属する。
+ */
+void *c7_mg_realloc(c7_mgroup_t mg, void *u_addr, size_t size);
+
+/** srcmg のグループに所属する src_addr メモリを trgmg の所属へと変更する。
+ * srcmg, trgmg とも NULL ポインタであってはならない。
+ */
+void c7_mg_trade(c7_mgroup_t trgmg, c7_mgroup_t srcmg, void *src_addr);
+
+/** mg のグループに所属する content_size バイトの u_addr メモリを mg のグループから切り離す。u_addr のアドレスは無意味になることに注意が必要。
+ *
+ * @return u_addr メモリ移動後のデータのアドレスを戻す。
+ * @note
+ * - 切り離し処理により u_addr の指すメモリの内容がが数バイトオフセットされるため、u_addr に指定したポインタ値を使用してはならない。
+ * - メモリグループから切り離されるため、このメモリが不要になった場合は free で開放する必要がある。
+ * - mg が NULL ポインタの場合は u_addr がそのまま戻される。
+ * - u_addr が NULL の場合は NULL が戻される。
+ * - u_addr が mg とは異なるメモリグループであった場合も、、本来所属するメモリグループから切り離される。
+ */
+void *c7_mg_unlink(c7_mgroup_t mg, void *u_addr, size_t content_size);
+
+/** u_addr メモリを mg のグループから切り離し free で開放する。mg が NULL の場合は単純に free で解放する。<BR>
+ * u_addr が mg とは異なるメモリグループであった場合も、、本来所属するメモリグループから切り離される。
+ */
+void c7_mg_free(c7_mgroup_t mg, void *u_addr);
+
+/** mg のグループに所属するメモリについて c7_mg_free() を呼び出す。mg の指すメモリグループ自体は存続する。
+ */
+void c7_mg_freeall(c7_mgroup_t mg);
+
+/** mg に対して c7_mg_freeall() を呼んだあと mg グループ自体も解放する。
+ */
+void c7_mg_destroy(c7_mgroup_t mg);
+
+//@}
+
+
+/*----------------------------------------------------------------------------
+                            stackable memory group
+----------------------------------------------------------------------------*/
+
+/** @name stackable memory group
+ * スタック可能なメモリグループ.
+ *
+ * スレッド毎にメモリグループをスタックとして管理する。常に現在のメモリグループが
+ * 存在するため、メモリグループを引数では指定しない。この性質のため、メモリ確保操作と
+ * 自スレッドで確保したスタック可能なメモリグループのメモリの操作はスレッドセーフである。
+ *
+ * なおこの機能はC7スレッド(c7_thread_start() もしくは c7_thread_run() で起動した
+ * スレッド)でしか正しく動作しない。
+ *
+ * @note
+ * C7スレッド終了時には c7_sg_pop() してないメモリもすべて解放される。
+ */
+
+//@{
+
+/** スレッドの現在のメモリグループを戻す。これは c7_mg_thread_local() の戻り値とは異なる。
+ */
+c7_mgroup_t c7_sg_current_mg(void);
+
+/** 現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。
+ * メモリを確保できれば ::C7_TRUE を戻し、失敗すれば ::C7_FALSE を戻す。
+ *
+ * この関数は後述の c7_sg_push() と組み合わせて、関数における一時的な作業メモリの一括解放に利用できる。
+ * 例えば、イベントハンドラなどの入口と出口でそれぞれ c7_sg_push(), c7_sg_pop() を呼び出せば、ハンドラ
+ * 中に確保した作業メモリを容易に解放できる(簡易的なガーベージコレクション)。特に c7string による
+ * <B>C7文字列</B>ではバッファのメモリ確保・伸長が発生するためスタッカブルメモリグループは有用である。
+ */
+c7_bool_t c7_sg_push(void);
+
+/** 現在のメモリグループを完全に解放(c7_mg_destroy(c7_sg_current_mg()))し、
+ * スタックからポップしたメモリグループを現在のメモリグループとする。
+ * スタックからポップできれば ::C7_TRUE を戻し、そうでなければ(c7_sg_push()の回数を越えて
+ * この関数が呼び出された) ::C7_FALSE を戻す。
+ */
+c7_bool_t c7_sg_pop(void);
+
+/** c7_mg_memdup(c7_sg_current_mg(), addr, size) を呼び出す。
+ */
+void *c7_sg_memdup(const void *addr, size_t size);
+
+/** c7_mg_malloc(c7_sg_current_mg(), size) を呼び出す。
+ */
+void *c7_sg_malloc(size_t size);
+
+/** c7_mg_calloc(c7_sg_current_mg(), n, size) を呼び出す。
+ */
+void *c7_sg_calloc(size_t n, size_t z);
+
+/** c7_mg_realloc(c7_sg_current_mg(), u_addr, size) を呼び出す。
+ */
+void *c7_sg_realloc(void *u_addr, size_t size);
+
+/** c7_mg_unlink(c7_sg_current_mg(), u_addr, content_size) を呼び出す。
+ */
+void *c7_sg_unlink(void *u_addr, size_t content_size);
+
+/** c7_mg_free(c7_sg_current_mg(), u_addr) を呼び出す。
+ */
+void c7_sg_free(void *u_addr);
+
+/** c7_mg_freeall(c7_sg_current_mg()) を呼び出す。
+ */
+void c7_sg_freeall(void);
+
+//@}
+
+
+/*----------------------------------------------------------------------------
+                             variable size buffer
+----------------------------------------------------------------------------*/
+
+/** @name variable size buffer
+ * 可変バッファ.
+ */
+
+//@{
+
+/** 可変バッファオブジェクトへのポインタ。このポインタのことを可変バッファあるいは vbuf と呼ぶ。
+ */
+typedef struct c7_vbuf_t_ *c7_vbuf_t;
+
+/** 可変バッファの生成。メモリ確保・伸長は標準機能(c7_malloc()など)で行なう。
+ */
+c7_vbuf_t c7_vbuf_new_std(void);
+
+/** 可変バッファの生成。メモリ確保・伸長は mg のメモリグループで行なう。
+ */
+c7_vbuf_t c7_vbuf_new_mg(c7_mgroup_t mg);
+
+/** 可変バッファの生成。メモリ確保・伸長は現在のスタック可能メモリグループで行なう。
+ */
+c7_vbuf_t c7_vbuf_new_sg(void);
+
+/** vbの可変バッファのサイズを最低 n バイト確保して、そのアドレスを戻す。
+ *
+ * @note
+ * - 確保済みのバッファサイズが n 以上であれば何もせずバッファのアドレスを戻す。realloc()のように
+ *   バッファサイズを縮小する方向には機能しない。確保済みバッファが小さければ realloc 系関数で
+ *   メモリの伸長が行われる。
+ * - vb が c7_vbuf_new_sg() で作成された場合、この関数の呼び出しでは、vb が生成された時点での
+ *   メモリグループで c7_mg_realloc() が呼ばれる。したがって、この関数の前に c7_sg_push() して
+ *   あった場合、バッファが伸長されたとしても、現在のスタック可能なメモリグループには属さない。
+ *   逆に c7_sg_pop() されていた場合は、既に存在しないメモリグループへアクセスすることになるので、
+ *   この関数もしくは呼び出し側で破滅的な動作を引き起こすだろう。
+ */
+void *c7_vbuf_get(c7_vbuf_t vb,  size_t n);
+
+/** vb の可変バッファを解放する。
+ */
+void c7_vbuf_free(c7_vbuf_t vb);
+
+//@}
+
+
+/*----------------------------------------------------------------------------
+----------------------------------------------------------------------------*/
+//end of defgroup
+//@}

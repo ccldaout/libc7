@@ -1,0 +1,138 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7deque c7deque.h
+ * deque (デック、double ended queue)
+ */
+//@{
+
+
+/** dequeオブジェクト
+ */
+typedef struct c7_deque_t_ *c7_deque_t;
+
+/** デック dq の先頭から順に、要素のポインタを vn に設定しながらループする。\n
+ * vn はポインタ型を格納できる変数として宣言されていなければならない。
+ */
+#define c7_deque_foreach(dq, vn)
+
+/** デック dq の先頭から順に、要素のポインタとインデックスを vn, iv に設定しながらループする。\n
+ * vn はポインタ型を格納できる変数として、iv は ssize_t 型の変数として宣言されていなければならない。
+ *
+ * @code
+ {
+     elm_t *elm;
+     ssize_t idx;
+     c7_deque_foreach(dq, elm, idx) {
+         (void)printf("dq[%d] name: <%s>\n", idx, elm->name);
+     }
+}
+ * @endcode
+ */
+#define c7_deque_foreach_idx(dq, vn, iv)
+
+/** デックを生成する。
+ *
+ * @param item_size 要素のサイズ(バイト数)
+ * @param on_remove 要素が削除される場合に呼び出される関数。この関数の item 引数は削除される要素のポインタ。
+ */
+c7_deque_t c7_deque_create(size_t item_size,
+			   void (*on_remove)(const c7_deque_t dq, void *item));
+
+/** item の デック dq 上のインデックスを戻す。item が範囲外であれば -1 を戻す。
+ */
+ssize_t c7_deque_index(const c7_deque_t dq, void *item);
+
+/** デック dq 上の要素数を戻す。
+ */
+ssize_t c7_deque_count(const c7_deque_t dq);
+
+/** デック dq 上の idx 番目の要素のポインタを戻す。idx が範囲外であれば NULL を戻す。
+ *
+ * @remark
+ * <B>戻されたアドレスは要素の追加や削除処理によって無効となることに留意せよ。</B>\n
+ * 追加処理：c7_deque_push_head(), c7_deque_push_tail(), c7_deque_insert(), c7_deque_append(), c7_deque_extend() \n
+ * 削除処理：c7_deque_remove(), c7_deque_reset(), c7_deque_destroy()
+ */
+void *c7_deque_nth(const c7_deque_t dq, ssize_t idx);
+
+/** デック dq のバッファを戻す。c7_deque_nth(dq, 0) と等価。
+ */
+void *c7_deque_buffer(const c7_deque_t dq);
+
+/** デック dq の先頭の要素を取り出す。取り出された要素のポインタを戻す。
+ * 一つも要素がなけば NULL ポインタを戻す。\n
+ * <B> c7_deque_create() で指定した on_remove は呼び出されない。\n
+ * また、戻されたアドレスは、この後の要素の追加や削除処理によって無効となることに留意せよ。</B>
+ */
+void *c7_deque_pop_head(c7_deque_t dq);
+
+/** デック dq の最後尾の要素を取り出す。取り出された要素のポインタを戻す。
+ * 一つも要素がなけば NULL ポインタを戻す。\n
+ * <B> c7_deque_create() で指定した on_remove は呼び出されない。\n
+ * また、戻されたアドレスは、この後の要素の追加や削除処理によって無効となることに留意せよ。</B>
+ */
+void *c7_deque_pop_tail(c7_deque_t dq);
+
+/** デック dq の先頭に要素を挿入し、dq 上の先頭要素のポインタを戻す。
+ * 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。
+ *
+ * 先頭要素のスペースを確保し item_opt が NULL ポインタでなればコピーを行う。
+ * スペースの確保はポインタの移動ですむ場合もあれば、要素の再配置を伴う場合もある。
+ * 後者の場合は、既存の要素のアドレスは変化するため、事前に取得した dq 上の要素のポインタは無効になる。
+ *
+ * item_opt が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。
+ */
+void *c7_deque_push_head(c7_deque_t dq, void *item_opt);
+
+/** デック dq の終端に要素を追加し、dq 上の最後尾要素のポインタを戻す。
+ * 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。
+ *
+ * 最後尾要素のスペースを確保し item_opt が NULL ポインタでなればコピーを行う。
+ * スペースの確保はポインタの移動ですむ場合もあれば、要素の再配置を伴う場合もある。
+ * 後者の場合は、既存の要素のアドレスは変化するため、事前に取得した dq 上の要素のポインタは無効になる。
+ *
+ * item_opt が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。
+ */
+void *c7_deque_push_tail(c7_deque_t dq, void *item_opt);
+
+/** デック dq の index の位置に item の指す count 個の要素(列)を挿入し、挿入後の index 位置のポインタを戻す。
+ * index が範囲外かメモリの伸長に失敗した場合は NULL ポインタが戻る。
+ *
+ * 再配置に伴い、事前に取得した dq 上の要素のポインタは無効になる。
+ *
+ * item が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。
+ */
+void *c7_deque_insert(c7_deque_t dq, size_t index, void *item, size_t count);
+
+/** デック dq の終端に item の指す count 個の要素(列)を追加し、追加後の最後尾要素のポインタを戻す。
+ * メモリの伸長に失敗した場合は NULL ポインタが戻る。
+ *
+ * 再配置に伴い、事前に取得した dq 上の要素のポインタは無効になる。
+ *
+ * item が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。
+ */
+void *c7_deque_append(c7_deque_t dq, void *item, size_t count);
+
+/** デック dq の終端に デック dq_ext を追加する。\n
+ * c7_deque_append(dq, c7_deque_buffer(dq_ext), c7_deque_count(dq_ext)) と等価。
+ */
+void *c7_deque_extend(c7_deque_t dq, const c7_deque_t dq_ext);
+
+/** デック dq の index 番目から count 個の要素を削除する。
+ * index が範囲外であった場合だけ何もせず C7_FALSE を戻す。
+ * index が範囲内で count を含めて範囲外の場合は最後尾まで削除する。
+ * 削除される要素については c7_deque_create() の on_remove で与えた関数が呼び出される。
+ */
+c7_bool_t c7_deque_remove(c7_deque_t dq, size_t index, size_t count);
+
+/** デック dq の要素を全て削除する。\n
+ * c7_deque_remove(dq, 0, c7_deque_coount(dq)) と等価。
+ */
+void c7_deque_reset(c7_deque_t dq);
+
+/** デック dq の要素を全て削除して dq 自体も削除する。
+ */
+void c7_deque_destroy(c7_deque_t dq);
+
+
+//@}

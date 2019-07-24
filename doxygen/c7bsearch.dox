@@ -1,0 +1,68 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7bsearch c7bsearch.h
+ *  比較をインライン化したバイナリサーチ関数を定義する
+ *
+ * このヘッダーファイルは、\#include する前に、いくつかのマクロを定義することで、
+ * バイナリサーチ関数を定義するためのものである。必要なマクロは、
+ *
+ * 1. 配列要素の型の C7_LEM_TYPE。
+ * 2. キー比較用に、C7_KEY_GT と C7_KEY_LT のセットか C7_KEY_COMP。
+ * 3. 生成する関数名の C7_BSEARCH。
+ *
+ * となる。このあとで、\#include \<c7bsearch.h\> することで関数が定義される。
+ *
+ * @code
+
+typedef struct c7_evdisp_def_t {
+    c7_event_t evnum;
+    c7_evdisp_handler_t handler;
+} c7_evdisp_def_t;
+
+#define C7_ELM_TYPE	c7_evdisp_def_t
+#define C7_KEY_GT(keyaddr, keysize, elm)	((*(c7_event_t*)(keyaddr)) > (elm)->evnum)
+#define C7_KEY_LT(keyaddr, keysize, elm)	((*(c7_event_t*)(keyaddr)) < (elm)->evnum)
+#define C7_BSEARCH	bsearch_disptab
+#include <c7bsearch.h>
+
+ * @endcode
+ */
+//@{
+
+
+/** [利用者定義] 配列の要素の型を定義する。
+ */
+#define C7_ELM_TYPE	
+
+/** [利用者定義] keyaddr の指す keysize バイトのキーが elm の指す配列要素より大きければ真となる演算を定義する。
+ */
+#define C7_KEY_GT(keyaddr, keysize, elm)
+
+/** [利用者定義] keyaddr の指す keysize バイトのキーが elm の指す配列要素より小さければ真となる演算を定義する。
+ */
+#define C7_KEY_LT(keyaddr, keysize, elm)
+
+/** [利用者定義] keyaddr の指す keysize バイトのキーが elm の指す配列要素を比較して、
+ * keyaddr の方が小さければ負の整数を、同じであれば 0 を、大きければ正の整数となる演算を定義する。
+ */
+#define C7_KEY_COMP(keyaddr, keysize, elm)
+
+/** [利用者定義] バイナリサーチ関数の名前を定義する。
+ */
+#define C7_BSEARCH	XXX
+
+/** 定義されるバイナリサーチ関数
+ *
+ * @param left ソートされた配列の先頭
+ * @param n 配列の要素数
+ * @param keyaddr 検索したいキーのアドレス
+ * @param keysize 検索したいキーのバイト数
+ * @param insert_pos NULLポインタでなければ、キーが見つからない場合の要素の挿入位置が返却される。
+ * @return keyaddrのキーに一致する要素が見つかればそのポインタを戻す。そうでなければ NULLポインタを戻す。
+ */
+static C7_ELM_TYPE *XXX(C7_ELM_TYPE *left, ptrdiff_t n,
+			void *keyaddr, size_t keysize,
+			C7_ELM_TYPE **insert_pos);
+
+
+//@}

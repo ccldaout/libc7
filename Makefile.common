@@ -1,0 +1,109 @@
+# -*- mode: Makefile -*-
+#
+# Makefile.common
+#
+# Copyright (c) 2019 ccldaout@gmail.com
+#
+# This software is released under the MIT License.
+# http://opensource.org/licenses/mit-license.php
+#
+
+-include ../../config.mk
+-include ../config.mk
+
+ifeq "$(findstring CYGWIN,$(shell uname -s))" ""
+  C7_LIBSFX = so
+  C7_SODIR = lib
+else
+  C7_LIBSFX = dll
+  C7_SODIR = bin
+endif
+
+C7_OUT_ROOT   ?= ../build
+C7_OUT_INCNAM ?= include
+C7_OUT_PY2NAM ?= python2
+C7_OUT_BINDIR ?= $(C7_OUT_ROOT)/bin
+C7_OUT_INCDIR ?= $(C7_OUT_ROOT)/$(C7_OUT_INCNAM)
+C7_OUT_LIBDIR ?= $(C7_OUT_ROOT)/$(C7_SODIR)
+C7_OUT_PY2DIR ?= $(C7_OUT_ROOT)/lib/$(C7_OUT_PY2NAM)
+C7_TARGET_EXE ?= $(C7_OUT_BINDIR)/$(C7_TARGET_BASE)
+C7_TARGET_LIB ?= $(C7_OUT_LIBDIR)/$(C7_TARGET_BASE).$(C7_LIBSFX)
+C7_TMP_ROOT   ?= $(C7_OUT_ROOT)/tmp
+C7_OUT_TMPDIR ?= $(C7_TMP_ROOT)/$(C7_TARGET_BASE)$(C7_DBGSFX)
+C7_OUT_OBJDIR ?= $(C7_OUT_TMPDIR)/obj
+
+C7_DIRS = $(sort $(C7_OUT_BINDIR) $(C7_OUT_INCDIR) $(C7_OUT_LIBDIR) $(C7_OUT_PY2DIR) $(C7_OUT_OBJDIR))
+
+C7_CC_IPATH += $(C7_OUT_INCDIR)
+C7_LD_LPATH += $(C7_OUT_LIBDIR)
+C7_LD_RPATH += $(C7_OUT_LIBDIR)
+C7_LD_RPATH_OPT = -Wl,-rpath,
+
+C7_CLEAN_REMOVED += $(C7_OUT_TMPDIR)
+
+CFLAGS  = -std=c99 $(if $(C7_NOTHREAD),,-pthread) $(addprefix -I,$(C7_CC_IPATH)) -Werror -Wall
+CFLAGS += -W$(CFLAGS_PROTO)strict-prototypes
+LDFLAGS = $(addprefix -L,$(C7_LD_LPATH)) $(addprefix $(C7_LD_RPATH_OPT),$(C7_LD_RPATH))
+LDLIBS = $(if $(C7_NOLIBC7),,-lc7) $(if $(C7_NOTHREAD),,-lpthread)
+
+ifeq "$(wildcard DEBUG)" ""
+  CFLAGS += -O3
+else
+  C7_ECHO_BEG="\x1b[33m"
+  C7_ECHO_END="\x1b[0m"
+  C7_DBGSFX = .g
+  CFLAGS += -g2 -O0
+  LDFLAGS += -g
+endif
+
+ifneq "$(wildcard ../uconfig.h)" ""
+  CFLAGS += -I.. -DC7_USER_CONFIG_H=uconfig.h
+endif
+
+ifeq (,$(findstring s,$(MAKEFLAGS)))
+  C7_ECHO = echo -e
+else
+  C7_ECHO = :
+endif
+
+define cmd_o
+  @$(C7_ECHO) $(C7_ECHO_BEG)$(subst $(HOME),\~,$(subst $(C7_OUT_OBJDIR)/,,$1))$(C7_ECHO_END)
+  @$1
+endef
+
+define cmd_bin
+  @$(C7_ECHO) $(C7_ECHO_BEG)$(subst $(HOME),\~,$(subst $(C7_OUT_BINDIR)/,,$1))$(C7_ECHO_END)
+  @$1
+endef
+
+$(C7_OUT_BINDIR)/%: %.c
+	$(call cmd_bin,cc $(CFLAGS) -o $@ $< $(LDFLAGS) $(LDLIBS))
+
+$(C7_OUT_OBJDIR)/%.o: %.c
+	$(call cmd_o,cc -c $(CFLAGS) -o $@ $<)
+
+$(C7_OUT_PY2DIR)/%.py: %.py
+	$(call cmd_o,cp -p $< $@)
+
+.PHONY: c7_build
+c7_build: build
+
+.PHONY: debug
+debug:
+	@mkdir -p DEBUG
+	@make --no-print-directory
+
+.PHONY: nodebug
+nodebug:
+	@rmdir DEBUG
+	@make --no-print-directory
+
+.PHONY: init
+init: $(C7_DIRS)
+$(C7_DIRS):
+	mkdir -p $@
+
+.PHONY: clean
+clean:
+	$(call cmd_bin,rm -fr $(C7_CLEAN_REMOVED))
+	@mkdir -p $(C7_DIRS)

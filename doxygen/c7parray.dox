@@ -1,0 +1,132 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7parray c7parray.h
+ * ポインタの配列
+ *
+ * c7parray は記述子をインデックスとするデータの管理など、要素がとびとびになる
+ * ケースを扱う伸長可能な配列である。このようなポインタの配列を parray と呼ぶことにする。
+ */
+//@{
+
+
+/** parrayオブジェクト。
+ */
+typedef struct c7_parray_t_ *c7_parray_t;
+
+/** parray pa に登録されている全ての要素についてループする。\n
+ *
+ * @param pa parrayオブジェクト
+ * @param pointer_var_name ポインタを格納する変数名でなければならない。
+ *                         普通は格納する要素型へのポインタ変数とするだろう。
+ *
+ * ループを正常に終えた後は pointer_var_name は NULL となる。
+ */
+#define c7_parray_foreach(pa, pointer_var_name)
+
+/** parray pa に登録されている全ての要素についてループする。(2)\n
+ *
+ * @param pa parrayオブジェクト
+ * @param pointer_var_name ポインタを格納する変数名でなければならない。
+ *                         普通は格納する要素型へのポインタ変数とするだろう。
+ * @param int_var_name 配列のインデックスを格納する int 型の変数名でなければならない。
+ *
+ * ループを正常に終えた後は pointer_var_name は NULL、int_var_name は -1 となる。
+ *
+ * @code
+typedef struct elm_t_ {
+    const char *name;
+    ...
+} elm_t;
+
+{
+    c7_parray_t elmarray = c7_parray_create(sizeof(elm_t), NULL, NULL);
+    ...;
+    int index;
+    elm_t *elm;
+    c7_parray_foreach_idx(elmarray, elm, index) {
+	(void)printf("[%d] '%s'\n", index, elm->name);
+    }
+}
+ * @endcode
+ */
+#define c7_parray_foreach_idx(pa, pointer_var_name, int_var_name)
+
+/** parrayを初期化する。
+ *
+ * @param itemsize 要素のバイト数
+ * @param init     NULLでなければ、indexの要素が新たに確保された場合に呼ばれる。
+ * @param deinit   NULLでなければ、indexの要素を削除する場合に呼ばれる。
+ */
+c7_parray_t c7_parray_create(size_t itemsize,
+			     c7_bool_t (*init)(void *addr, int index),
+			     void (*deinit)(void *addr, int index));
+
+/** parrayに登録されている要素数を戻す。
+ */
+int c7_parray_count(const c7_parray_t parray);
+
+/** parray の index に要素が登録されているかチェックする。
+ */
+c7_bool_t c7_parray_check(const c7_parray_t parray, int index);
+
+/** parray の index に要素が登録されていればそのアドレスを戻し、
+ * そうでなれば NULL ポインタを戻す。
+ */
+void *c7_parray_get(c7_parray_t parray, int index);
+
+/** parray の index に要素が登録されていなければ要素のメモリを確保する。
+ * メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、
+ * init に確保したメモリアドレスと index を与えて呼びだす。\n
+ * index に要素が登録されていたか、メモリ確保に失敗するか、init が C7_FALSE を戻した場合は NULL ポインタを戻す。
+ * そうでなければ確保した要素のアドレスを戻す。
+ */
+void *c7_parray_new(c7_parray_t parray, int index);
+
+/** parray の index に要素が登録されていればそのアドレスを戻す。
+ * その際、exist_op が NULL でなければ *exist_op に C7_TRUE を設定する。\n
+ * index に要素が登録されていなければ要素のメモリを確保する。
+ * メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、
+ * init に確保したメモリアドレスと index を与えて呼びだす。\n
+ * メモリ確保に失敗するか、init が C7_FALSE を戻した場合は NULL ポインタを戻す。
+ * そうでなければ確保した要素のアドレスを戻す。
+ * その際、exist_op が NULL でなければ *exist_op に C7_FALSE を設定する。
+ */
+void *c7_parray_newif(c7_parray_t parray, int index, c7_bool_t *exist_op);
+
+/** parray の最小の未使用インデックスを探し、そのインデックスで c7_parray_new() を呼ぶ。
+ */
+void *c7_parray_new_auto(c7_parray_t parray, int *indexp);
+
+/** parray の src_index の要素を dst_index へ移動する。
+ *
+ * - src_index と dst_index が同じ場合は何もせず C7_TRUE を戻す。
+ * - dst_index に要素が既に存在して overwrite が C7_FALSE であれば C7_FALSE を戻す。
+ * - dst_index に要素が既に存在して overwrite が C7_TRUE であれば dst_index を
+ *   削除する。c7_parray_create() で deinit が定義されていれば dst_index に対して呼ばれる。
+ * - src_index の要素を dst_index の方に登録し、src_index の方は空きとする。
+ * - C7_TRUE を戻す。
+ */	
+
+c7_bool_t c7_parray_move(c7_parray_t parray, int src_index, int dst_index,
+			 c7_bool_t overwrite);
+
+/** parray の index の要素の登録を解除し要素のアドレスを戻す。この場合、deinit は呼ばれない。
+ * index に要素がなければ NULL を戻す。
+ */
+void *c7_parray_release(c7_parray_t parray, int index);
+
+/** parray に登録されている最大の index を戻す。
+ */
+int c7_parray_last_index(c7_parray_t parray);
+
+/** parray の index の要素を解放する。解放の前に deinit が NULL でなければ呼ばれる。
+ * 最初から index の要素がなかった場合は何もしない。
+ */
+void c7_parray_free(c7_parray_t parray, int index);
+
+/** parray を削除する。登録されている全ての要素に c7_parray_free() を呼び出したあと、parray 自体が解放される。
+ */
+void c7_parray_destroy(c7_parray_t parray);
+
+
+//@}

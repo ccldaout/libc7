@@ -1,0 +1,169 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7sortdef c7sortdef.h
+ * 比較をインライン化したソート関数を定義する
+ *
+ * このヘッダーファイルは、\#include する前に、いくつかのマクロを定義することで、
+ * ソート関数を定義するためのものである。必要なマクロは、
+ *
+ * 1. 配列要素の型の C7_LEM_TYPE。
+ * 2. 要素比較用の C7_ELM_LT。
+ * 3. 基数交換ソートの場合のビットマスク用の C7_KEY_BIT_TEST。
+ * 4. 生成するソート関数名。これはソートアルゴリズム毎にマクロ名が異なり、
+ *    \#include \<c7sortdef.h\> の一回のインクルードに一つだけを定義する。
+ *
+ * となる。このあとで、\#include \<c7sortdef.h\> することでソート関数が定義される。
+ *
+ * @code
+ * @endcode
+ */
+//@{
+
+
+/** [利用者定義] 配列の要素の型を定義する。
+ */
+#define C7_ELM_TYPE	
+
+
+/** [利用者定義] p の要素が q の要素より小さければ真となる演算を定義する。
+ */
+#define C7_ELM_LT(p, q)
+
+
+/** [利用者定義] 基数交換ソートの場合に p の要素のソートキーの bitmask 値を定義する。\n
+ * 例えば、#define C7_KEY_BIT_TEST(p, bitmask)	((p)->key & (bitmask))
+ */
+#define C7_KEY_BIT_TEST(p, bitmask)	((p)->key & (bitmask))	
+
+
+/** [利用者定義] [マルチスレッド版] マージソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次の2つのソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n, void *work, int thread_depth);\n
+ * static void XXX_st(C7_ELM_TYPE *left, ptrdiff_t n, void *work);
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ * @param work 作業メモリ。ソート対象の配列と同サイズのメモリが要求される。
+ * @param thread_depth スレッドを生成する再帰の深さを指定する。
+ *                     再帰レベルがこれを越えたあとはシングルスレッド版 XXX_st が実行される。
+ *
+ * XXX_st は非再帰版として定義される。また、要素数が C7_MSORT_THRESHOLD (デフォルト値 50) を
+ * 切ると挿入ソートに切り替わる。
+ */
+#define C7_MSORT_MT		XXX
+
+
+/** [利用者定義] [シングルスレッド版] マージソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次のソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n, void *work);
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ * @param work 作業メモリ。ソート対象の配列と同サイズのメモリが要求される。
+ *
+ * XXX は非再帰版として定義される。また、要素数が C7_MSORT_THRESHOLD (デフォルト値 50) を
+ * 切ると挿入ソートに切り替わる。
+ */
+#define C7_MSORT_ST		XXX
+
+
+/** [利用者定義] [マルチスレッド版] クイックソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次の3つのソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n, int thread_depth);\n
+ * static void XXX_st(C7_ELM_TYPE *left, ptrdiff_t n);  // シングルスレッド版\n
+ * static void XXX_hs(C7_ELM_TYPE *left, ptrdiff_t n);  // ヒープソート
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ * @param thread_depth スレッドを生成する再帰の深さを指定する。
+ *                     再帰レベルがこれを越えたあとはシングルスレッド版 XXX_st が実行される。
+ *
+ * XXX_st は自前でスタックを持ち非再帰版として定義される。スタックサイズは C7_QSORT_MAX_DEPTH で
+ * 指定できる(デフォルト値は 48)。スタックを越える場合は XXX_hs で定義されるヒープソートに切り替わる。
+ *
+ * また、XXX_st で要素数が C7_QSORT_THRESHOLD (デフォルト値 60)を切ると挿入ソートに切り替わる。
+ */
+#define C7_QSORT_MT		XXX
+
+
+/** [利用者定義] [シングルスレッド版] クイックソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次の2つのソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n);\n
+ * static void XXX_hs(C7_ELM_TYPE *left, ptrdiff_t n);	// ヒープソート
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ *
+ * XXX は自前でスタックを持ち非再帰版として定義される。スタックサイズは C7_QSORT_MAX_DEPTH で
+ * 指定できる(デフォルト値は 48)。スタックを越える場合は XXX_hs で定義されるヒープソートに切り替わる。
+ *
+ * また、XXX で要素数が C7_QSORT_THRESHOLD (デフォルト値 60)を切ると挿入ソートに切り替わる。
+ */
+#define C7_QSORT_ST		XXX
+
+
+/** [利用者定義] [マルチスレッド版] 基数交換ソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次の2つのソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n, size_t keymask, int thread_depth);\n
+ * static void XXX_st(C7_ELM_TYPE *left, ptrdiff_t n, size_t keymask);	// シングルスレッド版\n
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ * @param keymask ソートキーに対するマスク値。これをうまく利用すると、キーの mビット目〜nビット目までの
+ *                値でソートするような事が可能となる。
+ * @param thread_depth スレッドを生成する再帰の深さを指定する。
+ *                     再帰レベルがこれを越えたあとはシングルスレッド版 XXX_st が実行される。
+ *
+ * XXX_st は自前でスタックを持ち非再帰版として定義される。また、要素数が C7_RSORT_THRESHOLD (デフォルト値 50)
+ * を切ると挿入ソートに切り替わる。
+ */
+#define C7_RSORT_MT		XXX
+
+
+/** [利用者定義] [シングルスレッド版] 基数交換ソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次のソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n, size_t keymask);
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ * @param keymask ソートキーに対するマスク値。これをうまく利用すると、キーの mビット目〜nビット目までの
+ *                値でソートするような事が可能となる。
+ *
+ * XXX は自前でスタックを持ち非再帰版として定義される。また、要素数が C7_RSORT_THRESHOLD (デフォルト値 50)
+ * を切ると挿入ソートに切り替わる。
+ */
+#define C7_RSORT_ST		XXX
+
+
+/** [利用者定義] [シングルスレッド版] ヒープソートの関数名を定義する。\n
+ * このマクロは \#include \<c7sortdef.h\> で undef される。
+ *
+ * このマクロにより、次のソート関数が定義される。
+ *
+ * static void XXX(C7_ELM_TYPE *left, ptrdiff_t n);
+ *
+ * @param left 配列の先頭。
+ * @param n 配列の要素数。
+ */
+#define C7_HSORT_ST		XXX
+
+
+//@}

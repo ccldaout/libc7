@@ -1,0 +1,92 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7signal c7signal.h
+ * スレッドセーフなシグナルハンドリング
+ *
+ * linux と cygwin 環境で libc7 を使う場合、スレッドセーフなシグナルハンドリングの
+ * メカニズムが有効となる。
+ *
+ * 『Linuxプログラミングインターフェース 33.2.4 非同期シグナルへの対応』にあるように、
+ * メインスレッドで全てのシグナルがブロックされるように設定され、sigwait() でシグナル
+ * ハンドリングするためのシグナル監視スレッド(signal_monitor_thread())が起動される。
+ * これは、ライブラリがランタイムローダーによりロードされた時点、main() に入るまえに
+ * 行われる。
+ *
+ * シグナルに関連する設定は c7signal で提供する機能を通さなければならない。でなければ、
+ * スレッドセーフなシグナルハンドリングは実現しない。
+ *
+ * - シグナルハンドラの設定は c7_signal_register() によって行う。こうすることで、
+ *   シグナル発生時にシグナル監視スレッドのコンテキストで安全にハンドラが呼び出される。
+ *
+ * - シグナルをブロックしたりアンブロックする操作も c7_signal_sigmask() のような専用の
+ *   関数で行う。シグナル監視スレッド以外のスレッドで pthread_sigmask() を使用すると、
+ *   シグナルのシグナル監視スレッドへの配送が保証されないからである。
+ * 
+ * このメカニズムの代償として、シグナルのブロック/アンブロックの処理が通常のシステムコール
+ * よりも遅くなる。これは、sigwait() で待機しているシグナル監視スレッドにシグナルを
+ * 送って sigwait() から抜けてもらう必要があるためである。
+ *
+ * アプリケーションのスレッドでの処理とシグナルハンドラとの競合が心配であれば、シグナル
+ * をブロックするよりも pthread の mutex で排他制御するのが良い。シグナルハンドラから
+ * pthread のAPIを安全に呼べるようにするのが、この c7thread の本来の役割なのであるから。
+ */
+//@{
+
+
+/** シグナルハンドラの呼び出し時にロックされる mutex。
+ *
+ * シグナルハンドラの呼び出しの全体と排他制御する場合に用いることができるが、
+ * シグナルハンドラの処理が時間を要すとパフォーマンスに問題がでる可能性もある。
+ * シグナルハンドラは通常アプリケーション側で準備するため、
+ * アプリケーションのデータ構造に応じて細かい粒度で排他制御する方が望ましいかもしれない。
+ */
+extern pthread_mutex_t c7_signal_glock;
+
+/** シグナルハンドラの型 <B>(doxygen が c7_signal_register を変数と誤認識するために定義)</B>
+ * 
+ */
+typedef void (*c7_signal_handler_t)(int sig);
+
+/** シグナルハンドラを設定する。
+ *
+ * @param sig ハンドラを設定するシグナル。
+ * @param sigmask_on_call シグナルハンドラを呼び出す時に追加でブロックするシグナルのマスク。
+ *                        追加のブロックが必要ない時は NULL で良い。
+ * @param signal_handler シグナルハンドラ。
+ * @return 事前に設定されていたハンドラ。
+ *
+ * @warning 現在のバージョンでは、signal_handler 引数として SIG_IGN, SIG_DFL に対応していない。
+ *          SIG_IGN は signal(3) で設定するのが簡便で良い(何の問題もない)。SIG_DFL については、
+ *          c7_signal_sigmask() で対象の signal をアンブロックしたあと、signal(3) で設定するほかない。
+ *          これらは改善する予定である。
+ */
+c7_signal_handler_t c7_signal_register(int sig,
+				       const sigset_t *sigmask_on_call,
+				       c7_signal_handler_t signal_handler);
+//void (*c7_signal_register(int sig,
+//			  const sigset_t *sigmask_on_call,
+//			  void (*signal_handler)(int sig)))(int);
+
+/** シグナルマスクを操作する。
+ *
+ * 引数は pthread_sigmask(3) と同じである。
+ */
+void c7_signal_sigmask(int how, const sigset_t *sigs, sigset_t *o_sigs);
+
+/** ライブラリで定義した特定のシグナルをブロックする。
+ *
+ * この関数は、ファイルの更新処理などのクリティカルセクションを実行する時に、
+ * プロセスが終了してしまうようなシグナルの配送を追加でブロックするためにある。ブロックされるシグナルは、\n
+ * SIGINT, SIGTERM, SIGHUP, SIGABRT, SIGQUIT, SIGTSTP, SIGUSR1, SIGUSR2, SIGWINCH\n
+ * である。
+ *
+ * 以前のシグナルマスクを戻す。
+ */
+sigset_t c7_signal_sigblock(void);
+
+/** c7_signal_sigmask(SIG_SETMASK, (sigs), NULL) と同じ。
+ */
+void c7_signal_sigrestore(const sigset_t *sigs);
+
+
+//@}

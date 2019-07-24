@@ -1,0 +1,90 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7dconf c7dconf.h
+ * デバッグ用簡易コンフィギュレーション機能
+ *
+ * dconf は整数と実数のみの簡単なコンフィギュレーション機構である。
+ * 設定値はバイナリファイルに保存されるが、これを mmap(2) して使用する。
+ * c7dconf コマンドを使用してアプリケーションの外側から設定値を書き換えることを
+ * 想定している。
+ */
+//@{
+
+
+/** dconfのライブラリ利用者側インデックスの開始値
+ */
+#define C7_DCONF_USER_INDEX_BASE	(0)
+
+/** dconfのライブラリ利用者側インデックスの制限値(この値未満)
+ */
+#define C7_DCONF_USER_INDEX_LIM		(48)
+
+
+/** dconfの項目のデータタイプ
+ */
+typedef enum c7_dconf_type_t_ {
+    C7_DCONF_TYPE_I64,		///< int64_t (64bit符号付き整数)
+    C7_DCONF_TYPE_R64		///< double  (64bit浮動小数点数)
+} c7_dconf_type_t;
+
+
+/** dconfの項目定義用構造体
+ */
+typedef struct c7_dconf_def_t_ {
+    int index;			///< インデックス値
+    c7_dconf_type_t type;	///< 項目のデータ型
+    const char *ident;		///< 項目の識別子 (c7dconfコマンドで使用)
+    const char *descrip;	///< 項目の説明   (c7dconfコマンドで使用)
+} c7_dconf_def_t;
+
+
+/** dconfの項目定義用マクロ(int64_t用)
+ */
+#define C7_DCONF_DEF_I(idxmacro, descrip)			\
+    { (idxmacro), C7_DCONF_TYPE_I64, #idxmacro, descrip }
+
+/** dconfの項目定義用マクロ(double用)
+ */
+#define C7_DCONF_DEF_R(idxmacro, descrip)			\
+    { (idxmacro), C7_DCONF_TYPE_R64, #idxmacro, descrip }
+
+
+/** dconfのライブラリ用インデックス定義
+ */
+enum {
+    C7_DCONF_ECHO,		///< c7echo系の表示レベル
+    C7_DCONF_MLOG,		///< mlog記録レベル
+    C7_DCONF_PREF,		///< c7echo/c7statusでのプリフィクスタイプ
+    C7_DCONF_STSSCN_MAX,	///< c7statusのバックトレース数の最大値
+};
+
+
+/** 名前 name の dconf を defc 個の defv 定義により初期化する。
+ *
+ * dconf のファイルパス名は、c7_file_special_path(NULL, "C7_DCONF_DIR", name, ".dconf"); により決まる。
+ */
+void c7_dconf_init(const char *name, int defc, const c7_dconf_def_t *defv);
+
+/** 名前 name の dconf をロードする。
+ */
+c7_dconf_def_t *c7_dconf_load(const char *name, int *defc);
+
+
+/** 初期化またはロードした dconf の index の値を得る。
+ */
+int64_t c7_dconf_i(int index);
+
+/** 初期化またはロードした dconf の index に値 v を設定する。
+ */
+void c7_dconf_i_set(int index, int64_t v);
+
+/** 初期化またはロードした dconf の index の値を得る。
+ */
+double c7_dconf_r(int index);
+
+/** 初期化またはロードした dconf の index に値 v を設定する。
+ */
+void c7_dconf_r_set(int index, double v);
+
+
+//@}

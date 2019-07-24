@@ -1,0 +1,692 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7string_charp c7string.h - C標準文字列
+ *  C標準文字列(char *)の関数
+ */
+//@{
+
+
+/// @name 先頭・最後尾の文字列の一致テスト
+//@{
+/** 文字列 s の先頭が可変引数の文字列リストのどれかに一致するか検査する。
+ * 一致した場合はそのインデックス(0以上)を戻し、どれとも一致しない場合は -1 を戻す。
+ */
+int c7strmatch_head(const char *s, ...);
+
+/** 文字列 s の先頭が cond_v[0]〜cand_v[cand_n-1] のどれかに一致するか検査する。
+ * 一致した場合はそのインデックス(0以上)を戻し、どれとも一致しない場合は -1 を戻す。
+ */
+int c7strmatch_headv(const char *s, int cand_n, const char *cand_v[]);
+
+/** 文字列 s の最後尾が可変引数の文字列リストのどれかに一致するか検査する。
+ * 一致した場合はそのインデックス(0以上)を戻し、どれとも一致しない場合は -1 を戻す。
+ */
+int c7strmatch_tail(const char *s, ...);
+
+/** 文字列 s の最後尾が cond_v[0]〜cand_v[cand_n-1] のどれかに一致するか検査する。
+ * 一致した場合はそのインデックス(0以上)を戻し、どれとも一致しない場合は -1 を戻す。
+ */
+int c7strmatch_tailv(const char *s, int cand_n, const char *cand_v[]);
+//@}
+
+
+/// @name 文字の検索
+//@{
+/** 文字列 t の先頭から文字を走査し、list 内のいずれにも一致しない文字で走査を停止する。
+ * 一致しない文字へのポインタか文字終端のポインタを戻す。
+ */
+const char *c7strskip(const char *t, const char *list);
+
+/** c7strskip(t, " \t") と等価。
+ */
+const char *c7strskip_ws(const char *t);
+
+/** 文字列 t の先頭から文字を走査し、list 内のいずれかの文字に一致したら走査を停止する。
+ * 一致した文字へのポインタか文字終端のポインタを戻す。
+ */
+const char *c7strfind(const char *t, const char *list);
+
+/** c7strfind(t, " \t") と等価。
+ */
+const char *c7strfind_ws(const char *t);
+
+/** 文字列 t の先頭から文字 c を走査し、(tab[c] & mask) == 0 の条件を満たせば走査を停止する。
+ * 走査が停止したた文字へのポインタか文字終端のポインタを戻す。
+ */
+const char *c7strskip_on(const char *t, const unsigned int *tab, unsigned int mask);
+
+/** 文字列 t の先頭から文字 c を走査し、(tab[c] & mask) != 0 の条件を満たせば走査を停止する。
+ * 走査が停止したた文字へのポインタか文字終端のポインタを戻す。
+ */
+const char *c7strfind_on(const char *t, const unsigned int *tab, unsigned int mask);
+
+/** 文字列 t の先頭から最初に見つかる文字 c のポインタを戻す。
+ * 文字 c が見つからなければ、alt が NULL でなければ alt の値を、
+ * alt が NULL であれば文字終端のポインタを戻す。
+ */
+const char *c7strchr_x(const char *t, char c, const char *alt);
+
+/** 文字列 t の先頭から最初に見つかる文字 c の直後(つまり次の文字)のポインタを戻す。
+ * 文字 c が見つからなければ、alt が NULL でなければ alt の値を、
+ * alt が NULL であれば文字終端のポインタを戻す。
+ */
+const char *c7strchr_next(const char *t, char c, const char *alt);
+
+/** 文字列 t の最後尾から最初に見つかる文字 c のポインタを戻す。
+ * 文字 c が見つからなければ、alt が NULL でなければ alt の値を、
+ * alt が NULL であれば文字終端のポインタを戻す。
+ */
+const char *c7strrchr_x(const char *t, char c, const char *alt);
+
+/** 文字列 t の最後尾から最初に見つかる文字 c の直後(つまり次の文字)のポインタを戻す。
+ * 文字 c が見つからなければ、alt が NULL でなければ alt の値を、
+ * alt が NULL であれば文字終端のポインタを戻す。
+ */
+const char *c7strrchr_next(const char *t, char c, const char *alt);
+
+/** 文字列 t の先頭から文字を走査し、list 内のいずれかの文字に一致したらその文字のポインタを戻す。
+ * そのような文字が見つからなければ、alt が NULL でなければ alt の値を、
+ * alt が NULL であれば文字終端のポインタを戻す。
+ * c7strpbek_x(t, list, NULL) は c7strfind(t, list) と等価である。
+ */
+const char *c7strpbrk_x(const char *t, const char *list, const char *alt);
+
+/** 文字列 t の先頭から文字を走査し、list 内のいずれかの文字に一致したらその文字の直後のポインタを戻す。
+ * そのような文字が見つからなければ、alt が NULL でなければ alt の値を、
+ * alt が NULL であれば文字終端のポインタを戻す。
+ */
+const char *c7strpbrk_next(const char *t, const char *list, const char *alt);
+//@}
+
+
+/// @name 文字列のコピー
+//@{
+/** 文字列 s を t の領域にコピーする。コピー後の t の終端のポインタを戻す。
+ */
+char *c7strcpy_x(char *t, const char *s);
+
+/** 文字列 s の e の直前までの部分文字列を t の領域にコピーする。t の終端のポインタを戻す。
+ */
+char *c7strbcpy_x(char *t, const char *s, const char *e);
+
+/** コピー先の領域を mg に対する c7_mg_malloc() で確保して、
+ * 文字列 s をその領域へコピーする。
+ * 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。
+ */
+char *c7strdup_mg(c7_mgroup_t mg, const char *s);
+
+/** コピー先の領域を mg に対する c7_mg_malloc() で確保して、
+ * 文字列 s の e の直前までの部分文字列をその領域へコピーする。
+ * 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。
+ */
+char *c7strbdup_mg(c7_mgroup_t mg, const char *s, const char *e);
+
+/** コピー先の領域を c7_malloc() で確保して、
+ * 文字列 s をその領域へコピーする。
+ * 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。
+ */
+char *c7strdup(const char *s);
+
+/** コピー先の領域を c7_malloc() で確保して、
+ * 文字列 s の e の直前までの部分文字列をその領域へコピーする。
+ * 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。
+ */
+char *c7strbdup(const char *s, const char *e);
+
+/** コピー先の領域を c7_sg_malloc() で確保して、
+ * 文字列 s をその領域へコピーする。
+ * 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。
+ */
+char *c7strdup_sg(const char *s);
+
+/** コピー先の領域を c7_sg_malloc() で確保して、
+ * 文字列 s の e の直前までの部分文字列をその領域へコピーする。
+ * 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。
+ */
+char *c7strbdup_sg(const char *s, const char *e);
+//@}
+
+
+/// @name 文字列配列(char **)のコピー
+//@{
+/** n要素分の文字ポインタ(char *)の配列 n_strv を動的確保し、
+ * n_strv[i] を strv[i] i=0..(n-1) の動的複製とし、
+ * n_strv[n] を NULLポインタとしたうえで、n_strv を戻す。
+ * メモリの確保に失敗した場合は NULL ポインタを戻す。
+ * メモリの動的確保には mg に対して c7_mg_malloc() と c7strdup_mg() を使用する。
+ * なお n に -1 が指定された場合は、strv[i] が NULL となる i が n に指定されたものとして振舞う。
+ */
+char **c7strvdup_mg(c7_mgroup_t mg, char ** const strv, int n);
+
+/** c7strvdup_mg() で確保したメモリを解放する。
+ */
+void c7strvfree_mg(c7_mgroup_t mg, char ** const strv);
+
+/** c7strvdup_mg() と同機能の c7_malloc(), c7strdup() 使用版。
+ */
+char **c7strvdup(char ** const strv, int n);
+
+/** c7strvdup() で確保したメモリを解放する。
+ */
+void c7strvfree(char ** const strv);
+
+/** c7strvdup_mg() と同機能の c7_sg_malloc(), c7strdup_sg() 使用版。
+ */
+char **c7strvdup_sg(char ** const strv, int n);
+
+/** c7strvdup_sg() で確保したメモリを解放する。
+ */
+void c7strvfree_sg(char ** const strv);
+//@}
+
+
+/// @name その他
+//@{
+/** マイクロ秒単位の時刻 time_us を "YYYY MM/DD hh:mm:ss.uuuuuu" の形式の文字列に変換する。
+ * 文字列のバッファはスレッド固有の静的メモリである。
+ */
+const char *c7strtime_x(c7_time_t time_us);
+
+/** 環境変数 env の値を戻す。環境変数が未定義の場合は alt を戻す。
+ */
+const char *c7getenv_x(const char *env, const char *alt);
+
+/** 文字列 s にある文字 ch の個数を戻す。
+ */
+int c7strcount(const char *s, int ch);
+//@}
+
+
+// end of defgroup
+//@}
+
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+
+/** @defgroup c7string_strbuf c7string.h - バッファ管理文字列
+ * バッファ管理文字列
+ *
+ * libc7 ではC標準文字列関数に加えて、文字列バッファのサイズを管理し、必要であれば
+ * 拡張を行うバッファ管理文字列の機能を提供する。バッファ管理文字列では文字列のバッキング
+ * ストアである char 配列以外に管理用情報をもつ c7_str_t という型が導入される。
+ *
+ * この型の導入により、バッファ管理文字列のバッキングストアの
+ * メモリ管理はライブラリに任せられるが、逆に c7_str_t 型オブジェクト自体について、
+ * それを静的あるいは自動変数として確保するか、あるいは動的に確保するかで、初期化や
+ * 後始末などに気を配る必要がでてくる。
+ *
+ * 複雑な文字列操作では、途中に何度もバッキングストアの伸長の必要のある関数呼び出しが
+ * 発生する。その都度一々、関数の戻り値をチェックするのは繁雑であるため、c7_str_t の
+ * 関数は以下の性質を保つようにする。
+ * - c7_str_t へのポインタを返却する関数は絶対に NULL ポインタを戻さず、
+ * - c7_str_t のバッファの伸長に失敗したあとも c7_str の関数呼び出しは破綻せず継続でき、
+ * - c7_str_t に失敗したことを記録する。
+ *
+ * これにより、一連の文字列操作を行ったあと最後にエラーの有無を確認するという方法がとれる。
+ */
+//@{
+
+
+/// @name c7_str_t型
+//@{
+/** バッファ管理文字列オブジェクト
+ *
+ * この構造体型はマクロやインライン関数の関係でヘッダーファイルで詳細を定義してあるが、
+ * 内部構造には関知すべきではない。バッファ管理文字列のことをC7文字列と呼ぶことにする。
+ *
+ * C7文字列を扱うには、まず土台となる c7_str_t 型オブジェクトを用意する必要がある。
+ * これは静的変数や自動変数として確保する(実体宣言)か、あるいは c7_str_new 系関数により
+ * ヒープ上に動的に確保する(ポインタ宣言)。
+ *
+ * 実体宣言の場合は、C7_STR_INIT_xxx というマクロを使用して初期化しておくべきである。
+ *
+ * - ヒープ上に動的に確保したC7文字列を戻す c7_str の関数(例えば、c7_str_new_ma())は、
+ *   メモリ確保に失敗したとしても絶対にNULLポインタは戻さない。この場合、静的に確保
+ *   された特殊なC7文字列へのポインタ C7_STR_None が戻されるが、戻り値を C7_STR_None
+ *   と比較検査してはならない。
+ *
+ * - ヒープ上の初期化時だけでなく、初期化成功後の文字列関数呼び出しに伴うバッファ伸長
+ *   操作などにより、たとえ実体宣言したC7文字列でもエラーとなりうる。そこで、エラーか
+ *   どうかの検査は、C7文字列に対して C7_STR_ERR() または C7_STR_OK() を使って行う。
+ *   なお、検査は複数の文字列処理を適用したあとの一回で構わない。
+ * @code
+    c7_str_t *path = c7_str_new_ma();
+    if (C7_STR_ERR(c7_strcpy(c7_stradd(c7_strcpy(path, dir), '/'), name))) {
+        // エラー処理
+    }
+ * @endcode
+ *
+ * - 上の例では、C7文字列 path に、C標準文字列 dir、文字 '/'、C標準文字列 name を
+ *   連続でコピーしているが、これらは連結される。このように C7文字列に対する文字(列)を
+ *   追加する操作は追記となる。ループの中などで、C7文字列を作業用として再利用
+ *   (バッファの先頭から使う)したい場合は c7_str_reuse() を呼んで現在位置をリセットする。
+ * @code
+     c7_str_t tmps = C7_STR_INIT_SG();
+     while (...) {
+         c7_str_reuse(&tmps);	// tmpsで確保してあるバッファを先頭から再利用する
+         ...
+         // tmps に対する文字列構築処理
+         ...
+         (void)write(2, c7_strbuf(&tmps), C7_STR_LEN(&tmps));
+     }
+ * @endcode
+ */
+typedef struct c7_str_t_ c7_str_t;
+//@}
+
+
+/// @name C7文字列(実体宣言)の初期化子
+//@{
+/** 既存の文字配列をバッファとして使用するように初期化する。
+ *
+ * 既に確保されているメモリをバッファとして用いるための初期化子である。マクロには、
+ * バッファのアドレスとそのサイズ(バイト数)を与える。こうして初期化されたC7文字列は
+ * バッファの伸長を行わない。バッファを越える場合はすぐにエラーフラグが立つ。
+ * @code
+static char buffer[512]; 
+static c7_str_t str = C7_STR_INIT_ARG(buffer, sizeof(buffer));
+ * @endcode
+ *
+ * @note
+ * ::c7_str_t をスレッドローカル変数として宣言する場合、スレッドローカルで宣言されたバッファは
+ * 使用できない。これは C99 言語規約による制限であるため回避できない。スレッドローカルでない
+ * 静的変数を指定することは、c7_str_t をスレッドローカルにしたいという状況と矛盾するので、
+ * これもありえない。このような場合は、バッファが動的になってしまうが C7_STR_INIT_TLS()
+ * が妥当であろう。
+ */
+#define C7_STR_INIT_ARG(b,n)		
+
+/** c7_realloc()でバッファを確保するように初期化する。
+ *
+ * バッファを状況に応じて伸長可能にするための初期化子である。
+ * C7文字列が不要になった場合は c7_str_free() を呼び出してバッファを解放する必要がある。
+ *
+ * @warning
+ * ::c7_str_t をスレッドローカル変数として宣言する場合に、この初期化子を用いることはできるが、
+ * スレッド終了時に、このC7文字列のバッファを解放するのは利用者の責任となる。
+ */
+#define C7_STR_INIT_MA()		
+
+/** c7_sg_realloc()でバッファを確保するように初期化する。
+ *
+ * バッファを状況に応じて伸長可能にするための初期化子であり、
+ * かつスタック可能メモリグループの機能を使ってメモリ解放できるようになる。
+ * 逆に意図せず解放されないよう注意しなければならない。
+ *
+ * @note
+ * メモリアロケータの性質上、静的変数やスレッドローカル変数には不適切であり、
+ * 実際コンパイルエラーとなる。
+ */
+#define C7_STR_INIT_SG()		
+
+/** c7_mg_realloc()でバッファを確保するように初期化する。
+ *
+ * バッファを状況に応じて伸長可能にするための初期化子であり、
+ * かつメモリグループの機能を使ってメモリ解放できるようになる。
+ * 逆に意図せず解放されないよう注意しなければならない。
+ * マクロには生成済みのメモリグループを渡さなければならない。
+ *
+ * @warning
+ * 有効なメモリグループを渡す関係上、静的変数やスレッドローカル変数には不適切である。
+ * mg引数にNULLポインタを渡せばコンパイルできてしまうが、この場合、実際には C7_STR_INIT_MA()
+ * と同じ動作となってしまう。
+ */
+#define C7_STR_INIT_MG(mg)		
+
+/** C7スレッドのTLS向けに動的にバッファを確保するように初期化する。 
+ *
+ * バッファを状況に応じて伸長可能にするための初期化子であり、
+ * C7スレッド(c7_thread_start() か c7_thread_run() で生成したスレッド)終了時に、
+ * メモリを解放できるようになる。
+ */
+#define C7_STR_INIT_TLS()		
+//@}
+
+
+/// @name C7文字列(ポインタ宣言)の初期化子
+//@{
+/** C7文字列を c7_malloc() で確保し、
+ * バッファを c7_realloc() で確保するように初期化してC7文字列のポインタを戻す。
+ * メモリ確保に失敗した場合だけ C7_STR_None を戻す。
+ */
+c7_str_t *c7_str_new_ma(void);
+
+/** C7文字列を c7_sg_malloc() で確保し、
+ * バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。
+ * メモリ確保に失敗した場合だけ C7_STR_None を戻す。
+ */
+c7_str_t *c7_str_new_sg(void);
+
+/** C7文字列を c7_mg_malloc() で確保し、
+ * バッファを c7_mg_realloc() で確保するように初期化してC7文字列のポインタを戻す。
+ * メモリ確保に失敗した場合だけ C7_STR_None を戻す。
+ */
+c7_str_t *c7_str_new_mg(c7_mgroup_t mg);
+//@}
+
+
+#define C7_STR_LEN(sbp)			///< c7_str_len() のマクロ版
+#define C7_STR_CHAR(sbp, idx)		///< c7_str_char() のマクロ版
+#define C7_STR_CHAR_R(sbp, idx)		///< c7_str_char_r() のマクロ版
+#define C7_STR_ERR(sbp)			///< c7_str_err() のマクロ版
+#define C7_STR_OK(sbp)			///< c7_str_ok() のマクロ版
+#define C7_STR_REUSE(sbp)		///< c7_str_reuse() のマクロ版
+
+
+/// @name C7文字列オブジェクト自体の操作
+//@{
+#define c7_strbuf(sbp)			///< c7_str_buf()の別名
+
+/** 固定長バッファを設定する。
+ *
+ * C7文字列 sbp のバッファを引数 buf, size で指定される固定長バッファへと変更する。
+ * sbp のエラーフラグは解除され、元のバッファが伸長可能なバッファであった場合は、そのバッファは解放される。
+ * sbp が C7_STR_None であった場合だけ C7_FALSE が戻され、それ以外は C7_TRUE が戻される。
+ */
+c7_bool_t c7_str_setbuf(c7_str_t *sbp, char *buf, size_t size);
+
+/** extend 文字が追加できるようバッファを確保する。
+ *
+ * 現在確保されているバッファサイズに対して extend バイト伸長するのではなく、
+ * バッファの次の書き込み位置から extend 文字を追加できるように、必要ならバッファサイズを
+ * 伸長するという動作である。
+ *
+ * エラーフラグが立っている場合はバッファの余裕にかかわらず直ちに C7_FALSE を戻す。
+ * 現在の位置から extend 文字を追加できる場合は何もせず C7_TRUE を戻す。
+ * バッファの空きが足りない場合、バッファが固定長の場合は C7_FALSE を戻し、
+ * そうでない場合はバッファの伸長を試みる。伸長に成功すれば C7_TRUE を戻し、
+ * 失敗すれば C7_FALSE を戻す。
+ *
+ * C7_FALSE が戻る場合だけC7文字列にエラーフラグが立っている状態となる。
+ *
+ * バッファを伸長する際、必要バイト数そのものではなく、内部で定義されている
+ * 伸長単位(現在のバージョンでは16バイト)に切り上げて伸長が行われる。
+ */
+c7_bool_t c7_str_alloc(c7_str_t *sbp, size_t extend);
+
+/** C7文字列をメモリグループから切り離す [戻り値に注意]
+ *
+ * C7文字列自身(*sbp)やバッファがメモリグループによるアロケータを使用している
+ * 場合、メモリグループからの切り離しを行う(cf. c7_mg_unlink())。C7文字列自身
+ * がメモリグループによりアロケートされていた場合は切り離し後の新しいC7文字列
+ * のアドレスを戻し、そうでない場合は引数 sbp の値を戻す。呼び出し側は sbp の
+ * 値を保持している変数を更新しなければならない。
+ *
+ * sbpにNULLポインタを渡してはならない。
+ *
+ * @code
+    c7_str_t *sbp = c7_strcpy(c7_str_new_sg(), c7getenv_x("HOME", "/"));
+    sbp = c7_str_unlink(sbp);
+ * @endcode
+ */
+c7_str_t *c7_str_unlink(c7_str_t *sbp);		// unlink from memory group
+
+/** C7文字列を c7_sg_malloc() を使って複製する。
+ *
+ * C7文字列自身とバッファの両方が c7_sg_malloc() で確保される。
+ * 複製の正否は C7_STR_ERR() または C7_STR_OK() で検査する。
+ */
+c7_str_t *c7_strclone(c7_str_t *sbp);		// c7_sg_malloc
+
+/** C7文字列のバッファを c7strdup() で複製する。
+ */
+char *c7_str_strdup(c7_str_t *sbp);
+
+/** C7文字列のバッファを文字列オブジェクトから切り離し、バッファのアドレスを戻す。
+ *
+ * C7文字列で管理しているバッファをそのまま他へ転用するために、C7文字列のオブジェクトから
+ * 切り離す。バッファがメモリグループで確保されたものであれば、c7_mg_unlink() により
+ * メモリグループからの切り離しも行なう。この場合、この関数を呼び出す直前に c7_strbuf()
+ * で得たバッファのアドレスとは異なったアドレスになるため、この関数の戻り値をバッファの
+ * アドレスとして使う必要がある。
+ * 切り離しに伴って、C7文字列のエラーフラグは解除され、バッファは初期化された状態となる。
+ */
+char *c7_str_release(c7_str_t *sbp);
+
+/** C7文字列のバッファの先頭ポインタを戻す。
+ */
+char *c7_str_buf(c7_str_t *sbp);
+
+/** C7文字列の動的確保したメモリを解放する。
+ *
+ * C7文字列 sbp のバッファが伸長可能であれば解放する。
+ * また sbp の指すC7文字列が実体宣言したものでなければ、それ自体も解放する。
+ */
+void c7_str_free(c7_str_t *sbp);
+
+
+/** C7文字列のバッファを再利用する(追記位置をリセットする)。
+ *
+ * C7文字列 sbp が C7_STR_None の場合だけ C7_FALSE を戻し、
+ * それ以外では C7_TRUE を戻す。この時、エラーフラグも解除される。
+ */
+c7_bool_t c7_str_reuse(c7_str_t *sbp);
+
+/** C7文字列にエラーフラグが立っていれば C7_TRUE を戻し、それ以外は C7_FALSE を戻す。
+ * C7_FALSE が戻る場合でも c7status によるエラー情報は記録されない。
+ */
+c7_bool_t c7_str_err(c7_str_t *sbp);
+
+/** C7文字列にエラーフラグが立っていなければ C7_TRUE を戻し、それ以外は C7_FALSE を戻す。
+ */
+c7_bool_t c7_str_ok(c7_str_t *sbp);
+//@}
+
+
+/// @name C7文字列の基本文字列操作
+//@{
+/** 現在の文字列の長さを戻す。
+ *
+ * この長さは C標準文字列での長さ strlen(c7_strbuf(sbp)) とは異なるケースがある。
+ * C7文字列の場合は追記位置とバッファ先頭とのオフセットであるため、
+ * 追記位置よりも手前に強制的にヌル文字を書き込んだとしてもそれを考慮しない。
+ */
+int c7_str_len(c7_str_t *sbp);
+
+/** C7文字列の idx 番目の文字を戻す。
+ *
+ * idx が範囲外であれば EOF を戻す。
+ * EOFが戻る場合も c7status によるエラー情報は記録されない。
+ */
+int c7_str_char(c7_str_t *sbp, int idx);
+
+/** C7文字列の c7_str_len(sbp)+r_idx 番目の文字を戻す。
+ *
+ * r_idx は負でなければならない。
+ * 特に r_idx が -1 の場合は最後の文字を戻す。インデックスが範囲外であれば EOF を戻す。
+ * EOFが戻る場合も c7status によるエラー情報は記録されない。
+ */
+int c7_str_char_r(c7_str_t *sbp, int r_idx);	// r_idx must be negative
+
+/** C7文字列を切り詰める。
+ *
+ * n が正の場合は先頭から n 文字まで、
+ * n が負の場合は先頭から c7_str_len(sbn) + n 文字まで切り詰める。
+ * 切り詰めた位置が追記位置になるほか、その位置はヌル文字で上書きされる。
+ * n が範囲を越えた場合は何もしない。エラーフラグも立てない。
+ * 常に sbp がそのまま戻される。
+ */
+c7_str_t *c7_strtrunc(c7_str_t *sbp, int n);
+
+/** C7文字列 sbp に文字 ch を追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ */
+c7_str_t *c7_stradd(c7_str_t *sbp, char ch);
+
+/** C7文字列 sbp に文字 ch を n 個連続して追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ */
+c7_str_t *c7_stradd_n(c7_str_t *sbp, char ch, int n);
+
+/** C7文字列 sbp に文字列 s を追加する。
+ *
+ * 文字列の追加処理は以下のように行われる。
+ * 1. sbp に NULL が渡された場合、c7_str_new_sb() が呼ばれ、その結果が sbp に渡されていたものとして振舞う。
+ * 2. sbp にエラーフラグが立っておらず、バッファに余裕がなくて、バッファが固定サイズの場合は、
+ *   エラーフラグが立つ。
+ * 3. sbp にエラーフラグが立っておらず、バッファの伸長に失敗した場合は、エラーフラグが立つ。
+ * 4. sbp のエラーフラグの有無に拘らず、バッファの余裕のある限り文字列の追加が行われる。
+ * この関数でエラーフラグが解除されることはない。また、1. の処理後の sbp の値を戻す。
+ */
+c7_str_t *c7_strcpy(c7_str_t *sbp, const char *s);
+
+/** C7文字列 sbp に文字列 s を n 個連続して追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ */
+c7_str_t *c7_strcpy_n(c7_str_t *sbp, const char *s, int n);
+
+/** C7文字列 sbp に文字列 s の先頭から n 文字目までの部分文字列を追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ * @warning
+ * 現在のバージョンでは n の正当性をチェックしていない。
+ */
+c7_str_t *c7_strncpy(c7_str_t *sbp, const char *s, int n);
+
+/** C7文字列 sbp に文字列 s の先頭から e までの部分文字列を追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ * @remark
+ * 将来にわたって e の正当性はチェックしない。
+ */
+c7_str_t *c7_strbcpy(c7_str_t *sbp, const char *s, const char *e);
+
+/** C7文字列 sbp に文字列 s の各文字を toupper() しながら追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ */
+c7_str_t *c7_strupr(c7_str_t *sbp, const char *s);
+
+/** C7文字列 sbp に文字列 s の先頭から n 文字目までの各文字を toupper() しながら追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ * @warning
+ * 現在のバージョンでは n の正当性をチェックしていない。
+ */
+c7_str_t *c7_strnupr(c7_str_t *sbp, const char *s, int n);
+
+/** C7文字列 sbp に文字列 s の先頭から e までの各文字を toupper() しながら追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ * @remark
+ * 将来にわたって e の正当性はチェックしない。
+ */
+c7_str_t *c7_strbupr(c7_str_t *sbp, const char *s, const char *e);
+
+/** C7文字列 sbp に文字列 s の各文字を tolower() しながら追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ */
+c7_str_t *c7_strlwr(c7_str_t *sbp, const char *s);
+
+/** C7文字列 sbp に文字列 s の先頭から n 文字目までの各文字を tolower() しながら追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ * @warning
+ * 現在のバージョンでは n の正当性をチェックしていない。
+ */
+c7_str_t *c7_strnlwr(c7_str_t *sbp, const char *s, int n);
+
+/** C7文字列 sbp に文字列 s の先頭から e までの各文字を tolower() しながら追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() を参照。
+ * @remark
+ * 将来にわたって e の正当性はチェックしない。
+ */
+c7_str_t *c7_strblwr(c7_str_t *sbp, const char *s, const char *e);
+
+/** C7文字列 sbp の off 位置から del_n 文字を削除し、off 位置に文字列 s を挿入する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ */
+c7_str_t *c7_stredit(c7_str_t *sbp, int off, int del_n, const char *s);
+
+/** C7文字列 sbp の off 位置から del_n 文字を削除し、off 位置に文字列 s の先頭 n 文字までを挿入する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ */
+c7_str_t *c7_strnedit(c7_str_t *sbp, int off, int del_n, const char *s, int n);
+
+/** C7文字列 sbp の off 位置から del_n 文字を削除し、off 位置に文字列 s の先頭から e までを挿入する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ */
+c7_str_t *c7_strbedit(c7_str_t *sbp, int off, int del_n, const char *s, const char *e);
+
+/** C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列をこの順で追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ * sc が負の場合は、sv[0]から始めて sv[i] が NULL となる i を検索してそれを sc とする。
+ */
+c7_str_t *c7_strconcat(c7_str_t *sbp, const char *sep, const char **sv, int sc);
+
+/** C7文字列 sbp に printf(fmt, ...) 相当の結果を追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ */
+c7_str_t *c7_sprintf(c7_str_t *sbp, const char *fmt, ...);
+
+/** C7文字列 sbp に vprintf(fmt, ap) 相当の結果を追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ */
+c7_str_t *c7_vsprintf(c7_str_t *sbp, const char *fmt, va_list ap);
+//@}
+
+
+/// @name C7文字列の応用文字列操作
+//@{
+/** 文字列 in に含まれる C言語規格のバックスラッシュシーケンスを変換しながらC7文字列 sbp に追加する。
+ *
+ * 文字の追加処理の詳細は c7_strcpy() に準ずる。
+ */
+c7_str_t *c7_streval_C(c7_str_t *sbp, const char *in);
+
+/** 文字列 in に含まれる変数参照を評価してC7文字列 sbp に追加するカスタム関数
+ *
+ * @param sbp 出力先となるC7文字列。NULLポインタを渡した場合は内部で c7_str_new_sg() によりC7文字列を確保する。
+ * @param in 入力となるC標準文字列。
+ * @param mark 変数参照の開始マーカとなる文字。bashなどのUNIX系シェルであれば '$' に相当。
+ * @param escape 変数参照の開始マーカや波括弧文字をエスケープする文字。bashなどのUNIX系シェルであれば '\\' に相当。
+ * @param translator 変数名を評価する関数。
+ * @param __arg translatorへ渡すパラメータ。
+ * @return sbp (NULLだった場合は、この関数内部で c7_str_new_sg() を呼んだ戻り値)を戻す。
+ *             内部の処理中でエラーがあった場合だけ sbp にエラーフラグがセットされる。
+ *
+ * この関数はUNIX系シェルの変数定義で使用されるような文字列中の変数参照を評価するためのカスタム関数である。
+ * 例えば mark に '$'、escape に '\\' が渡されてた場合は次のような動作となる。
+ * - まず文字列 in にある '\\' でエスケープされてない '$' を検索する。
+ * - '$' の次が '{' でなければ '$' の次の文字のポインタを vn 引数、enclosed 引数を C7_FALSE として translator を呼び出す。
+ *   translator() の戻り値が変数参照の次の文字ポインタとなる。
+ * - '$' の次が '{' であれば '{' の次の文字のポインタを vn 引数、enclosed 引数wo C7_TRUE として translator を呼び出す。
+ *   translator() の戻り値は参照せず '{' に対応する '} の文字をみつけて、その直後を変数参照の次の文字ポインタとする。
+ * - ${...} 型の変数参照がネストしている場合は最も内側の参照から順に translator を呼び出す。
+ * 
+ * translator に指定した関数は次のように動作しなければならない。
+ * - vn 引数から始まる変数名の文字列を評価し、結果をC7文字列 sbp へ追加する。
+ * - 評価が成功の場合 vn から始まる文字列上、評価対象の終端とされるポインタを戻す。
+ * - 評価が失敗した場合は NULL ポインタを戻す。
+ * - translator の呼び出し前後で c7_sg_push() と c7_sg_pop() が行われるため、
+ *   translator 中のテンポラリなメモリの確保には c7_sg_malloc() や c7_str_new_sg() などを使用できる。
+ */
+c7_str_t *c7_streval_custom(c7_str_t *sbp, const char *in, char mark, char escape,
+			    const char *(*translator)(c7_str_t *sbp, const char *vn,
+						      c7_bool_t enclosed, void *__arg),
+			    void *__arg);
+
+/** 文字列 in に含まれる環境変数参照を評価してC7文字列 sbp に追加する。
+ *
+ * 評価可能な形式は、$VARNAME, ${VARNAME}, ${VARNAME:-default string}, ${VARNAME:+alternative string}
+ * の4種類である。
+ */
+c7_str_t *c7_streval_env(c7_str_t *sbp, const char *in);
+//@}
+
+
+// end of defgroup
+//@}

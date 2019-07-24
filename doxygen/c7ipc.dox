@@ -1,0 +1,264 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7ipc c7ipc.h
+ *  コマンドライン引数のオプション解析
+ */
+//@{
+
+
+/** ソケットへの送受信関数の返却値
+ */
+typedef enum c7_ipc_result_t {
+    C7_IPC_RESULT_OK,		///< 指定された全データの処理が成功した。
+    C7_IPC_RESULT_ERR,		///< なんからのエラーを検出した。
+    C7_IPC_RESULT_BUSY,		///< EWOULDBLOCK を検出した (non-blocking socket の場合)
+    C7_IPC_RESULT_CLS,		///< (c7_ipc_read_n のみ) 最初の読み込み処理で read() が 0 を戻した(CLOSED)
+    C7_IPC_RESULT_INCOMP,	///< (c7_ipc_read_n のみ) 指定サイズの途中まで読み込んだ後で read() が 0 を戻した。
+} c7_ipc_result_t;
+
+
+/// @name sockaddr関連
+//@{
+/** ソケットアドレス inaddr のポート番号に port を設定する。
+ */
+void c7_sockaddr_in_setport(struct sockaddr_in *inaddr, int port);
+
+/** 32bitの IPv4 アドレス ipaddr とポート番号 port でソケットアドレス inaddr を初期化する。\n
+ * port はホストバイトオーダであるが、ipaddr はネットワークバイトオーダでなければならない。
+ * これは、ipaddr を getpeername() などから得た sockaddr_in 構造体から sin_addr.s_addr で直接に得ることを想定しているためである。
+ */
+c7_bool_t c7_sockaddr_in_ip(struct sockaddr_in *inaddr, uint32_t ipaddr, int port);
+
+/** ホスト名 host とポート番号 port から IPv4 のソケットアドレス inaddr を初期化する。\n
+ * host が NULL または、空文字列、"*" の場合は INADDR_ANY が用いられる。
+ * gethostbyname() で IPv4 アドレスが得られなければ C7_FALSE を戻し、得られれば C7_TRUE を戻す。
+ */
+c7_bool_t c7_sockaddr_in(struct sockaddr_in *inaddr, const char *host, int port);
+
+/** ソケット記述子 sock から自分側のソケットアドレス inaddr を得る。
+ */
+c7_bool_t c7_sock_getself_in(int sock, struct sockaddr_in *inaddr);
+
+/** ソケット記述子 sock から相手側のソケットアドレス inaddr を得る。
+ */
+c7_bool_t c7_sock_getpeer_in(int sock, struct sockaddr_in *inaddr);
+//@}
+
+
+/// @name ソケット準備
+//@{
+/** UDP用のソケットを得る。失敗すれば C7_SYSERR が戻る。
+ */
+int c7_udp(void);
+
+/** TCP用のソケットを得る。失敗すれば C7_SYSERR が戻る。
+ */
+int c7_tcp(void);
+
+/** UNIXドメインのストリーム用のソケットを得る。失敗すれば C7_SYSERR が戻る。
+ */
+int c7_unixstream(void);
+
+/** ソケット sock に、IPv4のソケットアドレス inaddr を bind する。\n
+ * ソケットには SO_REUSEADDR オプションが設定される。
+ */
+c7_bool_t c7_sock_bind_in(int sock, struct sockaddr_in *inaddr);
+
+/** ソケット sock に、host, port から初期化したソケットアドレスを bind する。\n
+ * ソケットには SO_REUSEADDR オプションが設定される。
+ */
+c7_bool_t c7_sock_bind(int sock, const char *host, int port);
+
+/** ソケット sock で IPv4のソケットアドレス inaddr に connect する。
+ * ソケットに対して c7_tcp_keepalive() が呼び出される。
+ */
+c7_bool_t c7_sock_connect_in(int sock, struct sockaddr_in *inaddr);
+
+/** ソケット sock で host, port から初期化したソケットアドレスに connect する。\n
+ * ソケットに対して c7_tcp_keepalive() が呼び出される。
+ */
+c7_bool_t c7_sock_connect(int sock, const char *host, int port);
+
+/** ソケット server_socket で accept() を呼び出す。\n
+ * 得られたソケットに対して c7_tcp_keepalive() が呼び出される。
+ */
+int c7_sock_accept(int server_socket);
+
+/** host, port で初期化した UDP のサーバーソケットを得る。
+ * 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。
+ */
+int c7_udp_server(const char *host, int port);
+
+/** host, port, listen_n で初期化した TCP のサーバーソケットを得る。
+ * 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。\n
+ * ソケットには SO_REUSEADDR オプションが設定される。\n
+ * listen_n に -1 を指定すると SOMAXCONN が用いられる。
+ */
+int c7_tcp_server(const char *host, int port, int listen_n);
+
+/** host, port に接続した TCP ソケットを得る。
+ * 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。\n
+ * 得られたソケットに対して c7_tcp_keepalive() が呼び出される。
+ */
+int c7_tcp_client(const char *host, int port);
+
+/** path, listen_n で初期化した UNIXドメインストリームのサーバーソケットを得る。
+ * 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。\n
+ * listen_n に -1 を指定すると SOMAXCONN が用いられる。\n
+ * path を削除しておくのは状態にするのは呼出し側の責任とする。
+ */
+int c7_unixstream_server(const char *path, int listen_n);
+
+/** path に接続したUNIXドメインストリームのソケットを得る。
+ * 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。
+ */
+int c7_unixstream_client(const char *path);
+//@}
+
+
+/// @name ソケットオプション
+//@{
+
+/** c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。
+ */
+void c7_tcp_keepalive(int sock);
+
+/** TCPソケット sock の KEEPALIVE を有効にする。
+ * kp* 引数でもって、TCP_KEPALIVE, TCP_KEEPIDLE, TCP_KEEPINTVL, TCP_KEEPCNT が有効であれば
+ * 設定を試みる。
+ */
+void c7_tcp_keepalive_detail(int sock, int kpidle, int kpintvl, int kpcnt);
+
+/** TCPソケット sock に対して TCP_NODELAY オプションの有効性 apply を設定する。
+ */
+c7_bool_t c7_tcp_nodelay(int sock, c7_bool_t apply);
+
+/** ソケットの SO_RCVBUF を nbytes に設定する。
+ */
+c7_bool_t c7_sock_rcvbuf(int sock, int nbytes);
+
+/** ソケットの SO_SNDBUF を nbytes に設定する。
+ */
+c7_bool_t c7_sock_sndbuf(int sock, int nbytes);
+
+/** ソケット sock に tmo_us マイクロ秒の送信タイムアウト SO_SNDTIMEO を設定する。
+ */
+c7_bool_t c7_sock_sndtmo(int sock, int tmo_us);
+
+/** ソケット sock に tmo_us マイクロ秒の受信タイムアウト SO_RCVTIMEO を設定する。
+ */
+c7_bool_t c7_sock_rcvtmo(int sock, int tmo_us);
+//@}
+
+
+/// @name ソケット(pipe,FIFO)I/O
+//@{
+/** 記述子 desc から req_n バイトをバッファ buf へ読み込む。
+ *
+ * @param desc ソケット、pipe、FIFO記述子。
+ * @param buf 読み込んだデータを格納するバッファ。
+ * @param req_n 要求する読み込みバイト数。
+ * @param act_n NULLポインタでなければ *act_n に実際に読み込めたバイト数が設定される。
+ * @return 読み込み結果 ::c7_ipc_result_t として戻す。
+ *
+ * read() が 0 または -1 を戻すまで、req_n バイトを読むまで、繰り返し read() を呼び出す。
+ * 読み込みを終了する時の、実際に読み込んだバイト数や read() の戻り値との関係から
+ * ::c7_ipc_result_t の列挙定数を返却する。返却値と、read()の結果と act_n の関係は
+ * 次のようになる。
+ * - C7_IPC_RESULT_OK     ⇒ read() ＞  0,     *act_n == req_n
+ * - C7_IPC_RESULT_ERR    ⇒ read() == -1, 0≦ *act_n ＜ req_n
+ * - C7_IPC_RESULT_BUSY   ⇒ read() == -1, 0≦ *act_n ＜ req_n (errno が EWOULDBLOCK)
+ * - C7_IPC_RESULT_CLS    ⇒ read() ==  0,     *act_n ＝ 0
+ * - C7_IPC_RESULT_INCOMP ⇒ read() ==  0, 0≦ *act_n ＜ req_n
+ */
+c7_ipc_result_t c7_ipc_read_n(int desc, void *buf, const ssize_t req_n, ssize_t *act_n);
+
+/** 記述子 desc にバッファ buf から req_n バイトを書き込む。
+ *
+ * @param desc ソケット、pipe、FIFO記述子。
+ * @param buf 書き込むデータが存在するバッファ。
+ * @param req_n 要求する書き込みバイト数。
+ * @param act_n NULLポインタでなければ *act_n に実際に書き込めたバイト数が設定される。
+ * @return 書き込み結果を ::c7_ipc_result_t として戻す。
+ *
+ * write() が 0 または -1 を戻すまで、req_n バイトを書き込むまで、繰り返し write() を呼び出す。
+ * 書き込みを終了する時の、実際に書き込んだバイト数や write() の戻り値との関係から
+ * ::c7_ipc_result_t の列挙定数を返却する。返却値と、write()の結果と act_n の関係は
+ * 次のようになる。
+ * - C7_IPC_RESULT_OK     ⇒ write() ＞ 0,     *act_n == req_n
+ * - C7_IPC_RESULT_ERR    ⇒ write() ≦ 0, 0≦ *act_n ＜ req_n
+ * - C7_IPC_RESULT_BUSY   ⇒ 同上。ただし、errno が EWOULDBLOCK。
+ */
+c7_ipc_result_t c7_ipc_write_n(int desc, const void *buf, ssize_t req_n, ssize_t *act_n);
+
+/** 記述子 desc に iov, ioc で指定されるデータを書き込む。
+ *
+ * @param desc ソケット、pipe、FIFO記述子。
+ * @param iov 書き込むデータを指定する struct iovec の配列。
+ *            <B>この配列は書き換えられる。</B>
+ * @param ioc iov[] の要素数。
+ * @return 書き込み結果を ::c7_ipc_result_t として戻す。
+ *
+ * writev() が 0 または -1 を戻すまで、iov[] で指定したデータを書き込むまで、繰り返し writev() を呼び出す。
+ * 書き込みを終了する時の、実際に書き込んだバイト数や writev() の戻り値との関係から
+ * ::c7_ipc_result_t の列挙定数を返却する。
+ * 書き込みを繰り返す間、実際に書き込んだバイト数に応じて iov[] の iov_len と iov_base の値を更新していく。
+ * そのため、C7_IPC_RESULT_BUSY が戻った場合は、iov, ioc をそのままこの関数に再度渡せば書き込みを継続することができる。
+ * 返却値と、writev() の結果と iov[] の状態は次のようになる。
+ * - C7_IPC_RESULT_OK     ⇒ writev() ＞ 0, 全ての iov[] で iov_len は 0。
+ * - C7_IPC_RESULT_ERR    ⇒ writev() ≦ 0, ある i について iov[0]〜iov[i] は iov_len は 0、iov[i+1].iov_len ≠ 0。
+ * - C7_IPC_RESULT_BUSY   ⇒ 同上。ただし、errno が EWOULDBLOCK。
+ */
+c7_ipc_result_t c7_ipc_writev(int desc, struct iovec *iov, int ioc);
+
+/** 記述子 desc が読み書き可能になるまで select(2) で待機する。
+ *
+ * @param desc 対象となる記述子。
+ * @param readable NULLポインタでなければ、読み込み可能性を調べ、可能性を *readable に戻す。
+ * @param writable NULLポインタでなければ、書き込み可能性を調べ、可能性を *writable に戻す。
+ * @param tmo_us いずれかが可能になるまで待機する場合のタイムアウト値。
+ *               -1 であればタイムアウトさせず、0 であれば待機時間なしで調べ、それ以外では最大マイクロ秒待機する。
+ * @return 読み込みか書き込みのいずれかが可能になれば C7_TRUE を戻し、
+ *         タイムアウト(tmo_us≧0)するか EINTR以外のエラーの場合は C7_FALSE を戻す。\n
+ *         タイムアウトした場合は c7_status_clear() され errno に EWOULDBLOCK が設定される。\n
+ *         シグナルによる割込みの場合はタイムアウト値を再計算したうえで再度 select(2) を呼び出す。
+ *
+ * @note readable, writable 共に NULL ポインタを指定すると、tmo_us が -1 の場合には永遠に戻ってこない。
+ */
+c7_bool_t c7_ipc_waitfor(int desc, c7_bool_t *readable, c7_bool_t *writable, int tmo_us);
+
+/** 記述子 desc が読み込み可能になるまで待機する。c7_ipc_waitfor()で readable を指定した状態。
+ */
+c7_bool_t c7_ipc_readable(int desc, int tmo_us);
+
+/** 記述子 desc が書き込み可能になるまで待機する。c7_ipc_waitfor()で writable を指定した状態。
+ */
+c7_bool_t c7_ipc_writable(int desc, int tmo_us);
+//@}
+
+
+/// @name ソケットI/O (長さデータ付き文字列)
+
+/** 記述子 desc に長さデータとともに文字列 s を終端null文字を含めて送信する。
+ *
+ * 長さデータは 4 byte で、終端null文字を含む長さ(strlen(s)+1)で、ネットワークバイトオーダで送信される。
+ */
+c7_bool_t c7_ipc_puts(int desc, const char *s);
+
+/** 記述子 desc に長さデータとともにC7文字列 sbp を終端null文字を含めて送信する。\n
+ * c7_ipc_puts(desc, c7_strbuf(sbp)) と等価。
+ */
+c7_bool_t c7_ipc_putsb(int desc, const c7_str_t *sbp);
+
+/** 記述 desc から c7_ipc_puts() で送信されたデータを C7文字列 sbp に読み込む。\n
+ * この関数は読み込む際に c7_str_reuse(sbp) を呼び出すので必ずバッファの先頭にデータが入る。
+ */
+char *c7_ipc_getsb(int desc, c7_str_t *sbp);
+
+/** 記述 desc から c7_ipc_puts() で送信されたデータを C7文字列 sbp に追加で読み込む。\n
+ */
+char *c7_ipc_getsb_append(int desc, c7_str_t *sbp);
+//@}
+
+
+//@}

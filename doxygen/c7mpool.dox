@@ -1,0 +1,87 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7mpool c7mpool.h
+ * メモリプール
+ *
+ * メモリプールはメモリグループと異なり、固定サイズのメモリユニットの確保・解放を
+ * 頻繁に行なう場合に適している。使い終ったメモリユニットは解放(free(3))せずに、
+ * プールに保管しておき、要求があれば(空でなければ)プールから取り出すことで効率をあげる。
+ *
+ * また、メモリユニットはリファレンスカウンタによる簡易GCに対応する。
+ */
+//@{
+
+
+/** マルチスレッド用メモリプールでプールの確保を初期化時のみにする。
+ */
+#define C7_MPOOL_MT_WAITABLE	(1U << 0)	// allocation once and wait for free
+
+/** メモリプールオブジェクト。
+ */
+typedef struct c7_mpool_t_ *c7_mpool_t;
+
+/** シングルスレッド用にメモリプールを初期化する。
+ *
+ * @param size 要素のサイズ(bytes)
+ * @param alccnt メモリ確保の単位。プールを確保する場合に alccnt 個を一度に確保する。
+ * @param on_get NULLでなければ c7_mpool_get() でメモリを得た場合に呼び出される。
+ * @param on_put NULLでなければ c7_mpool_put(), c7_mpool_unref() でメモリがプールに保管される際に呼び出される。
+ * @param on_free NULLでなければ c7_mpool_free() でメモリを実際に解放する際に呼び出される。
+ * @return メモリプールの初期化に成功すればメモリプールオブジェクトを戻し、失敗すれば NULL を戻す。
+ */
+c7_mpool_t c7_mpool_init(size_t size, int alccnt,
+			 c7_bool_t (*on_get)(void *),
+			 void (*on_put)(void *),
+			 void (*on_free)(void *));
+
+/** マルチスレッド用にメモリプールを初期化する。
+ *
+ * @param size 要素のサイズ(bytes)
+ * @param alccnt メモリ確保の単位。プールを確保する場合に alccnt 個を一度に確保する。
+ * @param on_get NULLでなければ c7_mpool_get() でメモリを得た場合に呼び出される。
+ * @param on_put NULLでなければ c7_mpool_put(), c7_mpool_unref() でメモリがプールに保管される際に呼び出される。
+ * @param on_free NULLでなければ c7_mpool_free() でメモリを実際に解放する際に呼び出される。
+ * @param flags C7_MPOOL_MT_xxx の論理和を指定する。
+ * @return メモリプールの初期化に成功すればメモリプールオブジェクトを戻し、失敗すれば NULL を戻す。
+ *
+ * マルチスレッド用にプールの操作を pthread の mutex で排他制御する。flags によって挙動が異なる。
+ * - flags が 0。
+ *
+ *   c7_mpool_get()を呼んだときにプールが空であればシングルスレッド版と同様に追加でプールを確保する。
+ *
+ * - flags に C7_MPOOL_MT_WAITABLE が指定されている。
+ *
+ *   c7_mpool_get()を呼んだときにプールが空であれば他のスレッドが c7_mpool_put() するまで待機する。
+ *   これは、スレッドがプロデューサーとコンシューマで分離されている場合に適している。
+ */
+c7_mpool_t c7_mpool_init_mt(size_t size, int alccnt,
+			    c7_bool_t (*on_get)(void *),
+			    void (*on_put)(void *),
+			    void (*on_free)(void *),
+			    unsigned flags);
+
+/** メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。
+ * メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる。
+ */
+void *c7_mpool_get(c7_mpool_t mp);
+
+/** c7_mpool_get()で得たメモリユニットの参照カウントを増やす。
+ */
+void c7_mpool_ref(void *addr);
+
+/** c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、
+ * メモリユニットはプールへ戻される。(実は c7_mpool_put() の別名)
+ */
+void c7_mpool_unref(void *addr);
+
+/** c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、
+ * メモリユニットはプールへ戻される。
+ */
+void c7_mpool_put(void *addr);
+
+/** メモリプール mp で確保したメモリを全て解放する。この時はメモリユニットの参照カウントは考慮されない。
+ */
+void c7_mpool_free(c7_mpool_t mp);
+
+
+//@}

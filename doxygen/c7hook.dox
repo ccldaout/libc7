@@ -1,0 +1,102 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7hook c7hook.h
+ *  libc7 機能に対するフック
+ */
+//@{
+
+
+/** メモリ確保エラーのフック。
+ *
+ * @param err malloc系関数が失敗したときの errno の値。
+ * @param z malloc系関数が失敗したときの要求メモリサイズ。
+ *
+ * このフックは c7memory の動的メモリ確保関数の呼び出しでエラーとなった場合に呼ばれる。
+ */
+typedef void (*c7_hook_memory_error_t)(int err, size_t z);
+
+/** スレッド関連APIエラーのフック。
+ *
+ * @param api エラーの発生した c7thread の API を示す。C7_API_thread_xxx のいずれか。
+ * @param err 基盤となる pthread API のエラー番号。
+ *
+ * このフックは、c7_thread_mutex_init(), c7_thread_recursive_mutex_init(), c7_thread_cond_init(),
+ * c7_thread_lock(), c7_thread_trylock(), c7_thread_unlock(),
+ * c7_thread_notify(), c7_thread_notify_all(), c7_thread_wait() でエラーとなった場合に呼ばれる。
+ * ただし、以下のケースでは pthread API がエラーとなってもフックは呼ばれない。
+ * - c7_thread_trylock() で EBUSY の場合。
+ * - c7_thread_wait() のタイムアウト指定ありで、EINTR もしくは ETIMEDOUT の場合。
+ *
+ * とくに C7_API_thread_{lock,trylock,unlock,notify,notify_all,wait} で hook が呼ばれる場合は、
+ * 実質的にエラー回復不可能と言えるので、フックで c7_thread_abort() してデータを完全に再初期化
+ * するなどの処置が適切かもしれない。
+ */
+typedef void (*c7_hook_thread_error_t)(c7_api_t api, int err);
+
+/** ポーリング(I/O多重化)関連APIエラーのフック。
+ *
+ * @param api エラーの発生した c7poll の API を示す。C7_API_poll_xxx のいずれか。
+ * @param err 基盤となるシステムコールが失敗したときの errno の値。
+ *
+ * このフックは c7_poll_start() もしくは c7_poll_start_thread() で開始した
+ * ポーリングのループ内部でエラーを検出した場合に呼ばれる。libc7 r0.1 時点では、
+ * ポーリング機構の内部処理が対象となっている。
+ */
+typedef void (*c7_hook_poll_error_t)(c7_api_t api, int err);
+
+/** stdout/stderr へのメッセージ出力機構のフック。
+ *
+ * @param file メッセージ出力APIがコールされた C ソースファイル名。
+ * @param line 同ファイル上の行番号。
+ * @param c7_log_level メッセージ出力APIで決まるログレベル(c7types.h で定義)。
+ * @param string メッセージ出力される文字列。
+ *
+ * このフックは c7app.h で定義される c7echo*(), c7exit*(), c7abort*() 系関数で
+ * stdout または stderr への出力のあとに呼ばれる。通常は、端末出力と同じ内容を
+ * ログファイルなどにも書き出すために使用する。
+ *
+ * @note
+ * アプリケーション側で準備するログ出力関数側で、ログファイル書き込みと同時に
+ * 端末にも出力する方が理にかなっていると思われる。
+ */
+typedef void (*c7_hook_echo_t)(const char *file, int line,
+			       int c7_log_level, const char *string);
+
+/** メモリ確保エラーのフックを設定する。
+ *
+ * @param hook 新しいフック。
+ * @return 以前に設定されていたフック。
+ *         libc7 内部コードでフックを設定することはないので、初めての呼び出しでは NULL が戻る。
+ *
+ * @note
+ * 呼出し側は返却値を保存しておいて、新しい hook でこの以前に設定されていたフックを呼び出すのが
+ * 望ましいだろう。新しい hook が不要になったからといって、保存しておいた古いフックを再設定すべき
+ * ではない。別の機能が既に新しいフックを設定している可能性があるからである。このような場合は、
+ * 新しいフックのなかで、古いフックを呼び出すのみとすべきである。
+ */
+c7_hook_memory_error_t c7_hook_set_memory_error(c7_hook_memory_error_t hook);
+
+/** スレッド関連APIエラーのフックを設定する。
+ *
+ * 引数、返却値や注意点については c7_hook_set_memory_error() と同様。
+ */
+c7_hook_thread_error_t c7_hook_set_thread_error(c7_hook_thread_error_t hook);
+
+/** ポーリング(I/O多重化)関連APIエラーのフックを設定する。
+ *
+ * 引数、返却値や注意点については c7_hook_set_memory_error() と同様。
+ */
+c7_hook_poll_error_t c7_hook_set_poll_error(c7_hook_poll_error_t hook);
+
+/** stdout/stderr へのメッセージ出力機構で mlog 出力のフックを設定する。
+ */
+void c7_hook_set_echo_mlog(c7_mlog_t mlog);
+
+/** stdout/stderr へのメッセージ出力機構のフックを設定する。
+ *
+ * 引数、返却値や注意点については c7_hook_set_memory_error() と同様。
+ */
+c7_hook_echo_t c7_hook_set_echo(c7_hook_echo_t hook);
+
+
+//@}

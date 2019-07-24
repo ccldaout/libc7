@@ -1,0 +1,271 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7status c7status.h
+ * ステータス情報などを保存する。
+ */
+//@{
+
+
+/// @name ステータスコード
+//@{
+#define C7_STATUS_CAT_LIBC	///< libc 用のカテゴリーコード。
+#define C7_STATUS_CAT_C7	///< libc7 用のカテゴリーコード。
+#define C7_STATUS_CAT_USER_MIN	///< [利用者用]カテゴリーコードの最小値。
+#define C7_STATUS_CAT_USER_MAX	///< [利用者用]カテゴリーコードの最大値。
+#define C7_STATUS_OPT_CLEAR	///< libc7で使用するオプションコード。
+#define C7_STATUS_INVALID	///< 有効なステータスコードでない事を示す値。
+
+/** ステータスコードの型。
+ */
+typedef uint32_t c7_status_t;
+
+/** 12bitのカテゴリーコードとカテゴリー内の15bitの詳細コードから状態値を得る。
+ */
+c7_status_t C7_STATUS(c7_status_t cat, c7_status_t detail_in_cat);
+
+/** 状態値から上位4ビットのオプションコードを取り出す。
+ */
+c7_status_t C7_STATUS_OPT(c7_status_t statuss);
+
+/** 状態値から12bitのカテゴリーコードを取り出す。
+ */
+c7_status_t C7_STATUS_CAT(c7_status_t status);
+
+/** 状態値から15bitの詳細コードを取り出す。
+ */
+c7_status_t C7_STATUS_STS(c7_status_t status);
+
+//@}
+
+
+/// @name ステータスコードのカタログ
+//@{
+
+/** ステータスコードの文字列化情報。
+ */
+typedef struct c7_status_def_t {
+    const char *sts_msg;	///< メッセージ文字列。所謂、エラーメッセージの文字列。
+    const char *sts_id;		///< カテゴリー内の詳細コードに対応するニーモニック文字列。
+    c7_status_t sts;		///< ステータスコード。sts_id と異なりカテゴリーコードも含む。
+} c7_status_def_t;
+
+/** ステータスコードのカタログ。
+ *
+ * 以下はステータスコードのマクロ定義とカタログデータの定義の例である。
+ *
+ * sts_def.py
+ * @code
+import stsgen
+
+errno_h = './sts_errno.h'
+table_h = './sts_table.h'
+
+with stsgen.Catalog('some', 0x2a, errno_h, table_h) as c:
+    c.OPNERR = 'open error', 1
+    c.WRTERR = 'write error'
+    c.RDERR = 'read error'
+    c.CLSERR = 'read error'
+    c.msg_code = 0x20
+    c.SOCKERR = 'socket error'
+    c.CONNERR = 'connect error', 0x25
+
+ * @endcode
+ *
+ * libc7 で提供される stsgen.py を用いて上の sts_def.py を実行すると
+ * sts_errno.h と sts_table.h が生成される。
+ *
+ * @code
+#if !defined(STS_ERRNO_H_LOADED__)
+#define STS_ERRNO_H_LOADED__ 1
+
+#define SOME_E_OPNERR ((0x002a<<16)|0x0001) // open error
+#define SOME_E_WRTERR ((0x002a<<16)|0x0002) // write error
+#define SOME_E_RDERR ((0x002a<<16)|0x0003) // read error
+#define SOME_E_CLSERR ((0x002a<<16)|0x0004) // read error
+#define SOME_E_SOCKERR ((0x002a<<16)|0x0020) // socket error
+#define SOME_E_CONNERR ((0x002a<<16)|0x0025) // connect error
+
+#endif // sts_errno.h
+ * @endcode
+ *
+ * @code
+#include <c7status.h>
+#include "sts_errno.h"
+
+static c7_status_def_t _Some_table[] = {
+  { "open error", "OPNERR", SOME_E_OPNERR },
+  { "write error", "WRTERR", SOME_E_WRTERR },
+  { "read error", "RDERR", SOME_E_RDERR },
+  { "read error", "CLSERR", SOME_E_CLSERR },
+  { "socket error", "SOCKERR", SOME_E_SOCKERR },
+  { "connect error", "CONNERR", SOME_E_CONNERR },
+};
+
+static c7_status_catalog_t _Some_catalog = {
+  .cat = 0x2a,
+  .cat_id = "some",
+  .defv = _Some_table,
+  .defc = c7_numberof(_Some_table),
+};
+ * @endcode
+ */
+typedef struct c7_status_catalog_t {
+    c7_status_t cat;		///< 12bitのカテゴリーコード。ステータスコードから C7_STATUS_CAT() で得る値。
+    const char *cat_id;		///< カテゴリーのニーモニック文字列。
+    c7_status_def_t *defv;	///< ステータスコードの文字列化情報の配列。
+    				///< 配列の指す先は永続性のあるメモリでなければならない。
+    int defc;			///< defc の指す配列の要素数。
+} c7_status_catalog_t;
+
+/** カタログ cat を登録する。cat は永続性のあるメモリを指していなければならない。
+ */
+void c7_status_add_catalog(c7_status_catalog_t *cat);
+
+/** ステータスコードを文字列に変換するコンバータを登録する。
+ *
+ * @param convert コンバート関数。この関数は status と arg 引数からメッセージ文字列を構成し sbp に書き込む。
+ *                sbp には NULL でないC7文字列が渡される。コンバート関数で文字列化できれば sbp を戻す。
+ *		  そうでなければ NULL を戻してよい。
+ * @param arg convert関数に渡す引数。
+ *
+ * @note 現在のバージョンではコンバータは一つしか登録できない。
+ */
+void c7_status_add_convert(c7_str_t *(*convert)(c7_str_t *sbp, c7_status_t status, void *arg),
+			   void *arg);
+
+//@}
+
+
+/// @name ステータス情報の保存
+//@{
+
+/** このマクロは ::c7_status_pop と共に用い、一時的にステータス情報の保存エリアを退避し、
+ * 自動変数として準備したメモリをステータス情報の保存エリアとして使用する。この退避動作は
+ * ポインタの付け替えのみなので比較的高速に動作する。
+ */
+#define c7_status_push				\
+    do { c7_status_stack_t __save_stack;	\
+    __c7_status_push(&__save_stack)
+
+/** c7_status_push で退避した保存エリアを元に戻す。::c7_status_push 同様、ポインタの
+ * 付け替えのみなので高速に動作する。
+ */
+#define c7_status_pop				\
+    __c7_status_pop();				\
+    } while (0)
+
+/** ステータス情報の保存エリアの型。
+ *
+ * ステータス情報はスレッド毎に分離されたリングバッファに保存される。
+ * バッファは C7_CONFIG_STS_RBUF_SIZE (デフォルトでは 2048) バイト分確保され、
+ * そこに c7_status_add() などに渡したステータスコードやソースファイルの名称、
+ * 付加情報(文字列)が格納されていく。
+ *
+ * このバッファは ::c7_status_push を用いてスタック状に(しかも高速に)退避することができる。
+ * また、メモリ間の完全なコピー動作を伴うが、c7_status_save(), c7_status_restore() などを
+ * 用いて、スタックとは無関係に退避し、元に戻すことも可能である。
+ */
+typedef struct c7_status_stack_t_ c7_status_stack_t;
+
+/** 現スレッドのステータス情報をクリアする。リングバッファのポインタを操作するだけなので高速である。errno はクリアしない。
+ */
+void c7_status_clear(void);
+
+/** 現スレッドのステータス情報を save に指す保存エリアへコピーする。
+ */
+void c7_status_save(c7_status_stack_t *save);
+
+/** c7_status_save()とc7_status_clear()を行なう。
+ */
+void c7_status_saveclear(c7_status_stack_t *save);
+
+/** saved の指すステータス情報を現スレッドのステータス情報に書き戻す。
+ */
+void c7_status_restore(const c7_status_stack_t *saved);
+
+/** status と追加メッセージ、及びこのAPIを呼び出したソースファイルの名前と行番号を保存エリアへ追加する。
+ * 追加メッセージは fmt, ... で得られる文字列で、fmt が NULLの場合は追加メッセージはなしとする。
+ * errno は変更されない。
+ */
+void c7_status_add(c7_status_t status, const char *fmt, ...);
+		     
+/** status と追加メッセージ、及びこのAPIを呼び出したソースファイルの名前と行番号を保存エリアへ追加する。
+ * 追加メッセージは fmt, ap で得られる文字列で、fmt が NULLの場合は追加メッセージはなしとする。
+ * errno は変更されない。
+ */
+void c7_status_add_va(c7_status_t status, const char *fmt, va_list ap);
+			
+/** c7_status_clear() して c7_status_add() する。
+ */
+void c7_status_reset(c7_status_t status, const char *fmt, ...);
+		       
+/** c7_status_clear() して c7_status_add_va() する。
+ */
+void c7_status_reset_va(c7_status_t status, const char *fmt, va_list ap);
+
+//@}
+
+
+/// @name ステータス情報の確認と文字列化
+//@{
+
+/** 現スレッドのステータス情報にステータス情報が残っていれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ */
+c7_bool_t c7_status_has_error(void);
+
+/** ステータス情報を文字列化する際の行頭に挿入するプリフィクス文字列を作成する。
+ *
+ * @param sbp プリフィクス文字列を格納するC7文字列。NULLの場合は c7_str_new_sg() で確保される。
+ * @param file プリフィクス作成時に参考情報となるソースファイル名。
+ * @param line 同ソースファイルの行番号。
+ * @return sbp に c7_sprintf() を適用した結果がそのまま戻される。
+ *
+ * この関数は、c7status の外部から、c7_status_string() が作りだす文字列と同様のプリフィクスを
+ * 表示の体裁合わせで必要とすることを想定して準備された。実際に c7app 内の関数が呼びだしている。
+ *
+ * このプリフィクス文字列は、c7dconf の ::C7_DCONF_PREF の値毎に次のようになっている。
+ * - 0 の場合は "(ファイル名:行番号): "
+ * - 1 の場合は "プログラム名: "
+ * - 2 の場合は "プログラム名(ファイル名:行番号): "
+ *
+ * ここでプログラム名は、ライブラリロード時に /proc/\<PID\>/cmdline から得られるか、main() の直下などで c7_init() を呼んで明示的に保存しておかなければ空文字列となる。
+ */
+c7_str_t *c7_status_prefix(c7_str_t *sbp, const char *file, int line);
+
+/** 現スレッドのステータス情報を文字列化してC7文字列 sbp に追加する。sbp が NULL の場合は c7_str_new_sg() で確保する。
+ *
+ * c7_status_add() などで追加されたステータスコード status は次のように文字列に変換される:
+ * 1. status が 0 であればステータスコードは処理しない。
+ * 2. status のカテゴリーが 0 の場合は strerror() で文字列化する。
+ * 3. c7_status_add_catalog() の順番とは逆順にカテゴリーコードの一致するカタログを探す。
+ *    1. カタログの defv[] (ステータスコードの文字列化情報の配列) に一致するステータスコードがあれば、
+ *       それまでの情報から文字列化する。
+ *    2. カタログ内に見つからなければカテゴリーのみ文字列としてステータスコードを数値として文字列化する。
+ * 4. 一致するカタログがなければ c7_status_add_convert() で登録されたコンバータを用いて文字列化を試みる。
+ * 5. これでも文字列化できなければ、カテゴリコード、詳細コードをすべて数値として文字列化する。
+ * 6. 1.以外の場合、得られた文字列の前に c7_status_prefix() で得られるプリフィクスを挿入する。
+ *
+ * また、追加メッセージ文字列がある場合は以下のように処理される。
+ * 1. 追加メッセージが ": " で始まっていれば ": " を c7_status_prefix() で得られるプリフィクスに置換する。
+ * 2. 追加メッセージに "\n: " があれば、その個所の ": " を 1. 同様に置換する。
+ *
+ * なお、保存エリアにあるステータス情報のうち dconf の C7_DCONF_STSSCN_MAX の値の分だけが処理される。
+ * この値のデフォルト値は 10 である。
+ */
+c7_str_t *c7_status_string(c7_str_t *sbp);
+
+/** 現スレッドのステータス情報を走査する。
+ *
+ * 保存エリアにあるステータス情報のうち最新から dconf の C7_DCONF_STSSCN_MAX の値の分について、
+ * 古い方から走査し、scanner で指定した関数を呼び出す。
+ */
+void c7_status_scan(void (*scanner)(const char *file,
+				    int line,
+				    c7_status_t status,
+				    const char *message,
+				    const void *__uctx),
+		    void *__uctx);
+//@}
+
+
+//@}

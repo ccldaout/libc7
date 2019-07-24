@@ -1,0 +1,110 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7heapdef c7heapdef.h
+ * 比較をインライン化したヒープ操作機能を定義する
+ *
+ * このヘッダーファイルは、\#include する前に、いくつかのマクロを定義することで、
+ * ヒープ操作機能(型、関数、マクロ)を定義するためのものである。必要なマクロは、
+ *
+ * 1. 配列要素の型の C7_LEM_TYPE。
+ * 2. 要素比較用の C7_ELM_LT。
+ * 3. 生成する名前のプリフィクス C7_HEAP_NAME。
+ *
+ * となる。このあとで、\#include \<c7heapdef.h\> することで各種の機能が定義される。
+ *
+ * @code
+typedef struct elm_t {
+    uint32_t key;
+    ... other data ...
+} elm_t;
+
+#define C7_ELM_TYPE		elm_t
+#define C7_ELM_LT(p, q)		((p)->key < (q)->key)
+#define C7_HEAP_NAME		elmHeap
+#include <c7heapdef.h>
+
+static elm_t Array[...];
+static elmHeap_base_t HeapBase = c7_heap_init(Array);
+
+:
+{
+    elm_t *elmp = ...;
+    :
+    elmHeap_add(&HeapBase, elmp);
+    :
+}
+ * @endcode
+ */
+//@{
+
+
+/** [利用者定義] 配列の要素の型を定義する。
+ */
+#define C7_ELM_TYPE	
+
+/** [利用者定義] p の要素が q の要素より小さければ真となる演算を定義する。
+ */
+#define C7_ELM_LT(p, q)
+
+/** [利用者定義] 型に依存する関数名などのプリフィクスを定義する。
+ * このマクロは \#include \<c7heapdef.h\> で undef される。
+ */
+#define C7_HEAP_NAME		XXX
+
+/** 定義されるヒープオブジェクト型
+ */
+typedef struct XXX_base_t_ {
+    C7_ELM_TYPE *_a;	///< ヒープとして使う配列
+    size_t _n;		///< 配列に格納されている要素数
+} XXX_base_t;
+
+/** ヒープオブジェクト型の初期化用マクロ
+ */
+#define c7_heap_init(a)		{ (a), 0 }
+
+/** ヒープオブジェクトに配列をセットする 
+ */
+#define c7_heap_setarray(b, a)	((b)->_a = (a))
+
+/** 現在のインデックスから親のインデックスを得る。
+ */
+#define c7_heap_parent(i)	(((i) - 1) >> 1)
+
+/** 現在のインデックスから左の子のインデックスを得る。
+ */
+#define c7_heap_left(i)		((((i)) << 1) + 1)
+
+/** 現在のインデックスから右の子のインデックスを得る。
+ */
+#define c7_heap_right(i)	(c7_heap_left(i) + 1)
+
+/** ヒープオブジェクトに格納された要素数を得る。
+ */
+#define c7_heap_count(b)	((b)->_n)
+
+/** ヒープオブジェクトの先頭要素(最も小さい要素)のポインタを得る。
+ */
+#define c7_heap_top(b)		c7_heap_Nth(b, 0)
+
+/** ヒープオブジェクトのインデックス n の要素のポインタを得る。
+ */
+#define c7_heap_Nth(b, n)	(&(b)->_a[(n)])
+
+/** 要素のポインタからインデックスを得る。
+ */
+#define c7_heap_index(b, e)	((e) - (b)->_a)
+
+/** ヒープオブジェクトを空にする。
+ */
+#define c7_heap_reset(b)	((b)->_n = 0)
+
+/** ヒープオブジェクト base に 要素 elm を追加する。
+ */
+static void XXX_add(XXX_base_t *base, C7_ELM_TYPE *elm);
+
+/** ヒープオブジェクト base のインデックス idx の要素を削除する。
+ */
+static void XXX_remove(XXX_base_t *base, size_t idx);
+
+
+//@}
