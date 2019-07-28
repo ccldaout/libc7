@@ -45,6 +45,8 @@ char *c7_fgets(c7_str_t *sbp, FILE *fp)
     if (n == 0) {
 	if (ferror(fp))
 	    c7_status_add(errno, ": fgets error\n");
+	else
+	    errno = 0;		// EOF
 	return NULL;
     }
     if (C7_STR_ERR(c7_strcpy(sbp, "\n")))
