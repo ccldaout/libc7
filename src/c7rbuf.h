@@ -20,11 +20,6 @@ extern "C" {
 
 typedef uint32_t rbuf_unit_t;
 
-typedef struct rbuf_mark_t_ {
-    rbuf_unit_t rewindcnt;
-    rbuf_unit_t nextaddr;
-} rbuf_mark_t;
-
 #define C7_RBUF_HDR_n		(4)
 
 #define C7_RBUF_SIZE_MAX	(512*1024*1024)		// 512MB
