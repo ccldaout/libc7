@@ -1,0 +1,76 @@
+// -*- coding: utf-8; mode: C -*-
+
+/** @defgroup c7pipeline c7pipeline.h
+ * 複数のコマンドをパイプラインで実行する。
+ */
+//@{
+
+
+/** パイプラインオブジェクト。
+ */
+typedef struct c7_pipeline_t_ *c7_pipeline_t;
+
+/** パイプラインオブジェクトを生成する。
+ *
+ * @return 成功すればパイプラインオブジェクトを戻し、失敗すれば NULL を戻す。
+ */
+c7_pipeline_t c7_pipeline_init(void);
+
+/** パイプラインの末尾側にコマンドを追加する。
+ *
+ * @param pl パイプライン
+ * @param wdir コマンドを実行する作業ディレクトリ。NULLは許されない。
+ * @param av コマンド引数の NULL で終了する配列。ev 引数と合わせて execvpe(av[0], av, ev) として使用される。
+ * @param ev NULL でなければ、環境変数("変数名=値")の NULL で終了する配列。
+ * @return 引数の情報を保存できれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。
+ */
+c7_bool_t c7_pipeline_add(c7_pipeline_t pl, const char *wdir, char **av, char **ev);
+
+/** パイプラインを実行する。
+ *
+ * @param pl パイプライン。
+ * @param fd0 パイプラインの先頭コマンドに標準入力(記述子0)に接続される記述子。
+ * @param fd1 パイプラインの末尾コマンドに標準出力(記述子1)に接続される記述子。
+ * @param fd2 パイプラインの全てのコマンドの標準エラー出力(記述子2)に接続される記述子。
+ * @return パイプラインの起動に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。
+ *
+ * c7_pipeline_add() で追加順に、コマンドの標準出力が次のコマンドの標準入力に接続されるように
+ * コマンドを起動する。コマンド起動前に wdir で指定されたディレクトリに chdir() する。
+ * 
+ * この関数ではパイプラインの各コマンドの execvpe(2) が成功したかどうかまでは関知できず、あくまで
+ * 記述子の準備と fork(2) までである。
+ * 
+ * この関数から戻る前に、引数に指定した fd0 と fd1 はクローズされる。
+ */
+c7_bool_t c7_pipeline_exec(c7_pipeline_t pl, int fd0, int fd1, int fd2);
+
+/** パイプラインにシグナルを送る。
+ *
+ * @param pl パイプライン。
+ * @param sig シグナル番号
+ *
+ * パイプラインを構成する全てのプロセスにシグナルを送る。
+ */
+void c7_pipeline_kill(c7_pipeline_t pl, int sig);
+
+/** パイプラインの終了を待機する。
+ * 
+ * @param pl パイプライン。
+ * @param pc NULLでなければパイプライン内のコマンド数を設定する。
+ * @return パイプラインの各コマンドの終了値の配列を戻す。
+ *
+ * パイプラインを構成する全てのプロセスに対して c7_proc_wait() を呼び出し、
+ * その結果を配列で戻す。配列には c7_pipeline_add() した順で結果が格納される。
+ */
+int *c7_pipeline_wait(c7_pipeline_t pl, int *pc);
+
+/** パイプラインオブジェクトを破棄する。
+ * 
+ * @param pl パイプライン。
+ * 
+ * パイプラインが走行中であれば SIGKILL を送って強制的に終了させる。
+ */
+void c7_pipeline_free(c7_pipeline_t pl);
+
+
+//@}

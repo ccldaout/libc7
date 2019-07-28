@@ -56,6 +56,8 @@ c7_bool_t c7_regrep_exec(c7_regrep_t regrep,
 			 c7_str_t *out);
 
 /** regrepオブジェクトを削除する。
+ *
+ * @param regrep c7_regrep_new()で生成した regrep オブジェクト。
  */
 void c7_regrep_free(c7_regrep_t regrep);
 

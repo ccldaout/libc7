@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -96,25 +96,20 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3a68ce240c04e216e5dcadbc6c7fb2cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga3a68ce240c04e216e5dcadbc6c7fb2cb">c7_mpool_init_mt</a> (size_t size, int alccnt, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>(*on_get)(void *), void(*on_put)(void *), void(*on_free)(void *), unsigned flags)</td></tr>
 <tr class="memdesc:ga3a68ce240c04e216e5dcadbc6c7fb2cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチスレッド用にメモリプールを初期化する。  <a href="#ga3a68ce240c04e216e5dcadbc6c7fb2cb">More...</a><br /></td></tr>
 <tr class="separator:ga3a68ce240c04e216e5dcadbc6c7fb2cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9ac0562c631e5ca2d96c7c0ef362edb1"><td class="memItemLeft" align="right" valign="top"><a id="ga9ac0562c631e5ca2d96c7c0ef362edb1"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1">c7_mpool_get</a> (<a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a> mp)</td></tr>
-<tr class="memdesc:ga9ac0562c631e5ca2d96c7c0ef362edb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる。 <br /></td></tr>
+<tr class="memitem:ga9ac0562c631e5ca2d96c7c0ef362edb1"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1">c7_mpool_get</a> (<a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a> mp)</td></tr>
+<tr class="memdesc:ga9ac0562c631e5ca2d96c7c0ef362edb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプールからメモリユニットを取得する。  <a href="#ga9ac0562c631e5ca2d96c7c0ef362edb1">More...</a><br /></td></tr>
 <tr class="separator:ga9ac0562c631e5ca2d96c7c0ef362edb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac3f29137feb4a514b2540f8a8bfd2ca1"><td class="memItemLeft" align="right" valign="top"><a id="gac3f29137feb4a514b2540f8a8bfd2ca1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gac3f29137feb4a514b2540f8a8bfd2ca1">c7_mpool_ref</a> (void *addr)</td></tr>
-<tr class="memdesc:gac3f29137feb4a514b2540f8a8bfd2ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a>で得たメモリユニットの参照カウントを増やす。 <br /></td></tr>
+<tr class="memitem:gac3f29137feb4a514b2540f8a8bfd2ca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gac3f29137feb4a514b2540f8a8bfd2ca1">c7_mpool_ref</a> (void *addr)</td></tr>
+<tr class="memdesc:gac3f29137feb4a514b2540f8a8bfd2ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリユニットの参照カウントを増やす。  <a href="#gac3f29137feb4a514b2540f8a8bfd2ca1">More...</a><br /></td></tr>
 <tr class="separator:gac3f29137feb4a514b2540f8a8bfd2ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf190deb8fd8b184a905b650474961899"><td class="memItemLeft" align="right" valign="top"><a id="gaf190deb8fd8b184a905b650474961899"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gaf190deb8fd8b184a905b650474961899">c7_mpool_unref</a> (void *addr)</td></tr>
-<tr class="memdesc:gaf190deb8fd8b184a905b650474961899"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a>で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。(実は <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。">c7_mpool_put()</a> の別名) <br /></td></tr>
+<tr class="memitem:gaf190deb8fd8b184a905b650474961899"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gaf190deb8fd8b184a905b650474961899">c7_mpool_unref</a> (void *addr)</td></tr>
+<tr class="memdesc:gaf190deb8fd8b184a905b650474961899"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリユニットの参照カウントを減らす。  <a href="#gaf190deb8fd8b184a905b650474961899">More...</a><br /></td></tr>
 <tr class="separator:gaf190deb8fd8b184a905b650474961899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="memItemLeft" align="right" valign="top"><a id="gad3f0638b61efb7fb10ec879bdcc02e5b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b">c7_mpool_put</a> (void *addr)</td></tr>
-<tr class="memdesc:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a>で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。 <br /></td></tr>
+<tr class="memitem:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b">c7_mpool_put</a> (void *addr)</td></tr>
+<tr class="memdesc:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリユニットの参照カウントを減らす。  <a href="#gad3f0638b61efb7fb10ec879bdcc02e5b">More...</a><br /></td></tr>
 <tr class="separator:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="memItemLeft" align="right" valign="top"><a id="ga5779470e8fa6c6c5ac3ba0357e9525c9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9">c7_mpool_free</a> (<a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a> mp)</td></tr>
-<tr class="memdesc:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプール mp で確保したメモリを全て解放する。この時はメモリユニットの参照カウントは考慮されない。 <br /></td></tr>
+<tr class="memitem:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9">c7_mpool_free</a> (<a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a> mp)</td></tr>
+<tr class="memdesc:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプールで確保したメモリを全て解放し、メモリプール自体も解放する。  <a href="#ga5779470e8fa6c6c5ac3ba0357e9525c9">More...</a><br /></td></tr>
 <tr class="separator:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -171,9 +166,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   <table class="params">
     <tr><td class="paramname">size</td><td>要素のサイズ(bytes) </td></tr>
     <tr><td class="paramname">alccnt</td><td>メモリ確保の単位。プールを確保する場合に alccnt 個を一度に確保する。 </td></tr>
-    <tr><td class="paramname">on_get</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a> でメモリを得た場合に呼び出される。 </td></tr>
-    <tr><td class="paramname">on_put</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。">c7_mpool_put()</a>, <a class="el" href="group__c7mpool.html#gaf190deb8fd8b184a905b650474961899" title="c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。(実は c7_mpool_put() の別名)">c7_mpool_unref()</a> でメモリがプールに保管される際に呼び出される。 </td></tr>
-    <tr><td class="paramname">on_free</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9" title="メモリプール mp で確保したメモリを全て解放する。この時はメモリユニットの参照カウントは考慮されない。">c7_mpool_free()</a> でメモリを実際に解放する際に呼び出される。 </td></tr>
+    <tr><td class="paramname">on_get</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a> でメモリを得た場合に呼び出される。 </td></tr>
+    <tr><td class="paramname">on_put</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="メモリユニットの参照カウントを減らす。">c7_mpool_put()</a>, <a class="el" href="group__c7mpool.html#gaf190deb8fd8b184a905b650474961899" title="メモリユニットの参照カウントを減らす。">c7_mpool_unref()</a> でメモリがプールに保管される際に呼び出される。 </td></tr>
+    <tr><td class="paramname">on_free</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9" title="メモリプールで確保したメモリを全て解放し、メモリプール自体も解放する。">c7_mpool_free()</a> でメモリを実際に解放する際に呼び出される。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -236,9 +231,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   <table class="params">
     <tr><td class="paramname">size</td><td>要素のサイズ(bytes) </td></tr>
     <tr><td class="paramname">alccnt</td><td>メモリ確保の単位。プールを確保する場合に alccnt 個を一度に確保する。 </td></tr>
-    <tr><td class="paramname">on_get</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a> でメモリを得た場合に呼び出される。 </td></tr>
-    <tr><td class="paramname">on_put</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。">c7_mpool_put()</a>, <a class="el" href="group__c7mpool.html#gaf190deb8fd8b184a905b650474961899" title="c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。(実は c7_mpool_put() の別名)">c7_mpool_unref()</a> でメモリがプールに保管される際に呼び出される。 </td></tr>
-    <tr><td class="paramname">on_free</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9" title="メモリプール mp で確保したメモリを全て解放する。この時はメモリユニットの参照カウントは考慮されない。">c7_mpool_free()</a> でメモリを実際に解放する際に呼び出される。 </td></tr>
+    <tr><td class="paramname">on_get</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a> でメモリを得た場合に呼び出される。 </td></tr>
+    <tr><td class="paramname">on_put</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="メモリユニットの参照カウントを減らす。">c7_mpool_put()</a>, <a class="el" href="group__c7mpool.html#gaf190deb8fd8b184a905b650474961899" title="メモリユニットの参照カウントを減らす。">c7_mpool_unref()</a> でメモリがプールに保管される際に呼び出される。 </td></tr>
+    <tr><td class="paramname">on_free</td><td>NULLでなければ <a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9" title="メモリプールで確保したメモリを全て解放し、メモリプール自体も解放する。">c7_mpool_free()</a> でメモリを実際に解放する際に呼び出される。 </td></tr>
     <tr><td class="paramname">flags</td><td>C7_MPOOL_MT_xxx の論理和を指定する。 </td></tr>
   </table>
   </dd>
@@ -246,12 +241,141 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <dl class="section return"><dt>Returns</dt><dd>メモリプールの初期化に成功すればメモリプールオブジェクトを戻し、失敗すれば NULL を戻す。</dd></dl>
 <p>マルチスレッド用にプールの操作を pthread の mutex で排他制御する。flags によって挙動が異なる。</p><ul>
 <li><p class="startli">flags が 0。</p>
-<p class="startli"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a>を呼んだときにプールが空であればシングルスレッド版と同様に追加でプールを確保する。</p>
+<p class="startli"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a>を呼んだときにプールが空であればシングルスレッド版と同様に追加でプールを確保する。</p>
 </li>
 <li><p class="startli">flags に C7_MPOOL_MT_WAITABLE が指定されている。</p>
-<p class="startli"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプール mp からメモリユニットを取得する。メモリを取得できればそのアドレスを戻す。 メモリの確保(プールの追加)に失敗すれば NULL を戻す。確保したメモリのリファレンスカウントは 1 になる...">c7_mpool_get()</a>を呼んだときにプールが空であれば他のスレッドが <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="c7_mpool_get()で得たメモリユニットの参照カウントを減らす。減らした結果 0 になれば、 メモリユニットはプールへ戻される。">c7_mpool_put()</a> するまで待機する。 これは、スレッドがプロデューサーとコンシューマで分離されている場合に適している。 </p>
+<p class="startli"><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a>を呼んだときにプールが空であれば他のスレッドが <a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="メモリユニットの参照カウントを減らす。">c7_mpool_put()</a> するまで待機する。 これは、スレッドがプロデューサーとコンシューマで分離されている場合に適している。 </p>
 </li>
 </ul>
+
+</div>
+</div>
+<a id="ga9ac0562c631e5ca2d96c7c0ef362edb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9ac0562c631e5ca2d96c7c0ef362edb1">&#9670;&nbsp;</a></span>c7_mpool_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_mpool_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a>&#160;</td>
+          <td class="paramname"><em>mp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリプールからメモリユニットを取得する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mp</td><td>メモリプール。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>メモリを取得できればそのアドレスを戻し、メモリの確保(プールの追加)に失敗すれば NULL を戻す。 確保したメモリのリファレンスカウントは 1 になる。</dd></dl>
+<p>メモリを取得できた場合 on_get で指定した関数が呼ばれる。 </p>
+
+</div>
+</div>
+<a id="gac3f29137feb4a514b2540f8a8bfd2ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac3f29137feb4a514b2540f8a8bfd2ca1">&#9670;&nbsp;</a></span>c7_mpool_ref()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_mpool_ref </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリユニットの参照カウントを増やす。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a>で得たメモリユニット。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf190deb8fd8b184a905b650474961899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf190deb8fd8b184a905b650474961899">&#9670;&nbsp;</a></span>c7_mpool_unref()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_mpool_unref </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリユニットの参照カウントを減らす。 </p>
+<p><a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b" title="メモリユニットの参照カウントを減らす。">c7_mpool_put()</a> の別名である。 </p>
+
+</div>
+</div>
+<a id="gad3f0638b61efb7fb10ec879bdcc02e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad3f0638b61efb7fb10ec879bdcc02e5b">&#9670;&nbsp;</a></span>c7_mpool_put()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_mpool_put </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリユニットの参照カウントを減らす。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a>で得たメモリユニット。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>メモリユニットの参照カウントを減らす。 減らした結果 0 になればメモリユニットはプールへ戻される。この時、on_put で指定した関数が呼ばれる。 </p>
+
+</div>
+</div>
+<a id="ga5779470e8fa6c6c5ac3ba0357e9525c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5779470e8fa6c6c5ac3ba0357e9525c9">&#9670;&nbsp;</a></span>c7_mpool_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_mpool_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a>&#160;</td>
+          <td class="paramname"><em>mp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリプールで確保したメモリを全て解放し、メモリプール自体も解放する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mp</td><td>メモリプール。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a> したあとプールに戻されていないメモリユニットも含めて、このメモリプールに関係する 全てのメモリユニットを解放する。このとき on_free で指定した関数が呼ばれる。 </p>
 
 </div>
 </div>

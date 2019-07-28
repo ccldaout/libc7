@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -238,7 +238,13 @@ popen()拡張版</h2></td></tr>
 </div><div class="memdoc">
 
 <p>(子プロセスの起動に失敗した場合に) 事前確保したスロットを解放する。 </p>
-<p>通常、この関数は <a class="el" href="group__c7proc.html#gace73ad7595153fbea9ec6954e1d81342" title="(fork前に) SIGCHLDハンドラ登録用のスロットを確保する。">c7_cleaner_reserve()</a> で確保したあと、子プロセスの起動に失敗した 場合に呼び出す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reserved_slot</td><td>c7_clearner_reserve()で確保しておいたスロット番号。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>この関数は <a class="el" href="group__c7proc.html#gace73ad7595153fbea9ec6954e1d81342" title="(fork前に) SIGCHLDハンドラ登録用のスロットを確保する。">c7_cleaner_reserve()</a> で確保したあと、子プロセスの起動に失敗した場合に呼び出す。 </p>
 
 </div>
 </div>

@@ -56,75 +56,127 @@ typedef struct elm_t_ {
  * @param itemsize 要素のバイト数
  * @param init     NULLでなければ、indexの要素が新たに確保された場合に呼ばれる。
  * @param deinit   NULLでなければ、indexの要素を削除する場合に呼ばれる。
+ * @return 初期化に成功すれば parrayオブジェクトを戻し、失敗すれば NULL を戻す。
  */
 c7_parray_t c7_parray_create(size_t itemsize,
 			     c7_bool_t (*init)(void *addr, int index),
 			     void (*deinit)(void *addr, int index));
 
-/** parrayに登録されている要素数を戻す。
+/** parrayに登録されている要素数を得る。
+ *
+ * @param parray parrayオブジェクト。
+ * @return parrayに登録されている要素数(≧0)を戻す。
  */
 int c7_parray_count(const c7_parray_t parray);
 
-/** parray の index に要素が登録されているかチェックする。
+/** parray の指定インデックスに要素が登録されているかチェックする。
+ *
+ * @param parray parrayオブジェクト。
+ * @param index 調べたいインデックス。
+ * @return インデックスに要素が存在すれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_parray_check(const c7_parray_t parray, int index);
 
-/** parray の index に要素が登録されていればそのアドレスを戻し、
- * そうでなれば NULL ポインタを戻す。
+/** parray の指定インデックスの要素のアドレスを得る。
+ *
+ * @param parray parrayオブジェクト。
+ * @param index 要素を取得したインデックス。
+ * @return インデックスに要素が存在すればそのアドレスを戻し、そうでなければ NULL を戻す。
  */
 void *c7_parray_get(c7_parray_t parray, int index);
 
-/** parray の index に要素が登録されていなければ要素のメモリを確保する。
- * メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、
- * init に確保したメモリアドレスと index を与えて呼びだす。\n
- * index に要素が登録されていたか、メモリ確保に失敗するか、init が C7_FALSE を戻した場合は NULL ポインタを戻す。
- * そうでなければ確保した要素のアドレスを戻す。
+/** parray の指定インデックスに新規要素を確保する。
+ *
+ * @param parray parrayオブジェクト。
+ * @param index 要素を確保したいインデックス。このインデックスに要素が存在してはいけない。
+ * @return 処理が成功すればインデックスに新規に確保された要素のアドレスを戻し、
+ *	   そうでなければ NULL を戻す。
+ *
+ * - インデックスに既に要素が存在した場合はエラーとなる。
+ * - メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、
+ *   確保したメモリアドレスと index を与えて init を呼びだす。
+ * - init が呼ばだされた場合、init() gal C7_FALSE を戻せばエラーとなる。この時、確保したメモリは解放される。
  */
 void *c7_parray_new(c7_parray_t parray, int index);
 
-/** parray の index に要素が登録されていればそのアドレスを戻す。
- * その際、exist_op が NULL でなければ *exist_op に C7_TRUE を設定する。\n
- * index に要素が登録されていなければ要素のメモリを確保する。
- * メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、
- * init に確保したメモリアドレスと index を与えて呼びだす。\n
- * メモリ確保に失敗するか、init が C7_FALSE を戻した場合は NULL ポインタを戻す。
- * そうでなければ確保した要素のアドレスを戻す。
- * その際、exist_op が NULL でなければ *exist_op に C7_FALSE を設定する。
+/** parray の指定インデックスが空いていれば新規要素を確保する。
+ *
+ * @param parray parrayオブジェクト。
+ * @param index 要素を確保したいインデックス。このインデックスに要素が存在していても良い。
+ * @param exist_op NULLでなければ *exist_op に既に要素が存在していたかどうかが設定される。
+ * @return 処理が成功すればインデックスの要素のアドレスを戻し、
+ *	   そうでなければ NULL を戻す。
+ * 
+ * - インデックスに既に要素が存在していた場合、その要素のアドレスを戻す。
+ *   その際、exist_op が NULL でなれば *exist_op には C7_TRUE が設定される。
+ * - インデックスに要素が登録されていなければ、c7_parray_new() と同じ処理を行う。
+ *   その際、exist_op が NULL でなれば *exist_op には C7_FALSE が設定される。
  */
 void *c7_parray_newif(c7_parray_t parray, int index, c7_bool_t *exist_op);
 
-/** parray の最小の未使用インデックスを探し、そのインデックスで c7_parray_new() を呼ぶ。
+/** parray の空きインデックスに新規要素を確保する。
+ *
+ * @param parray parrayオブジェクト。
+ * @param indexp NULLでなければ空きインデックスが設定される。
+ * @return 処理が成功すればインデックスの要素のアドレスを戻し、
+ *	   そうでなければ NULL を戻す。
+ *
+ * parray中の最小の未使用インデックスを探し、そのインデックスで c7_parray_new() を呼ぶ。
  */
 void *c7_parray_new_auto(c7_parray_t parray, int *indexp);
 
-/** parray の src_index の要素を dst_index へ移動する。
+/** parray の要素を別のインデックスへ移動する。
  *
- * - src_index と dst_index が同じ場合は何もせず C7_TRUE を戻す。
- * - dst_index に要素が既に存在して overwrite が C7_FALSE であれば C7_FALSE を戻す。
- * - dst_index に要素が既に存在して overwrite が C7_TRUE であれば dst_index を
- *   削除する。c7_parray_create() で deinit が定義されていれば dst_index に対して呼ばれる。
- * - src_index の要素を dst_index の方に登録し、src_index の方は空きとする。
- * - C7_TRUE を戻す。
+ * @param parray parrayオブジェクト。
+ * @param src_index 移動したい要素の存在するインデックス。
+ * @param dst_index 移動先のインデックス。
+ * @param overwrite 移動先のインデックスに要素があった場合に上書きするかどうかを指定する。
+ *                  C7_TRUE であれば c7_parray_free() でその要素を削除し、C7_FALSE であればエラーとする。
+ * @return 移動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
+ *
+ * 成否は次のように定まる:
+ * 1. src_index と dst_index が同じ場合は何もせずに成功。
+ * 2. dst_index に要素が既に存在して overwrite が C7_FALSE であれば失敗。
+ * 3. dst_index に要素が既に存在して overwrite が C7_TRUE であれば成功。
+ *    - c7_parray_create() で deinit が定義されていれば dst_index に対して呼ばれる。
+ *    - 移動完了後、src_index は空きとなる。
  */	
-
 c7_bool_t c7_parray_move(c7_parray_t parray, int src_index, int dst_index,
 			 c7_bool_t overwrite);
 
-/** parray の index の要素の登録を解除し要素のアドレスを戻す。この場合、deinit は呼ばれない。
- * index に要素がなければ NULL を戻す。
+/** 要素を parray から切り離す。
+ *
+ * @param parray parrayオブジェクト。
+ * @param index 切り離したい要素のインデックス。
+ * @return インデックスに要素が存在すればその要素のアドレスを戻し、なければ NULL を戻す。
+ *
+ * index に要素が存在した場合、この切り離し処理で deinit は呼ばれない。
+ * また切り離しにより index  は空きとなる。
  */
 void *c7_parray_release(c7_parray_t parray, int index);
 
-/** parray に登録されている最大の index を戻す。
+/** parray に登録されている最大のインデックスを得る。
+ *
+ * @param parray parrayオブジェクト。
+ * @return parray に登録されている最大のインデックスを戻す。特に空であれば -1 を戻す。
  */
 int c7_parray_last_index(c7_parray_t parray);
 
-/** parray の index の要素を解放する。解放の前に deinit が NULL でなければ呼ばれる。
- * 最初から index の要素がなかった場合は何もしない。
+/** 要素を解放する。
+ *
+ * @param parray parrayオブジェクト。
+ * @param index 解放したい要素のインデックス。
+ * 
+ * index に要素が存在した場合解放する。解放の前に deinit が NULL でなければ呼ばれる。
+ * 解放後に index は空きとなる。最初から index の要素がなかった場合は何もしない。
  */
 void c7_parray_free(c7_parray_t parray, int index);
 
-/** parray を削除する。登録されている全ての要素に c7_parray_free() を呼び出したあと、parray 自体が解放される。
+/** parray を削除する。
+ *
+ * @param parray parrayオブジェクト。
+ *
+ * 登録されている全ての要素に c7_parray_free() を呼び出したあと、parray 自体を解放する。
  */
 void c7_parray_destroy(c7_parray_t parray);
 

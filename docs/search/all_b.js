@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['thread_5fid',['thread_id',['../group__c7mlog.html#aafaf744e8060eaadc6634ea3dd75895a',1,'c7_mlog_info_t']]],
-  ['thread_5fname',['thread_name',['../group__c7mlog.html#a709deb0fd7ce3d91463dd3a4d90387a9',1,'c7_mlog_info_t']]],
-  ['time_5fus',['time_us',['../group__c7mlog.html#af59c85fcb03f3c5ca37166ed95e55fab',1,'c7_mlog_info_t']]],
-  ['type',['type',['../group__c7args.html#a9b9623f84d5c844cd4b7b47e3f816f59',1,'c7_args_prm_t::type()'],['../group__c7dconf.html#a69efecb4de66e1d7e28e8b625cfb3c6a',1,'c7_dconf_def_t::type()']]]
+  ['r',['r',['../group__c7args.html#ab31181e40d3128f51141237f99374030',1,'__7_args_prm_u']]],
+  ['rxv',['rxv',['../group__c7args.html#a70aab87f795170cc7187412d8f782485',1,'__7_args_prm_u']]]
 ];

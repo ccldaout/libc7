@@ -8,12 +8,19 @@
 
 /// @name パス名に関する処理
 //@{
-/** パス名 path のファイル名部分を戻す。
+/** パス名のファイル名部分を戻す。
+ *
+ * @param path パス名。
+ * @return path に '/' が含まれていたら最後の '/' の直後を、そうでなければ path を戻す。
  */
 const char *c7_path_name(const char *path);
 
-/** ファイル名 file のサフィクス(最後の'.\ ')もしくは終端を戻す。\n
- * 注意: file にディレクトリ部分があると正しく動作しない。
+/** ファイル名のサフィクスを戻す。
+ *
+ * @param file ファイル名。ディレクトリを含んでいないことを想定している。
+ * @return file に '.\ ' が含まれていたら最後の '.\ ' の直後を、そうでなければ終端を戻す。
+ *
+ * @note file にディレクトリ部分が存在し、そこに '. ' が含まれていると正しく動作しない場合がある。
  */
 const char *c7_path_suffix(const char *file);
 
@@ -39,7 +46,7 @@ c7_str_t *c7_file_special_path(c7_str_t *sbp,
 			       const char *name,
 			       const char *suffix);	// include '.'
 
-/** ファイル name を pathlistv, default_suffix に基づいて検索する。
+/** ファイルを検索リストやデフォルトサフィクスの情報に基づいて検索する。
  *
  * @param sbp 検索して見つかったパス名を設定するC7文字列。NULLを指定することはできない。
  * @param name 検索したいファイルの名前。
@@ -68,28 +75,39 @@ c7_bool_t c7_file_search(c7_str_t *sbp,
 //@{
 /** 可能な限り一行分('\\n')を読み込む fgets() の拡張版。
  *
+ * @param sbp C7文字列。NULLは許されない。読み込む前に sbp に含まれている内容はリセットされる。
+ * @param fp 読み込む FILE オブジェクト。
+ * @return 正常に読み込めたら c7_strbuf(sbp) を戻し、それ以外は NULL を戻す。
+ *         NULL が戻った場合に、エラーなのか EOF なのかは c7_status_had_error() で調べるしかない。
+ *
+ * この関数は次のように動作する:
+ * - c7_status_clear() でステータス情報をクリアする。
  * - fgets() の結果に '\\n' が含まれるまで、fgets() を繰り返し呼び出し、
  *   sbp に読み込み結果を追加していく。
  * - '\\n' を読み込んだら c7_strbuf(sbp) を戻す。
  * - '\\n' を読み込む前に fgets() が NULL を戻したら、sbp へ '\\n' を追加して、
  *   エラーがなければ c7_strbuf(sbp) を戻す。
  * - sbp への追加でエラーが発生したら NULL を戻す。
- * - EOFに達した場合も NULL が戻るが、この場合 c7_status_has_error() は C7_FALSE となる。
+ * - 読み込みでエラーが発生した場合は c7_status_add() でエラーを記録し NULL を戻す。
+ * - EOFを検出した場合はエラーは記録せず NULL を戻す。
  */
 char *c7_fgets(c7_str_t *sbp, FILE *fp);
 //@}
 
 
-/// @name ファイル名単位での入出力
+/// @name ファイル単位での入出力
 //@{
-/** バッファの内容で path 名のファイルを書き込む。
+/** バッファの内容でファイルを書き込む。
  *
- * - path は open(path, O_WRONLY|O_CREAT|O_TRUNC, mode) でオープンされる。
- * - size バイトを書き込めた場合だけ C7_TRUE を戻す。
+ * @param path 書き込まれるファイル名。ファイルが存在しなければ作成され、存在すれば中身はリセットされる。
+ * @param mode 新規作成される場合の保護モード。
+ * @param buf ファイルに書き込まれる内容。
+ * @param size ファイルに書き込むバイト数。
+ * @return 処理に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。
  */
 c7_bool_t c7_file_write(const char *path, int mode, void *buf, size_t size);
 
-/** バッファの内容で path 名のファイルを可能な限り安全に書き換える。
+/** バッファの内容でファイルを可能な限り安全に書き換える。
  *
  * @param path 書き換えの対象となるファイル名。存在しなければエラーとなる。
  * @param buf 書き換え後のファイルの内容となるデータ
@@ -108,7 +126,7 @@ c7_bool_t c7_file_write(const char *path, int mode, void *buf, size_t size);
 c7_bool_t c7_file_rewrite(const char *path, void *buf, size_t size,
 			  const char *bck_suffix);
 
-/** ファイル path (もしくは標準入力)から buf に size バイトのデータを読み込む。
+/** ファイル(もしくは標準入力)から指定サイズ分のデータを読み込む。
  *
  * @param path 読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。
  * @param buf 読み込んだデータを格納するバッファ。
@@ -117,7 +135,7 @@ c7_bool_t c7_file_rewrite(const char *path, void *buf, size_t size,
  */
 ssize_t c7_file_read(const char *path, void *buf, size_t size);
 
-/** ファイル path (もしくは標準入力)からEOFまで全データを読み込む。
+/** ファイル(もしくは標準入力)からEOFに到達するまで全データを読み込む。
  *
  * @param path 読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。
  * @param sizep_o NULLポインタでなければ、*sizep_o に実際に読み込んだバイト数を格納する。
@@ -128,7 +146,7 @@ ssize_t c7_file_read(const char *path, void *buf, size_t size);
  */
 void *c7_file_read_x(const char *path, size_t *sizep_o);
 
-/** テキストファイル path (もしくは標準入力)からEOFまで全データを読み込み行の配列として戻す。
+/** テキストファイル(もしくは標準入力)から読み込んだデータを行の配列として戻す。
  *
  * @param path 読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。
  * @param nlinep_o NULLポインタでなければ *nlinep_o に行数を格納する。
@@ -146,7 +164,7 @@ char **c7_file_readlines_x(const char *path, size_t *nlinep_o);
 
 /// @name ファイルの簡易 mmap インターフェース
 //@{
-/** ファイル path を読み込み専用で mmap する。 
+/** ファイルを読み込み専用で mmap する。 
  *
  * @param path mmapするファイル名。存在する必要がある。
  * @param sizep_o NULLの場合、mmapするサイズをファイルのサイズから自動的に得る。
@@ -157,7 +175,7 @@ char **c7_file_readlines_x(const char *path, size_t *nlinep_o);
  */
 void *c7_file_mmap_r(const char *path, size_t *sizep_o);
 
-/** ファイル path を読み書き両用で mmap する。 
+/** ファイルを読み書き両用で mmap する。 
  *
  * @param path mmapするファイル名。
  * @param sizep_io NULLの場合、mmapするサイズをファイルのサイズから自動的に得る。
@@ -173,6 +191,9 @@ void *c7_file_mmap_r(const char *path, size_t *sizep_o);
 void *c7_file_mmap_rw(const char *path, size_t *sizep_io, c7_bool_t create);
 
 /** mmap したメモリを munmap する。
+ *
+ * @param addr c7_file?mmap_r() や c7_file_mmap_rw() の戻り値。
+ * @param size addr に mmap されたバイト数。
  */
 void c7_file_munmap(void *addr, size_t size);
 //@}

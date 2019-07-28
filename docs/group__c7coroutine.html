@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -96,19 +96,17 @@ typedef struct c7_generator_t_&#160;</td><td class="memItemRight" valign="bottom
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8239b64894a4885636e181e3fff7db13"><td class="memItemLeft" align="right" valign="top"><a id="ga8239b64894a4885636e181e3fff7db13"></a>
-<a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga8239b64894a4885636e181e3fff7db13">c7_coroutine_self</a> (void)</td></tr>
-<tr class="memdesc:ga8239b64894a4885636e181e3fff7db13"><td class="mdescLeft">&#160;</td><td class="mdescRight">呼び出し元自身のコルーチンオブジェクトを戻す。 <br /></td></tr>
+<tr class="memitem:ga8239b64894a4885636e181e3fff7db13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga8239b64894a4885636e181e3fff7db13">c7_coroutine_self</a> (void)</td></tr>
+<tr class="memdesc:ga8239b64894a4885636e181e3fff7db13"><td class="mdescLeft">&#160;</td><td class="mdescRight">呼び出し元自身のコルーチンオブジェクトを戻す。  <a href="#ga8239b64894a4885636e181e3fff7db13">More...</a><br /></td></tr>
 <tr class="separator:ga8239b64894a4885636e181e3fff7db13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7c584640b0a2327e1ef29f07cb0f352"><td class="memItemLeft" align="right" valign="top"><a id="gae7c584640b0a2327e1ef29f07cb0f352"></a>
-<a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gae7c584640b0a2327e1ef29f07cb0f352">c7_coroutine_new</a> (size_t stacksize_kb, void(*coroutine)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a>, void *start_param))</td></tr>
-<tr class="memdesc:gae7c584640b0a2327e1ef29f07cb0f352"><td class="mdescLeft">&#160;</td><td class="mdescRight">関数 coroutine を stacksize_kb*1024 バイトのスタックで実行するように準備された コルーチンオブジェクトを生成する。この段階では関数 coroutine は実行されない。 <br /></td></tr>
-<tr class="separator:gae7c584640b0a2327e1ef29f07cb0f352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f1d414f3b062e6632ac04b337e0518b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga5f1d414f3b062e6632ac04b337e0518b">c7_coroutine_new</a> (size_t stacksize_kb, void(*coroutine)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, void *start_param))</td></tr>
+<tr class="memdesc:ga5f1d414f3b062e6632ac04b337e0518b"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンオブジェクトを生成する(開始はしない)。  <a href="#ga5f1d414f3b062e6632ac04b337e0518b">More...</a><br /></td></tr>
+<tr class="separator:ga5f1d414f3b062e6632ac04b337e0518b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaad130ba737000ed2dad43a6934365343"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343">c7_coroutine_start</a> (<a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a> co_target, void *start_param)</td></tr>
-<tr class="memdesc:gaad130ba737000ed2dad43a6934365343"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンオブジェクト co_target の実行を開始する。  <a href="#gaad130ba737000ed2dad43a6934365343">More...</a><br /></td></tr>
+<tr class="memdesc:gaad130ba737000ed2dad43a6934365343"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンオブジェクトの実行を開始する。  <a href="#gaad130ba737000ed2dad43a6934365343">More...</a><br /></td></tr>
 <tr class="separator:gaad130ba737000ed2dad43a6934365343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga890076f4a75c1de47556a32aeb7c1b36"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36">c7_coroutine_yield</a> (<a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a> co_target, void *yield_data)</td></tr>
-<tr class="memdesc:ga890076f4a75c1de47556a32aeb7c1b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。  <a href="#ga890076f4a75c1de47556a32aeb7c1b36">More...</a><br /></td></tr>
+<tr class="memdesc:ga890076f4a75c1de47556a32aeb7c1b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンオブジェクトの実行を再開する。  <a href="#ga890076f4a75c1de47556a32aeb7c1b36">More...</a><br /></td></tr>
 <tr class="separator:ga890076f4a75c1de47556a32aeb7c1b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac12cc13ba0ec26274f64812796b427f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gac12cc13ba0ec26274f64812796b427f6">c7_coroutine_exit</a> (void)</td></tr>
 <tr class="memdesc:gac12cc13ba0ec26274f64812796b427f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンを正常終了する。  <a href="#gac12cc13ba0ec26274f64812796b427f6">More...</a><br /></td></tr>
@@ -116,37 +114,29 @@ Functions</h2></td></tr>
 <tr class="memitem:gab1f330e5e55ddd472ddf3318fa4c1191"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gab1f330e5e55ddd472ddf3318fa4c1191">c7_coroutine_abort</a> (void)</td></tr>
 <tr class="memdesc:gab1f330e5e55ddd472ddf3318fa4c1191"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンを異常終了する。  <a href="#gab1f330e5e55ddd472ddf3318fa4c1191">More...</a><br /></td></tr>
 <tr class="separator:gab1f330e5e55ddd472ddf3318fa4c1191"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac643d541dd876194937f51e865e4491c"><td class="memItemLeft" align="right" valign="top"><a id="gac643d541dd876194937f51e865e4491c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gac643d541dd876194937f51e865e4491c">c7_coroutine_free</a> (<a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a> co)</td></tr>
-<tr class="memdesc:gac643d541dd876194937f51e865e4491c"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンの削除する。 <br /></td></tr>
+<tr class="memitem:gac643d541dd876194937f51e865e4491c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gac643d541dd876194937f51e865e4491c">c7_coroutine_free</a> (<a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a> co)</td></tr>
+<tr class="memdesc:gac643d541dd876194937f51e865e4491c"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンを削除する。  <a href="#gac643d541dd876194937f51e865e4491c">More...</a><br /></td></tr>
 <tr class="separator:gac643d541dd876194937f51e865e4491c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3765193d273d2397ec69c24b60c9c1d"><td class="memItemLeft" align="right" valign="top"><a id="gaf3765193d273d2397ec69c24b60c9c1d"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gaf3765193d273d2397ec69c24b60c9c1d">c7_coroutine_is_failed</a> (void *yield_data)</td></tr>
-<tr class="memdesc:gaf3765193d273d2397ec69c24b60c9c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a>, <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a>の戻り値が起動/再開失敗かどうかを調べる。 <br /></td></tr>
+<tr class="memitem:gaf3765193d273d2397ec69c24b60c9c1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gaf3765193d273d2397ec69c24b60c9c1d">c7_coroutine_is_failed</a> (void *yield_data)</td></tr>
+<tr class="memdesc:gaf3765193d273d2397ec69c24b60c9c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンからの戻り値が起動や再開の失敗かどうかを調べる。  <a href="#gaf3765193d273d2397ec69c24b60c9c1d">More...</a><br /></td></tr>
 <tr class="separator:gaf3765193d273d2397ec69c24b60c9c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4eb600c074a368ca24e13adb117d9863"><td class="memItemLeft" align="right" valign="top"><a id="ga4eb600c074a368ca24e13adb117d9863"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863">c7_coroutine_is_exited</a> (void *yield_data)</td></tr>
-<tr class="memdesc:ga4eb600c074a368ca24e13adb117d9863"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a>, <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a>の戻り値が正常終了かどうかを調べる。 <br /></td></tr>
+<tr class="memitem:ga4eb600c074a368ca24e13adb117d9863"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863">c7_coroutine_is_exited</a> (void *yield_data)</td></tr>
+<tr class="memdesc:ga4eb600c074a368ca24e13adb117d9863"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンからの戻り値が正常終了かどうかを調べる。  <a href="#ga4eb600c074a368ca24e13adb117d9863">More...</a><br /></td></tr>
 <tr class="separator:ga4eb600c074a368ca24e13adb117d9863"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab884648a5bd4d9685df87494fae6cdc1"><td class="memItemLeft" align="right" valign="top"><a id="gab884648a5bd4d9685df87494fae6cdc1"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gab884648a5bd4d9685df87494fae6cdc1">c7_coroutine_is_aborted</a> (void *yield_data)</td></tr>
-<tr class="memdesc:gab884648a5bd4d9685df87494fae6cdc1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a>, <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a>の戻り値が異常終了かどうかを調べる。 <br /></td></tr>
+<tr class="memitem:gab884648a5bd4d9685df87494fae6cdc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gab884648a5bd4d9685df87494fae6cdc1">c7_coroutine_is_aborted</a> (void *yield_data)</td></tr>
+<tr class="memdesc:gab884648a5bd4d9685df87494fae6cdc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンからの戻り値が異常終了かどうかを調べる。  <a href="#gab884648a5bd4d9685df87494fae6cdc1">More...</a><br /></td></tr>
 <tr class="separator:gab884648a5bd4d9685df87494fae6cdc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5e4e608efccceecaa8f55795a9479b0a"><td class="memItemLeft" align="right" valign="top"><a id="ga5e4e608efccceecaa8f55795a9479b0a"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a> (void *yield_data)</td></tr>
-<tr class="memdesc:ga5e4e608efccceecaa8f55795a9479b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a>, <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a>の戻り値が通常データがどうかを調べる。<br />
- 通常データとは、c7_coroutine_is_failed(),<a class="el" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863" title="c7_coroutine_start(), c7_coroutine_yield()の戻り値が正常終了かどうかを調べる。">c7_coroutine_is_exited()</a>,c7_coroutine_is_abort()のいずれも C7_FALSE になる事を意味する。 <br /></td></tr>
+<tr class="memitem:ga5e4e608efccceecaa8f55795a9479b0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a> (void *yield_data)</td></tr>
+<tr class="memdesc:ga5e4e608efccceecaa8f55795a9479b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンからの戻り値が通常データ(コルーチンの処理結果)であるかどうかを調べる。  <a href="#ga5e4e608efccceecaa8f55795a9479b0a">More...</a><br /></td></tr>
 <tr class="separator:ga5e4e608efccceecaa8f55795a9479b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga9e638f2983d01d3b34968e5cf2a5de4b">c7_generator_init</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen, size_t stacksize_kb, void(*coroutine)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a>, void *param), void *param)</td></tr>
-<tr class="memdesc:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">関数を coroutine をジェネレータとして実行するように gen を初期化する。  <a href="#ga9e638f2983d01d3b34968e5cf2a5de4b">More...</a><br /></td></tr>
+<tr class="memdesc:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンを用いたジェネレータオブジェクトを初期化する。  <a href="#ga9e638f2983d01d3b34968e5cf2a5de4b">More...</a><br /></td></tr>
 <tr class="separator:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="memItemLeft" align="right" valign="top"><a id="ga819cbdf2cb01be46d52b51a010bae8ac"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen, void **vpp)</td></tr>
-<tr class="memdesc:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">ジェネレータから得られた値を *vpp に設定する。c7_coroutine_is_valid(*vpp) の結果が戻される。 <br /></td></tr>
+<tr class="memitem:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen, void **vpp)</td></tr>
+<tr class="memdesc:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">ジェネレータから値を得る。  <a href="#ga819cbdf2cb01be46d52b51a010bae8ac">More...</a><br /></td></tr>
 <tr class="separator:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga796580fcce1479c1f704af225a7ce388"><td class="memItemLeft" align="right" valign="top"><a id="ga796580fcce1479c1f704af225a7ce388"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga796580fcce1479c1f704af225a7ce388">c7_generator_stop</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen)</td></tr>
-<tr class="memdesc:ga796580fcce1479c1f704af225a7ce388"><td class="mdescLeft">&#160;</td><td class="mdescRight">ジェネレータを停止しコルーチンオブジェクトを削除する。 <br /></td></tr>
+<tr class="memitem:ga796580fcce1479c1f704af225a7ce388"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga796580fcce1479c1f704af225a7ce388">c7_generator_stop</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen)</td></tr>
+<tr class="memdesc:ga796580fcce1479c1f704af225a7ce388"><td class="mdescLeft">&#160;</td><td class="mdescRight">ジェネレータを停止しコルーチンオブジェクトを削除する。  <a href="#ga796580fcce1479c1f704af225a7ce388">More...</a><br /></td></tr>
 <tr class="separator:ga796580fcce1479c1f704af225a7ce388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -193,14 +183,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <p>コルーチンから戻される値でループする。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stacksize_kb</td><td>コルーチンのスタックサイズ(KB) </td></tr>
-    <tr><td class="paramname">coroutine</td><td>コルーチンとして実行する関数 </td></tr>
-    <tr><td class="paramname">start_param</td><td>コルーチンに渡す引数 </td></tr>
-    <tr><td class="paramname">pointer_var_name</td><td>コルーチンから戻されるポインタを格納する変数名<br />
- <b>ポインタ型で宣言済みの変数名(識別子)でなければならない。</b></td></tr>
+    <tr><td class="paramname">stacksize_kb</td><td>コルーチンのスタックサイズ(KB)。 </td></tr>
+    <tr><td class="paramname">coroutine</td><td>コルーチンとして実行する関数。 </td></tr>
+    <tr><td class="paramname">start_param</td><td>コルーチンに渡す引数。 </td></tr>
+    <tr><td class="paramname">pointer_var_name</td><td>コルーチンから戻されるポインタを格納する変数名。 <b>ポインタ型で宣言済みの変数名(識別子)でなければならない。</b></td></tr>
   </table>
   </dd>
 </dl>
+<p>コルーチンから戻された値が通常データの間ループする。以下のように使う。</p>
 <div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> gen(<a class="code" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, <span class="keywordtype">void</span> *param)</div><div class="line">{</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> *s = param; *s; s++)</div><div class="line">        <a class="code" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36">c7_coroutine_yield</a>(NULL, s);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div><div class="line">{</div><div class="line">    <span class="keywordtype">char</span> *s;</div><div class="line">    <a class="code" href="group__c7coroutine.html#gaa1e1570b9b14bf3892a3f80896074d86">c7_coroutine_foreach</a>(2, gen, argv[1], s) {</div><div class="line">        <a class="code" href="group__c7app.html#gada4714614514760e11b2dbc75c15b74c">c7echo</a>(<span class="stringliteral">&quot;: &lt;%s&gt;\n&quot;</span>, s);</div><div class="line">        <span class="keywordflow">if</span> (*s == <span class="charliteral">&#39;e&#39;</span>) {</div><div class="line">            <a class="code" href="group__c7coroutine.html#gabae92cc95707fd67073e315888038fdf">c7_coroutine_foreach_stop</a>(s);</div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keywordflow">if</span> (!<a class="code" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a>(s))</div><div class="line">        <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in c7_coroutine_foreach\n&quot;</span>);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
@@ -231,6 +221,66 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga8239b64894a4885636e181e3fff7db13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8239b64894a4885636e181e3fff7db13">&#9670;&nbsp;</a></span>c7_coroutine_self()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a> c7_coroutine_self </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>呼び出し元自身のコルーチンオブジェクトを戻す。 </p>
+<p>コルーチン呼び出し前のメインルーチンも、スレッド毎にコルーチンオブジェクトを 持っているので、この関数が NULL を戻すことはない。 </p>
+
+</div>
+</div>
+<a id="ga5f1d414f3b062e6632ac04b337e0518b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f1d414f3b062e6632ac04b337e0518b">&#9670;&nbsp;</a></span>c7_coroutine_new()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a> c7_coroutine_new </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>stacksize_kb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, void *start_param)&#160;</td>
+          <td class="paramname"><em>coroutine</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コルーチンオブジェクトを生成する(開始はしない)。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stacksize_kb</td><td>コルーチンが使用するスタックの大きさを KB単位で指定する。 </td></tr>
+    <tr><td class="paramname">coroutine</td><td>コルーチンで実行する関数。 この関数の mg には、コルーチンオブジェクト毎に確保されたメモリグループが渡される。 また、start_param には <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> の start_param の値がそのまま渡される。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればコルーチンオブジェクトを戻し、そうでなければ NULL を戻す。</dd></dl>
+<p>関数 coroutine を stacksize_kb 分のスタックで実行するように準備された コルーチンオブジェクトを生成する。この段階では関数 coroutine は実行されない。 </p>
+
+</div>
+</div>
 <a id="gaad130ba737000ed2dad43a6934365343"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaad130ba737000ed2dad43a6934365343">&#9670;&nbsp;</a></span>c7_coroutine_start()</h2>
 
@@ -257,10 +307,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>コルーチンオブジェクト co_target の実行を開始する。 </p>
+<p>コルーチンオブジェクトの実行を開始する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">co_target</td><td><a class="el" href="group__c7coroutine.html#gae7c584640b0a2327e1ef29f07cb0f352" title="関数 coroutine を stacksize_kb*1024 バイトのスタックで実行するように準備された コルーチンオブジェクトを生成する。この段階では関数 coroutine は実行されない。">c7_coroutine_new()</a> で生成された未起動のコルーチンオブジェクト。 </td></tr>
+    <tr><td class="paramname">co_target</td><td><a class="el" href="group__c7coroutine.html#ga5f1d414f3b062e6632ac04b337e0518b" title="コルーチンオブジェクトを生成する(開始はしない)。">c7_coroutine_new()</a> で生成された未起動のコルーチンオブジェクト。 </td></tr>
     <tr><td class="paramname">start_param</td><td>コルーチンオブジェクトの coroutine 関数へ渡す引数。 </td></tr>
   </table>
   </dd>
@@ -273,13 +323,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <li>__C7_COROUTINE_YIELD_EXIT<br />
  あるコルーチンが <a class="el" href="group__c7coroutine.html#gac12cc13ba0ec26274f64812796b427f6" title="コルーチンを正常終了する。">c7_coroutine_exit()</a> を呼んだか コルーチンが return 文または関数末尾に到達した。 ただし、そのコルーチンが co_target とは限らない。</li>
 <li>上記3つ以外のポインタ<br />
- あるコルーチンが <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a> を呼んだ。第2引数の値が戻される。 </li>
+ あるコルーチンが <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> を呼んだ。第2引数の値が戻される。 </li>
 </ul>
 </dd>
 <dd>
-なお戻り値のチェックには、__C7_COROUTINE_YIELD_xxx のマクロは使用せず、 <a class="el" href="group__c7coroutine.html#gaf3765193d273d2397ec69c24b60c9c1d" title="c7_coroutine_start(), c7_coroutine_yield()の戻り値が起動/再開失敗かどうかを調べる。">c7_coroutine_is_failed()</a>, <a class="el" href="group__c7coroutine.html#gab884648a5bd4d9685df87494fae6cdc1" title="c7_coroutine_start(), c7_coroutine_yield()の戻り値が異常終了かどうかを調べる。">c7_coroutine_is_aborted()</a>, <a class="el" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863" title="c7_coroutine_start(), c7_coroutine_yield()の戻り値が正常終了かどうかを調べる。">c7_coroutine_is_exited()</a>, <a class="el" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a" title="c7_coroutine_start(), c7_coroutine_yield()の戻り値が通常データがどうかを調べる。  通常データとは、c7_coroutine_is_failed(),...">c7_coroutine_is_valid()</a> を使うこと。</dd></dl>
+なお戻り値のチェックには、__C7_COROUTINE_YIELD_xxx のマクロは使用せず、 <a class="el" href="group__c7coroutine.html#gaf3765193d273d2397ec69c24b60c9c1d" title="コルーチンからの戻り値が起動や再開の失敗かどうかを調べる。">c7_coroutine_is_failed()</a>, <a class="el" href="group__c7coroutine.html#gab884648a5bd4d9685df87494fae6cdc1" title="コルーチンからの戻り値が異常終了かどうかを調べる。">c7_coroutine_is_aborted()</a>, <a class="el" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863" title="コルーチンからの戻り値が正常終了かどうかを調べる。">c7_coroutine_is_exited()</a>, <a class="el" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a" title="コルーチンからの戻り値が通常データ(コルーチンの処理結果)であるかどうかを調べる。">c7_coroutine_is_valid()</a> を使うこと。</dd></dl>
 <p>コルーチンオブジェクト co_target の実行が開始されると、c7_coroutine_new() で指定した coroutine() 関数が呼び出される。このとき、コルーチンオブジェクト毎に 準備されたメモリグループ mg が第1引数に、start_prm が第2引数に渡される。</p>
-<p>このメモリグループ mg はコルーチンオブジェクトを削除するときに <a class="el" href="group__c7memory.html#ga2076d9d1dfe49d2c7565b79098941dbe" title="mg に対して c7_mg_freeall() を呼んだあと mg グループ自体も解放する。">c7_mg_destroy()</a> されるので、コルーチン毎の作業メモリとして有用である。</p>
+<p>このメモリグループ mg はコルーチンオブジェクトを削除するときに <a class="el" href="group__c7memory.html#ga2076d9d1dfe49d2c7565b79098941dbe" title="メモリグループを削除する。">c7_mg_destroy()</a> されるので、コルーチン毎の作業メモリとして有用である。</p>
 <p>コルーチンの起動に成功した場合、この関数から呼び出しもとに制御が戻るのは、 Returns の個所で記したように、必ずしも起動したコルーチンとは関係ない事は 留意するところであろう。これは、c7_coroutine_yield() の仕様が、 コルーチンの使用方法としてノンプリエンプティブなマルチタスクのように、 複数のコルーチンを連鎖していく事を想定しているためである。 </p>
 
 </div>
@@ -310,16 +360,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。 </p>
+<p>コルーチンオブジェクトの実行を再開する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">co_target</td><td>実行を再開するコルーチンオブジェクトを指定する。 NULLポインタを与えた場合、現在の(コ)ルーチンに制御を渡してきた元の (コ)ルーチンオブジェクトが対象となる。ここで「制御を渡してきた」とは、 元の(コ)ルーチンが <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a> か <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a> を呼ぶことで 現在の(コ)ルーチンが走行していることを意味する。</td></tr>
-    <tr><td class="paramname">yield_data</td><td>再開する(コ)ルーチンが呼び出して(現在は停止して)いる <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a> の戻り値となる。</td></tr>
+    <tr><td class="paramname">co_target</td><td>実行を再開するコルーチンオブジェクトを指定する。 NULLポインタを与えた場合、現在のコルーチンに制御を渡してきた元の コルーチンオブジェクトが対象となる。ここで「制御を渡してきた」とは、 元のコルーチンが <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> か <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> を呼ぶことで 現在のコルーチンが走行していることを意味する。</td></tr>
+    <tr><td class="paramname">yield_data</td><td>再開するコルーチンが呼び出して(現在は停止して)いる <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> または <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> の戻り値となる。</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a> の Returns(返却値) の項を参照。</dd></dl>
-<p>コルーチンの制御の移譲は、c7_coroutine_start() と同様で、 コルーチンの再開に成功した場合、この関数から呼び出しもとに制御が戻るのは、 必ずしも再開したコルーチン co_target と関係があるとはいえない。 </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> の Returns(返却値) の項を参照。</dd></dl>
+<p>コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。 コルーチンの制御の移譲は、c7_coroutine_start() と同様で、 コルーチンの再開に成功した場合、この関数から呼び出しもとに制御が戻るのは、 必ずしも再開したコルーチン co_target と関係があるとはいえない。 </p>
 
 </div>
 </div>
@@ -340,7 +390,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 
 <p>コルーチンを正常終了する。 </p>
-<p>呼び出し元のコルーチンに最後に制御を渡してきた(コ)ルーチンに制御を移す。 つまり、その(コ)ルーチンが停止している <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a> または <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a> から制御が戻る。この時、戻り値として正常終了を意味する __C7_COROUTINE_YIELD_EXIT が戻される。 </p>
+<p>呼び出し元のコルーチンに最後に制御を渡してきたコルーチンに制御を移す。 つまり、そのコルーチンが停止している <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> または <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> から制御が戻る。この時、戻り値として正常終了を意味する __C7_COROUTINE_YIELD_EXIT が戻される。</p>
+<p>この関数は呼び出しもとには戻らない。 また、このコルーチンに対して c7_coroutine_yiled() した場合は即 __C7_COROUTINE_YIELD_EXIT が戻される。 </p>
 
 </div>
 </div>
@@ -361,7 +412,142 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 
 <p>コルーチンを異常終了する。 </p>
-<p>呼び出し元のコルーチンに最後に制御を渡してきた(コ)ルーチンに制御を移す。 つまり、その(コ)ルーチンが停止している <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。">c7_coroutine_yield()</a> または <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクト co_target の実行を開始する。">c7_coroutine_start()</a> から制御が戻る。この時、戻り値として異常終了を意味する __C7_COROUTINE_YIELD_ABORT が戻される。 </p>
+<p>呼び出し元のコルーチンに最後に制御を渡してきたコルーチンに制御を移す。 つまり、そのコルーチンが停止している <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> または <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> から制御が戻る。この時、戻り値として異常終了を意味する __C7_COROUTINE_YIELD_ABORT が戻される。</p>
+<p>この関数は呼び出しもとには戻らない。 また、このコルーチンに対して c7_coroutine_yiled() した場合は即 __C7_COROUTINE_YIELD_ABORT が戻される。 </p>
+
+</div>
+</div>
+<a id="gac643d541dd876194937f51e865e4491c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac643d541dd876194937f51e865e4491c">&#9670;&nbsp;</a></span>c7_coroutine_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_coroutine_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7coroutine.html#ga2dae813aab5fc642ebe52163a07bc2a6">c7_coroutine_t</a>&#160;</td>
+          <td class="paramname"><em>co</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コルーチンを削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">co</td><td>削除されるコルーチンオブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf3765193d273d2397ec69c24b60c9c1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf3765193d273d2397ec69c24b60c9c1d">&#9670;&nbsp;</a></span>c7_coroutine_is_failed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_coroutine_is_failed </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>yield_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コルーチンからの戻り値が起動や再開の失敗かどうかを調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yield_data</td><td><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> または <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> の戻り値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>yield_data が __C7_COROUTINE_YIELD_FAIL の場合のみ C7_TRUE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga4eb600c074a368ca24e13adb117d9863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4eb600c074a368ca24e13adb117d9863">&#9670;&nbsp;</a></span>c7_coroutine_is_exited()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_coroutine_is_exited </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>yield_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コルーチンからの戻り値が正常終了かどうかを調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yield_data</td><td><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> または <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> の戻り値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>yield_data が __C7_COROUTINE_YIELD_EXIT の場合のみ C7_TRUE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gab884648a5bd4d9685df87494fae6cdc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab884648a5bd4d9685df87494fae6cdc1">&#9670;&nbsp;</a></span>c7_coroutine_is_aborted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_coroutine_is_aborted </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>yield_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コルーチンからの戻り値が異常終了かどうかを調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yield_data</td><td><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> または <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> の戻り値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>yield_data が __C7_COROUTINE_YIELD_ABORT の場合のみ C7_TRUE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga5e4e608efccceecaa8f55795a9479b0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e4e608efccceecaa8f55795a9479b0a">&#9670;&nbsp;</a></span>c7_coroutine_is_valid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_coroutine_is_valid </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>yield_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コルーチンからの戻り値が通常データ(コルーチンの処理結果)であるかどうかを調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yield_data</td><td><a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> または <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> の戻り値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>yield_data に対して <a class="el" href="group__c7coroutine.html#gaf3765193d273d2397ec69c24b60c9c1d" title="コルーチンからの戻り値が起動や再開の失敗かどうかを調べる。">c7_coroutine_is_failed()</a>, <a class="el" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863" title="コルーチンからの戻り値が正常終了かどうかを調べる。">c7_coroutine_is_exited()</a>, <a class="el" href="group__c7coroutine.html#gab884648a5bd4d9685df87494fae6cdc1" title="コルーチンからの戻り値が異常終了かどうかを調べる。">c7_coroutine_is_aborted()</a> のいずれも C7_FALSE になった場合だけ C7_TRUE を戻す。 </dd></dl>
 
 </div>
 </div>
@@ -403,8 +589,86 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>関数を coroutine をジェネレータとして実行するように gen を初期化する。 </p>
-<div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> gen(<a class="code" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, <span class="keywordtype">void</span> *param)</div><div class="line">{</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> *s = param; *s; s++)</div><div class="line">        <a class="code" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36">c7_coroutine_yield</a>(NULL, s);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div><div class="line">{</div><div class="line">    <span class="keywordtype">char</span> *s;</div><div class="line">    <a class="code" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> g;</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__c7coroutine.html#ga9e638f2983d01d3b34968e5cf2a5de4b">c7_generator_init</a>(&amp;g, 2, gen, argv[1])) {</div><div class="line">        <span class="keywordflow">while</span> (<a class="code" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a>(&amp;g, &amp;s))</div><div class="line">            <a class="code" href="group__c7app.html#gada4714614514760e11b2dbc75c15b74c">c7echo</a>(<span class="stringliteral">&quot;: &lt;%s&gt;\n&quot;</span>, s);</div><div class="line">        <span class="keywordflow">if</span> (!<a class="code" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a>(s))</div><div class="line">            <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_next\n&quot;</span>);</div><div class="line">    } <span class="keywordflow">else</span></div><div class="line">        <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_init\n&quot;</span>);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">}</div></div><!-- fragment --> 
+<p>コルーチンを用いたジェネレータオブジェクトを初期化する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gen</td><td>ジェネレータオブジェクトへのポインタ。 </td></tr>
+    <tr><td class="paramname">stacksize_kb</td><td>コルーチンが使用するスタックの大きさを KB単位で指定する。 </td></tr>
+    <tr><td class="paramname">coroutine</td><td>コルーチンで実行する関数。 </td></tr>
+    <tr><td class="paramname">param</td><td>coroutine() に渡すパラメータ。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ジェネレータオブジェクトの初期化に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<p>次のように使用する。 </p><div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> gen(<a class="code" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, <span class="keywordtype">void</span> *param)</div><div class="line">{</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> *s = param; *s; s++)</div><div class="line">        <a class="code" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36">c7_coroutine_yield</a>(NULL, s);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div><div class="line">{</div><div class="line">    <span class="keywordtype">char</span> *s;</div><div class="line">    <a class="code" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> g;</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__c7coroutine.html#ga9e638f2983d01d3b34968e5cf2a5de4b">c7_generator_init</a>(&amp;g, 2, gen, argv[1])) {</div><div class="line">        <span class="keywordflow">while</span> (<a class="code" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a>(&amp;g, &amp;s))</div><div class="line">            <a class="code" href="group__c7app.html#gada4714614514760e11b2dbc75c15b74c">c7echo</a>(<span class="stringliteral">&quot;: &lt;%s&gt;\n&quot;</span>, s);</div><div class="line">        <span class="keywordflow">if</span> (!<a class="code" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a>(s))</div><div class="line">            <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_next\n&quot;</span>);</div><div class="line">    } <span class="keywordflow">else</span></div><div class="line">        <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_init\n&quot;</span>);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">}</div></div><!-- fragment --> 
+</div>
+</div>
+<a id="ga819cbdf2cb01be46d52b51a010bae8ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga819cbdf2cb01be46d52b51a010bae8ac">&#9670;&nbsp;</a></span>c7_generator_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_generator_next </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *&#160;</td>
+          <td class="paramname"><em>gen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void **&#160;</td>
+          <td class="paramname"><em>vpp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ジェネレータから値を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gen</td><td>ジェネレータオブジェクトへのポインタ。 </td></tr>
+    <tr><td class="paramname">vpp</td><td>をジェネレータオブジェクトのコルーチンから得られたデータを格納するポインタ変数のアドレス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>*vpp に、ジェネレータ内のコルーチンに対する <a class="el" href="group__c7coroutine.html#gaad130ba737000ed2dad43a6934365343" title="コルーチンオブジェクトの実行を開始する。">c7_coroutine_start()</a> あるいは <a class="el" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36" title="コルーチンオブジェクトの実行を再開する。">c7_coroutine_yield()</a> の戻り値を設定する。 *vpp が通常データの場合 C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>この関数が C7_FALSE を戻した場合、*vpp に設定された値を c7_coroutine_is_exit() などで調べて、 それが正常なものかどうかを検査しなければならない。 </dd>
+<dd>
+また、C7_FALSE が戻った場合、コルーチンオブジェクトは削除されるが、その後の <a class="el" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac" title="ジェネレータから値を得る。">c7_generator_next()</a> はクラッシュすることなく同じ結果を戻し続ける。 </dd></dl>
+
+</div>
+</div>
+<a id="ga796580fcce1479c1f704af225a7ce388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga796580fcce1479c1f704af225a7ce388">&#9670;&nbsp;</a></span>c7_generator_stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_generator_stop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *&#160;</td>
+          <td class="paramname"><em>gen</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ジェネレータを停止しコルーチンオブジェクトを削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gen</td><td>ジェネレータオブジェクトへのポインタ。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac" title="ジェネレータから値を得る。">c7_generator_next()</a> で必要なデータが見つかって、ジェネレータ動作が不要になった場合に呼び出す。 この関数を呼び出すとジェネレータ内のコルーチンが正常終了した場合と同じ状態となり、コルーチンオブジェクトは 削除される。このあと、c7_generator_next() を呼び出した場合は C7_FALSE (データは正常終了) を戻す。 </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->

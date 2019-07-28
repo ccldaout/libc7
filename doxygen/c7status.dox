@@ -19,19 +19,19 @@
  */
 typedef uint32_t c7_status_t;
 
-/** 12bitのカテゴリーコードとカテゴリー内の15bitの詳細コードから状態値を得る。
+/** 12bitのカテゴリーコードとカテゴリー内の15bitの詳細コードからステータスコードを得る。
  */
 c7_status_t C7_STATUS(c7_status_t cat, c7_status_t detail_in_cat);
 
-/** 状態値から上位4ビットのオプションコードを取り出す。
+/** ステータスコードから上位4ビットのオプションコードを取り出す。
  */
 c7_status_t C7_STATUS_OPT(c7_status_t statuss);
 
-/** 状態値から12bitのカテゴリーコードを取り出す。
+/** ステータスコードから12bitのカテゴリーコードを取り出す。
  */
 c7_status_t C7_STATUS_CAT(c7_status_t status);
 
-/** 状態値から15bitの詳細コードを取り出す。
+/** ステータスコードから15bitの詳細コードを取り出す。
  */
 c7_status_t C7_STATUS_STS(c7_status_t status);
 
@@ -117,7 +117,9 @@ typedef struct c7_status_catalog_t {
     int defc;			///< defc の指す配列の要素数。
 } c7_status_catalog_t;
 
-/** カタログ cat を登録する。cat は永続性のあるメモリを指していなければならない。
+/** カタログを登録する。
+ *
+ * @param cat 登録するカタログ。永続性のあるメモリを指していなければならない。
  */
 void c7_status_add_catalog(c7_status_catalog_t *cat);
 
@@ -167,39 +169,63 @@ void c7_status_add_convert(c7_str_t *(*convert)(c7_str_t *sbp, c7_status_t statu
  */
 typedef struct c7_status_stack_t_ c7_status_stack_t;
 
-/** 現スレッドのステータス情報をクリアする。リングバッファのポインタを操作するだけなので高速である。errno はクリアしない。
+/** 現スレッドのステータス情報をクリアする。
+ *
+ * リングバッファのポインタを操作するだけなので高速である。errno はクリアしない。
  */
 void c7_status_clear(void);
 
-/** 現スレッドのステータス情報を save に指す保存エリアへコピーする。
+/** 現スレッドのステータス情報をコピーする。
+ *
+ * @param save ステータス情報のコピー先。
  */
 void c7_status_save(c7_status_stack_t *save);
 
-/** c7_status_save()とc7_status_clear()を行なう。
+/** 現スレッドのステータス情報をコピー後クリアする。
+ *
+ * c7_status_save() と c7_status_clear() を行なう。
  */
 void c7_status_saveclear(c7_status_stack_t *save);
 
-/** saved の指すステータス情報を現スレッドのステータス情報に書き戻す。
+/** コピーされたステータス情報を現スレッドのステータス情報に書き戻す。
+ *
+ * @param saved c7_status_save()で保存したステータス情報のコピー。
  */
 void c7_status_restore(const c7_status_stack_t *saved);
 
-/** status と追加メッセージ、及びこのAPIを呼び出したソースファイルの名前と行番号を保存エリアへ追加する。
+/** ステータス情報を追加する。
+ *
+ * @param status ステータスコード。0 でも構わない。
+ * @param fmt 追加メッセージのための書式指定文字列。printf(3)形式。NULLでも構わない。
+ * @param ... 追加メッセージの可変引数。
+ *
+ * status と追加メッセージ、及びこのAPIを呼び出したソースファイルの名前と行番号を保存エリアへ追加する。
  * 追加メッセージは fmt, ... で得られる文字列で、fmt が NULLの場合は追加メッセージはなしとする。
- * errno は変更されない。
+ * この関数の呼び出しで errno は変更されない。
  */
 void c7_status_add(c7_status_t status, const char *fmt, ...);
 		     
-/** status と追加メッセージ、及びこのAPIを呼び出したソースファイルの名前と行番号を保存エリアへ追加する。
+/** ステータス情報を追加する。(va_list版)
+ *
+ * @param status ステータスコード。0 でも構わない。
+ * @param fmt 追加メッセージのための書式指定文字列。printf(3)形式。NULLでも構わない。
+ * @param ap 追加メッセージの可変引数へのアクセス用。
+ *
+ * status と追加メッセージ、及びこのAPIを呼び出したソースファイルの名前と行番号を保存エリアへ追加する。
  * 追加メッセージは fmt, ap で得られる文字列で、fmt が NULLの場合は追加メッセージはなしとする。
- * errno は変更されない。
+ * この関数の呼び出しで errno は変更されない。
  */
 void c7_status_add_va(c7_status_t status, const char *fmt, va_list ap);
 			
-/** c7_status_clear() して c7_status_add() する。
+/** ステータス情報を再設定する。
+ *
+ * c7_status_clear() して c7_status_add() する。
  */
 void c7_status_reset(c7_status_t status, const char *fmt, ...);
 		       
-/** c7_status_clear() して c7_status_add_va() する。
+/** ステータス情報を再設定する。(va_list版)
+ *
+ * c7_status_clear() して c7_status_add_va() する。
  */
 void c7_status_reset_va(c7_status_t status, const char *fmt, va_list ap);
 
@@ -255,6 +281,9 @@ c7_str_t *c7_status_prefix(c7_str_t *sbp, const char *file, int line);
 c7_str_t *c7_status_string(c7_str_t *sbp);
 
 /** 現スレッドのステータス情報を走査する。
+ *
+ * @param scanner ステータス情報にアクセスするための関数。
+ * @param __uctx scanner() の最終引数に渡すパラメータ。
  *
  * 保存エリアにあるステータス情報のうち最新から dconf の C7_DCONF_STSSCN_MAX の値の分について、
  * 古い方から走査し、scanner で指定した関数を呼び出す。

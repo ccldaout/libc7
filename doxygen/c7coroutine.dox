@@ -11,16 +11,27 @@
 typedef struct c7_coroutine_t_ *c7_coroutine_t;
 
 /** 呼び出し元自身のコルーチンオブジェクトを戻す。
+ *
+ * コルーチン呼び出し前のメインルーチンも、スレッド毎にコルーチンオブジェクトを
+ * 持っているので、この関数が NULL を戻すことはない。
  */
 c7_coroutine_t c7_coroutine_self(void);
 
-/** 関数 coroutine を stacksize_kb*1024 バイトのスタックで実行するように準備された
+/** コルーチンオブジェクトを生成する(開始はしない)。
+ *
+ * @param stacksize_kb コルーチンが使用するスタックの大きさを KB単位で指定する。
+ * @param coroutine コルーチンで実行する関数。
+ *	            この関数の mg には、コルーチンオブジェクト毎に確保されたメモリグループが渡される。
+ *                  また、start_param には c7_coroutine_start() の start_param の値がそのまま渡される。
+ * @return 成功すればコルーチンオブジェクトを戻し、そうでなければ NULL を戻す。
+ *
+ * 関数 coroutine を stacksize_kb 分のスタックで実行するように準備された
  * コルーチンオブジェクトを生成する。この段階では関数 coroutine は実行されない。
  */
 c7_coroutine_t c7_coroutine_new(size_t stacksize_kb,
-				void (*coroutine)(c7_mgroup_t, void *start_param));
+				void (*coroutine)(c7_mgroup_t mg, void *start_param));
 
-/** コルーチンオブジェクト co_target の実行を開始する。
+/** コルーチンオブジェクトの実行を開始する。
  *
  * @param co_target c7_coroutine_new() で生成された未起動のコルーチンオブジェクト。
  * @param start_param コルーチンオブジェクトの coroutine 関数へ渡す引数。
@@ -56,20 +67,21 @@ c7_coroutine_t c7_coroutine_new(size_t stacksize_kb,
  */
 void *c7_coroutine_start(c7_coroutine_t co_target, void *start_param);
 
-/** コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。
+/** コルーチンオブジェクトの実行を再開する。
  *
  * @param co_target
  * 実行を再開するコルーチンオブジェクトを指定する。
- * NULLポインタを与えた場合、現在の(コ)ルーチンに制御を渡してきた元の
- * (コ)ルーチンオブジェクトが対象となる。ここで「制御を渡してきた」とは、
- * 元の(コ)ルーチンが c7_coroutine_start() か c7_coroutine_yield() を呼ぶことで
- * 現在の(コ)ルーチンが走行していることを意味する。
+ * NULLポインタを与えた場合、現在のコルーチンに制御を渡してきた元の
+ * コルーチンオブジェクトが対象となる。ここで「制御を渡してきた」とは、
+ * 元のコルーチンが c7_coroutine_start() か c7_coroutine_yield() を呼ぶことで
+ * 現在のコルーチンが走行していることを意味する。
  *
  * @param yield_data
- * 再開する(コ)ルーチンが呼び出して(現在は停止して)いる c7_coroutine_yield() の戻り値となる。
+ * 再開するコルーチンが呼び出して(現在は停止して)いる c7_coroutine_start() または c7_coroutine_yield() の戻り値となる。
  *
  * @return c7_coroutine_start() の Returns(返却値) の項を参照。
  *
+ * コルーチンオブジェクト co_target に yield_data を与えて実行を再開する。
  * コルーチンの制御の移譲は、c7_coroutine_start() と同様で、
  * コルーチンの再開に成功した場合、この関数から呼び出しもとに制御が戻るのは、
  * 必ずしも再開したコルーチン co_target と関係があるとはいえない。
@@ -78,47 +90,67 @@ void *c7_coroutine_yield(c7_coroutine_t co_target, void *yield_data);
 
 /** コルーチンを正常終了する。
  *
- * 呼び出し元のコルーチンに最後に制御を渡してきた(コ)ルーチンに制御を移す。
- * つまり、その(コ)ルーチンが停止している c7_coroutine_yield() または c7_coroutine_start() から制御が戻る。この時、戻り値として正常終了を意味する __C7_COROUTINE_YIELD_EXIT が戻される。
+ * 呼び出し元のコルーチンに最後に制御を渡してきたコルーチンに制御を移す。
+ * つまり、そのコルーチンが停止している c7_coroutine_yield() または c7_coroutine_start() から制御が戻る。この時、戻り値として正常終了を意味する __C7_COROUTINE_YIELD_EXIT が戻される。
+ *
+ * この関数は呼び出しもとには戻らない。
+ * また、このコルーチンに対して c7_coroutine_yiled() した場合は即 __C7_COROUTINE_YIELD_EXIT が戻される。
  */
 void c7_coroutine_exit(void);
 
 /** コルーチンを異常終了する。
  *
- * 呼び出し元のコルーチンに最後に制御を渡してきた(コ)ルーチンに制御を移す。
- * つまり、その(コ)ルーチンが停止している c7_coroutine_yield() または c7_coroutine_start() から制御が戻る。この時、戻り値として異常終了を意味する __C7_COROUTINE_YIELD_ABORT が戻される。
+ * 呼び出し元のコルーチンに最後に制御を渡してきたコルーチンに制御を移す。
+ * つまり、そのコルーチンが停止している c7_coroutine_yield() または c7_coroutine_start() から制御が戻る。この時、戻り値として異常終了を意味する __C7_COROUTINE_YIELD_ABORT が戻される。
+ *
+ * この関数は呼び出しもとには戻らない。
+ * また、このコルーチンに対して c7_coroutine_yiled() した場合は即 __C7_COROUTINE_YIELD_ABORT が戻される。
  */
 void c7_coroutine_abort(void);
 
-/** コルーチンの削除する。
+/** コルーチンを削除する。
+ *
+ * @param co 削除されるコルーチンオブジェクト。
  */
 void c7_coroutine_free(c7_coroutine_t co);
 
-/** c7_coroutine_start(), c7_coroutine_yield()の戻り値が起動/再開失敗かどうかを調べる。
+/** コルーチンからの戻り値が起動や再開の失敗かどうかを調べる。
+ *
+ * @param yield_data c7_coroutine_start() または c7_coroutine_yield() の戻り値。
+ * @return yield_data が __C7_COROUTINE_YIELD_FAIL の場合のみ C7_TRUE を戻す。
  */
 c7_bool_t c7_coroutine_is_failed(void *yield_data);
 
-/** c7_coroutine_start(), c7_coroutine_yield()の戻り値が正常終了かどうかを調べる。
+/** コルーチンからの戻り値が正常終了かどうかを調べる。
+ *
+ * @param yield_data c7_coroutine_start() または c7_coroutine_yield() の戻り値。
+ * @return yield_data が __C7_COROUTINE_YIELD_EXIT の場合のみ C7_TRUE を戻す。
  */
 c7_bool_t c7_coroutine_is_exited(void *yield_data);
 
-/** c7_coroutine_start(), c7_coroutine_yield()の戻り値が異常終了かどうかを調べる。
+/** コルーチンからの戻り値が異常終了かどうかを調べる。
+ *
+ * @param yield_data c7_coroutine_start() または c7_coroutine_yield() の戻り値。
+ * @return yield_data が __C7_COROUTINE_YIELD_ABORT の場合のみ C7_TRUE を戻す。
  */
 c7_bool_t c7_coroutine_is_aborted(void *yield_data);
 
-/** c7_coroutine_start(), c7_coroutine_yield()の戻り値が通常データがどうかを調べる。<BR>
- * 通常データとは、c7_coroutine_is_failed(),c7_coroutine_is_exited(),c7_coroutine_is_abort()のいずれも C7_FALSE になる事を意味する。
+/** コルーチンからの戻り値が通常データ(コルーチンの処理結果)であるかどうかを調べる。
+ *
+ * @param yield_data c7_coroutine_start() または c7_coroutine_yield() の戻り値。
+ * @return yield_data に対して c7_coroutine_is_failed(), c7_coroutine_is_exited(), c7_coroutine_is_aborted() のいずれも C7_FALSE になった場合だけ C7_TRUE を戻す。
  */
 c7_bool_t c7_coroutine_is_valid(void *yield_data);
 
-
 /** コルーチンから戻される値でループする。
  *
- * @param stacksize_kb コルーチンのスタックサイズ(KB)
- * @param coroutine コルーチンとして実行する関数
- * @param start_param コルーチンに渡す引数
- * @param pointer_var_name コルーチンから戻されるポインタを格納する変数名<BR>
+ * @param stacksize_kb コルーチンのスタックサイズ(KB)。
+ * @param coroutine コルーチンとして実行する関数。
+ * @param start_param コルーチンに渡す引数。
+ * @param pointer_var_name コルーチンから戻されるポインタを格納する変数名。
  *                         <B>ポインタ型で宣言済みの変数名(識別子)でなければならない。</B>
+ *
+ * コルーチンから戻された値が通常データの間ループする。以下のように使う。
  *
  * @code
 static void gen(c7_mgroup_t mg, void *param)
@@ -155,8 +187,15 @@ int main(int argc, char **argv)
  */
 typedef struct c7_generator_t_ c7_generator_t;
 
-/** 関数を coroutine をジェネレータとして実行するように gen を初期化する。
+/** コルーチンを用いたジェネレータオブジェクトを初期化する。
  *
+ * @param gen ジェネレータオブジェクトへのポインタ。
+ * @param stacksize_kb コルーチンが使用するスタックの大きさを KB単位で指定する。
+ * @param coroutine コルーチンで実行する関数。
+ * @param param coroutine() に渡すパラメータ。
+ * @return ジェネレータオブジェクトの初期化に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
+ *
+ * 次のように使用する。
  * @code
 static void gen(c7_mgroup_t mg, void *param)
 {
@@ -184,11 +223,29 @@ c7_bool_t c7_generator_init(c7_generator_t *gen,
 			    void (*coroutine)(c7_mgroup_t, void *param),
 			    void *param);
 
-/** ジェネレータから得られた値を *vpp に設定する。c7_coroutine_is_valid(*vpp) の結果が戻される。
+/** ジェネレータから値を得る。
+ *
+ * @param gen ジェネレータオブジェクトへのポインタ。
+ * @param vpp をジェネレータオブジェクトのコルーチンから得られたデータを格納するポインタ変数のアドレス。
+ * @return *vpp に、ジェネレータ内のコルーチンに対する 
+ *	   c7_coroutine_start() あるいは c7_coroutine_yield() の戻り値を設定する。
+ *	   *vpp が通常データの場合 C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ * 
+ * @note この関数が C7_FALSE を戻した場合、*vpp に設定された値を c7_coroutine_is_exit() などで調べて、
+ *       それが正常なものかどうかを検査しなければならない。
+ * @note また、C7_FALSE が戻った場合、コルーチンオブジェクトは削除されるが、その後の
+ *       c7_generator_next() はクラッシュすることなく同じ結果を戻し続ける。
  */
 c7_bool_t c7_generator_next(c7_generator_t *gen, void **vpp);
 
 /** ジェネレータを停止しコルーチンオブジェクトを削除する。
+ *
+ * @param gen ジェネレータオブジェクトへのポインタ。
+ * 
+ * @note
+ * c7_generator_next() で必要なデータが見つかって、ジェネレータ動作が不要になった場合に呼び出す。
+ * この関数を呼び出すとジェネレータ内のコルーチンが正常終了した場合と同じ状態となり、コルーチンオブジェクトは
+ * 削除される。このあと、c7_generator_next() を呼び出した場合は C7_FALSE (データは正常終了) を戻す。
  */
 void c7_generator_stop(c7_generator_t *gen);
 

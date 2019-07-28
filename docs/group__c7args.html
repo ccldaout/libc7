@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -77,13 +77,15 @@ Data Structures</h2></td></tr>
 <tr class="memitem:structc7__args__optdef__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#structc7__args__optdef__t">c7_args_optdef_t</a></td></tr>
 <tr class="memdesc:structc7__args__optdef__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプションの特徴を定義する構造体。  <a href="group__c7args.html#structc7__args__optdef__t">More...</a><br /></td></tr>
 <tr class="separator:structc7__args__optdef__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:struct____c7__args__prm__tm__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#struct____c7__args__prm__tm__t">__c7_args_prm_tm_t</a></td></tr>
+<tr class="memdesc:struct____c7__args__prm__tm__t"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e" title="本機能専用の時刻形式。  [[[YY]MMDD]hhmm][.ss] または . (ドット)。">C7_ARGS_T_DTV</a> のパラメータの解析結果 (この型名は存在しない)  <a href="group__c7args.html#struct____c7__args__prm__tm__t">More...</a><br /></td></tr>
+<tr class="separator:struct____c7__args__prm__tm__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:union____7__args__prm__u"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#union____7__args__prm__u">__7_args_prm_u</a></td></tr>
+<tr class="memdesc:union____7__args__prm__u"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプションに指定されたパラメータの解析結果の共用体 (この型名は存在しない)  <a href="group__c7args.html#union____7__args__prm__u">More...</a><br /></td></tr>
+<tr class="separator:union____7__args__prm__u"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structc7__args__prm__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#structc7__args__prm__t">c7_args_prm_t</a></td></tr>
 <tr class="memdesc:structc7__args__prm__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプションに指定されたパラメータの解析結果を保持する。  <a href="group__c7args.html#structc7__args__prm__t">More...</a><br /></td></tr>
 <tr class="separator:structc7__args__prm__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:unionc7__args__prm__t_8u"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#unionc7__args__prm__t_8u">c7_args_prm_t.u</a></td></tr>
-<tr class="separator:unionc7__args__prm__t_8u"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structc7__args__prm__t_8u_8tm"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#structc7__args__prm__t_8u_8tm">c7_args_prm_t.u.tm</a></td></tr>
-<tr class="separator:structc7__args__prm__t_8u_8tm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structc7__args__params__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#structc7__args__params__t">c7_args_params_t</a></td></tr>
 <tr class="memdesc:structc7__args__params__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプションの解析結果を保持する。  <a href="group__c7args.html#structc7__args__params__t">More...</a><br /></td></tr>
 <tr class="separator:structc7__args__params__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -92,20 +94,24 @@ Data Structures</h2></td></tr>
 オプション定義</h2></td></tr>
 <tr class="memitem:ga202bbdefa3c4a8abaef3f7ef039a6261"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga202bbdefa3c4a8abaef3f7ef039a6261">c7_args_type_t</a> { <br />
 &#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a2dd4f1a7dde7c04da3cc8b66bfd1fd98">C7_ARGS_T_none</a>, 
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a116bb53441f49884b98fcaa28715d5f9">C7_ARGS_T_INT</a>, 
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a5db14807db3b952a59cb29fc7e35f0ec">C7_ARGS_T_REAL</a>, 
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9bd21364ea26178ba18254a8801dd025">C7_ARGS_T_KEY</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a116bb53441f49884b98fcaa28715d5f9">C7_ARGS_T_INT</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a5db14807db3b952a59cb29fc7e35f0ec">C7_ARGS_T_REAL</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9bd21364ea26178ba18254a8801dd025">C7_ARGS_T_KEY</a>, 
 <br />
 &#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261aeee969ef2f2bb7ef09b195cb6f1cbbcc">C7_ARGS_T_REX</a>, 
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e">C7_ARGS_T_DTV</a>, 
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261afc4c4496bf66bc1d878787344fd39c1e">C7_ARGS_T_ANY</a>
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e">C7_ARGS_T_DTV</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261afc4c4496bf66bc1d878787344fd39c1e">C7_ARGS_T_ANY</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ga202bbdefa3c4a8abaef3f7ef039a6261"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプションがとるパラメータの種類。  <a href="group__c7args.html#ga202bbdefa3c4a8abaef3f7ef039a6261">More...</a><br /></td></tr>
 <tr class="separator:ga202bbdefa3c4a8abaef3f7ef039a6261"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacbf5e30dc20dfbc6ecaa15569c24cf32"><td class="memItemLeft" align="right" valign="top"><a id="gacbf5e30dc20dfbc6ecaa15569c24cf32"></a>
-typedef <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#gacbf5e30dc20dfbc6ecaa15569c24cf32">c7_args_handler_t</a>) (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, const <a class="el" href="group__c7args.html#structc7__args__params__t">c7_args_params_t</a> *params, void *__uctx)</td></tr>
-<tr class="memdesc:gacbf5e30dc20dfbc6ecaa15569c24cf32"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析後に呼び出される関数の形式。c7_args_parse() で説明する。 <br /></td></tr>
+<tr class="memitem:gacbf5e30dc20dfbc6ecaa15569c24cf32"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#gacbf5e30dc20dfbc6ecaa15569c24cf32">c7_args_handler_t</a>) (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, const <a class="el" href="group__c7args.html#structc7__args__params__t">c7_args_params_t</a> *params, void *__uctx)</td></tr>
+<tr class="memdesc:gacbf5e30dc20dfbc6ecaa15569c24cf32"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析後に呼び出される関数の形式。  <a href="#gacbf5e30dc20dfbc6ecaa15569c24cf32">More...</a><br /></td></tr>
 <tr class="separator:gacbf5e30dc20dfbc6ecaa15569c24cf32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga83187dd1b605bd5946e3f6e80d817969"><td class="memItemLeft" align="right" valign="top"><a id="ga83187dd1b605bd5946e3f6e80d817969"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga83187dd1b605bd5946e3f6e80d817969">C7_ARGS_PRMC_UNLIM</a></td></tr>
@@ -114,9 +120,13 @@ typedef <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d2
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 オプション解析結果</h2></td></tr>
-<tr class="memitem:ga725cff09e2b02efc754142dae84ace11"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga725cff09e2b02efc754142dae84ace11">c7_args_prm_time_t</a> { <a class="el" href="group__c7args.html#gga725cff09e2b02efc754142dae84ace11a7e08d891958dc4456b121e6e738667c1">C7_ARGS_TIME_DOT</a>, 
-<a class="el" href="group__c7args.html#gga725cff09e2b02efc754142dae84ace11a915b557a41bb2601f346054262aab25c">C7_ARGS_TIME_NOSEC</a>, 
-<a class="el" href="group__c7args.html#gga725cff09e2b02efc754142dae84ace11a6cb5ee8b495ece6b4fca1c752fb9a838">C7_ARGS_TIME_SEC</a>
+<tr class="memitem:ga725cff09e2b02efc754142dae84ace11"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga725cff09e2b02efc754142dae84ace11">c7_args_prm_time_t</a> { <br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga725cff09e2b02efc754142dae84ace11a7e08d891958dc4456b121e6e738667c1">C7_ARGS_TIME_DOT</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga725cff09e2b02efc754142dae84ace11a915b557a41bb2601f346054262aab25c">C7_ARGS_TIME_NOSEC</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7args.html#gga725cff09e2b02efc754142dae84ace11a6cb5ee8b495ece6b4fca1c752fb9a838">C7_ARGS_TIME_SEC</a>
+<br />
  }</td></tr>
 <tr class="memdesc:ga725cff09e2b02efc754142dae84ace11"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e" title="本機能専用の時刻形式。  [[[YY]MMDD]hhmm][.ss] または . (ドット)。">C7_ARGS_T_DTV</a> のパラメータの表現形式  <a href="group__c7args.html#ga725cff09e2b02efc754142dae84ace11">More...</a><br /></td></tr>
 <tr class="separator:ga725cff09e2b02efc754142dae84ace11"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,21 +141,18 @@ typedef struct c7_args_t_ *&#160;</td><td class="memItemRight" valign="bottom"><
 <a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga506c5aa7b2c93cab05e2d5470bd8ac0b">c7_args_init</a> (void)</td></tr>
 <tr class="memdesc:ga506c5aa7b2c93cab05e2d5470bd8ac0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析オブジェクトを生成する。 <br /></td></tr>
 <tr class="separator:ga506c5aa7b2c93cab05e2d5470bd8ac0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacfc06309ef3f017969aff2d57a89aecd"><td class="memItemLeft" align="right" valign="top"><a id="gacfc06309ef3f017969aff2d57a89aecd"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#gacfc06309ef3f017969aff2d57a89aecd">c7_args_add_list</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, const <a class="el" href="group__c7args.html#structc7__args__optdef__t">c7_args_optdef_t</a> *optv, int optc)</td></tr>
-<tr class="memdesc:gacfc06309ef3f017969aff2d57a89aecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析オブジェクト ap にオプション定義 optv を追加する。この関数を繰り返し呼んでも良い。 <br /></td></tr>
+<tr class="memitem:gacfc06309ef3f017969aff2d57a89aecd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#gacfc06309ef3f017969aff2d57a89aecd">c7_args_add_list</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, const <a class="el" href="group__c7args.html#structc7__args__optdef__t">c7_args_optdef_t</a> *optv, int optc)</td></tr>
+<tr class="memdesc:gacfc06309ef3f017969aff2d57a89aecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析オブジェクトにオプション定義を追加する。  <a href="#gacfc06309ef3f017969aff2d57a89aecd">More...</a><br /></td></tr>
 <tr class="separator:gacfc06309ef3f017969aff2d57a89aecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga959f84f2d8426867f27ba9e1939cbe9b"><td class="memItemLeft" align="right" valign="top"><a id="ga959f84f2d8426867f27ba9e1939cbe9b"></a>
-<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga959f84f2d8426867f27ba9e1939cbe9b">c7_args_usage</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, int expl_off)</td></tr>
-<tr class="memdesc:ga959f84f2d8426867f27ba9e1939cbe9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析オブジェクト ap から Usage 表示用の文字列を構成し、C7文字列 sbp に追加する。 expl_off はオプションの概要を表示するカラム位置。 <br /></td></tr>
+<tr class="memitem:ga959f84f2d8426867f27ba9e1939cbe9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga959f84f2d8426867f27ba9e1939cbe9b">c7_args_usage</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, int expl_off)</td></tr>
+<tr class="memdesc:ga959f84f2d8426867f27ba9e1939cbe9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usage表示用の文字列を得る。  <a href="#ga959f84f2d8426867f27ba9e1939cbe9b">More...</a><br /></td></tr>
 <tr class="separator:ga959f84f2d8426867f27ba9e1939cbe9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac16e7464cd4822f32e51b16e17a106cd"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#gac16e7464cd4822f32e51b16e17a106cd">c7_args_parse</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, char **argv, void *__uctx)</td></tr>
-<tr class="memdesc:gac16e7464cd4822f32e51b16e17a106cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数 argv をオプション解析オブジェクト ap で解析する。  <a href="#gac16e7464cd4822f32e51b16e17a106cd">More...</a><br /></td></tr>
+<tr class="memdesc:gac16e7464cd4822f32e51b16e17a106cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数を解析しハンドラを呼び出す。  <a href="#gac16e7464cd4822f32e51b16e17a106cd">More...</a><br /></td></tr>
 <tr class="separator:gac16e7464cd4822f32e51b16e17a106cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga08b9a4deacaa7033c8f3feae037e34ec"><td class="memItemLeft" align="right" valign="top"><a id="ga08b9a4deacaa7033c8f3feae037e34ec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga08b9a4deacaa7033c8f3feae037e34ec">c7_args_free</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a>)</td></tr>
-<tr class="memdesc:ga08b9a4deacaa7033c8f3feae037e34ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析オブジェクト ap を解放する。解析結果の情報も解放される。 <br /></td></tr>
-<tr class="separator:ga08b9a4deacaa7033c8f3feae037e34ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5499ab13290b553e447ccfbeec43f4df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7args.html#ga5499ab13290b553e447ccfbeec43f4df">c7_args_free</a> (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap)</td></tr>
+<tr class="memdesc:ga5499ab13290b553e447ccfbeec43f4df"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション解析オブジェクトを解放する。  <a href="#ga5499ab13290b553e447ccfbeec43f4df">More...</a><br /></td></tr>
+<tr class="separator:ga5499ab13290b553e447ccfbeec43f4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>コマンドライン引数のオプション解析 </p>
@@ -232,6 +239,87 @@ handler</td>
 
 </div>
 </div>
+<a name="struct____c7__args__prm__tm__t" id="struct____c7__args__prm__tm__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#struct____c7__args__prm__tm__t">&#9670;&nbsp;</a></span>__c7_args_prm_tm_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct __c7_args_prm_tm_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p><a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e" title="本機能専用の時刻形式。  [[[YY]MMDD]hhmm][.ss] または . (ドット)。">C7_ARGS_T_DTV</a> のパラメータの解析結果 (この型名は存在しない) </p>
+<p>この型名は doxygen で生成するドキュメントの見やすさのためで実際には存在しない。 </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a764fc778ae2cbb529348fb02ad82ff4d"></a>time_t</td>
+<td class="fieldname">
+v</td>
+<td class="fielddoc">
+time_t値 </td></tr>
+<tr><td class="fieldtype">
+<a id="a1d33ac18e5c56248872f5dcb0cfc05d6"></a><a class="el" href="group__c7args.html#ga725cff09e2b02efc754142dae84ace11">c7_args_prm_time_t</a></td>
+<td class="fieldname">
+form</td>
+<td class="fielddoc">
+指定された文字列の形式 </td></tr>
+</table>
+
+</div>
+</div>
+<a name="union____7__args__prm__u" id="union____7__args__prm__u"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#union____7__args__prm__u">&#9670;&nbsp;</a></span>__7_args_prm_u</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">union __7_args_prm_u</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>オプションに指定されたパラメータの解析結果の共用体 (この型名は存在しない) </p>
+<p>この型名は doxygen で生成するドキュメントの見やすさのためで実際には存在しない。 </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a6fa77260902d52f815ff1610fc6ffc2d"></a>int64_t</td>
+<td class="fieldname">
+i</td>
+<td class="fielddoc">
+<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a116bb53441f49884b98fcaa28715d5f9" title="整数型">C7_ARGS_T_INT</a> の場合 </td></tr>
+<tr><td class="fieldtype">
+<a id="ab31181e40d3128f51141237f99374030"></a>double</td>
+<td class="fieldname">
+r</td>
+<td class="fielddoc">
+<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a5db14807db3b952a59cb29fc7e35f0ec" title="実数型">C7_ARGS_T_REAL</a> の場合 </td></tr>
+<tr><td class="fieldtype">
+<a id="aed96ea4274d3a193953b6a6e56f32e4d"></a>const char *</td>
+<td class="fieldname">
+s</td>
+<td class="fielddoc">
+<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9bd21364ea26178ba18254a8801dd025" title="リスト内のキーワード">C7_ARGS_T_KEY</a> また <a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261afc4c4496bf66bc1d878787344fd39c1e" title="任意文字列">C7_ARGS_T_ANY</a> </td></tr>
+<tr><td class="fieldtype">
+<a id="a70aab87f795170cc7187412d8f782485"></a>const char **</td>
+<td class="fieldname">
+rxv</td>
+<td class="fielddoc">
+<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261aeee969ef2f2bb7ef09b195cb6f1cbbcc" title="拡張正規表現に一致する文字列">C7_ARGS_T_REX</a> の場合のマッチング文字列<br />
+ rxv[0] は正規表現全体、rxv[1],. . . は部分一致で '(' の順。 </td></tr>
+<tr><td class="fieldtype">
+<a id="a039fc061f0ddd6a26171c3c4752b5ca5"></a><a class="el" href="group__c7args.html#struct____c7__args__prm__tm__t">__c7_args_prm_tm_t</a></td>
+<td class="fieldname">
+tm</td>
+<td class="fielddoc">
+<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e" title="本機能専用の時刻形式。  [[[YY]MMDD]hhmm][.ss] または . (ドット)。">C7_ARGS_T_DTV</a> の場合 </td></tr>
+</table>
+
+</div>
+</div>
 <a name="structc7__args__prm__t" id="structc7__args__prm__t"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#structc7__args__prm__t">&#9670;&nbsp;</a></span>c7_args_prm_t</h2>
 
@@ -259,88 +347,11 @@ keyindex</td>
 <td class="fielddoc">
 <a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9bd21364ea26178ba18254a8801dd025" title="リスト内のキーワード">C7_ARGS_T_KEY</a> や <a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261aeee969ef2f2bb7ef09b195cb6f1cbbcc" title="拡張正規表現に一致する文字列">C7_ARGS_T_REX</a> の場合の、 一致した <a class="el" href="group__c7args.html#a0aa60e2eaf53f4c8b57adcdae3decf08" title="パラメータの種類に関する追加情報  C7_ARGS_T_KEY の場合はキーワードのリスト(NULLで終了する)  C7_ARGS_T_REX の場合は拡張正規表現のリスト(NULLで終了する)">c7_args_optdef_t.conds</a>[] のインデックス。 </td></tr>
 <tr><td class="fieldtype">
-<a id="a9fd86d3f5d9368274563466e1e94587b"></a>union <a class="el" href="group__c7args.html#unionc7__args__prm__t_8u">c7_args_prm_t</a></td>
+<a id="a9449f6607b7402d198ba9e342c0e48a1"></a></td>
 <td class="fieldname">
-u</td>
+__c7_args_prm_u</td>
 <td class="fielddoc">
 type 毎の解析値 </td></tr>
-</table>
-
-</div>
-</div>
-<a name="unionc7__args__prm__t_8u" id="unionc7__args__prm__t_8u"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#unionc7__args__prm__t_8u">&#9670;&nbsp;</a></span>c7_args_prm_t.u</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">union c7_args_prm_t.u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"></div><table class="fieldtable">
-<tr><th colspan="3">Data Fields</th></tr>
-<tr><td class="fieldtype">
-<a id="a865c0c0b4ab0e063e5caa3387c1a8741"></a>int64_t</td>
-<td class="fieldname">
-i</td>
-<td class="fielddoc">
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a116bb53441f49884b98fcaa28715d5f9" title="整数型">C7_ARGS_T_INT</a> の場合 </td></tr>
-<tr><td class="fieldtype">
-<a id="a4b43b0aee35624cd95b910189b3dc231"></a>double</td>
-<td class="fieldname">
-r</td>
-<td class="fielddoc">
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a5db14807db3b952a59cb29fc7e35f0ec" title="実数型">C7_ARGS_T_REAL</a> の場合 </td></tr>
-<tr><td class="fieldtype">
-<a id="a03c7c0ace395d80182db07ae2c30f034"></a>const char *</td>
-<td class="fieldname">
-s</td>
-<td class="fielddoc">
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9bd21364ea26178ba18254a8801dd025" title="リスト内のキーワード">C7_ARGS_T_KEY</a> また <a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261afc4c4496bf66bc1d878787344fd39c1e" title="任意文字列">C7_ARGS_T_ANY</a> </td></tr>
-<tr><td class="fieldtype">
-<a id="a6fa37cb391c0ea306230bfe929bf2681"></a>const char **</td>
-<td class="fieldname">
-rxv</td>
-<td class="fielddoc">
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261aeee969ef2f2bb7ef09b195cb6f1cbbcc" title="拡張正規表現に一致する文字列">C7_ARGS_T_REX</a> の場合のマッチング文字列<br />
- rxv[0] は正規表現全体、rxv[1],. . . は部分一致で '(' の順。 </td></tr>
-<tr><td class="fieldtype">
-<a id="a6a962563e235e1789e663e356ac8d9e4"></a><a class="el" href="group__c7args.html#structc7__args__prm__t_8u_8tm">u</a></td>
-<td class="fieldname">
-tm</td>
-<td class="fielddoc">
-<a class="el" href="group__c7args.html#gga202bbdefa3c4a8abaef3f7ef039a6261a9aab03b9aff38beecdc156f26f84045e" title="本機能専用の時刻形式。  [[[YY]MMDD]hhmm][.ss] または . (ドット)。">C7_ARGS_T_DTV</a> の場合 </td></tr>
-</table>
-
-</div>
-</div>
-<a name="structc7__args__prm__t_8u_8tm" id="structc7__args__prm__t_8u_8tm"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structc7__args__prm__t_8u_8tm">&#9670;&nbsp;</a></span>c7_args_prm_t.u.tm</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct c7_args_prm_t.u.tm</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"></div><table class="fieldtable">
-<tr><th colspan="3">Data Fields</th></tr>
-<tr><td class="fieldtype">
-<a id="a9e3669d19b675bd57058fd4664205d2a"></a>time_t</td>
-<td class="fieldname">
-v</td>
-<td class="fielddoc">
-time_t値 </td></tr>
-<tr><td class="fieldtype">
-<a id="a3fcdb73d36d54f2cc22d0f68e6b6e182"></a><a class="el" href="group__c7args.html#ga725cff09e2b02efc754142dae84ace11">c7_args_prm_time_t</a></td>
-<td class="fieldname">
-form</td>
-<td class="fielddoc">
-指定された文字列の形式 </td></tr>
 </table>
 
 </div>
@@ -384,6 +395,32 @@ prmv</td>
 <td class="fielddoc">
 解析されたパラメータのデータ。prmv[0]〜prmv[prmc-1] </td></tr>
 </table>
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gacbf5e30dc20dfbc6ecaa15569c24cf32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacbf5e30dc20dfbc6ecaa15569c24cf32">&#9670;&nbsp;</a></span>c7_args_handler_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>(* c7_args_handler_t) (<a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a> ap, const <a class="el" href="group__c7args.html#structc7__args__params__t">c7_args_params_t</a> *params, void *__uctx)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>オプション解析後に呼び出される関数の形式。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ap</td><td>オプション解析オブジェクト。 </td></tr>
+    <tr><td class="paramname">params</td><td><a class="el" href="group__c7args.html#gac16e7464cd4822f32e51b16e17a106cd" title="引数を解析しハンドラを呼び出す。">c7_args_parse()</a> によるオプションとパラメータの解析結果が渡される。 </td></tr>
+    <tr><td class="paramname">__utx</td><td><a class="el" href="group__c7args.html#gac16e7464cd4822f32e51b16e17a106cd" title="引数を解析しハンドラを呼び出す。">c7_args_parse()</a> の __uctx の値がそのまま渡される。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>解析を継続する場合は C7_TRUE を、中止する場合は C7_FALSE を戻さなければならない。 中止した場合、c7_args_parse() は C7_FALSE を戻す。 </dd></dl>
 
 </div>
 </div>
@@ -447,6 +484,99 @@ prmv</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gacfc06309ef3f017969aff2d57a89aecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfc06309ef3f017969aff2d57a89aecd">&#9670;&nbsp;</a></span>c7_args_add_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_args_add_list </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a>&#160;</td>
+          <td class="paramname"><em>ap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__c7args.html#structc7__args__optdef__t">c7_args_optdef_t</a> *&#160;</td>
+          <td class="paramname"><em>optv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>optc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>オプション解析オブジェクトにオプション定義を追加する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ap</td><td>オプション解析オブジェクト。 </td></tr>
+    <tr><td class="paramname">optv</td><td>追加するオプション定義の配列。 </td></tr>
+    <tr><td class="paramname">optc</td><td>optvの指す配列の要素数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>オプション定義の追加に成功すれば C7_TRUE を、失敗すれば C7_FALE を戻す。</dd></dl>
+<p>optv[] の定義の整合性をチェックしたうえで問題なければ ap に定義が追加される。 オプション定義のデータを複数にわけ、繰り返しこの関数を呼んでも良い。 </p>
+
+</div>
+</div>
+<a id="ga959f84f2d8426867f27ba9e1939cbe9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga959f84f2d8426867f27ba9e1939cbe9b">&#9670;&nbsp;</a></span>c7_args_usage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a>* c7_args_usage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a>&#160;</td>
+          <td class="paramname"><em>ap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>expl_off</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usage表示用の文字列を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ap</td><td>オプション解析オブジェクト。 </td></tr>
+    <tr><td class="paramname">sbp</td><td>Usage文字列を追記するC7文字列。 </td></tr>
+    <tr><td class="paramname">expl_off</td><td>オプションの概要(optv[].optrepr)を表示するカラム位置。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sbpを戻す。</dd></dl>
+<p>オプション解析オブジェクト ap から Usage 表示用の文字列を構成し、C7文字列 sbp に追加する。</p>
+<p>以下のような文字列を得ることができる。 </p><div class="fragment"><div class="line">-c, --category=CATEGORY[,...]</div><div class="line">                              print only specified category</div><div class="line">                              CATEGORY: category (0..31)</div><div class="line">    --clear                   clear contents after print</div><div class="line">-d, --date=DATETIME[,DATETIME]</div><div class="line">                              range of date time</div><div class="line">                              DATETIME: timestamp: [[[YY]MMDD]hhmm][.ss] or <span class="charliteral">&#39;.&#39;</span></div><div class="line">-g, --level=LOG_LEVEL         maximum log level</div><div class="line">                              LOG_LEVEL: log level (0..7)</div><div class="line">-h, --help                    <span class="keyword">this</span> help</div><div class="line">-r, --record=MAX_COUNT        maximum count of record</div><div class="line">                              MAX_COUNT: count record</div><div class="line">-s, --order=ORDER[,ORDER]     range of order</div><div class="line">                              ORDER: order of record</div><div class="line">-t, --thread=THREAD_ID        print only specified thread</div><div class="line">                              THREAD_ID: thread <span class="keywordtype">id</span></div></div><!-- fragment --><p> この文字列の中で、例えば "CATEGORY[,...]" の "CAGEGORY" は optv[].prmword で指定した文字列、"[,...]" や "[,DATETIME]" などは optv[].prmc_min, optv[].prmc_max の情報をもとに生成される。 </p>
+
+</div>
+</div>
 <a id="gac16e7464cd4822f32e51b16e17a106cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gac16e7464cd4822f32e51b16e17a106cd">&#9670;&nbsp;</a></span>c7_args_parse()</h2>
 
@@ -479,13 +609,48 @@ prmv</td>
       </table>
 </div><div class="memdoc">
 
-<p>引数 argv をオプション解析オブジェクト ap で解析する。 </p>
+<p>引数を解析しハンドラを呼び出す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ap</td><td>オプション解析オブジェクト。 </td></tr>
+    <tr><td class="paramname">argv</td><td>解析する引数。argv[0] は最初の引数でなければならない。 </td></tr>
+    <tr><td class="paramname">__uctx</td><td>ハンドラに渡される引数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>オプションでない文字列 argv[n] を検出した時の &amp;argv[n] を戻す。</dd></dl>
 <ul>
-<li>argv[0] は最初の引数でなければならない。</li>
-<li>解析できたオプションに対して、オプション定義に指定したハンドラが呼び出される。 この時 __uctx の値がハンドラの最終引数に渡される。</li>
-<li>オプションでない引数を検出したらそこで解析を停止し、その引数を先頭とする引数リストを戻す。 argv[0]..argv[n] がオプションとオプション引数で、argv[n+1] が非オプションの場合、&amp;argv[n+1] が戻されるということ。</li>
-<li>解析結果のメモリは、同一の解析オブジェクト ap に対して次に <a class="el" href="group__c7args.html#gac16e7464cd4822f32e51b16e17a106cd" title="引数 argv をオプション解析オブジェクト ap で解析する。">c7_args_parse()</a> を呼び出すか、 <a class="el" href="group__c7args.html#ga08b9a4deacaa7033c8f3feae037e34ec" title="オプション解析オブジェクト ap を解放する。解析結果の情報も解放される。">c7_args_free()</a> を呼び出すと解放される。解析結果の文字列などを永続的に使用したい場合は呼び出し側で複製する必要がある。 </li>
+<li>解析できたオプションに対して、オプション定義に指定したハンドラが呼び出される。</li>
+<li>ハンドラの params 引数に渡された解析結果のメモリは、同一の解析オブジェクト ap に対して次に <a class="el" href="group__c7args.html#gac16e7464cd4822f32e51b16e17a106cd" title="引数を解析しハンドラを呼び出す。">c7_args_parse()</a> を呼び出すか <a class="el" href="group__c7args.html#ga5499ab13290b553e447ccfbeec43f4df" title="オプション解析オブジェクトを解放する。">c7_args_free()</a> を呼び出すと解放される。 そのため、解析結果の文字列などを永続的に使用したい場合は呼び出し側で複製する必要がある。</li>
+<li>オプションでない引数を検出したらそこで解析を停止する。 </li>
 </ul>
+
+</div>
+</div>
+<a id="ga5499ab13290b553e447ccfbeec43f4df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5499ab13290b553e447ccfbeec43f4df">&#9670;&nbsp;</a></span>c7_args_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_args_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7args.html#gae0ec5118c9303d41f7adcd68bd7e7cc5">c7_args_t</a>&#160;</td>
+          <td class="paramname"><em>ap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>オプション解析オブジェクトを解放する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ap</td><td>オプション解析オブジェクト。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>解析結果のメモリも全て解放される。 </p>
 
 </div>
 </div>

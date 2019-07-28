@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -202,7 +202,7 @@ Functions</h2></td></tr>
 <li>これは n 個のタスクをプールの資源の限り並列で実行し、投入したタスクが全て終わるのを待つために用いることができる。</li>
 <li>スレッドプールの場合は基本的にスレッドは終了しないので <a class="el" href="group__c7thread.html#ga3cf6adeace126e47f8a56a8289a8c676" title="C7スレッドの終了を待機する。">c7_thread_join()</a> ができない。そこでC7同期カウンタを使用する。</li>
 <li>タスクを投入する前にカウンタに投入するタスクを設定しておき、すべてのタスクの投入時に同じ同期カウンタを指定する。</li>
-<li>全てのタスクの投入が終われば <a class="el" href="group__c7thread.html#ga5f7aeb001851e73078c85f1379c49934" title="C7カウンタの値が expect になるまで待機する。tmo_us≧0 ならマイクロ秒のタイムアウト値とする。 カウンタが expect になれば C7_TRUE を戻し、そうでなければ C7_FALS...">c7_thread_counter_wait()</a> でカウント値が 0 になるまで待機すれば良い。 </li>
+<li>全てのタスクの投入が終われば <a class="el" href="group__c7thread.html#ga5f7aeb001851e73078c85f1379c49934" title="C7カウンタの値が指定値になるまで待機する。">c7_thread_counter_wait()</a> でカウント値が 0 になるまで待機すれば良い。 </li>
 </ul>
 
 </div>
@@ -224,6 +224,12 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>スレッドプールを破棄する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tp</td><td>スレッドプール。</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>タスクキューに特別なタスクを投入し、プール内の全てのスレッドを停止させる。 この関数を呼んだ時点で既に投入されているタスクは破棄されない。 全てのスレッドが停止したら制御データを解放して戻る。 </p>
 
 </div>

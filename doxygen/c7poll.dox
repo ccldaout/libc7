@@ -18,29 +18,41 @@
 typedef struct c7_poll_t_ *c7_poll_t;
 
 /** ポーラーを初期化する。
+ *
+ * @return ポーラーの初期化に成功すればポーラーオブジェクトを戻し、失敗すれば NULL を戻す。
  */
 c7_poll_t c7_poll_init(void);
 
-/** ポーラーの監視ループを開始する。
- * 致命的なエラーを検出すればループを停止後 C7_FALSE を戻す。
- * c7_poll_stop() されればループを停止後 C7_TRUE を戻す。
+/** ポーラーの監視ループを起動する。
+ *
+ * @param poller ポーラー。
+ * @return 致命的なエラーを検出すればループを停止後 C7_FALSE を戻す。
+ * 	   c7_poll_stop() されればループを停止後 C7_TRUE を戻す。
+ *
+ * ポーラーの監視ループを開始するため、致命的なエラーの検出や明示的なループ停止要求がなければ、この関数から戻ることはない。
  */
 c7_bool_t c7_poll_start(c7_poll_t poller);
 
-/** ポーラーの監視ループを stacksize_kb のスタックを持つスレッドで開始する。
- * スレッドが起動すれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。
+/** ポーラーの監視ループを別スレッドで起動する。
+ *
+ * @param poller ポーラー。
+ * @param stacksize_kb 監視ループを動かすスレッドのスタックサイズ(KB)。0 の場合はデフォルトのスタックサイズとなる。
+ * @return スレッドが起動すれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。
  */
 c7_bool_t c7_poll_start_thread(c7_poll_t poller, int stacksize_kb);
 
 /** ポーラーの監視ループの停止を要求する。
- * 要求をキューイングできれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。
+ *
+ * @param poller ポーラー。
+ * @return 要求をキューイングできれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。
+ *
  * この関数では要求のキューイングまでで、その要求が受理されたか、停止したかは確認できない。
  */
 c7_bool_t c7_poll_stop(c7_poll_t poller);
 
 /** ポーラーに記述子を監視対象として登録する。
  *
- * @param poller ポーラーオブジェクト。
+ * @param poller ポーラー。
  * @param desc 監視する記述子。
  * @param evmask 監視するイベント。C7_POLL_EVENT_xxx の論理和を指定する。
  * @param on_event evmaskで指定したイベントが発生した場合に呼ばれる関数。この関数に渡される
@@ -59,6 +71,9 @@ c7_bool_t c7_poll_register(c7_poll_t poller,
 
 /** ポーラーに登録済みの記述子について、監視するイベントを変更する。
  *
+ * @param poller ポーラー。
+ * @param desc 変更対象の記述子。
+ * @param evmask 変更後の監視するイベント。C7_POLL_EVENT_xxx の論理和を指定する。
  * @return descが監視対象でなければ C7_FALES を戻す。
  *         監視対象の場合、epollバージョンは変更に成功したかどうか、
  *	   pollバージョンでは変更要求をキューイングできたかどうかを戻す。
@@ -69,6 +84,8 @@ c7_bool_t c7_poll_modify(c7_poll_t poller,
 
 /** ポーラーに登録済みの記述子を監視対象から外す。
  *
+ * @param poller ポーラー。
+ * @param desc 監視対象から外す記述子。
  * @return descが監視対象でなければ C7_FALES を戻す。
  *         監視対象の場合、epollバージョンは削除に成功したかどうか、
  *	   pollバージョンでは削除要求をキューイングできたかどうかを戻す。
@@ -76,13 +93,15 @@ c7_bool_t c7_poll_modify(c7_poll_t poller,
 c7_bool_t c7_poll_unregister(c7_poll_t poller,
 			     int desc);
 
-/** ポーラーに登録済みの記述子を一時的に監視対象から外す。\n
+/** ポーラーに登録済みの記述子を一時的に監視対象から外す。
+ *
  * 現在の evmask を退避したあと、c7_poll_modify(poller, desc, 0) を呼ぶ。
  */
 c7_bool_t c7_poll_pause(c7_poll_t poller,
 			int desc);
 
-/** 一時的に監視対象から外す記述子を再び監視対象とする。\n
+/** 一時的に監視対象から外す記述子を再び監視対象とする。
+ *
  * c7_poll_pause()で退避した evmask で、c7_poll_modify(poller, desc, evmask) を呼ぶ。
  */
 c7_bool_t c7_poll_resume(c7_poll_t poller,
@@ -104,11 +123,19 @@ c7_alarm_t c7_poll_alarm_on(c7_poll_t poller,
 			    void *__arg);
 
 /** ポーラーに設定した alarm_id のアラームを解除する。
+ *
+ * @param poller ポーラーオブジェクト。
+ * @param alarm_id 解除したいアラームID。c7_poll_alarm_on() の戻り値。
  */
-void c7_poll_alarm_off(c7_poll_t pl,
+void c7_poll_alarm_off(c7_poll_t poller,
 		       c7_alarm_t alarm_id);
 
 /** ポーラーを削除する。
+ *
+ * @param poller ポーラーオブジェクト。c7_poll_stop() で停止していなければならない。
+ *
+ * @note 現在の実装では、監視ループをスレッドで起動した場合、そのスレッドが停止したことを
+ *	 確認する術がないため、この関数を呼び出すのは危険である。
  */
 void c7_poll_free(c7_poll_t poller);
 

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -152,11 +152,11 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <tr class="separator:ga981415d9f1cba010b78db410396f1532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3a2136f0168376fc3b9822f830d83c3d"><td class="memItemLeft" align="right" valign="top"><a id="ga3a2136f0168376fc3b9822f830d83c3d"></a>
 char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__charp.html#ga3a2136f0168376fc3b9822f830d83c3d">c7strdup_mg</a> (<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, const char *s)</td></tr>
-<tr class="memdesc:ga3a2136f0168376fc3b9822f830d83c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">コピー先の領域を mg に対する <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。">c7_mg_malloc()</a> で確保して、 文字列 s をその領域へコピーする。 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。 <br /></td></tr>
+<tr class="memdesc:ga3a2136f0168376fc3b9822f830d83c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">コピー先の領域を mg に対する <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。">c7_mg_malloc()</a> で確保して、 文字列 s をその領域へコピーする。 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。 <br /></td></tr>
 <tr class="separator:ga3a2136f0168376fc3b9822f830d83c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4e1fc67bbb05a2a2b9367b429cac4964"><td class="memItemLeft" align="right" valign="top"><a id="ga4e1fc67bbb05a2a2b9367b429cac4964"></a>
 char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__charp.html#ga4e1fc67bbb05a2a2b9367b429cac4964">c7strbdup_mg</a> (<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, const char *s, const char *e)</td></tr>
-<tr class="memdesc:ga4e1fc67bbb05a2a2b9367b429cac4964"><td class="mdescLeft">&#160;</td><td class="mdescRight">コピー先の領域を mg に対する <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。">c7_mg_malloc()</a> で確保して、 文字列 s の e の直前までの部分文字列をその領域へコピーする。 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。 <br /></td></tr>
+<tr class="memdesc:ga4e1fc67bbb05a2a2b9367b429cac4964"><td class="mdescLeft">&#160;</td><td class="mdescRight">コピー先の領域を mg に対する <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。">c7_mg_malloc()</a> で確保して、 文字列 s の e の直前までの部分文字列をその領域へコピーする。 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻す。 <br /></td></tr>
 <tr class="separator:ga4e1fc67bbb05a2a2b9367b429cac4964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0bbacb449ca9686487c5c554ba0dc3b9"><td class="memItemLeft" align="right" valign="top"><a id="ga0bbacb449ca9686487c5c554ba0dc3b9"></a>
 char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__charp.html#ga0bbacb449ca9686487c5c554ba0dc3b9">c7strdup</a> (const char *s)</td></tr>
@@ -179,7 +179,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 文字列配列(char **)のコピー</h2></td></tr>
 <tr class="memitem:ga1692db255e8855437e739086c388cbf2"><td class="memItemLeft" align="right" valign="top"><a id="ga1692db255e8855437e739086c388cbf2"></a>
 char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__charp.html#ga1692db255e8855437e739086c388cbf2">c7strvdup_mg</a> (<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, char **const strv, int n)</td></tr>
-<tr class="memdesc:ga1692db255e8855437e739086c388cbf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">n要素分の文字ポインタ(char *)の配列 n_strv を動的確保し、 n_strv[i] を strv[i] i=0..(n-1) の動的複製とし、 n_strv[n] を NULLポインタとしたうえで、n_strv を戻す。 メモリの確保に失敗した場合は NULL ポインタを戻す。 メモリの動的確保には mg に対して <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。">c7_mg_malloc()</a> と <a class="el" href="group__c7string__charp.html#ga3a2136f0168376fc3b9822f830d83c3d" title="コピー先の領域を mg に対する c7_mg_malloc() で確保して、 文字列 s をその領域へコピーする。 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻...">c7strdup_mg()</a> を使用する。 なお n に -1 が指定された場合は、strv[i] が NULL となる i が n に指定されたものとして振舞う。 <br /></td></tr>
+<tr class="memdesc:ga1692db255e8855437e739086c388cbf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">n要素分の文字ポインタ(char *)の配列 n_strv を動的確保し、 n_strv[i] を strv[i] i=0..(n-1) の動的複製とし、 n_strv[n] を NULLポインタとしたうえで、n_strv を戻す。 メモリの確保に失敗した場合は NULL ポインタを戻す。 メモリの動的確保には mg に対して <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。">c7_mg_malloc()</a> と <a class="el" href="group__c7string__charp.html#ga3a2136f0168376fc3b9822f830d83c3d" title="コピー先の領域を mg に対する c7_mg_malloc() で確保して、 文字列 s をその領域へコピーする。 領域の確保に成功すればその領域の先頭アドレスを戻し、失敗すれば NULL ポインタを戻...">c7strdup_mg()</a> を使用する。 なお n に -1 が指定された場合は、strv[i] が NULL となる i が n に指定されたものとして振舞う。 <br /></td></tr>
 <tr class="separator:ga1692db255e8855437e739086c388cbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga34e68fd9c3ff089755ebc93cbfc1347c"><td class="memItemLeft" align="right" valign="top"><a id="ga34e68fd9c3ff089755ebc93cbfc1347c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__charp.html#ga34e68fd9c3ff089755ebc93cbfc1347c">c7strvfree_mg</a> (<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, char **const strv)</td></tr>

@@ -54,11 +54,6 @@ typedef void (*c7_signal_handler_t)(int sig);
  *                        追加のブロックが必要ない時は NULL で良い。
  * @param signal_handler シグナルハンドラ。
  * @return 事前に設定されていたハンドラ。
- *
- * @warning 現在のバージョンでは、signal_handler 引数として SIG_IGN, SIG_DFL に対応していない。
- *          SIG_IGN は signal(3) で設定するのが簡便で良い(何の問題もない)。SIG_DFL については、
- *          c7_signal_sigmask() で対象の signal をアンブロックしたあと、signal(3) で設定するほかない。
- *          これらは改善する予定である。
  */
 c7_signal_handler_t c7_signal_register(int sig,
 				       const sigset_t *sigmask_on_call,

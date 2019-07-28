@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -74,33 +74,258 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga35ea86352476bfce173101688fa9f328"><td class="memItemLeft" align="right" valign="top"><a id="ga35ea86352476bfce173101688fa9f328"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga35ea86352476bfce173101688fa9f328">c7_fd_advlock</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> enable)</td></tr>
-<tr class="memdesc:ga35ea86352476bfce173101688fa9f328"><td class="mdescLeft">&#160;</td><td class="mdescRight">fd の指すファイル全体に対するアドバイザリロックの開始/終了 <br /></td></tr>
+<tr class="memitem:ga35ea86352476bfce173101688fa9f328"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga35ea86352476bfce173101688fa9f328">c7_fd_advlock</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> enable)</td></tr>
+<tr class="memdesc:ga35ea86352476bfce173101688fa9f328"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルに対するアドバイザリロックの設定/解除。  <a href="#ga35ea86352476bfce173101688fa9f328">More...</a><br /></td></tr>
 <tr class="separator:ga35ea86352476bfce173101688fa9f328"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1c842ecef0eb35ff81d783834a3e8ca"><td class="memItemLeft" align="right" valign="top"><a id="gaf1c842ecef0eb35ff81d783834a3e8ca"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#gaf1c842ecef0eb35ff81d783834a3e8ca">c7_fd_setnonblock</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> enable)</td></tr>
-<tr class="memdesc:gaf1c842ecef0eb35ff81d783834a3e8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">fd に対する Non-blocking I/O フラグのオン/オフ <br /></td></tr>
+<tr class="memitem:gaf1c842ecef0eb35ff81d783834a3e8ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#gaf1c842ecef0eb35ff81d783834a3e8ca">c7_fd_setnonblock</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> enable)</td></tr>
+<tr class="memdesc:gaf1c842ecef0eb35ff81d783834a3e8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子の Non-blocking I/O フラグの設定/解除。  <a href="#gaf1c842ecef0eb35ff81d783834a3e8ca">More...</a><br /></td></tr>
 <tr class="separator:gaf1c842ecef0eb35ff81d783834a3e8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga85b916fbbc22c756e37825e00ccfa7d6"><td class="memItemLeft" align="right" valign="top"><a id="ga85b916fbbc22c756e37825e00ccfa7d6"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga85b916fbbc22c756e37825e00ccfa7d6">c7_fd_getnonblock</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *status)</td></tr>
-<tr class="memdesc:ga85b916fbbc22c756e37825e00ccfa7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">fd に対する Non-blocking I/O フラグ設定値を *status で戻す。 <br /></td></tr>
+<tr class="memitem:ga85b916fbbc22c756e37825e00ccfa7d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga85b916fbbc22c756e37825e00ccfa7d6">c7_fd_getnonblock</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *status)</td></tr>
+<tr class="memdesc:ga85b916fbbc22c756e37825e00ccfa7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子の Non-blocking I/O フラグ設定値を得る。  <a href="#ga85b916fbbc22c756e37825e00ccfa7d6">More...</a><br /></td></tr>
 <tr class="separator:ga85b916fbbc22c756e37825e00ccfa7d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga06be31121e0549f0cae107ef948e5bbe"><td class="memItemLeft" align="right" valign="top"><a id="ga06be31121e0549f0cae107ef948e5bbe"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga06be31121e0549f0cae107ef948e5bbe">c7_fd_setcloexec</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> enable)</td></tr>
-<tr class="memdesc:ga06be31121e0549f0cae107ef948e5bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">fd に対する Close-on-exec フラグのオン/オフ <br /></td></tr>
+<tr class="memitem:ga06be31121e0549f0cae107ef948e5bbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga06be31121e0549f0cae107ef948e5bbe">c7_fd_setcloexec</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> enable)</td></tr>
+<tr class="memdesc:ga06be31121e0549f0cae107ef948e5bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子の close-on-exec フラグの設定/解除。  <a href="#ga06be31121e0549f0cae107ef948e5bbe">More...</a><br /></td></tr>
 <tr class="separator:ga06be31121e0549f0cae107ef948e5bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74840ebab6b52fb9d2dd3747f134c491"><td class="memItemLeft" align="right" valign="top"><a id="ga74840ebab6b52fb9d2dd3747f134c491"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga74840ebab6b52fb9d2dd3747f134c491">c7_fd_getcloexec</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *status)</td></tr>
-<tr class="memdesc:ga74840ebab6b52fb9d2dd3747f134c491"><td class="mdescLeft">&#160;</td><td class="mdescRight">fd に対する Close-on-exec フラグ設定値を *status で戻す。 <br /></td></tr>
+<tr class="memitem:ga74840ebab6b52fb9d2dd3747f134c491"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga74840ebab6b52fb9d2dd3747f134c491">c7_fd_getcloexec</a> (int fd, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *status)</td></tr>
+<tr class="memdesc:ga74840ebab6b52fb9d2dd3747f134c491"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子の close-on-exec フラグ設定値を得る。  <a href="#ga74840ebab6b52fb9d2dd3747f134c491">More...</a><br /></td></tr>
 <tr class="separator:ga74840ebab6b52fb9d2dd3747f134c491"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga85d743222c6383f89c854d9109ad267e"><td class="memItemLeft" align="right" valign="top"><a id="ga85d743222c6383f89c854d9109ad267e"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga85d743222c6383f89c854d9109ad267e">c7_fd_renumber</a> (int *fdp, int lowest)</td></tr>
-<tr class="memdesc:ga85d743222c6383f89c854d9109ad267e"><td class="mdescLeft">&#160;</td><td class="mdescRight">*fdp の記述子の値を lowest 以上の最小の未使用の番号に変更し *fdp で戻す。 <br /></td></tr>
+<tr class="memitem:ga85d743222c6383f89c854d9109ad267e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7fd.html#ga85d743222c6383f89c854d9109ad267e">c7_fd_renumber</a> (int *fdp, int lowest)</td></tr>
+<tr class="memdesc:ga85d743222c6383f89c854d9109ad267e"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子の値を指定値以上の最小の未使用の番号に変更する。  <a href="#ga85d743222c6383f89c854d9109ad267e">More...</a><br /></td></tr>
 <tr class="separator:ga85d743222c6383f89c854d9109ad267e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>ファイル記述に対する操作(主に fcntl のラッパー) </p>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga35ea86352476bfce173101688fa9f328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35ea86352476bfce173101688fa9f328">&#9670;&nbsp;</a></span>c7_fd_advlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_fd_advlock </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ファイルに対するアドバイザリロックの設定/解除。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>ロック操作対象のファイルの記述子。 </td></tr>
+    <tr><td class="paramname">enable</td><td>C7_FALSE ならロックを解除し、そうでないなら有効にする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ロック操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>アドバイザリロックの対象領域はファイル全体となっている。 </dd></dl>
+
+</div>
+</div>
+<a id="gaf1c842ecef0eb35ff81d783834a3e8ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf1c842ecef0eb35ff81d783834a3e8ca">&#9670;&nbsp;</a></span>c7_fd_setnonblock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_fd_setnonblock </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子の Non-blocking I/O フラグの設定/解除。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>記述子。 </td></tr>
+    <tr><td class="paramname">enable</td><td>C7_FALSE なら Non-blocking I/O フラグを解除し、そうでないなら有効にする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>フラグ操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga85b916fbbc22c756e37825e00ccfa7d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga85b916fbbc22c756e37825e00ccfa7d6">&#9670;&nbsp;</a></span>c7_fd_getnonblock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_fd_getnonblock </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子の Non-blocking I/O フラグ設定値を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>記述子。 </td></tr>
+    <tr><td class="paramname">status</td><td>設定値を戻すためのポインタ変数。 フラグが有効であれば C7_TRUE が、無効であれば C7_FALSE を戻す。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>フラグ取得操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。 <b>戻り値は記述子のフラグ取得操作の成否であって、設定値の真偽ではない。</b> </dd></dl>
+
+</div>
+</div>
+<a id="ga06be31121e0549f0cae107ef948e5bbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06be31121e0549f0cae107ef948e5bbe">&#9670;&nbsp;</a></span>c7_fd_setcloexec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_fd_setcloexec </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子の close-on-exec フラグの設定/解除。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>記述子。 </td></tr>
+    <tr><td class="paramname">enable</td><td>C7_FALSE なら close-on-eec フラグを解除し、そうでないなら有効にする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>フラグ操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga74840ebab6b52fb9d2dd3747f134c491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74840ebab6b52fb9d2dd3747f134c491">&#9670;&nbsp;</a></span>c7_fd_getcloexec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_fd_getcloexec </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子の close-on-exec フラグ設定値を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>記述子。 </td></tr>
+    <tr><td class="paramname">status</td><td>設定値を戻すためのポインタ変数。 フラグが有効であれば C7_TRUE が、無効であれば C7_FALSE を戻す。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>フラグ取得操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。 <b>戻り値は記述子のフラグ取得操作の成否であって、設定値の真偽ではない。</b> </dd></dl>
+
+</div>
+</div>
+<a id="ga85d743222c6383f89c854d9109ad267e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga85d743222c6383f89c854d9109ad267e">&#9670;&nbsp;</a></span>c7_fd_renumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_fd_renumber </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>fdp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lowest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子の値を指定値以上の最小の未使用の番号に変更する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fdp</td><td>番号を変更したい記述子へのポインタ。 変更に成功すれば、変更後の記述子の値が *fdp に格納される。 </td></tr>
+    <tr><td class="paramname">lowest</td><td>変更後の番号に課す下限値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>変更操作に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>変更に成功した場合は、元の記述子の番号は close(2) される。 </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

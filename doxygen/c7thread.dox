@@ -18,50 +18,58 @@
  */
 #define C7_THREAD_GUARD_EXIT(mp)
 
-/** pthread_mutex_init() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** pthread_mutex_init() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_mutex_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr);
 
-/** (PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** (PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_recursive_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr_op);
 
-/** pthread_cond_init() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** pthread_cond_init() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_cond_init(pthread_cond_t *cond, pthread_condattr_t *attr);
 
-/** pthread_mutex_lock() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** pthread_mutex_lock() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_lock(pthread_mutex_t *mutex);
 
-/** pthread_mutex_trylock() の代替。\n
+/** pthread_mutex_trylock() の代替。
+ *
  * mutex が既にロックされている場合は errno に EBUSY が設定され C7_FALSE が戻される。この時フックは呼び出されない。
  * その他のエラーは C7_FALSE が戻り、errno と c7status に情報が保存され、フックが呼び出される(cf. c7hook_set_thread_error())。
  */
 c7_bool_t c7_thread_trylock(pthread_mutex_t *mutex);
 
-/** pthread_mutex_unlock() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** pthread_mutex_unlock() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_unlock(pthread_mutex_t *mutex);
 
-/** pthread_cond_signal() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** pthread_cond_signal() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_notify(pthread_cond_t *cond);
 
-/** pthread_cond_broadcast() の代替。\n
- * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。\n
+/** pthread_cond_broadcast() の代替。
+ *
+ * エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。
  * errno は変更されない。
  */
 c7_bool_t c7_thread_notify_all(pthread_cond_t *cond);
@@ -186,27 +194,40 @@ c7_thread_t c7_thread_new(void (*target)(void *thread_arg),
 			  void *thread_arg);
 
 /** C7スレッドの名前を設定する。
+ *
+ * @param th C7スレッド。
+ * @param name 設定したい名前。
+ *
+ * 指定した名前に丸括弧つきのC7スレッドIDを付加した文字列を設定する。
  */
 void c7_thread_set_name(c7_thread_t th, const char *name);
 
 /** C7スレッドのスタックサイズを KB 単位で設定する。
+ *
+ * @param th C7スレッド。
+ * @param stacksize_kb スレッドに割り当てるスタックサイズ(KB)。
+ * @return pthread_attr_setstacksize()が成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
  */
 c7_bool_t c7_thread_set_stacksize(c7_thread_t th, int stacksize_kb);
 
 /** C7スレッドを自動的に解放するように設定する。
  *
+ * @param th 自動解放したいC7スレッド。
+ *
  * @note
- * この設定をされたC7スレッドは、c7_thread_start() 後、target() が終了したあとに自身を
- * 自動的に解放する。そのため、この引数 th のように、C7スレッドのポインタ変数に
- * 参照は危険となる。
+ * この設定をされたC7スレッドは、c7_thread_start() 後、target() が終了したあとに自身を自動的に解放する。
+ * そのため、自動解放が設定されたスレッドを指す c7_thread_t 変数の使用は、
+ * いつそのスレッドのメモリが解放されるかわからないため危険である。
  */
 void c7_thread_set_autofree(c7_thread_t th);
 
 /** C7スレッドを起動する。
  *
+ * @param th 起動したいC7スレッド。
+ * @return スレッドの起動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
+ *
  * pthread のスレッドを起動して target() を実行する。
  * この関数で初めて pthread_create が呼ばれ、OS上のスレッドが生成される。
- * スレッドの起動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
  *
  * pthread_create が成功すると、
  * 生成されたスレッドで c7_thread_call_init() で登録された初期化用コールバックを呼び出し、
@@ -214,9 +235,7 @@ void c7_thread_set_autofree(c7_thread_t th);
  */
 c7_bool_t c7_thread_start(c7_thread_t th);
 
-/** C7スレッドの生成から起動までをまとめて行なう。\n
- * この関数は、c7_thread_new(), c7_thread_set_name(), c7_thread_set_stacksize(),
- * c7_thread_start() をまとめて行う。
+/** C7スレッドの生成から起動までをまとめて行なう。
  *
  * @param target スレッドで実行する関数。(cf. c7_thread_new())
  * @param finish スレッド終了時に呼び出す関数。(cf. c7_thread_new())
@@ -224,6 +243,9 @@ c7_bool_t c7_thread_start(c7_thread_t th);
  * @param name NULLポインタでなければ c7_thread_set_name() を呼び出す。
  * @param stksize_kb 0でなければ c7_thread_set_stacksize() を呼び出す。
  * @return スレッドの起動まで成功すれば C7スレッドを戻し、そうでなければ NULL を戻す。
+ *
+ * この関数は、c7_thread_new(), c7_thread_set_name(), c7_thread_set_stacksize(),
+ * c7_thread_start() をまとめて行う。
  */
 c7_thread_t c7_thread_run(void (*target)(void *thread_arg),
 			  void (*finish)(void *thread_arg),
@@ -249,6 +271,9 @@ void c7_thread_abort(void);
 
 /** スレッドをキャンセルする。
  *
+ * @param th キャンセルしたいC7スレッド。
+ * @return pthread_cancel() が成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
+ *
  * pthread_cancel() を呼び出して、th の指す C7スレッドにキャンセルをリクエストする。
  * キャンセル機構は pthread に従うので、これでスレッドがキャンセルされるかどうかは不明。
  * スレッドが実際にキャンセルされた場合は、C7スレッドに対して c7_thread_endstatus() を
@@ -267,55 +292,68 @@ c7_bool_t c7_thread_cancel(c7_thread_t th);
 c7_bool_t c7_thread_join(c7_thread_t th, int tmo_us);
 
 /** C7スレッドにシグナルを送る。 
+ *
+ * @param th シグナルを送りたいC7スレッド。
+ * @param sig シグナル番号。
+ * @return pthread_kill() が成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
  */
 c7_bool_t c7_thread_kill(c7_thread_t th, int sig);
 
 /** C7スレッドが終了していないか確認する。
+ *
+ * @param th 調べたいC7スレッド。
+ * @return スレッドが終了状態でなければ C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_thread_is_alive(c7_thread_t th);
 
-/** C7スレッドのユニークなIDを戻す。
+/** C7スレッドのユニークなIDを得る。
  *
- * th_op の指す C7スレッドに割り振られたID(≧1)を戻す。
- * th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ 0 が戻る
+ * @param th_op 調べたいC7スレッド。NULLの場合は自スレッドとする。
+ * @return th_op の指すC7スレッドに割り振られたID(≧1)を戻す。
+ *         th_op が NULL で自スレッドが C7スレッドでなければ 0 が戻る
  *
  * C7スレッドの生成毎に uint64_t のカウンタ値をインクリメントしながら割り振っていて(0はスキップ)、この値が戻る。
- * 1ns置きにスレッドを起動しても 292 年必要なので現実的にはユニークといえる。
+ * 1ns置きにスレッドを起動してもカウンタが一周するのに 292 年必要なので実質的にユニークといえるだろう。
  */
 uint64_t c7_thread_id(c7_thread_t th_op);
 
-/** C7スレッドの名前を戻す。
+/** C7スレッドの名前を得る。
  *
- * th_op の指す C7スレッドの名前を戻す。
- * th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ空文字列が戻る。
+ * @param th_op 調べたいC7スレッド。NULLの場合は自スレッドとする。
+ * @return th_op の指す C7スレッドの名前を戻す。
+ *         th_op が NULL で自スレッドが C7スレッドでなければ空文字列が戻る。
  *
  * c7_thread_new() で生成したスレッドにはデフォルトで "t(スレッドID)" という形式の名前がつくので、
  * NULL が戻ることはない。
  */
 const char *c7_thread_name(c7_thread_t th_op);
 
-/** C7スレッドの引数を戻す。
+/** C7スレッドの引数を得る。
  *
- * th_op の指す C7スレッドの target() に与えた引数を戻す。
- * th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ NULL が戻る。
+ * @param th_op 調べたいC7スレッド。NULLの場合は自スレッドとする。
+ * @return th_op の指す C7スレッドの target() に与えた引数を戻す。
+ *         th_op が NULL で自スレッドが C7スレッドでなければ NULL が戻る。
  */
 void *c7_thread_arg(c7_thread_t th_op);
 
-/** C7スレッドの終了ステータスを戻す。
+/** C7スレッドの終了ステータスを得る。
  *
- * th_op の指す C7スレッドの終了ステータスを戻す。
- * th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ C7_THREAD_END_Unknown が戻る。
+ * @param th_op 調べたいC7スレッド。NULLの場合は自スレッドとする。
+ * @return th_op の指す C7スレッドの終了ステータスを戻す。
+ *         th_op が NULL で自スレッドが C7スレッドでなければ C7_THREAD_END_Unknown が戻る。
  */
 c7_thread_end_t c7_thread_endstatus(c7_thread_t th_op);
 
-/** 自スレッドのC7スレッドオブジェクトを戻す。
+/** 自スレッドのC7スレッドオブジェクトを得る。
+ *
  * 自スレッドが C7スレッドでなければ NULL を戻す。
  */
 c7_thread_t c7_thread_self(void);
 
 /** C7スレッドを解放する。
  *
- * C7スレッドが実行中であれば C7_FALSE を戻し、そうでなけらば全ての内部データを破棄して C7_TRUE を戻す。
+ * @param th C7スレッド。
+ * @return C7スレッドが実行中であれば C7_FALSE を戻し、そうでなければ全ての内部データを破棄して C7_TRUE を戻す。
  */
 c7_bool_t c7_thread_free(c7_thread_t th);
 //@}
@@ -324,45 +362,80 @@ c7_bool_t c7_thread_free(c7_thread_t th);
 /// @name カウンタ同期機能
 //@{
 /** C7カウンタ。
+ *
+ * 単純な整数値に基づく同期機構を提供する。排他制御(pthread_mutex_t)や条件変数(pthread_cond_t)を
+ * 用いるが、初期化以外で、正しい使い方をしている lock/unlock/notify/wait について戻り値をチェックしない。
+ * そのため、c7hook 機構を用いて、これらの関数でエラーした場合に処理を記述しておくのが良いだろう。
  */
 typedef struct c7_thread_counter_t_ *c7_thread_counter_t;
 
-/** C7カウンタを初期値 ini_count で生成する。\n
- * 成功すれば C7カウンタを戻し、失敗すれば NULL を戻す。
+/** C7カウンタを生成する。
+ *
+ * @param ini_count カウンタの初期値。
+ * @return 成功すれば C7カウンタを戻し、失敗すれば NULL を戻す。
  */
 c7_thread_counter_t c7_thread_counter_init(int ini_count);
 
-/** C7カウンタの現在値を戻す。
+/** C7カウンタの現在値を得る。
+ *
+ * @param ct C7カウンタ。
+ * @return 現在のカウンタ値を戻す。
  */
 int c7_thread_counter_value(c7_thread_counter_t ct);
 
-/** C7カウンタの値が count かどうかを戻す。
+/** C7カウンタの値が指定値かどうかを調べる。
+ *
+ * @param ct C7カウンタ。
+ * @param count 期待するカウンタ値。
+ * @return 現在のカウンタ値が count に一致すれば C7_TRUE を、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_thread_counter_is(c7_thread_counter_t ct, int count);
 
 /** C7カウンタの値を 1 増やす。
+ *
+ * c7_thread_counter_move(ct, 1) と等価。
  */
 void c7_thread_counter_up(c7_thread_counter_t ct);
 
 /** C7カウンタの値を 1 減らす。
+ *
+ * c7_thread_counter_move(ct, -1) と等価。
  */
 void c7_thread_counter_down(c7_thread_counter_t ct);
 
-/** C7カウンタの値を delta 分動かす。
+/** C7カウンタの値をシフトする。
+ *
+ * @param ct C7カウンタ。
+ * @param delta カウンタの増分値。
+ *
+ * カウンタに delta を加算する。
  */
 void c7_thread_counter_move(c7_thread_counter_t ct, int delta);
 
-/** C7カウンタの値を count にする。
+/** C7カウンタの値を指定値にする。
+ *
+ * @param ct C7カウンタ。
+ * @param count 設定したいカウンタ値。
+ *
+ * カウンタの値を count にする。
  */
 void c7_thread_counter_set(c7_thread_counter_t ct, int count);
 
-/** C7カウンタの値が expect になるまで待機する。tmo_us≧0 ならマイクロ秒のタイムアウト値とする。
- * カウンタが expect になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
- *  C7_FALSE が戻る場合、タイムアウトであれば errno に ETIMEDOUT が設定されている。
+/** C7カウンタの値が指定値になるまで待機する。
+ *
+ * @param ct C7カウンタ。
+ * @param expect 期待する値。
+ * @param tmo_us 非負(≧0)ならマイクロ秒単位のタイムアウト値とする。
+ * @return タイムアウトまでの間にカウンタが expect になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ *         タイムアウトした場合は errno に ETIMEDOUT が設定される。
  */
 c7_bool_t c7_thread_counter_wait(c7_thread_counter_t ct, int expect, int tmo_us);
 
 /** C7カウンタを破棄する。
+ *
+ * @param ct C7カウンタ。
+ *
+ * C7カウンタで待機しているスレッドがあった場合の動作は予測不可能である。
  */
 void c7_thread_counter_free(c7_thread_counter_t ct);
 //@}
@@ -370,33 +443,46 @@ void c7_thread_counter_free(c7_thread_counter_t ct);
 
 /// @name イベント(ブール型)同期機能
 //@{
-/** C7同期イベント。同期イベントは、セット状態とクリア状態の二つをもつ。
+/** C7同期イベント。
+ *
+ * 同期イベントは、セット状態とクリア状態の二つをもち、
+ * それぞれを、0 と 1 に割り当てたC7カウンタの特殊ケース。
  */
 typedef c7_thread_counter_t c7_thread_event_t;
 
 /** C7同期イベントをクリア状態で生成する。
+ *
+ * c7_thread_counter_init(0) と等価。
  */
 c7_thread_event_t c7_thread_event_init(void);
 
 /** C7同期イベントがセット状態かどうか調べる。
+ *
+ * c7_thread_counter_is(ev, 1) と等価。
  */
 c7_bool_t c7_thread_event_is_set(c7_thread_event_t ev);
 
 /** C7同期イベントをセット状態とする。
+ *
+ * c7_thread_counter_set(ev, 1) と等価。
  */
 void c7_thread_event_set(c7_thread_event ev);
 
 /** C7同期イベントをクリア状態とする。
+ *
+ * c7_thread_counter_set(ev, 0) と等価。
  */
 void c7_thread_event_clear(c7_thread_event ev);
 
-/** C7同期イベントがセット状態になるまで待機する。tmo_us≧0 ならマイクロ秒のタイムアウト値とする。
- * セット状態になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
- *  C7_FALSE が戻る場合、タイムアウトであれば errno に ETIMEDOUT が設定されている。
+/** C7同期イベントがセット状態になるまで待機する。
+ *
+ * c7_thread_counter_wait(ev, 1, tmo_us) と等価。
  */
 c7_bool_t c7_thread_event_wait(c7_thread_event ev, int tmo_us);
 
 /** C7同期イベントを破棄する。
+ *
+ * c7_thread_counter_free(ev) と等価。
  */
 void c7_thread_event_free(c7_thread_event_t ev);
 //@}
@@ -409,25 +495,37 @@ void c7_thread_event_free(c7_thread_event_t ev);
  */
 typedef struct c7_thread_fpipe_t_ *c7_thread_fpipe_t;
 
-/** fpipe を ent_count 要素の容量を確保して生成する。
+/** fpipe を生成する。
+ * 
+ * @param ent_count パイプ内の要素数。
+ * @return 成功すればスレッド間固定長パイプを戻し、失敗すれば NULL を戻す。
+ *
+ * ent_count 要素の容量をもつスレッド間固定長パイプを生成する。
  */
 c7_thread_fpipe_t c7_thread_fpipe_init(int ent_count);
 
-/** fpipe の容量を ent_count に変更する。
+/** fpipe の容量を変更する。
  *
- * fpipe が空でなければエラーとする。容量の変更に成功すれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ * @param fpipe スレッド間固定長パイプ。パイプ内は空でなければならない。
+ * @param ent_count 新しい容量。
+ * @return 容量の変更に成功すれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ *         とくにパイプ内が空でなければエラーとなる。
  */
 c7_bool_t c7_thread_fpipe_resize(c7_thread_fpipe_t fpipe, int ent_count);
 
 /** fpipe をリセット(データが空の状態に)する。
+ *
+ * @param fpipe スレッド間固定長パイプ。
  */
 void c7_thread_fpipe_reset(c7_thread_fpipe_t fpipe);
 
-/** c7_thread_fpipe_reset() と c7_thread_fpipe_put() をアトミックに行う。
+/** fpipe をリセットしてデータを追加する。
+ *
+ * c7_thread_fpipe_reset() と c7_thread_fpipe_put() をアトミックに行う。
  */
 void c7_thread_fpipe_reset_and_put(c7_thread_fpipe_t fpipe, void *data);
 
-/** fpipe に data を追加する。
+/** fpipe にデータを追加する。
  *
  * @param fpipe スレッド間固定長パイプ。
  * @param data データとなるポインタ値。NULL は EOF“No more data”を意味し、一度 NULL を追加すると、
@@ -456,6 +554,10 @@ c7_bool_t c7_thread_fpipe_put(c7_thread_fpipe_t fpipe, void *data, int tmo_us);
 void *c7_thread_fpipe_get(c7_thread_fpipe_t fpipe, int tmo_us);
 
 /** fpipeを破棄する。
+ *
+ * @param fpipe スレッド間固定長パイプ
+ *
+ * パイプが空かどうかは関知しない。
  */
 void c7_thread_fpipe_free(c7_thread_fpipe_t fpipe);
 //@}
@@ -471,20 +573,23 @@ typedef struct c7_thread_vpipe_t_ *c7_thread_vpipe_t;
  */
 typedef struct c7_thread_vpipe_link_t_ c7_thread_vpipe_link_t;
 
-/** vpipeを生成する。
+/** vpipe を生成する。
  *
- * @param linkoff vpipeに投入するデータの、データの先頭からリンク用データまでのオフセット。
- * @return vpipeの生成に成功すれば vpipe を戻し、失敗すれば NULL を戻す。
+ * @param linkoff スレッド間可変パイプに投入するデータの、データの先頭からリンク用データまでのオフセット。
+ * @return 成功すればスレッド間可変パイプを戻し、失敗すれば NULL を戻す。
  *
- * vpipe に追加するデータの構造含めた例を示す:
+ * vpipe に追加するデータ構造には c7_thread_vpipe_link_t のメンバーが必要である:
  * @code
 typedef struct data_t {
     char *prog;
     char **argv;
-    c7_thread_vpipe_link_t __lnk;
+    c7_thread_vpipe_link_t __lnk;	// vpipe 内の連結リストのリンクに使用される。
     ...
 } data_t;
-:
+ * @endcode
+ *
+ * そして、c7_thread_vpipe_init() にはこの __lnk メンバーのデータ構造体先頭からのオフセットを渡すことになる。
+ * @code
 {
     c7_thread_vpipe_t vpipe = c7_thread_vpipe_init(offsetof(data_t, __lnk));
     ...;
@@ -496,12 +601,16 @@ typedef struct data_t {
  */
 c7_thread_vpipe_t c7_thread_vpipe_init(ptrdiff_t linkoff);
 
-/** vpipe をリセットする。\n
- * パイプ内に有効なデータが残っていれば先頭の要素のアドレスを戻し、残っていなれば NULL を戻す。
+/** vpipe をリセット(データが空の状態に)する。
+ *
+ * @param vpipe スレッド間可変パイプ
+ * @return パイプ内に有効なデータが残っていれば先頭の要素のアドレスを戻し、残っていなければ NULL を戻す。
  */
 void *c7_thread_vpipe_reset(c7_thread_vpipe_t vpipe);
 
-/** c7_thread_vpipe_reset() と c7_thread_vpipe_put() をアトミックに行う。
+/** vpipe をリセットしてデータを追加する。
+ *
+ * c7_thread_vpipe_reset() と c7_thread_vpipe_put() をアトミックに行う。
  */
 void *c7_thread_vpipe_reset_and_put(c7_thread_vpipe_t vpipe, void *data);
 
@@ -531,6 +640,10 @@ c7_bool_t c7_thread_vpipe_put(c7_thread_vpipe_t vpipe, void *data);
 void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, volatile int tmo_us);
 
 /** vpipeを破棄する。
+ *
+ * @param vpipe スレッド間可変パイプ
+ *
+ * パイプが空かどうかは関知しない。
  */
 void c7_thread_vpipe_free(c7_thread_vpipe_t vpipe);
 //@}

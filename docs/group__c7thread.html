@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -81,36 +81,28 @@ Data Structures</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 排他制御と条件変数の代替関数</h2></td></tr>
 <tr class="memitem:gae639e74fd23cbc54d456dc60a542cbb9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gae639e74fd23cbc54d456dc60a542cbb9">c7_thread_mutex_init</a> (pthread_mutex_t *mutex, pthread_mutexattr_t *attr)</td></tr>
-<tr class="memdesc:gae639e74fd23cbc54d456dc60a542cbb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_init() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#gae639e74fd23cbc54d456dc60a542cbb9">More...</a><br /></td></tr>
+<tr class="memdesc:gae639e74fd23cbc54d456dc60a542cbb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_init() の代替。  <a href="#gae639e74fd23cbc54d456dc60a542cbb9">More...</a><br /></td></tr>
 <tr class="separator:gae639e74fd23cbc54d456dc60a542cbb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga44c13920503a02f11ccc142f6b139970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga44c13920503a02f11ccc142f6b139970">c7_thread_recursive_mutex_init</a> (pthread_mutex_t *mutex, const pthread_mutexattr_t *attr_op)</td></tr>
-<tr class="memdesc:ga44c13920503a02f11ccc142f6b139970"><td class="mdescLeft">&#160;</td><td class="mdescRight">(PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#ga44c13920503a02f11ccc142f6b139970">More...</a><br /></td></tr>
+<tr class="memdesc:ga44c13920503a02f11ccc142f6b139970"><td class="mdescLeft">&#160;</td><td class="mdescRight">(PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。  <a href="#ga44c13920503a02f11ccc142f6b139970">More...</a><br /></td></tr>
 <tr class="separator:ga44c13920503a02f11ccc142f6b139970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4f630e8dc7e3d0b9aa94aed3d51388c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga4f630e8dc7e3d0b9aa94aed3d51388c8">c7_thread_cond_init</a> (pthread_cond_t *cond, pthread_condattr_t *attr)</td></tr>
-<tr class="memdesc:ga4f630e8dc7e3d0b9aa94aed3d51388c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_init() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#ga4f630e8dc7e3d0b9aa94aed3d51388c8">More...</a><br /></td></tr>
+<tr class="memdesc:ga4f630e8dc7e3d0b9aa94aed3d51388c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_init() の代替。  <a href="#ga4f630e8dc7e3d0b9aa94aed3d51388c8">More...</a><br /></td></tr>
 <tr class="separator:ga4f630e8dc7e3d0b9aa94aed3d51388c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6553f67e3001ad8420d428c70d68fe43"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga6553f67e3001ad8420d428c70d68fe43">c7_thread_lock</a> (pthread_mutex_t *mutex)</td></tr>
-<tr class="memdesc:ga6553f67e3001ad8420d428c70d68fe43"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_lock() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#ga6553f67e3001ad8420d428c70d68fe43">More...</a><br /></td></tr>
+<tr class="memdesc:ga6553f67e3001ad8420d428c70d68fe43"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_lock() の代替。  <a href="#ga6553f67e3001ad8420d428c70d68fe43">More...</a><br /></td></tr>
 <tr class="separator:ga6553f67e3001ad8420d428c70d68fe43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga07019610a1cdd5c2b331b0f6e5fd4487"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga07019610a1cdd5c2b331b0f6e5fd4487">c7_thread_trylock</a> (pthread_mutex_t *mutex)</td></tr>
-<tr class="memdesc:ga07019610a1cdd5c2b331b0f6e5fd4487"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_trylock() の代替。<br />
-mutex が既にロックされている場合は errno に EBUSY が設定され C7_FALSE が戻される。この時フックは呼び出されない。 その他のエラーは C7_FALSE が戻り、errno と c7status に情報が保存され、フックが呼び出される(cf.  <a href="#ga07019610a1cdd5c2b331b0f6e5fd4487">More...</a><br /></td></tr>
+<tr class="memdesc:ga07019610a1cdd5c2b331b0f6e5fd4487"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_trylock() の代替。  <a href="#ga07019610a1cdd5c2b331b0f6e5fd4487">More...</a><br /></td></tr>
 <tr class="separator:ga07019610a1cdd5c2b331b0f6e5fd4487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0a6a3f8af847f99f8af5152c7e168d3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga0a6a3f8af847f99f8af5152c7e168d3a">c7_thread_unlock</a> (pthread_mutex_t *mutex)</td></tr>
-<tr class="memdesc:ga0a6a3f8af847f99f8af5152c7e168d3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_unlock() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#ga0a6a3f8af847f99f8af5152c7e168d3a">More...</a><br /></td></tr>
+<tr class="memdesc:ga0a6a3f8af847f99f8af5152c7e168d3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_mutex_unlock() の代替。  <a href="#ga0a6a3f8af847f99f8af5152c7e168d3a">More...</a><br /></td></tr>
 <tr class="separator:ga0a6a3f8af847f99f8af5152c7e168d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5e99118b64d05d201c4a0ea1ded30b45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga5e99118b64d05d201c4a0ea1ded30b45">c7_thread_notify</a> (pthread_cond_t *cond)</td></tr>
-<tr class="memdesc:ga5e99118b64d05d201c4a0ea1ded30b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_signal() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#ga5e99118b64d05d201c4a0ea1ded30b45">More...</a><br /></td></tr>
+<tr class="memdesc:ga5e99118b64d05d201c4a0ea1ded30b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_signal() の代替。  <a href="#ga5e99118b64d05d201c4a0ea1ded30b45">More...</a><br /></td></tr>
 <tr class="separator:ga5e99118b64d05d201c4a0ea1ded30b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac694848922f24e90b50451a662affa1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gac694848922f24e90b50451a662affa1d">c7_thread_notify_all</a> (pthread_cond_t *cond)</td></tr>
-<tr class="memdesc:gac694848922f24e90b50451a662affa1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_broadcast() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.  <a href="#gac694848922f24e90b50451a662affa1d">More...</a><br /></td></tr>
+<tr class="memdesc:gac694848922f24e90b50451a662affa1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_broadcast() の代替。  <a href="#gac694848922f24e90b50451a662affa1d">More...</a><br /></td></tr>
 <tr class="separator:gac694848922f24e90b50451a662affa1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1f658f7266cf1395f6ae96d014f45fd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga1f658f7266cf1395f6ae96d014f45fd9">c7_thread_wait</a> (pthread_cond_t *cond, pthread_mutex_t *mutex, const struct timespec *limit_time_op)</td></tr>
 <tr class="memdesc:ga1f658f7266cf1395f6ae96d014f45fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_wait() / pthread_cond_timedwait() の代替。  <a href="#ga1f658f7266cf1395f6ae96d014f45fd9">More...</a><br /></td></tr>
@@ -152,12 +144,16 @@ mp には pthread_mutex_t のポインタを指定する。 <br /></td></tr>
 スレッド生成と制御</h2></td></tr>
 <tr class="memitem:ga62aa61e82b894fc90b5840b586677684"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga62aa61e82b894fc90b5840b586677684">c7_thread_end_t</a> { <br />
 &#160;&#160;<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a8ad72889e7e7d8e14fe4d64b8d10c356">C7_THREAD_END_Unknown</a> = -1, 
-<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a7965ab72fb9aa93af7c3ea5aff43d451">C7_THREAD_END_NOT</a>, 
-<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684aee06ba006e45eba7b5bfdd46a6cfdbbb">C7_THREAD_END_RETURN</a>, 
-<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a27884fc5ea1c78f18790138eda2d213e">C7_THREAD_END_EXIT</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a7965ab72fb9aa93af7c3ea5aff43d451">C7_THREAD_END_NOT</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684aee06ba006e45eba7b5bfdd46a6cfdbbb">C7_THREAD_END_RETURN</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a27884fc5ea1c78f18790138eda2d213e">C7_THREAD_END_EXIT</a>, 
 <br />
 &#160;&#160;<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684ab87db642d37eb86a704ab91288834b36">C7_THREAD_END_ABORT</a>, 
-<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a863483b034c8b220e65770042d94a6e2">C7_THREAD_END_CANCEL</a>
+<br />
+&#160;&#160;<a class="el" href="group__c7thread.html#gga62aa61e82b894fc90b5840b586677684a863483b034c8b220e65770042d94a6e2">C7_THREAD_END_CANCEL</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ga62aa61e82b894fc90b5840b586677684"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの終了ステータス。target()関数の終了方法。  <a href="group__c7thread.html#ga62aa61e82b894fc90b5840b586677684">More...</a><br /></td></tr>
@@ -180,13 +176,11 @@ mp には pthread_mutex_t のポインタを指定する。 <br /></td></tr>
 <tr class="memdesc:ga64c00e75d06ef3ecffc214ee3da258aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドを生成する。<br />
 <b>pthread のスレッドはまだ生成されない。</b>  <a href="#ga64c00e75d06ef3ecffc214ee3da258aa">More...</a><br /></td></tr>
 <tr class="separator:ga64c00e75d06ef3ecffc214ee3da258aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9d27c2ac9a7a3df17acbb7127814613b"><td class="memItemLeft" align="right" valign="top"><a id="ga9d27c2ac9a7a3df17acbb7127814613b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga9d27c2ac9a7a3df17acbb7127814613b">c7_thread_set_name</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, const char *name)</td></tr>
-<tr class="memdesc:ga9d27c2ac9a7a3df17acbb7127814613b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの名前を設定する。 <br /></td></tr>
+<tr class="memitem:ga9d27c2ac9a7a3df17acbb7127814613b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga9d27c2ac9a7a3df17acbb7127814613b">c7_thread_set_name</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, const char *name)</td></tr>
+<tr class="memdesc:ga9d27c2ac9a7a3df17acbb7127814613b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの名前を設定する。  <a href="#ga9d27c2ac9a7a3df17acbb7127814613b">More...</a><br /></td></tr>
 <tr class="separator:ga9d27c2ac9a7a3df17acbb7127814613b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa33e3fd6ff4b9c416c9320f8354a4814"><td class="memItemLeft" align="right" valign="top"><a id="gaa33e3fd6ff4b9c416c9320f8354a4814"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa33e3fd6ff4b9c416c9320f8354a4814">c7_thread_set_stacksize</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, int stacksize_kb)</td></tr>
-<tr class="memdesc:gaa33e3fd6ff4b9c416c9320f8354a4814"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドのスタックサイズを KB 単位で設定する。 <br /></td></tr>
+<tr class="memitem:gaa33e3fd6ff4b9c416c9320f8354a4814"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa33e3fd6ff4b9c416c9320f8354a4814">c7_thread_set_stacksize</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, int stacksize_kb)</td></tr>
+<tr class="memdesc:gaa33e3fd6ff4b9c416c9320f8354a4814"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドのスタックサイズを KB 単位で設定する。  <a href="#gaa33e3fd6ff4b9c416c9320f8354a4814">More...</a><br /></td></tr>
 <tr class="separator:gaa33e3fd6ff4b9c416c9320f8354a4814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafb790d20135b81a1322859bdbc33993e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gafb790d20135b81a1322859bdbc33993e">c7_thread_set_autofree</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th)</td></tr>
 <tr class="memdesc:gafb790d20135b81a1322859bdbc33993e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドを自動的に解放するように設定する。  <a href="#gafb790d20135b81a1322859bdbc33993e">More...</a><br /></td></tr>
@@ -195,8 +189,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memdesc:ga3a166c944106e3acb402ba6908e5fed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドを起動する。  <a href="#ga3a166c944106e3acb402ba6908e5fed0">More...</a><br /></td></tr>
 <tr class="separator:ga3a166c944106e3acb402ba6908e5fed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac3a7a1bd8c1911ed232b1e9433680419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gac3a7a1bd8c1911ed232b1e9433680419">c7_thread_run</a> (void(*target)(void *thread_arg), void(*finish)(void *thread_arg), void *thread_arg, const char *name, int stksize_kb)</td></tr>
-<tr class="memdesc:gac3a7a1bd8c1911ed232b1e9433680419"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの生成から起動までをまとめて行なう。<br />
-この関数は、c7_thread_new(), <a class="el" href="group__c7thread.html#ga9d27c2ac9a7a3df17acbb7127814613b" title="C7スレッドの名前を設定する。">c7_thread_set_name()</a>, <a class="el" href="group__c7thread.html#gaa33e3fd6ff4b9c416c9320f8354a4814" title="C7スレッドのスタックサイズを KB 単位で設定する。">c7_thread_set_stacksize()</a>, <a class="el" href="group__c7thread.html#ga3a166c944106e3acb402ba6908e5fed0" title="C7スレッドを起動する。">c7_thread_start()</a> をまとめて行う。  <a href="#gac3a7a1bd8c1911ed232b1e9433680419">More...</a><br /></td></tr>
+<tr class="memdesc:gac3a7a1bd8c1911ed232b1e9433680419"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの生成から起動までをまとめて行なう。  <a href="#gac3a7a1bd8c1911ed232b1e9433680419">More...</a><br /></td></tr>
 <tr class="separator:gac3a7a1bd8c1911ed232b1e9433680419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaea6d294cbd4526e3651dc29972e780bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaea6d294cbd4526e3651dc29972e780bb">c7_thread_exit</a> (void)</td></tr>
 <tr class="memdesc:gaea6d294cbd4526e3651dc29972e780bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">スレッドを正常終了する。  <a href="#gaea6d294cbd4526e3651dc29972e780bb">More...</a><br /></td></tr>
@@ -210,29 +203,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memitem:ga3cf6adeace126e47f8a56a8289a8c676"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga3cf6adeace126e47f8a56a8289a8c676">c7_thread_join</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, int tmo_us)</td></tr>
 <tr class="memdesc:ga3cf6adeace126e47f8a56a8289a8c676"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの終了を待機する。  <a href="#ga3cf6adeace126e47f8a56a8289a8c676">More...</a><br /></td></tr>
 <tr class="separator:ga3cf6adeace126e47f8a56a8289a8c676"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42e489364943eee722c97c829d56d36a"><td class="memItemLeft" align="right" valign="top"><a id="ga42e489364943eee722c97c829d56d36a"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga42e489364943eee722c97c829d56d36a">c7_thread_kill</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, int sig)</td></tr>
-<tr class="memdesc:ga42e489364943eee722c97c829d56d36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドにシグナルを送る。 <br /></td></tr>
+<tr class="memitem:ga42e489364943eee722c97c829d56d36a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga42e489364943eee722c97c829d56d36a">c7_thread_kill</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th, int sig)</td></tr>
+<tr class="memdesc:ga42e489364943eee722c97c829d56d36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドにシグナルを送る。  <a href="#ga42e489364943eee722c97c829d56d36a">More...</a><br /></td></tr>
 <tr class="separator:ga42e489364943eee722c97c829d56d36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafd51a8ec88c08e7a4cd57ce742f70c10"><td class="memItemLeft" align="right" valign="top"><a id="gafd51a8ec88c08e7a4cd57ce742f70c10"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gafd51a8ec88c08e7a4cd57ce742f70c10">c7_thread_is_alive</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th)</td></tr>
-<tr class="memdesc:gafd51a8ec88c08e7a4cd57ce742f70c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドが終了していないか確認する。 <br /></td></tr>
+<tr class="memitem:gafd51a8ec88c08e7a4cd57ce742f70c10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gafd51a8ec88c08e7a4cd57ce742f70c10">c7_thread_is_alive</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th)</td></tr>
+<tr class="memdesc:gafd51a8ec88c08e7a4cd57ce742f70c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドが終了していないか確認する。  <a href="#gafd51a8ec88c08e7a4cd57ce742f70c10">More...</a><br /></td></tr>
 <tr class="separator:gafd51a8ec88c08e7a4cd57ce742f70c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab2e57bcb400670edf5bfafaa91106acc"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gab2e57bcb400670edf5bfafaa91106acc">c7_thread_id</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th_op)</td></tr>
-<tr class="memdesc:gab2e57bcb400670edf5bfafaa91106acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドのユニークなIDを戻す。  <a href="#gab2e57bcb400670edf5bfafaa91106acc">More...</a><br /></td></tr>
+<tr class="memdesc:gab2e57bcb400670edf5bfafaa91106acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドのユニークなIDを得る。  <a href="#gab2e57bcb400670edf5bfafaa91106acc">More...</a><br /></td></tr>
 <tr class="separator:gab2e57bcb400670edf5bfafaa91106acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga83c7bd8391058ac915742a85aa122820"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga83c7bd8391058ac915742a85aa122820">c7_thread_name</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th_op)</td></tr>
-<tr class="memdesc:ga83c7bd8391058ac915742a85aa122820"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの名前を戻す。  <a href="#ga83c7bd8391058ac915742a85aa122820">More...</a><br /></td></tr>
+<tr class="memdesc:ga83c7bd8391058ac915742a85aa122820"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの名前を得る。  <a href="#ga83c7bd8391058ac915742a85aa122820">More...</a><br /></td></tr>
 <tr class="separator:ga83c7bd8391058ac915742a85aa122820"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2a57b1af92b8b37f8801890591337597"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga2a57b1af92b8b37f8801890591337597">c7_thread_arg</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th_op)</td></tr>
-<tr class="memdesc:ga2a57b1af92b8b37f8801890591337597"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの引数を戻す。  <a href="#ga2a57b1af92b8b37f8801890591337597">More...</a><br /></td></tr>
+<tr class="memdesc:ga2a57b1af92b8b37f8801890591337597"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの引数を得る。  <a href="#ga2a57b1af92b8b37f8801890591337597">More...</a><br /></td></tr>
 <tr class="separator:ga2a57b1af92b8b37f8801890591337597"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6f5496616a9b382b866c0fa5ff029dcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#ga62aa61e82b894fc90b5840b586677684">c7_thread_end_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb">c7_thread_endstatus</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th_op)</td></tr>
-<tr class="memdesc:ga6f5496616a9b382b866c0fa5ff029dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの終了ステータスを戻す。  <a href="#ga6f5496616a9b382b866c0fa5ff029dcb">More...</a><br /></td></tr>
+<tr class="memdesc:ga6f5496616a9b382b866c0fa5ff029dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの終了ステータスを得る。  <a href="#ga6f5496616a9b382b866c0fa5ff029dcb">More...</a><br /></td></tr>
 <tr class="separator:ga6f5496616a9b382b866c0fa5ff029dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa223084d420e0ee0f2f10fcb4976cd54"><td class="memItemLeft" align="right" valign="top"><a id="gaa223084d420e0ee0f2f10fcb4976cd54"></a>
-<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa223084d420e0ee0f2f10fcb4976cd54">c7_thread_self</a> (void)</td></tr>
-<tr class="memdesc:gaa223084d420e0ee0f2f10fcb4976cd54"><td class="mdescLeft">&#160;</td><td class="mdescRight">自スレッドのC7スレッドオブジェクトを戻す。 自スレッドが C7スレッドでなければ NULL を戻す。 <br /></td></tr>
+<tr class="memitem:gaa223084d420e0ee0f2f10fcb4976cd54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa223084d420e0ee0f2f10fcb4976cd54">c7_thread_self</a> (void)</td></tr>
+<tr class="memdesc:gaa223084d420e0ee0f2f10fcb4976cd54"><td class="mdescLeft">&#160;</td><td class="mdescRight">自スレッドのC7スレッドオブジェクトを得る。  <a href="#gaa223084d420e0ee0f2f10fcb4976cd54">More...</a><br /></td></tr>
 <tr class="separator:gaa223084d420e0ee0f2f10fcb4976cd54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa5b5cf4b1d11e79629a17b1cb0fbc329"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa5b5cf4b1d11e79629a17b1cb0fbc329">c7_thread_free</a> (<a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> th)</td></tr>
 <tr class="memdesc:gaa5b5cf4b1d11e79629a17b1cb0fbc329"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドを解放する。  <a href="#gaa5b5cf4b1d11e79629a17b1cb0fbc329">More...</a><br /></td></tr>
@@ -240,77 +230,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 カウンタ同期機能</h2></td></tr>
-<tr class="memitem:gaec7ec33aefd3a77d7adadf1d33410a40"><td class="memItemLeft" align="right" valign="top"><a id="gaec7ec33aefd3a77d7adadf1d33410a40"></a>
-typedef struct c7_thread_counter_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a></td></tr>
-<tr class="memdesc:gaec7ec33aefd3a77d7adadf1d33410a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタ。 <br /></td></tr>
+<tr class="memitem:gaec7ec33aefd3a77d7adadf1d33410a40"><td class="memItemLeft" align="right" valign="top">typedef struct c7_thread_counter_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a></td></tr>
+<tr class="memdesc:gaec7ec33aefd3a77d7adadf1d33410a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタ。  <a href="#gaec7ec33aefd3a77d7adadf1d33410a40">More...</a><br /></td></tr>
 <tr class="separator:gaec7ec33aefd3a77d7adadf1d33410a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga771098ff25219eb55646d853d11121d2"><td class="memItemLeft" align="right" valign="top"><a id="ga771098ff25219eb55646d853d11121d2"></a>
-<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga771098ff25219eb55646d853d11121d2">c7_thread_counter_init</a> (int ini_count)</td></tr>
-<tr class="memdesc:ga771098ff25219eb55646d853d11121d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタを初期値 ini_count で生成する。<br />
-成功すれば C7カウンタを戻し、失敗すれば NULL を戻す。 <br /></td></tr>
+<tr class="memitem:ga771098ff25219eb55646d853d11121d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga771098ff25219eb55646d853d11121d2">c7_thread_counter_init</a> (int ini_count)</td></tr>
+<tr class="memdesc:ga771098ff25219eb55646d853d11121d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタを生成する。  <a href="#ga771098ff25219eb55646d853d11121d2">More...</a><br /></td></tr>
 <tr class="separator:ga771098ff25219eb55646d853d11121d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad8521d7ea904a896c936eca5b94c56d2"><td class="memItemLeft" align="right" valign="top"><a id="gad8521d7ea904a896c936eca5b94c56d2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gad8521d7ea904a896c936eca5b94c56d2">c7_thread_counter_value</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
-<tr class="memdesc:gad8521d7ea904a896c936eca5b94c56d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの現在値を戻す。 <br /></td></tr>
+<tr class="memitem:gad8521d7ea904a896c936eca5b94c56d2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gad8521d7ea904a896c936eca5b94c56d2">c7_thread_counter_value</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
+<tr class="memdesc:gad8521d7ea904a896c936eca5b94c56d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの現在値を得る。  <a href="#gad8521d7ea904a896c936eca5b94c56d2">More...</a><br /></td></tr>
 <tr class="separator:gad8521d7ea904a896c936eca5b94c56d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga060eb91a955875d1ea034193f01bdaf8"><td class="memItemLeft" align="right" valign="top"><a id="ga060eb91a955875d1ea034193f01bdaf8"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga060eb91a955875d1ea034193f01bdaf8">c7_thread_counter_is</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int count)</td></tr>
-<tr class="memdesc:ga060eb91a955875d1ea034193f01bdaf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値が count かどうかを戻す。 <br /></td></tr>
+<tr class="memitem:ga060eb91a955875d1ea034193f01bdaf8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga060eb91a955875d1ea034193f01bdaf8">c7_thread_counter_is</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int count)</td></tr>
+<tr class="memdesc:ga060eb91a955875d1ea034193f01bdaf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値が指定値かどうかを調べる。  <a href="#ga060eb91a955875d1ea034193f01bdaf8">More...</a><br /></td></tr>
 <tr class="separator:ga060eb91a955875d1ea034193f01bdaf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad4c0d99403a2c416549dec4cd8ab40f1"><td class="memItemLeft" align="right" valign="top"><a id="gad4c0d99403a2c416549dec4cd8ab40f1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gad4c0d99403a2c416549dec4cd8ab40f1">c7_thread_counter_up</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
-<tr class="memdesc:gad4c0d99403a2c416549dec4cd8ab40f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を 1 増やす。 <br /></td></tr>
+<tr class="memitem:gad4c0d99403a2c416549dec4cd8ab40f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gad4c0d99403a2c416549dec4cd8ab40f1">c7_thread_counter_up</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
+<tr class="memdesc:gad4c0d99403a2c416549dec4cd8ab40f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を 1 増やす。  <a href="#gad4c0d99403a2c416549dec4cd8ab40f1">More...</a><br /></td></tr>
 <tr class="separator:gad4c0d99403a2c416549dec4cd8ab40f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0338a12ee88fa7f23923a96b80651a23"><td class="memItemLeft" align="right" valign="top"><a id="ga0338a12ee88fa7f23923a96b80651a23"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga0338a12ee88fa7f23923a96b80651a23">c7_thread_counter_down</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
-<tr class="memdesc:ga0338a12ee88fa7f23923a96b80651a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を 1 減らす。 <br /></td></tr>
+<tr class="memitem:ga0338a12ee88fa7f23923a96b80651a23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga0338a12ee88fa7f23923a96b80651a23">c7_thread_counter_down</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
+<tr class="memdesc:ga0338a12ee88fa7f23923a96b80651a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を 1 減らす。  <a href="#ga0338a12ee88fa7f23923a96b80651a23">More...</a><br /></td></tr>
 <tr class="separator:ga0338a12ee88fa7f23923a96b80651a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac1c867cc15812740841a7e8f64deb948"><td class="memItemLeft" align="right" valign="top"><a id="gac1c867cc15812740841a7e8f64deb948"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gac1c867cc15812740841a7e8f64deb948">c7_thread_counter_move</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int delta)</td></tr>
-<tr class="memdesc:gac1c867cc15812740841a7e8f64deb948"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を delta 分動かす。 <br /></td></tr>
+<tr class="memitem:gac1c867cc15812740841a7e8f64deb948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gac1c867cc15812740841a7e8f64deb948">c7_thread_counter_move</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int delta)</td></tr>
+<tr class="memdesc:gac1c867cc15812740841a7e8f64deb948"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値をシフトする。  <a href="#gac1c867cc15812740841a7e8f64deb948">More...</a><br /></td></tr>
 <tr class="separator:gac1c867cc15812740841a7e8f64deb948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4c7b427916dd035a160591dcc5ed9a18"><td class="memItemLeft" align="right" valign="top"><a id="ga4c7b427916dd035a160591dcc5ed9a18"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga4c7b427916dd035a160591dcc5ed9a18">c7_thread_counter_set</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int count)</td></tr>
-<tr class="memdesc:ga4c7b427916dd035a160591dcc5ed9a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を count にする。 <br /></td></tr>
+<tr class="memitem:ga4c7b427916dd035a160591dcc5ed9a18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga4c7b427916dd035a160591dcc5ed9a18">c7_thread_counter_set</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int count)</td></tr>
+<tr class="memdesc:ga4c7b427916dd035a160591dcc5ed9a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値を指定値にする。  <a href="#ga4c7b427916dd035a160591dcc5ed9a18">More...</a><br /></td></tr>
 <tr class="separator:ga4c7b427916dd035a160591dcc5ed9a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5f7aeb001851e73078c85f1379c49934"><td class="memItemLeft" align="right" valign="top"><a id="ga5f7aeb001851e73078c85f1379c49934"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga5f7aeb001851e73078c85f1379c49934">c7_thread_counter_wait</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int expect, int tmo_us)</td></tr>
-<tr class="memdesc:ga5f7aeb001851e73078c85f1379c49934"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値が expect になるまで待機する。tmo_us≧0 ならマイクロ秒のタイムアウト値とする。 カウンタが expect になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 C7_FALSE が戻る場合、タイムアウトであれば errno に ETIMEDOUT が設定されている。 <br /></td></tr>
+<tr class="memitem:ga5f7aeb001851e73078c85f1379c49934"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga5f7aeb001851e73078c85f1379c49934">c7_thread_counter_wait</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct, int expect, int tmo_us)</td></tr>
+<tr class="memdesc:ga5f7aeb001851e73078c85f1379c49934"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタの値が指定値になるまで待機する。  <a href="#ga5f7aeb001851e73078c85f1379c49934">More...</a><br /></td></tr>
 <tr class="separator:ga5f7aeb001851e73078c85f1379c49934"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga348443e29bc2af3703852a23fb8a59a0"><td class="memItemLeft" align="right" valign="top"><a id="ga348443e29bc2af3703852a23fb8a59a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga348443e29bc2af3703852a23fb8a59a0">c7_thread_counter_free</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
-<tr class="memdesc:ga348443e29bc2af3703852a23fb8a59a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタを破棄する。 <br /></td></tr>
+<tr class="memitem:ga348443e29bc2af3703852a23fb8a59a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga348443e29bc2af3703852a23fb8a59a0">c7_thread_counter_free</a> (<a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> ct)</td></tr>
+<tr class="memdesc:ga348443e29bc2af3703852a23fb8a59a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7カウンタを破棄する。  <a href="#ga348443e29bc2af3703852a23fb8a59a0">More...</a><br /></td></tr>
 <tr class="separator:ga348443e29bc2af3703852a23fb8a59a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 イベント(ブール型)同期機能</h2></td></tr>
-<tr class="memitem:ga35d48567f0b73ed071da174f6099d3d6"><td class="memItemLeft" align="right" valign="top"><a id="ga35d48567f0b73ed071da174f6099d3d6"></a>
-typedef <a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a></td></tr>
-<tr class="memdesc:ga35d48567f0b73ed071da174f6099d3d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベント。同期イベントは、セット状態とクリア状態の二つをもつ。 <br /></td></tr>
+<tr class="memitem:ga35d48567f0b73ed071da174f6099d3d6"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a></td></tr>
+<tr class="memdesc:ga35d48567f0b73ed071da174f6099d3d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベント。  <a href="#ga35d48567f0b73ed071da174f6099d3d6">More...</a><br /></td></tr>
 <tr class="separator:ga35d48567f0b73ed071da174f6099d3d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga90081a29f60aaec728b346da4fa0aec3"><td class="memItemLeft" align="right" valign="top"><a id="ga90081a29f60aaec728b346da4fa0aec3"></a>
-<a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga90081a29f60aaec728b346da4fa0aec3">c7_thread_event_init</a> (void)</td></tr>
-<tr class="memdesc:ga90081a29f60aaec728b346da4fa0aec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントをクリア状態で生成する。 <br /></td></tr>
+<tr class="memitem:ga90081a29f60aaec728b346da4fa0aec3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga90081a29f60aaec728b346da4fa0aec3">c7_thread_event_init</a> (void)</td></tr>
+<tr class="memdesc:ga90081a29f60aaec728b346da4fa0aec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントをクリア状態で生成する。  <a href="#ga90081a29f60aaec728b346da4fa0aec3">More...</a><br /></td></tr>
 <tr class="separator:ga90081a29f60aaec728b346da4fa0aec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacd78e6aa2074c39870f26dab2f58da73"><td class="memItemLeft" align="right" valign="top"><a id="gacd78e6aa2074c39870f26dab2f58da73"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gacd78e6aa2074c39870f26dab2f58da73">c7_thread_event_is_set</a> (<a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a> ev)</td></tr>
-<tr class="memdesc:gacd78e6aa2074c39870f26dab2f58da73"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントがセット状態かどうか調べる。 <br /></td></tr>
+<tr class="memitem:gacd78e6aa2074c39870f26dab2f58da73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gacd78e6aa2074c39870f26dab2f58da73">c7_thread_event_is_set</a> (<a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a> ev)</td></tr>
+<tr class="memdesc:gacd78e6aa2074c39870f26dab2f58da73"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントがセット状態かどうか調べる。  <a href="#gacd78e6aa2074c39870f26dab2f58da73">More...</a><br /></td></tr>
 <tr class="separator:gacd78e6aa2074c39870f26dab2f58da73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga777f7496216e07b15a7ae5a87ce43f78"><td class="memItemLeft" align="right" valign="top"><a id="ga777f7496216e07b15a7ae5a87ce43f78"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga777f7496216e07b15a7ae5a87ce43f78">c7_thread_event_set</a> (c7_thread_event ev)</td></tr>
-<tr class="memdesc:ga777f7496216e07b15a7ae5a87ce43f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントをセット状態とする。 <br /></td></tr>
+<tr class="memitem:ga777f7496216e07b15a7ae5a87ce43f78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga777f7496216e07b15a7ae5a87ce43f78">c7_thread_event_set</a> (c7_thread_event ev)</td></tr>
+<tr class="memdesc:ga777f7496216e07b15a7ae5a87ce43f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントをセット状態とする。  <a href="#ga777f7496216e07b15a7ae5a87ce43f78">More...</a><br /></td></tr>
 <tr class="separator:ga777f7496216e07b15a7ae5a87ce43f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf52dda1bba5c6754d88a0c9c72a4cf63"><td class="memItemLeft" align="right" valign="top"><a id="gaf52dda1bba5c6754d88a0c9c72a4cf63"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaf52dda1bba5c6754d88a0c9c72a4cf63">c7_thread_event_clear</a> (c7_thread_event ev)</td></tr>
-<tr class="memdesc:gaf52dda1bba5c6754d88a0c9c72a4cf63"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントをクリア状態とする。 <br /></td></tr>
+<tr class="memitem:gaf52dda1bba5c6754d88a0c9c72a4cf63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaf52dda1bba5c6754d88a0c9c72a4cf63">c7_thread_event_clear</a> (c7_thread_event ev)</td></tr>
+<tr class="memdesc:gaf52dda1bba5c6754d88a0c9c72a4cf63"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントをクリア状態とする。  <a href="#gaf52dda1bba5c6754d88a0c9c72a4cf63">More...</a><br /></td></tr>
 <tr class="separator:gaf52dda1bba5c6754d88a0c9c72a4cf63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa01be850aa767fc02a0761134bf9b26a"><td class="memItemLeft" align="right" valign="top"><a id="gaa01be850aa767fc02a0761134bf9b26a"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa01be850aa767fc02a0761134bf9b26a">c7_thread_event_wait</a> (c7_thread_event ev, int tmo_us)</td></tr>
-<tr class="memdesc:gaa01be850aa767fc02a0761134bf9b26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントがセット状態になるまで待機する。tmo_us≧0 ならマイクロ秒のタイムアウト値とする。 セット状態になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 C7_FALSE が戻る場合、タイムアウトであれば errno に ETIMEDOUT が設定されている。 <br /></td></tr>
+<tr class="memitem:gaa01be850aa767fc02a0761134bf9b26a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa01be850aa767fc02a0761134bf9b26a">c7_thread_event_wait</a> (c7_thread_event ev, int tmo_us)</td></tr>
+<tr class="memdesc:gaa01be850aa767fc02a0761134bf9b26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントがセット状態になるまで待機する。  <a href="#gaa01be850aa767fc02a0761134bf9b26a">More...</a><br /></td></tr>
 <tr class="separator:gaa01be850aa767fc02a0761134bf9b26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9992735e6e7633e32fd8d08440ad6c01"><td class="memItemLeft" align="right" valign="top"><a id="ga9992735e6e7633e32fd8d08440ad6c01"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga9992735e6e7633e32fd8d08440ad6c01">c7_thread_event_free</a> (<a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a> ev)</td></tr>
-<tr class="memdesc:ga9992735e6e7633e32fd8d08440ad6c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントを破棄する。 <br /></td></tr>
+<tr class="memitem:ga9992735e6e7633e32fd8d08440ad6c01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga9992735e6e7633e32fd8d08440ad6c01">c7_thread_event_free</a> (<a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a> ev)</td></tr>
+<tr class="memdesc:ga9992735e6e7633e32fd8d08440ad6c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7同期イベントを破棄する。  <a href="#ga9992735e6e7633e32fd8d08440ad6c01">More...</a><br /></td></tr>
 <tr class="separator:ga9992735e6e7633e32fd8d08440ad6c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -319,30 +291,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 typedef struct c7_thread_fpipe_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a></td></tr>
 <tr class="memdesc:ga1f1747cf77d2dba798d5e4a77882c5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">スレッド間固定長パイプ。fpipe と呼称する。 <br /></td></tr>
 <tr class="separator:ga1f1747cf77d2dba798d5e4a77882c5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacf06c3fadc627a8a0fc12090aaa1cff2"><td class="memItemLeft" align="right" valign="top"><a id="gacf06c3fadc627a8a0fc12090aaa1cff2"></a>
-<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gacf06c3fadc627a8a0fc12090aaa1cff2">c7_thread_fpipe_init</a> (int ent_count)</td></tr>
-<tr class="memdesc:gacf06c3fadc627a8a0fc12090aaa1cff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe を ent_count 要素の容量を確保して生成する。 <br /></td></tr>
+<tr class="memitem:gacf06c3fadc627a8a0fc12090aaa1cff2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gacf06c3fadc627a8a0fc12090aaa1cff2">c7_thread_fpipe_init</a> (int ent_count)</td></tr>
+<tr class="memdesc:gacf06c3fadc627a8a0fc12090aaa1cff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe を生成する。  <a href="#gacf06c3fadc627a8a0fc12090aaa1cff2">More...</a><br /></td></tr>
 <tr class="separator:gacf06c3fadc627a8a0fc12090aaa1cff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae28516e5a07f4c329504b88c1bef3f65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gae28516e5a07f4c329504b88c1bef3f65">c7_thread_fpipe_resize</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe, int ent_count)</td></tr>
-<tr class="memdesc:gae28516e5a07f4c329504b88c1bef3f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe の容量を ent_count に変更する。  <a href="#gae28516e5a07f4c329504b88c1bef3f65">More...</a><br /></td></tr>
+<tr class="memdesc:gae28516e5a07f4c329504b88c1bef3f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe の容量を変更する。  <a href="#gae28516e5a07f4c329504b88c1bef3f65">More...</a><br /></td></tr>
 <tr class="separator:gae28516e5a07f4c329504b88c1bef3f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8b38cfc60d400beb8cdc16cef662cf1"><td class="memItemLeft" align="right" valign="top"><a id="gaf8b38cfc60d400beb8cdc16cef662cf1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaf8b38cfc60d400beb8cdc16cef662cf1">c7_thread_fpipe_reset</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe)</td></tr>
-<tr class="memdesc:gaf8b38cfc60d400beb8cdc16cef662cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe をリセット(データが空の状態に)する。 <br /></td></tr>
+<tr class="memitem:gaf8b38cfc60d400beb8cdc16cef662cf1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaf8b38cfc60d400beb8cdc16cef662cf1">c7_thread_fpipe_reset</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe)</td></tr>
+<tr class="memdesc:gaf8b38cfc60d400beb8cdc16cef662cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe をリセット(データが空の状態に)する。  <a href="#gaf8b38cfc60d400beb8cdc16cef662cf1">More...</a><br /></td></tr>
 <tr class="separator:gaf8b38cfc60d400beb8cdc16cef662cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c4dc686e9474fad0c4323008a126b31"><td class="memItemLeft" align="right" valign="top"><a id="ga9c4dc686e9474fad0c4323008a126b31"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga9c4dc686e9474fad0c4323008a126b31">c7_thread_fpipe_reset_and_put</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe, void *data)</td></tr>
-<tr class="memdesc:ga9c4dc686e9474fad0c4323008a126b31"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7thread.html#gaf8b38cfc60d400beb8cdc16cef662cf1" title="fpipe をリセット(データが空の状態に)する。">c7_thread_fpipe_reset()</a> と <a class="el" href="group__c7thread.html#ga3dcce76fa570077b48aa9ba80376a361" title="fpipe に data を追加する。">c7_thread_fpipe_put()</a> をアトミックに行う。 <br /></td></tr>
+<tr class="memitem:ga9c4dc686e9474fad0c4323008a126b31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga9c4dc686e9474fad0c4323008a126b31">c7_thread_fpipe_reset_and_put</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe, void *data)</td></tr>
+<tr class="memdesc:ga9c4dc686e9474fad0c4323008a126b31"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe をリセットしてデータを追加する。  <a href="#ga9c4dc686e9474fad0c4323008a126b31">More...</a><br /></td></tr>
 <tr class="separator:ga9c4dc686e9474fad0c4323008a126b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3dcce76fa570077b48aa9ba80376a361"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga3dcce76fa570077b48aa9ba80376a361">c7_thread_fpipe_put</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe, void *data, int tmo_us)</td></tr>
-<tr class="memdesc:ga3dcce76fa570077b48aa9ba80376a361"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe に data を追加する。  <a href="#ga3dcce76fa570077b48aa9ba80376a361">More...</a><br /></td></tr>
+<tr class="memdesc:ga3dcce76fa570077b48aa9ba80376a361"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe にデータを追加する。  <a href="#ga3dcce76fa570077b48aa9ba80376a361">More...</a><br /></td></tr>
 <tr class="separator:ga3dcce76fa570077b48aa9ba80376a361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaddc0a5c5a2ab9f7dd13aabb4c1bbde76"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaddc0a5c5a2ab9f7dd13aabb4c1bbde76">c7_thread_fpipe_get</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe, int tmo_us)</td></tr>
 <tr class="memdesc:gaddc0a5c5a2ab9f7dd13aabb4c1bbde76"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipe からデータを取得する。  <a href="#gaddc0a5c5a2ab9f7dd13aabb4c1bbde76">More...</a><br /></td></tr>
 <tr class="separator:gaddc0a5c5a2ab9f7dd13aabb4c1bbde76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f00d8b81651803adaa89da853580643"><td class="memItemLeft" align="right" valign="top"><a id="ga6f00d8b81651803adaa89da853580643"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga6f00d8b81651803adaa89da853580643">c7_thread_fpipe_free</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe)</td></tr>
-<tr class="memdesc:ga6f00d8b81651803adaa89da853580643"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipeを破棄する。 <br /></td></tr>
+<tr class="memitem:ga6f00d8b81651803adaa89da853580643"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga6f00d8b81651803adaa89da853580643">c7_thread_fpipe_free</a> (<a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> fpipe)</td></tr>
+<tr class="memdesc:ga6f00d8b81651803adaa89da853580643"><td class="mdescLeft">&#160;</td><td class="mdescRight">fpipeを破棄する。  <a href="#ga6f00d8b81651803adaa89da853580643">More...</a><br /></td></tr>
 <tr class="separator:ga6f00d8b81651803adaa89da853580643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -356,16 +324,13 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 <tr class="memdesc:gadd596a6b045fb630c264f82892af8973"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipeに追加するデータが持っていなければならないリンク用のデータ。 <br /></td></tr>
 <tr class="separator:gadd596a6b045fb630c264f82892af8973"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga673becb849218ce7a1c990f71ff45300"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga673becb849218ce7a1c990f71ff45300">c7_thread_vpipe_init</a> (ptrdiff_t linkoff)</td></tr>
-<tr class="memdesc:ga673becb849218ce7a1c990f71ff45300"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipeを生成する。  <a href="#ga673becb849218ce7a1c990f71ff45300">More...</a><br /></td></tr>
+<tr class="memdesc:ga673becb849218ce7a1c990f71ff45300"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipe を生成する。  <a href="#ga673becb849218ce7a1c990f71ff45300">More...</a><br /></td></tr>
 <tr class="separator:ga673becb849218ce7a1c990f71ff45300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2b6693d48b20d491a4b644b214b76d3"><td class="memItemLeft" align="right" valign="top"><a id="gaa2b6693d48b20d491a4b644b214b76d3"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa2b6693d48b20d491a4b644b214b76d3">c7_thread_vpipe_reset</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe)</td></tr>
-<tr class="memdesc:gaa2b6693d48b20d491a4b644b214b76d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipe をリセットする。<br />
-パイプ内に有効なデータが残っていれば先頭の要素のアドレスを戻し、残っていなれば NULL を戻す。 <br /></td></tr>
+<tr class="memitem:gaa2b6693d48b20d491a4b644b214b76d3"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa2b6693d48b20d491a4b644b214b76d3">c7_thread_vpipe_reset</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe)</td></tr>
+<tr class="memdesc:gaa2b6693d48b20d491a4b644b214b76d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipe をリセット(データが空の状態に)する。  <a href="#gaa2b6693d48b20d491a4b644b214b76d3">More...</a><br /></td></tr>
 <tr class="separator:gaa2b6693d48b20d491a4b644b214b76d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga46ba7f72d1ba94c3c90c6dc0b667c95d"><td class="memItemLeft" align="right" valign="top"><a id="ga46ba7f72d1ba94c3c90c6dc0b667c95d"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga46ba7f72d1ba94c3c90c6dc0b667c95d">c7_thread_vpipe_reset_and_put</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe, void *data)</td></tr>
-<tr class="memdesc:ga46ba7f72d1ba94c3c90c6dc0b667c95d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7thread.html#gaa2b6693d48b20d491a4b644b214b76d3" title="vpipe をリセットする。 パイプ内に有効なデータが残っていれば先頭の要素のアドレスを戻し、残っていなれば NULL を戻す。">c7_thread_vpipe_reset()</a> と <a class="el" href="group__c7thread.html#ga5b66581bf35b4005f73b55549ab88060" title="vpipe に data を追加する。">c7_thread_vpipe_put()</a> をアトミックに行う。 <br /></td></tr>
+<tr class="memitem:ga46ba7f72d1ba94c3c90c6dc0b667c95d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga46ba7f72d1ba94c3c90c6dc0b667c95d">c7_thread_vpipe_reset_and_put</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe, void *data)</td></tr>
+<tr class="memdesc:ga46ba7f72d1ba94c3c90c6dc0b667c95d"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipe をリセットしてデータを追加する。  <a href="#ga46ba7f72d1ba94c3c90c6dc0b667c95d">More...</a><br /></td></tr>
 <tr class="separator:ga46ba7f72d1ba94c3c90c6dc0b667c95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5b66581bf35b4005f73b55549ab88060"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga5b66581bf35b4005f73b55549ab88060">c7_thread_vpipe_put</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe, void *data)</td></tr>
 <tr class="memdesc:ga5b66581bf35b4005f73b55549ab88060"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipe に data を追加する。  <a href="#ga5b66581bf35b4005f73b55549ab88060">More...</a><br /></td></tr>
@@ -373,9 +338,8 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <tr class="memitem:gae0149cea3c06190e6aadae8bb922bddb"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gae0149cea3c06190e6aadae8bb922bddb">c7_thread_vpipe_get</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe, volatile int tmo_us)</td></tr>
 <tr class="memdesc:gae0149cea3c06190e6aadae8bb922bddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipeからデータを取得する。  <a href="#gae0149cea3c06190e6aadae8bb922bddb">More...</a><br /></td></tr>
 <tr class="separator:gae0149cea3c06190e6aadae8bb922bddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e899e2fd30712f0c571fde03f15d554"><td class="memItemLeft" align="right" valign="top"><a id="ga0e899e2fd30712f0c571fde03f15d554"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga0e899e2fd30712f0c571fde03f15d554">c7_thread_vpipe_free</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe)</td></tr>
-<tr class="memdesc:ga0e899e2fd30712f0c571fde03f15d554"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipeを破棄する。 <br /></td></tr>
+<tr class="memitem:ga0e899e2fd30712f0c571fde03f15d554"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga0e899e2fd30712f0c571fde03f15d554">c7_thread_vpipe_free</a> (<a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe)</td></tr>
+<tr class="memdesc:ga0e899e2fd30712f0c571fde03f15d554"><td class="mdescLeft">&#160;</td><td class="mdescRight">vpipeを破棄する。  <a href="#ga0e899e2fd30712f0c571fde03f15d554">More...</a><br /></td></tr>
 <tr class="separator:ga0e899e2fd30712f0c571fde03f15d554"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -412,6 +376,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 <p>C7スレッド。 </p>
 <p>以降、C7スレッドの生成といった場合は、管理構造含んだオブジェクトの生成を意味し OSのスレッドが生成されるわけではない。 pthread_create() によるOSのスレッドの生成は、C7スレッドの起動と呼ぶこととする。 </p>
+
+</div>
+</div>
+<a id="gaec7ec33aefd3a77d7adadf1d33410a40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaec7ec33aefd3a77d7adadf1d33410a40">&#9670;&nbsp;</a></span>c7_thread_counter_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct c7_thread_counter_t_* <a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタ。 </p>
+<p>単純な整数値に基づく同期機構を提供する。排他制御(pthread_mutex_t)や条件変数(pthread_cond_t)を 用いるが、初期化以外で、正しい使い方をしている lock/unlock/notify/wait について戻り値をチェックしない。 そのため、c7hook 機構を用いて、これらの関数でエラーした場合に処理を記述しておくのが良いだろう。 </p>
+
+</div>
+</div>
+<a id="ga35d48567f0b73ed071da174f6099d3d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35d48567f0b73ed071da174f6099d3d6">&#9670;&nbsp;</a></span>c7_thread_event_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> <a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベント。 </p>
+<p>同期イベントは、セット状態とクリア状態の二つをもち、 それぞれを、0 と 1 に割り当てたC7カウンタの特殊ケース。 </p>
 
 </div>
 </div>
@@ -473,10 +471,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>pthread_mutex_init() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>pthread_mutex_init() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -506,10 +502,8 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>(PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>(PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -539,10 +533,8 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>pthread_cond_init() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>pthread_cond_init() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -562,10 +554,8 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>pthread_mutex_lock() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>pthread_mutex_lock() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -585,9 +575,8 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>pthread_mutex_trylock() の代替。<br />
-mutex が既にロックされている場合は errno に EBUSY が設定され C7_FALSE が戻される。この時フックは呼び出されない。 その他のエラーは C7_FALSE が戻り、errno と c7status に情報が保存され、フックが呼び出される(cf. </p>
-<p>c7hook_set_thread_error())。 </p>
+<p>pthread_mutex_trylock() の代替。 </p>
+<p>mutex が既にロックされている場合は errno に EBUSY が設定され C7_FALSE が戻される。この時フックは呼び出されない。 その他のエラーは C7_FALSE が戻り、errno と c7status に情報が保存され、フックが呼び出される(cf. c7hook_set_thread_error())。 </p>
 
 </div>
 </div>
@@ -607,10 +596,8 @@ mutex が既にロックされている場合は errno に EBUSY が設定され
       </table>
 </div><div class="memdoc">
 
-<p>pthread_mutex_unlock() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>pthread_mutex_unlock() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -630,10 +617,8 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>pthread_cond_signal() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>pthread_cond_signal() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -653,10 +638,8 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>pthread_cond_broadcast() の代替。<br />
-エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. </p>
-<p>c7hook_set_thread_error()) C7_FALSE を戻す。<br />
-errno は変更されない。 </p>
+<p>pthread_cond_broadcast() の代替。 </p>
+<p>エラー時は c7status に情報が保存され、フックを呼び出したあと(cf. c7hook_set_thread_error()) C7_FALSE を戻す。 errno は変更されない。 </p>
 
 </div>
 </div>
@@ -820,6 +803,82 @@ errno は変更されない。 </p>
 
 </div>
 </div>
+<a id="ga9d27c2ac9a7a3df17acbb7127814613b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d27c2ac9a7a3df17acbb7127814613b">&#9670;&nbsp;</a></span>c7_thread_set_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_set_name </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td>
+          <td class="paramname"><em>th</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7スレッドの名前を設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>C7スレッド。 </td></tr>
+    <tr><td class="paramname">name</td><td>設定したい名前。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>指定した名前に丸括弧つきのC7スレッドIDを付加した文字列を設定する。 </p>
+
+</div>
+</div>
+<a id="gaa33e3fd6ff4b9c416c9320f8354a4814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa33e3fd6ff4b9c416c9320f8354a4814">&#9670;&nbsp;</a></span>c7_thread_set_stacksize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_set_stacksize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td>
+          <td class="paramname"><em>th</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>stacksize_kb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7スレッドのスタックサイズを KB 単位で設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>C7スレッド。 </td></tr>
+    <tr><td class="paramname">stacksize_kb</td><td>スレッドに割り当てるスタックサイズ(KB)。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pthread_attr_setstacksize()が成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
 <a id="gafb790d20135b81a1322859bdbc33993e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gafb790d20135b81a1322859bdbc33993e">&#9670;&nbsp;</a></span>c7_thread_set_autofree()</h2>
 
@@ -837,7 +896,13 @@ errno は変更されない。 </p>
 </div><div class="memdoc">
 
 <p>C7スレッドを自動的に解放するように設定する。 </p>
-<dl class="section note"><dt>Note</dt><dd>この設定をされたC7スレッドは、c7_thread_start() 後、target() が終了したあとに自身を 自動的に解放する。そのため、この引数 th のように、C7スレッドのポインタ変数に 参照は危険となる。 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>自動解放したいC7スレッド。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>この設定をされたC7スレッドは、c7_thread_start() 後、target() が終了したあとに自身を自動的に解放する。 そのため、自動解放が設定されたスレッドを指す c7_thread_t 変数の使用は、 いつそのスレッドのメモリが解放されるかわからないため危険である。 </dd></dl>
 
 </div>
 </div>
@@ -858,7 +923,14 @@ errno は変更されない。 </p>
 </div><div class="memdoc">
 
 <p>C7スレッドを起動する。 </p>
-<p>pthread のスレッドを起動して target() を実行する。 この関数で初めて pthread_create が呼ばれ、OS上のスレッドが生成される。 スレッドの起動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>起動したいC7スレッド。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>スレッドの起動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<p>pthread のスレッドを起動して target() を実行する。 この関数で初めて pthread_create が呼ばれ、OS上のスレッドが生成される。</p>
 <p>pthread_create が成功すると、 生成されたスレッドで <a class="el" href="group__c7thread.html#ga621cf5e22f7dbbb3b379796cbc99226a" title="c7_thread_register_iniend() で登録されている init コールバックを呼び出す。 これは、C7スレッドでない場合のみ使用できる。">c7_thread_call_init()</a> で登録された初期化用コールバックを呼び出し、 その後 target() を呼び出す。 </p>
 
 </div>
@@ -907,8 +979,7 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>C7スレッドの生成から起動までをまとめて行なう。<br />
-この関数は、c7_thread_new(), <a class="el" href="group__c7thread.html#ga9d27c2ac9a7a3df17acbb7127814613b" title="C7スレッドの名前を設定する。">c7_thread_set_name()</a>, <a class="el" href="group__c7thread.html#gaa33e3fd6ff4b9c416c9320f8354a4814" title="C7スレッドのスタックサイズを KB 単位で設定する。">c7_thread_set_stacksize()</a>, <a class="el" href="group__c7thread.html#ga3a166c944106e3acb402ba6908e5fed0" title="C7スレッドを起動する。">c7_thread_start()</a> をまとめて行う。 </p>
+<p>C7スレッドの生成から起動までをまとめて行なう。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">target</td><td>スレッドで実行する関数。(cf. <a class="el" href="group__c7thread.html#ga64c00e75d06ef3ecffc214ee3da258aa" title="C7スレッドを生成する。 pthread のスレッドはまだ生成されない。">c7_thread_new()</a>) </td></tr>
@@ -919,7 +990,8 @@ errno は変更されない。 </p>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>スレッドの起動まで成功すれば C7スレッドを戻し、そうでなければ NULL を戻す。 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>スレッドの起動まで成功すれば C7スレッドを戻し、そうでなければ NULL を戻す。</dd></dl>
+<p>この関数は、c7_thread_new(), <a class="el" href="group__c7thread.html#ga9d27c2ac9a7a3df17acbb7127814613b" title="C7スレッドの名前を設定する。">c7_thread_set_name()</a>, <a class="el" href="group__c7thread.html#gaa33e3fd6ff4b9c416c9320f8354a4814" title="C7スレッドのスタックサイズを KB 単位で設定する。">c7_thread_set_stacksize()</a>, <a class="el" href="group__c7thread.html#ga3a166c944106e3acb402ba6908e5fed0" title="C7スレッドを起動する。">c7_thread_start()</a> をまとめて行う。 </p>
 
 </div>
 </div>
@@ -940,7 +1012,7 @@ errno は変更されない。 </p>
 </div><div class="memdoc">
 
 <p>スレッドを正常終了する。 </p>
-<p>プロセスの exit() と違い、何か特別な動作があるわけではなく。自スレッドのC7スレッドに、 正常終了した旨を記録し、pthread_exit() を呼び出す。このC7スレッドに対して、 <a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb" title="C7スレッドの終了ステータスを戻す。">c7_thread_endstatus()</a> を呼び出すと C7_THREAD_END_EXIT が戻る。 </p>
+<p>プロセスの exit() と違い、何か特別な動作があるわけではなく。自スレッドのC7スレッドに、 正常終了した旨を記録し、pthread_exit() を呼び出す。このC7スレッドに対して、 <a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb" title="C7スレッドの終了ステータスを得る。">c7_thread_endstatus()</a> を呼び出すと C7_THREAD_END_EXIT が戻る。 </p>
 
 </div>
 </div>
@@ -961,7 +1033,7 @@ errno は変更されない。 </p>
 </div><div class="memdoc">
 
 <p>スレッドを異常終了する。 </p>
-<p>プロセスの abort() と違い、何か特別な動作があるわけではなく。自スレッドのC7スレッドに、 異常終了した旨を記録し、pthread_exit() を呼び出す。このC7スレッドに対して、 <a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb" title="C7スレッドの終了ステータスを戻す。">c7_thread_endstatus()</a> を呼び出すと C7_THREAD_END_ABORT が戻る。 </p>
+<p>プロセスの abort() と違い、何か特別な動作があるわけではなく。自スレッドのC7スレッドに、 異常終了した旨を記録し、pthread_exit() を呼び出す。このC7スレッドに対して、 <a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb" title="C7スレッドの終了ステータスを得る。">c7_thread_endstatus()</a> を呼び出すと C7_THREAD_END_ABORT が戻る。 </p>
 
 </div>
 </div>
@@ -982,7 +1054,14 @@ errno は変更されない。 </p>
 </div><div class="memdoc">
 
 <p>スレッドをキャンセルする。 </p>
-<p>pthread_cancel() を呼び出して、th の指す C7スレッドにキャンセルをリクエストする。 キャンセル機構は pthread に従うので、これでスレッドがキャンセルされるかどうかは不明。 スレッドが実際にキャンセルされた場合は、C7スレッドに対して <a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb" title="C7スレッドの終了ステータスを戻す。">c7_thread_endstatus()</a> を 呼び出すと C7_THREAD_END_CANCEL が戻る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>キャンセルしたいC7スレッド。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pthread_cancel() が成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<p>pthread_cancel() を呼び出して、th の指す C7スレッドにキャンセルをリクエストする。 キャンセル機構は pthread に従うので、これでスレッドがキャンセルされるかどうかは不明。 スレッドが実際にキャンセルされた場合は、C7スレッドに対して <a class="el" href="group__c7thread.html#ga6f5496616a9b382b866c0fa5ff029dcb" title="C7スレッドの終了ステータスを得る。">c7_thread_endstatus()</a> を 呼び出すと C7_THREAD_END_CANCEL が戻る。 </p>
 
 </div>
 </div>
@@ -1024,6 +1103,71 @@ errno は変更されない。 </p>
 
 </div>
 </div>
+<a id="ga42e489364943eee722c97c829d56d36a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga42e489364943eee722c97c829d56d36a">&#9670;&nbsp;</a></span>c7_thread_kill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_kill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td>
+          <td class="paramname"><em>th</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sig</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7スレッドにシグナルを送る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>シグナルを送りたいC7スレッド。 </td></tr>
+    <tr><td class="paramname">sig</td><td>シグナル番号。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pthread_kill() が成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gafd51a8ec88c08e7a4cd57ce742f70c10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd51a8ec88c08e7a4cd57ce742f70c10">&#9670;&nbsp;</a></span>c7_thread_is_alive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_is_alive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a>&#160;</td>
+          <td class="paramname"><em>th</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7スレッドが終了していないか確認する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>調べたいC7スレッド。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>スレッドが終了状態でなければ C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
 <a id="gab2e57bcb400670edf5bfafaa91106acc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab2e57bcb400670edf5bfafaa91106acc">&#9670;&nbsp;</a></span>c7_thread_id()</h2>
 
@@ -1040,9 +1184,15 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>C7スレッドのユニークなIDを戻す。 </p>
-<p>th_op の指す C7スレッドに割り振られたID(≧1)を戻す。 th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ 0 が戻る</p>
-<p>C7スレッドの生成毎に uint64_t のカウンタ値をインクリメントしながら割り振っていて(0はスキップ)、この値が戻る。 1ns置きにスレッドを起動しても 292 年必要なので現実的にはユニークといえる。 </p>
+<p>C7スレッドのユニークなIDを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th_op</td><td>調べたいC7スレッド。NULLの場合は自スレッドとする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>th_op の指すC7スレッドに割り振られたID(≧1)を戻す。 th_op が NULL で自スレッドが C7スレッドでなければ 0 が戻る</dd></dl>
+<p>C7スレッドの生成毎に uint64_t のカウンタ値をインクリメントしながら割り振っていて(0はスキップ)、この値が戻る。 1ns置きにスレッドを起動してもカウンタが一周するのに 292 年必要なので実質的にユニークといえるだろう。 </p>
 
 </div>
 </div>
@@ -1062,8 +1212,14 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>C7スレッドの名前を戻す。 </p>
-<p>th_op の指す C7スレッドの名前を戻す。 th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ空文字列が戻る。</p>
+<p>C7スレッドの名前を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th_op</td><td>調べたいC7スレッド。NULLの場合は自スレッドとする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>th_op の指す C7スレッドの名前を戻す。 th_op が NULL で自スレッドが C7スレッドでなければ空文字列が戻る。</dd></dl>
 <p><a class="el" href="group__c7thread.html#ga64c00e75d06ef3ecffc214ee3da258aa" title="C7スレッドを生成する。 pthread のスレッドはまだ生成されない。">c7_thread_new()</a> で生成したスレッドにはデフォルトで "t(スレッドID)" という形式の名前がつくので、 NULL が戻ることはない。 </p>
 
 </div>
@@ -1084,8 +1240,14 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>C7スレッドの引数を戻す。 </p>
-<p>th_op の指す C7スレッドの target() に与えた引数を戻す。 th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ NULL が戻る。 </p>
+<p>C7スレッドの引数を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th_op</td><td>調べたいC7スレッド。NULLの場合は自スレッドとする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>th_op の指す C7スレッドの target() に与えた引数を戻す。 th_op が NULL で自スレッドが C7スレッドでなければ NULL が戻る。 </dd></dl>
 
 </div>
 </div>
@@ -1105,8 +1267,35 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>C7スレッドの終了ステータスを戻す。 </p>
-<p>th_op の指す C7スレッドの終了ステータスを戻す。 th_op が NULL なら自スレッドとする。自スレッドが C7スレッドでなければ C7_THREAD_END_Unknown が戻る。 </p>
+<p>C7スレッドの終了ステータスを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th_op</td><td>調べたいC7スレッド。NULLの場合は自スレッドとする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>th_op の指す C7スレッドの終了ステータスを戻す。 th_op が NULL で自スレッドが C7スレッドでなければ C7_THREAD_END_Unknown が戻る。 </dd></dl>
+
+</div>
+</div>
+<a id="gaa223084d420e0ee0f2f10fcb4976cd54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa223084d420e0ee0f2f10fcb4976cd54">&#9670;&nbsp;</a></span>c7_thread_self()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7thread.html#ga11f4d2f53d37e7fe6e196384dd709883">c7_thread_t</a> c7_thread_self </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>自スレッドのC7スレッドオブジェクトを得る。 </p>
+<p>自スレッドが C7スレッドでなければ NULL を戻す。 </p>
 
 </div>
 </div>
@@ -1127,7 +1316,459 @@ errno は変更されない。 </p>
 </div><div class="memdoc">
 
 <p>C7スレッドを解放する。 </p>
-<p>C7スレッドが実行中であれば C7_FALSE を戻し、そうでなけらば全ての内部データを破棄して C7_TRUE を戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">th</td><td>C7スレッド。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>C7スレッドが実行中であれば C7_FALSE を戻し、そうでなければ全ての内部データを破棄して C7_TRUE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga771098ff25219eb55646d853d11121d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga771098ff25219eb55646d853d11121d2">&#9670;&nbsp;</a></span>c7_thread_counter_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> c7_thread_counter_init </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ini_count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタを生成する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ini_count</td><td>カウンタの初期値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すれば C7カウンタを戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gad8521d7ea904a896c936eca5b94c56d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8521d7ea904a896c936eca5b94c56d2">&#9670;&nbsp;</a></span>c7_thread_counter_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_thread_counter_value </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの現在値を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ct</td><td>C7カウンタ。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>現在のカウンタ値を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga060eb91a955875d1ea034193f01bdaf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga060eb91a955875d1ea034193f01bdaf8">&#9670;&nbsp;</a></span>c7_thread_counter_is()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_counter_is </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの値が指定値かどうかを調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ct</td><td>C7カウンタ。 </td></tr>
+    <tr><td class="paramname">count</td><td>期待するカウンタ値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>現在のカウンタ値が count に一致すれば C7_TRUE を、そうでなければ C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gad4c0d99403a2c416549dec4cd8ab40f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad4c0d99403a2c416549dec4cd8ab40f1">&#9670;&nbsp;</a></span>c7_thread_counter_up()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_counter_up </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの値を 1 増やす。 </p>
+<p>c7_thread_counter_move(ct, 1) と等価。 </p>
+
+</div>
+</div>
+<a id="ga0338a12ee88fa7f23923a96b80651a23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0338a12ee88fa7f23923a96b80651a23">&#9670;&nbsp;</a></span>c7_thread_counter_down()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_counter_down </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの値を 1 減らす。 </p>
+<p>c7_thread_counter_move(ct, -1) と等価。 </p>
+
+</div>
+</div>
+<a id="gac1c867cc15812740841a7e8f64deb948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac1c867cc15812740841a7e8f64deb948">&#9670;&nbsp;</a></span>c7_thread_counter_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_counter_move </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>delta</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの値をシフトする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ct</td><td>C7カウンタ。 </td></tr>
+    <tr><td class="paramname">delta</td><td>カウンタの増分値。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>カウンタに delta を加算する。 </p>
+
+</div>
+</div>
+<a id="ga4c7b427916dd035a160591dcc5ed9a18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4c7b427916dd035a160591dcc5ed9a18">&#9670;&nbsp;</a></span>c7_thread_counter_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_counter_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの値を指定値にする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ct</td><td>C7カウンタ。 </td></tr>
+    <tr><td class="paramname">count</td><td>設定したいカウンタ値。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>カウンタの値を count にする。 </p>
+
+</div>
+</div>
+<a id="ga5f7aeb001851e73078c85f1379c49934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f7aeb001851e73078c85f1379c49934">&#9670;&nbsp;</a></span>c7_thread_counter_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_counter_wait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>expect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタの値が指定値になるまで待機する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ct</td><td>C7カウンタ。 </td></tr>
+    <tr><td class="paramname">expect</td><td>期待する値。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>非負(≧0)ならマイクロ秒単位のタイムアウト値とする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>タイムアウトまでの間にカウンタが expect になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 タイムアウトした場合は errno に ETIMEDOUT が設定される。 </dd></dl>
+
+</div>
+</div>
+<a id="ga348443e29bc2af3703852a23fb8a59a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga348443e29bc2af3703852a23fb8a59a0">&#9670;&nbsp;</a></span>c7_thread_counter_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_counter_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a>&#160;</td>
+          <td class="paramname"><em>ct</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7カウンタを破棄する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ct</td><td>C7カウンタ。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>C7カウンタで待機しているスレッドがあった場合の動作は予測不可能である。 </p>
+
+</div>
+</div>
+<a id="ga90081a29f60aaec728b346da4fa0aec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90081a29f60aaec728b346da4fa0aec3">&#9670;&nbsp;</a></span>c7_thread_event_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a> c7_thread_event_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベントをクリア状態で生成する。 </p>
+<p>c7_thread_counter_init(0) と等価。 </p>
+
+</div>
+</div>
+<a id="gacd78e6aa2074c39870f26dab2f58da73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacd78e6aa2074c39870f26dab2f58da73">&#9670;&nbsp;</a></span>c7_thread_event_is_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_event_is_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a>&#160;</td>
+          <td class="paramname"><em>ev</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベントがセット状態かどうか調べる。 </p>
+<p>c7_thread_counter_is(ev, 1) と等価。 </p>
+
+</div>
+</div>
+<a id="ga777f7496216e07b15a7ae5a87ce43f78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga777f7496216e07b15a7ae5a87ce43f78">&#9670;&nbsp;</a></span>c7_thread_event_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_event_set </td>
+          <td>(</td>
+          <td class="paramtype">c7_thread_event&#160;</td>
+          <td class="paramname"><em>ev</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベントをセット状態とする。 </p>
+<p>c7_thread_counter_set(ev, 1) と等価。 </p>
+
+</div>
+</div>
+<a id="gaf52dda1bba5c6754d88a0c9c72a4cf63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf52dda1bba5c6754d88a0c9c72a4cf63">&#9670;&nbsp;</a></span>c7_thread_event_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_event_clear </td>
+          <td>(</td>
+          <td class="paramtype">c7_thread_event&#160;</td>
+          <td class="paramname"><em>ev</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベントをクリア状態とする。 </p>
+<p>c7_thread_counter_set(ev, 0) と等価。 </p>
+
+</div>
+</div>
+<a id="gaa01be850aa767fc02a0761134bf9b26a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa01be850aa767fc02a0761134bf9b26a">&#9670;&nbsp;</a></span>c7_thread_event_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_event_wait </td>
+          <td>(</td>
+          <td class="paramtype">c7_thread_event&#160;</td>
+          <td class="paramname"><em>ev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベントがセット状態になるまで待機する。 </p>
+<p>c7_thread_counter_wait(ev, 1, tmo_us) と等価。 </p>
+
+</div>
+</div>
+<a id="ga9992735e6e7633e32fd8d08440ad6c01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9992735e6e7633e32fd8d08440ad6c01">&#9670;&nbsp;</a></span>c7_thread_event_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_event_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga35d48567f0b73ed071da174f6099d3d6">c7_thread_event_t</a>&#160;</td>
+          <td class="paramname"><em>ev</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7同期イベントを破棄する。 </p>
+<p>c7_thread_counter_free(ev) と等価。 </p>
+
+</div>
+</div>
+<a id="gacf06c3fadc627a8a0fc12090aaa1cff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacf06c3fadc627a8a0fc12090aaa1cff2">&#9670;&nbsp;</a></span>c7_thread_fpipe_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a> c7_thread_fpipe_init </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ent_count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fpipe を生成する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ent_count</td><td>パイプ内の要素数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればスレッド間固定長パイプを戻し、失敗すれば NULL を戻す。</dd></dl>
+<p>ent_count 要素の容量をもつスレッド間固定長パイプを生成する。 </p>
 
 </div>
 </div>
@@ -1157,8 +1798,72 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>fpipe の容量を ent_count に変更する。 </p>
-<p>fpipe が空でなければエラーとする。容量の変更に成功すれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 </p>
+<p>fpipe の容量を変更する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fpipe</td><td>スレッド間固定長パイプ。パイプ内は空でなければならない。 </td></tr>
+    <tr><td class="paramname">ent_count</td><td>新しい容量。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>容量の変更に成功すれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 とくにパイプ内が空でなければエラーとなる。 </dd></dl>
+
+</div>
+</div>
+<a id="gaf8b38cfc60d400beb8cdc16cef662cf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf8b38cfc60d400beb8cdc16cef662cf1">&#9670;&nbsp;</a></span>c7_thread_fpipe_reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_fpipe_reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a>&#160;</td>
+          <td class="paramname"><em>fpipe</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fpipe をリセット(データが空の状態に)する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fpipe</td><td>スレッド間固定長パイプ。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga9c4dc686e9474fad0c4323008a126b31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c4dc686e9474fad0c4323008a126b31">&#9670;&nbsp;</a></span>c7_thread_fpipe_reset_and_put()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_fpipe_reset_and_put </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a>&#160;</td>
+          <td class="paramname"><em>fpipe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fpipe をリセットしてデータを追加する。 </p>
+<p><a class="el" href="group__c7thread.html#gaf8b38cfc60d400beb8cdc16cef662cf1" title="fpipe をリセット(データが空の状態に)する。">c7_thread_fpipe_reset()</a> と <a class="el" href="group__c7thread.html#ga3dcce76fa570077b48aa9ba80376a361" title="fpipe にデータを追加する。">c7_thread_fpipe_put()</a> をアトミックに行う。 </p>
 
 </div>
 </div>
@@ -1194,7 +1899,7 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>fpipe に data を追加する。 </p>
+<p>fpipe にデータを追加する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fpipe</td><td>スレッド間固定長パイプ。 </td></tr>
@@ -1254,6 +1959,33 @@ errno は変更されない。 </p>
 
 </div>
 </div>
+<a id="ga6f00d8b81651803adaa89da853580643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f00d8b81651803adaa89da853580643">&#9670;&nbsp;</a></span>c7_thread_fpipe_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_fpipe_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a>&#160;</td>
+          <td class="paramname"><em>fpipe</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fpipeを破棄する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fpipe</td><td>スレッド間固定長パイプ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>パイプが空かどうかは関知しない。 </p>
+
+</div>
+</div>
 <a id="ga673becb849218ce7a1c990f71ff45300"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga673becb849218ce7a1c990f71ff45300">&#9670;&nbsp;</a></span>c7_thread_vpipe_init()</h2>
 
@@ -1270,15 +2002,73 @@ errno は変更されない。 </p>
       </table>
 </div><div class="memdoc">
 
-<p>vpipeを生成する。 </p>
+<p>vpipe を生成する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">linkoff</td><td>vpipeに投入するデータの、データの先頭からリンク用データまでのオフセット。 </td></tr>
+    <tr><td class="paramname">linkoff</td><td>スレッド間可変パイプに投入するデータの、データの先頭からリンク用データまでのオフセット。 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>vpipeの生成に成功すれば vpipe を戻し、失敗すれば NULL を戻す。</dd></dl>
-<p>vpipe に追加するデータの構造含めた例を示す: </p><div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>data_t {</div><div class="line">    <span class="keywordtype">char</span> *prog;</div><div class="line">    <span class="keywordtype">char</span> **argv;</div><div class="line">    <a class="code" href="group__c7thread.html#gadd596a6b045fb630c264f82892af8973">c7_thread_vpipe_link_t</a> __lnk;</div><div class="line">    ...</div><div class="line">} data_t;</div><div class="line">:</div><div class="line">{</div><div class="line">    <a class="code" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe = <a class="code" href="group__c7thread.html#ga673becb849218ce7a1c990f71ff45300">c7_thread_vpipe_init</a>(offsetof(data_t, __lnk));</div><div class="line">    ...;</div><div class="line">    data_t *data = ...;</div><div class="line">    <a class="code" href="group__c7thread.html#ga5b66581bf35b4005f73b55549ab88060">c7_thread_vpipe_put</a>(data);</div><div class="line">    ...;</div><div class="line">}</div></div><!-- fragment --> 
+<dl class="section return"><dt>Returns</dt><dd>成功すればスレッド間可変パイプを戻し、失敗すれば NULL を戻す。</dd></dl>
+<p>vpipe に追加するデータ構造には c7_thread_vpipe_link_t のメンバーが必要である: </p><div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>data_t {</div><div class="line">    <span class="keywordtype">char</span> *prog;</div><div class="line">    <span class="keywordtype">char</span> **argv;</div><div class="line">    <a class="code" href="group__c7thread.html#gadd596a6b045fb630c264f82892af8973">c7_thread_vpipe_link_t</a> __lnk;       <span class="comment">// vpipe 内の連結リストのリンクに使用される。</span></div><div class="line">    ...</div><div class="line">} data_t;</div></div><!-- fragment --><p>そして、c7_thread_vpipe_init() にはこの __lnk メンバーのデータ構造体先頭からのオフセットを渡すことになる。 </p><div class="fragment"><div class="line">{</div><div class="line">    <a class="code" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a> vpipe = <a class="code" href="group__c7thread.html#ga673becb849218ce7a1c990f71ff45300">c7_thread_vpipe_init</a>(offsetof(data_t, __lnk));</div><div class="line">    ...;</div><div class="line">    data_t *data = ...;</div><div class="line">    <a class="code" href="group__c7thread.html#ga5b66581bf35b4005f73b55549ab88060">c7_thread_vpipe_put</a>(data);</div><div class="line">    ...;</div><div class="line">}</div></div><!-- fragment --> 
+</div>
+</div>
+<a id="gaa2b6693d48b20d491a4b644b214b76d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa2b6693d48b20d491a4b644b214b76d3">&#9670;&nbsp;</a></span>c7_thread_vpipe_reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_thread_vpipe_reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a>&#160;</td>
+          <td class="paramname"><em>vpipe</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vpipe をリセット(データが空の状態に)する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vpipe</td><td>スレッド間可変パイプ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>パイプ内に有効なデータが残っていれば先頭の要素のアドレスを戻し、残っていなければ NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga46ba7f72d1ba94c3c90c6dc0b667c95d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46ba7f72d1ba94c3c90c6dc0b667c95d">&#9670;&nbsp;</a></span>c7_thread_vpipe_reset_and_put()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_thread_vpipe_reset_and_put </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a>&#160;</td>
+          <td class="paramname"><em>vpipe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vpipe をリセットしてデータを追加する。 </p>
+<p><a class="el" href="group__c7thread.html#gaa2b6693d48b20d491a4b644b214b76d3" title="vpipe をリセット(データが空の状態に)する。">c7_thread_vpipe_reset()</a> と <a class="el" href="group__c7thread.html#ga5b66581bf35b4005f73b55549ab88060" title="vpipe に data を追加する。">c7_thread_vpipe_put()</a> をアトミックに行う。 </p>
+
 </div>
 </div>
 <a id="ga5b66581bf35b4005f73b55549ab88060"></a>
@@ -1311,7 +2101,7 @@ errno は変更されない。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vpipe</td><td>スレッド間可変パイプ。 </td></tr>
-    <tr><td class="paramname">data</td><td>データ。NULL は EOF“No more data”を意味し、一度 NULL を追加すると、 <a class="el" href="group__c7thread.html#gaa2b6693d48b20d491a4b644b214b76d3" title="vpipe をリセットする。 パイプ内に有効なデータが残っていれば先頭の要素のアドレスを戻し、残っていなれば NULL を戻す。">c7_thread_vpipe_reset()</a> でリセットするまでは二度とデータを追加できない。 </td></tr>
+    <tr><td class="paramname">data</td><td>データ。NULL は EOF“No more data”を意味し、一度 NULL を追加すると、 <a class="el" href="group__c7thread.html#gaa2b6693d48b20d491a4b644b214b76d3" title="vpipe をリセット(データが空の状態に)する。">c7_thread_vpipe_reset()</a> でリセットするまでは二度とデータを追加できない。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -1363,6 +2153,33 @@ errno は変更されない。 </p>
 </ul>
 </dd></dl>
 <p>一度、EOF を検出すると、c7_thread_fpipe_reset() されるまで、ずっと EOF の NULL が戻る。 </p>
+
+</div>
+</div>
+<a id="ga0e899e2fd30712f0c571fde03f15d554"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0e899e2fd30712f0c571fde03f15d554">&#9670;&nbsp;</a></span>c7_thread_vpipe_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_vpipe_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaba55ba9bc19ae19e8b5fb4e652eca629">c7_thread_vpipe_t</a>&#160;</td>
+          <td class="paramname"><em>vpipe</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vpipeを破棄する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vpipe</td><td>スレッド間可変パイプ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>パイプが空かどうかは関知しない。 </p>
 
 </div>
 </div>

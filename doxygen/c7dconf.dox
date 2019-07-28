@@ -59,30 +59,95 @@ enum {
 };
 
 
-/** 名前 name の dconf を defc 個の defv 定義により初期化する。
+/** dconf を初期化する。
  *
- * dconf のファイルパス名は、c7_file_special_path(NULL, "C7_DCONF_DIR", name, ".dconf"); により決まる。
+ * @param name dconfの名前。ファイル名の一部となる。
+ * @param defc dconfの項目定義の個数。
+ * @param defv dconfの項目定義の配列。
+ *
+ * dconf の初期化は以下のように進められる。
+ * 1. defv[] の index 値を検証し問題なければ libc7 の既定値をマージする。
+ * 2. dconf のファイルパス名を、c7_file_special_path() で決める。その際、環境変数名は "C7_DCONF_DIR" サフィクスは ".dconf" とする。
+ * 3. dconfファイルを c7_file_mmap_rw() で mmap する。ファイルが存在しない場合は作成される。
+ * 4. defc, defv から c7dconf コマンド用の文字列データを埋め込む。
+ *    このデータは設定値を保持するエリアよりも後方に書き込まれるため、既存ファイルの設定値は保持される。
+ *
+ * 上の各ステップでエラーが発生した場合は、libc7 に静的に確保されているメモリが使用される。
+ *
+ * dconf を使うには、dconf のインデックスの定義(マクロか列挙型)と、項目定義の二つが必要になる。
+ * 前者は dconf を参照または設定するソースコードで必要になるためヘッダーファイルに記述するだろう。
+ * 後者は、c7_dconf_init() を呼び出す初期化コードで必要となる。ただこれを分離して記述すると保守性が
+ * 悪いため、ヘッダーファイルに以下のように記述する方法がある。
+ *
+ * @code
+// オプションコードの定義
+typedef enum opt_t {
+    OPT_CAT_GEN,	// log categroy: general
+    OPT_CAT_COR,	// log category: coroutine usage
+    OPT_CAT_MPOOL,	// log category: mpool resource
+    ...
+} opt_t;
+
+// 初期化関数の定義
+#if defined(DCONF_INIT)
+static void dconf_init(void)
+{
+    // オプション内容の定義
+    c7_dconf_def_t defs[] = {
+	C7_DCONF_DEF_I(OPT_CAT_GEN,	"[log] bool: general"),
+	C7_DCONF_DEF_I(OPT_CAT_COR,	"[log] bool: coroutine usage"),
+	C7_DCONF_DEF_I(OPT_CAT_MPOOL,	"[log] bool: mpool resource"),
+	...
+    };
+    c7_dconf_init(PROGNAME_STR, c7_numberof(defs), defs);
+
+    // オプション標準値
+    c7_dconf_i_set(OPT_CAT_GEN, 1);
+    ...
+}
+#endif
+ * @endcode
  */
 void c7_dconf_init(const char *name, int defc, const c7_dconf_def_t *defv);
 
-/** 名前 name の dconf をロードする。
- */
+/** 既存の dconf をロードする。
+ *
+ * @param name dconfの名前。ファイル名の一部となる。
+ * @param defc ロードした dconfファイル から得られた項目定義の個数を戻す。
+ * @return dconfファイルをロードできたら項目定義の配列の先頭を戻し、そうでなければ NULL ポインタを戻す。
+ *
+ * dconf のロードは以下のように進められる。
+ * 1. dconf のファイルパス名を、c7_file_special_path() で決める。その際、環境変数名は "C7_DCONF_DIR" サフィクスは ".dconf" とする。
+ * 2. dconfファイルを c7_file_mmap_rw() で mmap する。ファイルが存在しない場合はエラーとなる。
+ * 3. フォーマットのバージョンが正しくなければエラーとする。
+ * 4. 埋め込まれた項目データから c7_dconf_def_t の配列を生成する。
+ *
+ * この関数が成功すると c7_dconf_i(), c7_dconf_i_set() などでの設定値の読み書きが可能となる。
+ */	   
 c7_dconf_def_t *c7_dconf_load(const char *name, int *defc);
 
 
-/** 初期化またはロードした dconf の index の値を得る。
+/** dconf の index の値を整数として得る。
+ *
+ * @note index の範囲や項目定義時の型との整合チェックは行わない。
  */
 int64_t c7_dconf_i(int index);
 
-/** 初期化またはロードした dconf の index に値 v を設定する。
+/** dconf の index に整数値 v を設定する。
+ *
+ * @note index の範囲や項目定義時の型との整合チェックは行わない。
  */
 void c7_dconf_i_set(int index, int64_t v);
 
-/** 初期化またはロードした dconf の index の値を得る。
+/** dconf の index の値を実数として得る。
+ *
+ * @note index の範囲や項目定義時の型との整合チェックは行わない。
  */
 double c7_dconf_r(int index);
 
-/** 初期化またはロードした dconf の index に値 v を設定する。
+/** dconf の index に実数値 v を設定する。
+ *
+ * @note index の範囲や項目定義時の型との整合チェックは行わない。
  */
 void c7_dconf_r_set(int index, double v);
 

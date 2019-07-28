@@ -9,86 +9,113 @@
  * dconf の ::C7_DCONF_ECHO インデックスの設定値より大きいと表示されない。
  *
  * @note
- * ::C7_DCONF_ECHO インデックスの設定値のデフォルトは ::C7_LOG_INF (==3) となっている。
+ * ::C7_DCONF_ECHO の dconf 設定値のデフォルトは ::C7_LOG_INF (==3) となっている。
  * プログラムで独自の dconf を初期化していない場合、この設定値を変更する方法は
  * C7_DCONF_ECHO という環境変数を定義することである。
  *
  * @note
  * また、これらの関数は c7_hook_set_echo() または c7_hook_set_echo_mlog() で指定した
- * hook を呼び出すが、この呼び出し自体は ::C7_DCONF_ECHO の設定は影響しない。
- * ただし、c7_hook_set_echo_mlog() を使った場合のように hook で c7_mlog_put() を呼び出すときは、記録動作は ::C7_DCONF_MLOG インデックスの設定値に依存する。
+ * hook を呼び出すが、この呼び出し自体は ::C7_DCONF_ECHO の dconf 設定値には影響されない。
+ * ただし、c7_hook_set_echo_mlog() を使った場合のように hook で c7_mlog_put() を呼び出すときは、記録動作は ::C7_DCONF_MLOG の dconf 設定値に依存する。
  */
 //@{
 
 
 /** libc7 を初期化する [非GNU環境では必要]
  *
+ * @param progname_opt NULLでなければプログラム名として保存する。
+ * @param flags 現在のバージョンでは flags には 0 しか指定できない。
+ *
  * libc7の初期化コードは、gcc の __attribute__((constructor)) を用いて
  * ライブラリの動的リンク時に実行される。その際、/proc/self/exe から
- * プログラム名を得て保存する。
+ * プログラム名を得て保存する。プログラム名は c7progname() で得ることができる。
  *
  * この関数は、__attribute__((constructor)) が効かない環境や、明示的に
  * プログラム名を指定したい場合に使用する。
- *
- * 現在のバージョンでは flags には 0 しか指定できない。
  */
 void c7_init(const char *progname_opt, uint32_t flags);
 
-/** 初期化コードや c7_init() で保存されたプログラム名を戻す。空文字列に
+/** プログラム名文字列を戻す。
+ *
+ * 初期化コードや c7_init() で保存されたプログラム名を戻す。空文字列に
  * なることはあっても NULL になることはない。
  */
 const char *c7progname(void);
 
-/** C7_LOG_DBG レベルでメッセージを stdout へ出力する。
+/** デバッグメッセージを表示する。
+ *
+ * C7_LOG_DBG レベルでメッセージを stdout へ出力する。
  */
 void c7dbg(const char *fmt, ...);
 
-/** C7_LOG_DTL レベルでメッセージを stdout へ出力する。
+/** 詳細メッセージを表示する。
+ *
+ *C7_LOG_DTL レベルでメッセージを stdout へ出力する。
  */
 void c7detail(const char *fmt, ...);
 
-/** C7_LOG_BRF レベルでメッセージを stdout へ出力する。
+/** 補足メッセージを表示する。
+ *
+ * C7_LOG_BRF レベルでメッセージを stdout へ出力する。
  */
 void c7brief(const char *fmt, ...);
 
-/** C7_LOG_INF レベルでメッセージを stdout へ出力する。
+/** メッセージを表示する。
+ *
+ * C7_LOG_INF レベルでメッセージを stdout へ出力する。
  */
 void c7echo(const char *fmt, ...);
 
-/** status を c7_status_add() で追加したあと、
+/** 警告メッセージを表示する。(既存ステータス値に追記)
+ *
+ * status を c7_status_add() で追加したあと、
  * C7_LOG_WRN レベルでステータス情報とメッセージを stdout へ出力する。
  */
 void c7echo_err(c7_status_t status, const char *fmt, ...);
 
-/** status を c7_status_reset() で追加したあと、
+/** 警告メッセージを表示する。(既存ステータス値をリセット)
+ *
+ * status を c7_status_reset() で追加したあと、
  * C7_LOG_WRN レベルでステータス情報とメッセージを stdout へ出力する。
  */
 void c7echo_err1(c7_status_t status, const char *fmt, ...);
 
-/** C7_LOG_INF レベルでメッセージを stdout へ出力し、exit(0) する。
+/** メッセージを表示してプログラムを正常終了する。
+ *
+ * C7_LOG_INF レベルでメッセージを stdout へ出力し、exit(0) する。
  */
 void c7exit(const char *fmt, ...);
 
-/** status を c7_status_add() で追加したあと、
+/** エラーメッセージを表示してプログラムを異常終了する。(既存ステータス値に追記)
+ *
+ * status を c7_status_add() で追加したあと、
  * C7_LOG_ERR レベルでステータス情報とメッセージを stderr へ出力し、exit(1) する。
  */
 void c7exit_err(c7_status_t status, const char *fmt, ...);
 
-/** status を c7_status_reset() で追加したあと、
+/** エラーメッセージを表示してプログラムを異常終了する。(既存ステータス値をリセット)
+ *
+ * status を c7_status_reset() で追加したあと、
  * C7_LOG_ERR レベルでステータス情報とメッセージを stderr へ出力し、exit(1) する。
  */
 void c7exit_err1(c7_status_t status, const char *fmt, ...);
 
-/** C7_LOG_ERR レベルでメッセージを stderr へ出力し、abort() する。
+/** メッセージを表示してプログラムをアボートする。(既存ステータス値に追記)
+ *
+* C7_LOG_ERR レベルでメッセージを stderr へ出力し、abort() する。
  */
 void c7abort(const char *fmt, ...);
 
-/** status を c7_status_add() で追加したあと、
+/** エラーメッセージを表示してプログラムをアボートする。(既存ステータス値に追記)
+ *
+ * status を c7_status_add() で追加したあと、
  * C7_LOG_ERR レベルでステータス情報とメッセージを stderr へ出力し、abort() する。
  */
 void c7abort_err(c7_status_t, const char *fmt, ...);
 
-/** status を c7_status_reset() で追加したあと、
+/** エラーメッセージを表示してプログラムをアボートする。(既存ステータス値をリセット)
+ *
+ * status を c7_status_reset() で追加したあと、
  * C7_LOG_ERR レベルでステータス情報とメッセージを stderr へ出力し、abort() する。
  */
 void c7abort_err1(c7_status_t, const char *fmt, ...);
@@ -107,7 +134,9 @@ void c7_app_daemon(int maxdesc, const char *wdir, const char *new_stderr, mode_t
  */
 c7_time_t c7_time_us(void);
 
-/** time_usで指定したマイクロ描画 sleep する。
+/** マイクロ秒のスリープ。
+ *
+ * time_us で指定したマイクロ秒の間 sleep する。
  * 指定時間スリープしたら 0 を、シグナルにより割込まれたら残り時間をマイクロ描画単位で、
  * エラーが発生した場合は (c7_time_t)(-1)を戻す。
  */

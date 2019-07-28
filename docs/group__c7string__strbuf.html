@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -117,7 +117,7 @@ C7文字列(実体宣言)の初期化子</h2></td></tr>
 <tr class="memdesc:ga67dc9ac6d7e7e2761587a0b92948d36d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7memory.html#ga6909b86209fa26b464ed66de77b35bdb" title="c7_mg_realloc(c7_sg_current_mg(), u_addr, size) を呼び出す。">c7_sg_realloc()</a>でバッファを確保するように初期化する。  <a href="#ga67dc9ac6d7e7e2761587a0b92948d36d">More...</a><br /></td></tr>
 <tr class="separator:ga67dc9ac6d7e7e2761587a0b92948d36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga63a4fe34d968c24452d3057760d9dc8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga63a4fe34d968c24452d3057760d9dc8b">C7_STR_INIT_MG</a>(mg)</td></tr>
-<tr class="memdesc:ga63a4fe34d968c24452d3057760d9dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。mg が NULL ポインタの場合は c7_realloc() を呼びグループ化しない。  u_addr が mg とは異なるメモリグループであった場合、本来所属する...">c7_mg_realloc()</a>でバッファを確保するように初期化する。  <a href="#ga63a4fe34d968c24452d3057760d9dc8b">More...</a><br /></td></tr>
+<tr class="memdesc:ga63a4fe34d968c24452d3057760d9dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。">c7_mg_realloc()</a>でバッファを確保するように初期化する。  <a href="#ga63a4fe34d968c24452d3057760d9dc8b">More...</a><br /></td></tr>
 <tr class="separator:ga63a4fe34d968c24452d3057760d9dc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5447ef396740b03707a96f462cd55d92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga5447ef396740b03707a96f462cd55d92">C7_STR_INIT_TLS</a>()</td></tr>
 <tr class="memdesc:ga5447ef396740b03707a96f462cd55d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドのTLS向けに動的にバッファを確保するように初期化する。  <a href="#ga5447ef396740b03707a96f462cd55d92">More...</a><br /></td></tr>
@@ -135,7 +135,7 @@ C7文字列(ポインタ宣言)の初期化子</h2></td></tr>
 <tr class="separator:ga24cde018142087910bbc5c72c0e37dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5b1b522508ad6d2b4ef5ca6102e25c41"><td class="memItemLeft" align="right" valign="top"><a id="ga5b1b522508ad6d2b4ef5ca6102e25c41"></a>
 <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga5b1b522508ad6d2b4ef5ca6102e25c41">c7_str_new_mg</a> (<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg)</td></tr>
-<tr class="memdesc:ga5b1b522508ad6d2b4ef5ca6102e25c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列を <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。">c7_mg_malloc()</a> で確保し、 バッファを <a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。mg が NULL ポインタの場合は c7_realloc() を呼びグループ化しない。  u_addr が mg とは異なるメモリグループであった場合、本来所属する...">c7_mg_realloc()</a> で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_None を戻す。 <br /></td></tr>
+<tr class="memdesc:ga5b1b522508ad6d2b4ef5ca6102e25c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列を <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。">c7_mg_malloc()</a> で確保し、 バッファを <a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。">c7_mg_realloc()</a> で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_None を戻す。 <br /></td></tr>
 <tr class="separator:ga5b1b522508ad6d2b4ef5ca6102e25c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -363,7 +363,7 @@ C7文字列の応用文字列操作</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。mg が NULL ポインタの場合は c7_realloc() を呼びグループ化しない。  u_addr が mg とは異なるメモリグループであった場合、本来所属する...">c7_mg_realloc()</a>でバッファを確保するように初期化する。 </p>
+<p><a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。">c7_mg_realloc()</a>でバッファを確保するように初期化する。 </p>
 <p>バッファを状況に応じて伸長可能にするための初期化子であり、 かつメモリグループの機能を使ってメモリ解放できるようになる。 逆に意図せず解放されないよう注意しなければならない。 マクロには生成済みのメモリグループを渡さなければならない。</p>
 <dl class="section warning"><dt>Warning</dt><dd>有効なメモリグループを渡す関係上、静的変数やスレッドローカル変数には不適切である。 mg引数にNULLポインタを渡せばコンパイルできてしまうが、この場合、実際には <a class="el" href="group__c7string__strbuf.html#gabfa27432b5d71799bec5befcb02e312f" title="c7_realloc()でバッファを確保するように初期化する。">C7_STR_INIT_MA()</a> と同じ動作となってしまう。 </dd></dl>
 
@@ -385,7 +385,7 @@ C7文字列の応用文字列操作</h2></td></tr>
 </div><div class="memdoc">
 
 <p>C7スレッドのTLS向けに動的にバッファを確保するように初期化する。 </p>
-<p>バッファを状況に応じて伸長可能にするための初期化子であり、 C7スレッド(<a class="el" href="group__c7thread.html#ga3a166c944106e3acb402ba6908e5fed0" title="C7スレッドを起動する。">c7_thread_start()</a> か <a class="el" href="group__c7thread.html#gac3a7a1bd8c1911ed232b1e9433680419" title="C7スレッドの生成から起動までをまとめて行なう。 この関数は、c7_thread_new(), c7_thread_set_name(), c7_thread_set_stacksize(),...">c7_thread_run()</a> で生成したスレッド)終了時に、 メモリを解放できるようになる。 </p>
+<p>バッファを状況に応じて伸長可能にするための初期化子であり、 C7スレッド(<a class="el" href="group__c7thread.html#ga3a166c944106e3acb402ba6908e5fed0" title="C7スレッドを起動する。">c7_thread_start()</a> か <a class="el" href="group__c7thread.html#gac3a7a1bd8c1911ed232b1e9433680419" title="C7スレッドの生成から起動までをまとめて行なう。">c7_thread_run()</a> で生成したスレッド)終了時に、 メモリを解放できるようになる。 </p>
 
 </div>
 </div>
@@ -503,7 +503,7 @@ C7文字列の応用文字列操作</h2></td></tr>
 </div><div class="memdoc">
 
 <p>C7文字列をメモリグループから切り離す [戻り値に注意]. </p>
-<p>C7文字列自身(*sbp)やバッファがメモリグループによるアロケータを使用している 場合、メモリグループからの切り離しを行う(cf. <a class="el" href="group__c7memory.html#ga09e4f2ca3e8ee76141d1f6c931b0d862" title="mg のグループに所属する content_size バイトの u_addr メモリを mg のグループから切り離す。u_addr のアドレスは無意味になることに注意が必要。">c7_mg_unlink()</a>)。C7文字列自身 がメモリグループによりアロケートされていた場合は切り離し後の新しいC7文字列 のアドレスを戻し、そうでない場合は引数 sbp の値を戻す。呼び出し側は sbp の 値を保持している変数を更新しなければならない。</p>
+<p>C7文字列自身(*sbp)やバッファがメモリグループによるアロケータを使用している 場合、メモリグループからの切り離しを行う(cf. <a class="el" href="group__c7memory.html#ga09e4f2ca3e8ee76141d1f6c931b0d862" title="メモリを所属するメモリグループから切り離す。">c7_mg_unlink()</a>)。C7文字列自身 がメモリグループによりアロケートされていた場合は切り離し後の新しいC7文字列 のアドレスを戻し、そうでない場合は引数 sbp の値を戻す。呼び出し側は sbp の 値を保持している変数を更新しなければならない。</p>
 <p>sbpにNULLポインタを渡してはならない。</p>
 <div class="fragment"><div class="line"><a class="code" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp = <a class="code" href="group__c7string__strbuf.html#ga7753748e63febce269094d14f8ad98fb">c7_strcpy</a>(<a class="code" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1">c7_str_new_sg</a>(), <a class="code" href="group__c7string__charp.html#ga28f369149af27097615087342b37a599">c7getenv_x</a>(<span class="stringliteral">&quot;HOME&quot;</span>, <span class="stringliteral">&quot;/&quot;</span>));</div><div class="line">sbp = <a class="code" href="group__c7string__strbuf.html#gaf70d50ec4d273c055398adef93a95725">c7_str_unlink</a>(sbp);</div></div><!-- fragment --> 
 </div>
@@ -1493,7 +1493,7 @@ C7文字列の応用文字列操作</h2></td></tr>
 <li>vn 引数から始まる変数名の文字列を評価し、結果をC7文字列 sbp へ追加する。</li>
 <li>評価が成功の場合 vn から始まる文字列上、評価対象の終端とされるポインタを戻す。</li>
 <li>評価が失敗した場合は NULL ポインタを戻す。</li>
-<li>translator の呼び出し前後で <a class="el" href="group__c7memory.html#gae711ea17a571c63162ab8cef9affaeda" title="現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。 メモリを確保できれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。">c7_sg_push()</a> と <a class="el" href="group__c7memory.html#gab12ae39f16b183b9f35e870bc4e5040b" title="現在のメモリグループを完全に解放(c7_mg_destroy(c7_sg_current_mg()))し、 スタックからポップしたメモリグループを現在のメモリグループとする。 スタックからポップできれば...">c7_sg_pop()</a> が行われるため、 translator 中のテンポラリなメモリの確保には <a class="el" href="group__c7memory.html#ga825abda9aa39142ed800bee13df1faa7" title="c7_mg_malloc(c7_sg_current_mg(), size) を呼び出す。">c7_sg_malloc()</a> や <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> などを使用できる。 </li>
+<li>translator の呼び出し前後で <a class="el" href="group__c7memory.html#gae711ea17a571c63162ab8cef9affaeda" title="現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。">c7_sg_push()</a> と <a class="el" href="group__c7memory.html#gab12ae39f16b183b9f35e870bc4e5040b" title="現在のメモリグループを削除し、スタックからポップしたメモリグループを現在のメモリ グループとする。">c7_sg_pop()</a> が行われるため、 translator 中のテンポラリなメモリの確保には <a class="el" href="group__c7memory.html#ga825abda9aa39142ed800bee13df1faa7" title="c7_mg_malloc(c7_sg_current_mg(), size) を呼び出す。">c7_sg_malloc()</a> や <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> などを使用できる。 </li>
 </ul>
 
 </div>

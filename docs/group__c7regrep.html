@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -112,9 +112,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga440671c0fa78f10a7375561483ee6cd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7regrep.html#ga440671c0fa78f10a7375561483ee6cd1">c7_regrep_exec</a> (<a class="el" href="group__c7regrep.html#gab6df4cf0514db8532044fd982b0459d6">c7_regrep_t</a> regrep, const char *in, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *out)</td></tr>
 <tr class="memdesc:ga440671c0fa78f10a7375561483ee6cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">regrepオブジェクトに基づいて、文字列 in にある正規表現パターンを置換して C7文字列 out に追加する。  <a href="#ga440671c0fa78f10a7375561483ee6cd1">More...</a><br /></td></tr>
 <tr class="separator:ga440671c0fa78f10a7375561483ee6cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga96f608bd1b3dae69d1db917be04dfeb9"><td class="memItemLeft" align="right" valign="top"><a id="ga96f608bd1b3dae69d1db917be04dfeb9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7regrep.html#ga96f608bd1b3dae69d1db917be04dfeb9">c7_regrep_free</a> (<a class="el" href="group__c7regrep.html#gab6df4cf0514db8532044fd982b0459d6">c7_regrep_t</a> regrep)</td></tr>
-<tr class="memdesc:ga96f608bd1b3dae69d1db917be04dfeb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">regrepオブジェクトを削除する。 <br /></td></tr>
+<tr class="memitem:ga96f608bd1b3dae69d1db917be04dfeb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7regrep.html#ga96f608bd1b3dae69d1db917be04dfeb9">c7_regrep_free</a> (<a class="el" href="group__c7regrep.html#gab6df4cf0514db8532044fd982b0459d6">c7_regrep_t</a> regrep)</td></tr>
+<tr class="memdesc:ga96f608bd1b3dae69d1db917be04dfeb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">regrepオブジェクトを削除する。  <a href="#ga96f608bd1b3dae69d1db917be04dfeb9">More...</a><br /></td></tr>
 <tr class="separator:ga96f608bd1b3dae69d1db917be04dfeb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -225,6 +224,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>置換(正規表現のマッチ)が発生していれば C7_TRUE を、そうでなければ C7_FALSE を戻す。 C7文字列へのコピー操作の正否は別途 <a class="el" href="group__c7string__strbuf.html#gac4f3a9fd77e1ec5217dbfef0ecb291ca" title="c7_str_ok() のマクロ版">C7_STR_OK()</a> や <a class="el" href="group__c7string__strbuf.html#ga19571201d93652db00cff14f8d4d8017" title="c7_str_err() のマクロ版">C7_STR_ERR()</a> を out に適用して調べる必要がある。 </dd></dl>
+
+</div>
+</div>
+<a id="ga96f608bd1b3dae69d1db917be04dfeb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga96f608bd1b3dae69d1db917be04dfeb9">&#9670;&nbsp;</a></span>c7_regrep_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_regrep_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7regrep.html#gab6df4cf0514db8532044fd982b0459d6">c7_regrep_t</a>&#160;</td>
+          <td class="paramname"><em>regrep</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>regrepオブジェクトを削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regrep</td><td><a class="el" href="group__c7regrep.html#gad7a656ad0819e07c1907a2afd51362fe" title="regrepオブジェクトを初期化する。">c7_regrep_new()</a>で生成した regrep オブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

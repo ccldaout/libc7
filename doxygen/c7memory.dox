@@ -77,53 +77,101 @@ typedef struct c7_mgroup_t_ *c7_mgroup_t;
 c7_mgroup_t c7_mg_thread_local(void);
 
 /** メモリグループを作成して戻す。
+ *
+ * @return 成功すればメモリグループを戻し、失敗すれば NULL を戻す。
  */
 c7_mgroup_t c7_mg_new(void);
 
-/** c7_memdup() のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。
+/** c7_memdup() のメモリグループ版。
+ *
+ * @param mg メモリグループ。NULLの場合は c7_malloc() を呼びグループ化しない。
+ * @param addr コピー対象のアドレス 
+ * @param size コピー対象のサイズ(bytes)
+ * @return メモリの確保に成功すれば確保したアドレスを戻す。失敗すれば NULL を戻す。
  */
 void *c7_mg_memdup(c7_mgroup_t mg, const void *addr, size_t size);
 
-/** malloc のメモリグループ版。mg が NULL ポインタの場合は c7_malloc() を呼びグループ化しない。
+/** malloc のメモリグループ版。
+ *
+ * @param mg メモリグループ。NULLの場合は c7_malloc() を呼びグループ化しない。
+ * @param size 確保するメモリのサイズ(bytes)
+ * @return メモリの確保に成功すれば確保したアドレスを戻す。失敗すれば NULL を戻す。
  */
 void *c7_mg_malloc(c7_mgroup_t mg, size_t size);
 
-/** calloc のメモリグループ版。mg が NULL ポインタの場合は c7_calloc() を呼びグループ化しない。
+/** calloc のメモリグループ版。
+ *
+ * @param mg メモリグループ。NULLの場合は c7_calloc() を呼びグループ化しない。
+ * @param n 確保するメモリの要素数。
+ * @param size 確保するメモリの要素のサイズ(bytes)
+ * @return メモリの確保に成功すれば確保したアドレスを戻す。失敗すれば NULL を戻す。
  */
-void *c7_mg_calloc(c7_mgroup_t mg, size_t n, size_t z);
+void *c7_mg_calloc(c7_mgroup_t mg, size_t n, size_t size);
 
-/** realloc のメモリグループ版。mg が NULL ポインタの場合は c7_realloc() を呼びグループ化しない。<BR>
- *  u_addr が mg とは異なるメモリグループであった場合、本来所属するメモリグループにそのまま属する。
+/** realloc のメモリグループ版。
+ *
+ * @param mg メモリグループ。NULLの場合は c7_realloc() を呼びグループ化しない。
+ * @param u_addr NULL またはアロケートされたアドレス。ただし以下のような条件がある。
+ *		 - メモリグループが NULL の場合、malloc(3) や c7_malloc() のようなメモリグループに属さないメモリ。
+ *		 - メモリグループが NULL でない場合、c7_mg_malloc() などでメモリグループとして確保されたメモリ。
+ * @param size 確保するメモリの要素のサイズ(bytes)
+ * @return メモリの確保に成功すれば確保したアドレスを戻す。失敗すれば NULL を戻す。
+ *
+ * @note
+ * u_addr が mg とは異なるメモリグループに属していた場合、本来所属するメモリグループにそのまま属する。
  */
 void *c7_mg_realloc(c7_mgroup_t mg, void *u_addr, size_t size);
 
-/** srcmg のグループに所属する src_addr メモリを trgmg の所属へと変更する。
- * srcmg, trgmg とも NULL ポインタであってはならない。
+/** メモリを所属するメモリグループを変更する。
+ *
+ * @param trgmg 変更先のメモリグループ。NULL を指定できない。
+ * @param srcmg src_addrの指すメモリが所属するメモリグループ。NULL を指定できない。
+ * @param src_addr c7_mg_malloc()などで確保したメモリ。
  */
 void c7_mg_trade(c7_mgroup_t trgmg, c7_mgroup_t srcmg, void *src_addr);
 
-/** mg のグループに所属する content_size バイトの u_addr メモリを mg のグループから切り離す。u_addr のアドレスは無意味になることに注意が必要。
+/** メモリを所属するメモリグループから切り離す。
  *
+ * @param mg メモリグループ。
+ * @param u_addr 対象となるメモリ。
+ * @param content_size u_addrの指すメモリに保持されている内容のバイト数。
  * @return u_addr メモリ移動後のデータのアドレスを戻す。
+ *		  mg が NULL でなければ必ず u_addr とは異なるアドレスとなる。
+ *
  * @note
- * - 切り離し処理により u_addr の指すメモリの内容がが数バイトオフセットされるため、u_addr に指定したポインタ値を使用してはならない。
+ * - 切り離し処理により u_addr の指すメモリの内容が数バイトオフセットされるため、u_addr に指定したポインタ値を使用してはならない。
  * - メモリグループから切り離されるため、このメモリが不要になった場合は free で開放する必要がある。
- * - mg が NULL ポインタの場合は u_addr がそのまま戻される。
+ * - mg が NULL の場合は u_addr がそのまま戻される。
  * - u_addr が NULL の場合は NULL が戻される。
- * - u_addr が mg とは異なるメモリグループであった場合も、、本来所属するメモリグループから切り離される。
+ * - u_addr が mg とは異なるメモリグループであった場合も、本来所属するメモリグループから切り離される。
  */
 void *c7_mg_unlink(c7_mgroup_t mg, void *u_addr, size_t content_size);
 
-/** u_addr メモリを mg のグループから切り離し free で開放する。mg が NULL の場合は単純に free で解放する。<BR>
- * u_addr が mg とは異なるメモリグループであった場合も、、本来所属するメモリグループから切り離される。
+/** メモリをグループから切り離し解放する。
+ *
+ * @param mg メモリグループ。
+ * @param u_addr 対象となるメモリ。
+ * 
+ * @note
+ * - メモリグループが NULL の場合は単純に free で解放する。
+ * - メモリをメモリグループから切り離し free(3) で開放する。
+ * - u_addr が mg とは異なるメモリグループであった場合も、本来所属するメモリグループから切り離される。
  */
 void c7_mg_free(c7_mgroup_t mg, void *u_addr);
 
-/** mg のグループに所属するメモリについて c7_mg_free() を呼び出す。mg の指すメモリグループ自体は存続する。
+/** メモリグループ内の全てのメモリを解放する。
+ *
+ * @param mg メモリグループ。
+ *
+ * メモリグループに所属するメモリについて c7_mg_free() を呼び出す。メモリグループ自体は存続する。
  */
 void c7_mg_freeall(c7_mgroup_t mg);
 
-/** mg に対して c7_mg_freeall() を呼んだあと mg グループ自体も解放する。
+/** メモリグループを削除する。
+ *
+ * @param mg メモリグループ。
+ *
+ * メモリグループに対して c7_mg_freeall() を呼んだあと mg グループ自体も解放する。
  */
 void c7_mg_destroy(c7_mgroup_t mg);
 
@@ -155,7 +203,8 @@ void c7_mg_destroy(c7_mgroup_t mg);
 c7_mgroup_t c7_sg_current_mg(void);
 
 /** 現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。
- * メモリを確保できれば ::C7_TRUE を戻し、失敗すれば ::C7_FALSE を戻す。
+ *
+ * @return メモリを確保できれば ::C7_TRUE を戻し、失敗すれば ::C7_FALSE を戻す。
  *
  * この関数は後述の c7_sg_push() と組み合わせて、関数における一時的な作業メモリの一括解放に利用できる。
  * 例えば、イベントハンドラなどの入口と出口でそれぞれ c7_sg_push(), c7_sg_pop() を呼び出せば、ハンドラ
@@ -164,10 +213,10 @@ c7_mgroup_t c7_sg_current_mg(void);
  */
 c7_bool_t c7_sg_push(void);
 
-/** 現在のメモリグループを完全に解放(c7_mg_destroy(c7_sg_current_mg()))し、
- * スタックからポップしたメモリグループを現在のメモリグループとする。
- * スタックからポップできれば ::C7_TRUE を戻し、そうでなければ(c7_sg_push()の回数を越えて
- * この関数が呼び出された) ::C7_FALSE を戻す。
+/** 現在のメモリグループを削除し、スタックからポップしたメモリグループを現在のメモリ
+グループとする。
+ *	
+ * @return スタックからポップできれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_sg_pop(void);
 
@@ -212,23 +261,40 @@ void c7_sg_freeall(void);
 
 //@{
 
-/** 可変バッファオブジェクトへのポインタ。このポインタのことを可変バッファあるいは vbuf と呼ぶ。
+/** 可変バッファオブジェクト。単に可変バッファあるいは vbuf と呼ぶ。
  */
 typedef struct c7_vbuf_t_ *c7_vbuf_t;
 
-/** 可変バッファの生成。メモリ確保・伸長は標準機能(c7_malloc()など)で行なう。
+/** 可変バッファの生成 (標準メモリ確保)。
+ *
+ * @return 確保に成功すれば可変バッファを、失敗すれば NULL を戻す。
+ *
+ * メモリ確保・伸長は標準機能(c7_malloc()など)で行なう。
  */
 c7_vbuf_t c7_vbuf_new_std(void);
 
-/** 可変バッファの生成。メモリ確保・伸長は mg のメモリグループで行なう。
+/** 可変バッファの生成 (メモリグループ)。
+ *
+ * @param mg メモリグループ。
+ * @return 確保に成功すれば可変バッファを、失敗すれば NULL を戻す。
+ *
+ * メモリ確保・伸長は mg のメモリグループで行なう。
  */
 c7_vbuf_t c7_vbuf_new_mg(c7_mgroup_t mg);
 
-/** 可変バッファの生成。メモリ確保・伸長は現在のスタック可能メモリグループで行なう。
+/** 可変バッファの生成 (スタック可能メモリグループ)。
+ *
+ * @return 確保に成功すれば可変バッファを、失敗すれば NULL を戻す。
+ *
+ * メモリ確保・伸長は現在のスタック可能メモリグループで行なう。
  */
 c7_vbuf_t c7_vbuf_new_sg(void);
 
 /** vbの可変バッファのサイズを最低 n バイト確保して、そのアドレスを戻す。
+ *
+ * @param vb 可変バッファ。
+ * @param n 必要なバッファサイズ(bytes)。
+ + @return メモリを確保できればそのメモリを戻し、そうでなければ NULL を戻す。
  *
  * @note
  * - 確保済みのバッファサイズが n 以上であれば何もせずバッファのアドレスを戻す。realloc()のように
@@ -242,7 +308,9 @@ c7_vbuf_t c7_vbuf_new_sg(void);
  */
 void *c7_vbuf_get(c7_vbuf_t vb,  size_t n);
 
-/** vb の可変バッファを解放する。
+/** 可変バッファを解放する。
+ *
+ * @param vb 可変バッファ。
  */
 void c7_vbuf_free(c7_vbuf_t vb);
 

@@ -6,27 +6,60 @@
 //@{
 
 
-/** fd の指すファイル全体に対するアドバイザリロックの開始/終了
+/** ファイルに対するアドバイザリロックの設定/解除。
+ *
+ * @param fd ロック操作対象のファイルの記述子。
+ * @param enable C7_FALSE ならロックを解除し、そうでないなら有効にする。
+ * @return ロック操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。
+ *
+ * @note アドバイザリロックの対象領域はファイル全体となっている。
  */
 c7_bool_t c7_fd_advlock(int fd, c7_bool_t enable);
 
-/** fd に対する Non-blocking I/O フラグのオン/オフ
+/** 記述子の Non-blocking I/O フラグの設定/解除。
+ *
+ * @param fd 記述子。
+ * @param enable C7_FALSE なら Non-blocking I/O フラグを解除し、そうでないなら有効にする。
+ * @return フラグ操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。
  */
 c7_bool_t c7_fd_setnonblock(int fd, c7_bool_t enable);
 
-/** fd に対する Non-blocking I/O フラグ設定値を *status で戻す。
+/** 記述子の Non-blocking I/O フラグ設定値を得る。
+ *
+ * @param fd 記述子。
+ * @param status 設定値を戻すためのポインタ変数。
+ *		 フラグが有効であれば C7_TRUE が、無効であれば C7_FALSE を戻す。
+ * @return フラグ取得操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。
+ *         <B>戻り値は記述子のフラグ取得操作の成否であって、設定値の真偽ではない。</B>
  */
 c7_bool_t c7_fd_getnonblock(int fd, c7_bool_t *status);
 
-/** fd に対する Close-on-exec フラグのオン/オフ
+/** 記述子の close-on-exec フラグの設定/解除。
+ *
+ * @param fd 記述子。
+ * @param enable C7_FALSE なら close-on-eec フラグを解除し、そうでないなら有効にする。
+ * @return フラグ操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。
  */
 c7_bool_t c7_fd_setcloexec(int fd, c7_bool_t enable);
 
-/** fd に対する Close-on-exec フラグ設定値を *status で戻す。
+/** 記述子の close-on-exec フラグ設定値を得る。
+ *
+ * @param fd 記述子。
+ * @param status 設定値を戻すためのポインタ変数。
+ *		 フラグが有効であれば C7_TRUE が、無効であれば C7_FALSE を戻す。
+ * @return フラグ取得操作に成功すれば C7_TRUE を戻し、そうでないなら C7_FALSE を戻す。
+ *         <B>戻り値は記述子のフラグ取得操作の成否であって、設定値の真偽ではない。</B>
  */
 c7_bool_t c7_fd_getcloexec(int fd, c7_bool_t *status);
 
-/** *fdp の記述子の値を lowest 以上の最小の未使用の番号に変更し *fdp で戻す。
+/** 記述子の値を指定値以上の最小の未使用の番号に変更する。
+ *
+ * @param fdp 番号を変更したい記述子へのポインタ。
+ *	      変更に成功すれば、変更後の記述子の値が *fdp に格納される。
+ * @param lowest 変更後の番号に課す下限値。
+ * @return 変更操作に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
+ *
+ * @note 変更に成功した場合は、元の記述子の番号は close(2) される。
  */
 c7_bool_t c7_fd_renumber(int *fdp, int lowest);
 

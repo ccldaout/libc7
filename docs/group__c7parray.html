@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -97,51 +97,38 @@ Functions</h2></td></tr>
 <tr class="memitem:gaee6092c0132939857e0704c4e1768c9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gaee6092c0132939857e0704c4e1768c9f">c7_parray_create</a> (size_t itemsize, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>(*init)(void *addr, int index), void(*deinit)(void *addr, int index))</td></tr>
 <tr class="memdesc:gaee6092c0132939857e0704c4e1768c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">parrayを初期化する。  <a href="#gaee6092c0132939857e0704c4e1768c9f">More...</a><br /></td></tr>
 <tr class="separator:gaee6092c0132939857e0704c4e1768c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacc7256ac9ca7a6d316175c90a933726f"><td class="memItemLeft" align="right" valign="top"><a id="gacc7256ac9ca7a6d316175c90a933726f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gacc7256ac9ca7a6d316175c90a933726f">c7_parray_count</a> (const <a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray)</td></tr>
-<tr class="memdesc:gacc7256ac9ca7a6d316175c90a933726f"><td class="mdescLeft">&#160;</td><td class="mdescRight">parrayに登録されている要素数を戻す。 <br /></td></tr>
+<tr class="memitem:gacc7256ac9ca7a6d316175c90a933726f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gacc7256ac9ca7a6d316175c90a933726f">c7_parray_count</a> (const <a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray)</td></tr>
+<tr class="memdesc:gacc7256ac9ca7a6d316175c90a933726f"><td class="mdescLeft">&#160;</td><td class="mdescRight">parrayに登録されている要素数を得る。  <a href="#gacc7256ac9ca7a6d316175c90a933726f">More...</a><br /></td></tr>
 <tr class="separator:gacc7256ac9ca7a6d316175c90a933726f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2559b4004c7c6d21aa4abffc946bac3"><td class="memItemLeft" align="right" valign="top"><a id="gab2559b4004c7c6d21aa4abffc946bac3"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gab2559b4004c7c6d21aa4abffc946bac3">c7_parray_check</a> (const <a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
-<tr class="memdesc:gab2559b4004c7c6d21aa4abffc946bac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の index に要素が登録されているかチェックする。 <br /></td></tr>
+<tr class="memitem:gab2559b4004c7c6d21aa4abffc946bac3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gab2559b4004c7c6d21aa4abffc946bac3">c7_parray_check</a> (const <a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
+<tr class="memdesc:gab2559b4004c7c6d21aa4abffc946bac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の指定インデックスに要素が登録されているかチェックする。  <a href="#gab2559b4004c7c6d21aa4abffc946bac3">More...</a><br /></td></tr>
 <tr class="separator:gab2559b4004c7c6d21aa4abffc946bac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3f862325b705fdb7232a79021f6da3be"><td class="memItemLeft" align="right" valign="top"><a id="ga3f862325b705fdb7232a79021f6da3be"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga3f862325b705fdb7232a79021f6da3be">c7_parray_get</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
-<tr class="memdesc:ga3f862325b705fdb7232a79021f6da3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の index に要素が登録されていればそのアドレスを戻し、 そうでなれば NULL ポインタを戻す。 <br /></td></tr>
+<tr class="memitem:ga3f862325b705fdb7232a79021f6da3be"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga3f862325b705fdb7232a79021f6da3be">c7_parray_get</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
+<tr class="memdesc:ga3f862325b705fdb7232a79021f6da3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の指定インデックスの要素のアドレスを得る。  <a href="#ga3f862325b705fdb7232a79021f6da3be">More...</a><br /></td></tr>
 <tr class="separator:ga3f862325b705fdb7232a79021f6da3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1f3417393703dd23ee505b3a05cd2049"><td class="memItemLeft" align="right" valign="top"><a id="ga1f3417393703dd23ee505b3a05cd2049"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga1f3417393703dd23ee505b3a05cd2049">c7_parray_new</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
-<tr class="memdesc:ga1f3417393703dd23ee505b3a05cd2049"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の index に要素が登録されていなければ要素のメモリを確保する。 メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、 init に確保したメモリアドレスと index を与えて呼びだす。<br />
-index に要素が登録されていたか、メモリ確保に失敗するか、init が C7_FALSE を戻した場合は NULL ポインタを戻す。 そうでなければ確保した要素のアドレスを戻す。 <br /></td></tr>
+<tr class="memitem:ga1f3417393703dd23ee505b3a05cd2049"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga1f3417393703dd23ee505b3a05cd2049">c7_parray_new</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
+<tr class="memdesc:ga1f3417393703dd23ee505b3a05cd2049"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の指定インデックスに新規要素を確保する。  <a href="#ga1f3417393703dd23ee505b3a05cd2049">More...</a><br /></td></tr>
 <tr class="separator:ga1f3417393703dd23ee505b3a05cd2049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae16be3d39ee498317bc770fe0933a752"><td class="memItemLeft" align="right" valign="top"><a id="gae16be3d39ee498317bc770fe0933a752"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gae16be3d39ee498317bc770fe0933a752">c7_parray_newif</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *exist_op)</td></tr>
-<tr class="memdesc:gae16be3d39ee498317bc770fe0933a752"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の index に要素が登録されていればそのアドレスを戻す。 その際、exist_op が NULL でなければ *exist_op に C7_TRUE を設定する。<br />
-index に要素が登録されていなければ要素のメモリを確保する。 メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、 init に確保したメモリアドレスと index を与えて呼びだす。<br />
-メモリ確保に失敗するか、init が C7_FALSE を戻した場合は NULL ポインタを戻す。 そうでなければ確保した要素のアドレスを戻す。 その際、exist_op が NULL でなければ *exist_op に C7_FALSE を設定する。 <br /></td></tr>
+<tr class="memitem:gae16be3d39ee498317bc770fe0933a752"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gae16be3d39ee498317bc770fe0933a752">c7_parray_newif</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *exist_op)</td></tr>
+<tr class="memdesc:gae16be3d39ee498317bc770fe0933a752"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の指定インデックスが空いていれば新規要素を確保する。  <a href="#gae16be3d39ee498317bc770fe0933a752">More...</a><br /></td></tr>
 <tr class="separator:gae16be3d39ee498317bc770fe0933a752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae93d87572c5b6307171d38362f4be1f0"><td class="memItemLeft" align="right" valign="top"><a id="gae93d87572c5b6307171d38362f4be1f0"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gae93d87572c5b6307171d38362f4be1f0">c7_parray_new_auto</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int *indexp)</td></tr>
-<tr class="memdesc:gae93d87572c5b6307171d38362f4be1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の最小の未使用インデックスを探し、そのインデックスで <a class="el" href="group__c7parray.html#ga1f3417393703dd23ee505b3a05cd2049" title="parray の index に要素が登録されていなければ要素のメモリを確保する。 メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、 init に確保...">c7_parray_new()</a> を呼ぶ。 <br /></td></tr>
+<tr class="memitem:gae93d87572c5b6307171d38362f4be1f0"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gae93d87572c5b6307171d38362f4be1f0">c7_parray_new_auto</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int *indexp)</td></tr>
+<tr class="memdesc:gae93d87572c5b6307171d38362f4be1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の空きインデックスに新規要素を確保する。  <a href="#gae93d87572c5b6307171d38362f4be1f0">More...</a><br /></td></tr>
 <tr class="separator:gae93d87572c5b6307171d38362f4be1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafefb7cfcf1ac7842b1edd3aa1cc51e03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#gafefb7cfcf1ac7842b1edd3aa1cc51e03">c7_parray_move</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int src_index, int dst_index, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> overwrite)</td></tr>
-<tr class="memdesc:gafefb7cfcf1ac7842b1edd3aa1cc51e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の src_index の要素を dst_index へ移動する。  <a href="#gafefb7cfcf1ac7842b1edd3aa1cc51e03">More...</a><br /></td></tr>
+<tr class="memdesc:gafefb7cfcf1ac7842b1edd3aa1cc51e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の要素を別のインデックスへ移動する。  <a href="#gafefb7cfcf1ac7842b1edd3aa1cc51e03">More...</a><br /></td></tr>
 <tr class="separator:gafefb7cfcf1ac7842b1edd3aa1cc51e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga29c9d953d0b32bf9bbbcafd0a14fcdf7"><td class="memItemLeft" align="right" valign="top"><a id="ga29c9d953d0b32bf9bbbcafd0a14fcdf7"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga29c9d953d0b32bf9bbbcafd0a14fcdf7">c7_parray_release</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
-<tr class="memdesc:ga29c9d953d0b32bf9bbbcafd0a14fcdf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の index の要素の登録を解除し要素のアドレスを戻す。この場合、deinit は呼ばれない。 index に要素がなければ NULL を戻す。 <br /></td></tr>
+<tr class="memitem:ga29c9d953d0b32bf9bbbcafd0a14fcdf7"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga29c9d953d0b32bf9bbbcafd0a14fcdf7">c7_parray_release</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
+<tr class="memdesc:ga29c9d953d0b32bf9bbbcafd0a14fcdf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">要素を parray から切り離す。  <a href="#ga29c9d953d0b32bf9bbbcafd0a14fcdf7">More...</a><br /></td></tr>
 <tr class="separator:ga29c9d953d0b32bf9bbbcafd0a14fcdf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e4419777a812a3585b9ddd07fa73e71"><td class="memItemLeft" align="right" valign="top"><a id="ga1e4419777a812a3585b9ddd07fa73e71"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga1e4419777a812a3585b9ddd07fa73e71">c7_parray_last_index</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray)</td></tr>
-<tr class="memdesc:ga1e4419777a812a3585b9ddd07fa73e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray に登録されている最大の index を戻す。 <br /></td></tr>
+<tr class="memitem:ga1e4419777a812a3585b9ddd07fa73e71"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga1e4419777a812a3585b9ddd07fa73e71">c7_parray_last_index</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray)</td></tr>
+<tr class="memdesc:ga1e4419777a812a3585b9ddd07fa73e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray に登録されている最大のインデックスを得る。  <a href="#ga1e4419777a812a3585b9ddd07fa73e71">More...</a><br /></td></tr>
 <tr class="separator:ga1e4419777a812a3585b9ddd07fa73e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1ab2a23a04f676681399da3449540134"><td class="memItemLeft" align="right" valign="top"><a id="ga1ab2a23a04f676681399da3449540134"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga1ab2a23a04f676681399da3449540134">c7_parray_free</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
-<tr class="memdesc:ga1ab2a23a04f676681399da3449540134"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray の index の要素を解放する。解放の前に deinit が NULL でなければ呼ばれる。 最初から index の要素がなかった場合は何もしない。 <br /></td></tr>
+<tr class="memitem:ga1ab2a23a04f676681399da3449540134"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga1ab2a23a04f676681399da3449540134">c7_parray_free</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray, int index)</td></tr>
+<tr class="memdesc:ga1ab2a23a04f676681399da3449540134"><td class="mdescLeft">&#160;</td><td class="mdescRight">要素を解放する。  <a href="#ga1ab2a23a04f676681399da3449540134">More...</a><br /></td></tr>
 <tr class="separator:ga1ab2a23a04f676681399da3449540134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5868f1d065712b9c8cb50f54c88040cb"><td class="memItemLeft" align="right" valign="top"><a id="ga5868f1d065712b9c8cb50f54c88040cb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga5868f1d065712b9c8cb50f54c88040cb">c7_parray_destroy</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray)</td></tr>
-<tr class="memdesc:ga5868f1d065712b9c8cb50f54c88040cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray を削除する。登録されている全ての要素に <a class="el" href="group__c7parray.html#ga1ab2a23a04f676681399da3449540134" title="parray の index の要素を解放する。解放の前に deinit が NULL でなければ呼ばれる。 最初から index の要素がなかった場合は何もしない。">c7_parray_free()</a> を呼び出したあと、parray 自体が解放される。 <br /></td></tr>
+<tr class="memitem:ga5868f1d065712b9c8cb50f54c88040cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7parray.html#ga5868f1d065712b9c8cb50f54c88040cb">c7_parray_destroy</a> (<a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a> parray)</td></tr>
+<tr class="memdesc:ga5868f1d065712b9c8cb50f54c88040cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">parray を削除する。  <a href="#ga5868f1d065712b9c8cb50f54c88040cb">More...</a><br /></td></tr>
 <tr class="separator:ga5868f1d065712b9c8cb50f54c88040cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -275,6 +262,241 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>初期化に成功すれば parrayオブジェクトを戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gacc7256ac9ca7a6d316175c90a933726f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacc7256ac9ca7a6d316175c90a933726f">&#9670;&nbsp;</a></span>c7_parray_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_parray_count </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parrayに登録されている要素数を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>parrayに登録されている要素数(≧0)を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gab2559b4004c7c6d21aa4abffc946bac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab2559b4004c7c6d21aa4abffc946bac3">&#9670;&nbsp;</a></span>c7_parray_check()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_parray_check </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray の指定インデックスに要素が登録されているかチェックする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">index</td><td>調べたいインデックス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>インデックスに要素が存在すれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga3f862325b705fdb7232a79021f6da3be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f862325b705fdb7232a79021f6da3be">&#9670;&nbsp;</a></span>c7_parray_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_parray_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray の指定インデックスの要素のアドレスを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">index</td><td>要素を取得したインデックス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>インデックスに要素が存在すればそのアドレスを戻し、そうでなければ NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga1f3417393703dd23ee505b3a05cd2049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f3417393703dd23ee505b3a05cd2049">&#9670;&nbsp;</a></span>c7_parray_new()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_parray_new </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray の指定インデックスに新規要素を確保する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">index</td><td>要素を確保したいインデックス。このインデックスに要素が存在してはいけない。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>処理が成功すればインデックスに新規に確保された要素のアドレスを戻し、 そうでなければ NULL を戻す。</dd></dl>
+<ul>
+<li>インデックスに既に要素が存在した場合はエラーとなる。</li>
+<li>メモリの確保に成功した場合、c7_parray_create() で init が指定されていれば、 確保したメモリアドレスと index を与えて init を呼びだす。</li>
+<li>init が呼ばだされた場合、init() gal C7_FALSE を戻せばエラーとなる。この時、確保したメモリは解放される。 </li>
+</ul>
+
+</div>
+</div>
+<a id="gae16be3d39ee498317bc770fe0933a752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae16be3d39ee498317bc770fe0933a752">&#9670;&nbsp;</a></span>c7_parray_newif()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_parray_newif </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *&#160;</td>
+          <td class="paramname"><em>exist_op</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray の指定インデックスが空いていれば新規要素を確保する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">index</td><td>要素を確保したいインデックス。このインデックスに要素が存在していても良い。 </td></tr>
+    <tr><td class="paramname">exist_op</td><td>NULLでなければ *exist_op に既に要素が存在していたかどうかが設定される。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>処理が成功すればインデックスの要素のアドレスを戻し、 そうでなければ NULL を戻す。</dd></dl>
+<ul>
+<li>インデックスに既に要素が存在していた場合、その要素のアドレスを戻す。 その際、exist_op が NULL でなれば *exist_op には C7_TRUE が設定される。</li>
+<li>インデックスに要素が登録されていなければ、c7_parray_new() と同じ処理を行う。 その際、exist_op が NULL でなれば *exist_op には C7_FALSE が設定される。 </li>
+</ul>
+
+</div>
+</div>
+<a id="gae93d87572c5b6307171d38362f4be1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae93d87572c5b6307171d38362f4be1f0">&#9670;&nbsp;</a></span>c7_parray_new_auto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_parray_new_auto </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>indexp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray の空きインデックスに新規要素を確保する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">indexp</td><td>NULLでなければ空きインデックスが設定される。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>処理が成功すればインデックスの要素のアドレスを戻し、 そうでなければ NULL を戻す。</dd></dl>
+<p>parray中の最小の未使用インデックスを探し、そのインデックスで <a class="el" href="group__c7parray.html#ga1f3417393703dd23ee505b3a05cd2049" title="parray の指定インデックスに新規要素を確保する。">c7_parray_new()</a> を呼ぶ。 </p>
 
 </div>
 </div>
@@ -316,14 +538,157 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>parray の src_index の要素を dst_index へ移動する。 </p>
-<ul>
-<li>src_index と dst_index が同じ場合は何もせず C7_TRUE を戻す。</li>
-<li>dst_index に要素が既に存在して overwrite が C7_FALSE であれば C7_FALSE を戻す。</li>
-<li>dst_index に要素が既に存在して overwrite が C7_TRUE であれば dst_index を 削除する。c7_parray_create() で deinit が定義されていれば dst_index に対して呼ばれる。</li>
-<li>src_index の要素を dst_index の方に登録し、src_index の方は空きとする。</li>
-<li>C7_TRUE を戻す。 </li>
+<p>parray の要素を別のインデックスへ移動する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">src_index</td><td>移動したい要素の存在するインデックス。 </td></tr>
+    <tr><td class="paramname">dst_index</td><td>移動先のインデックス。 </td></tr>
+    <tr><td class="paramname">overwrite</td><td>移動先のインデックスに要素があった場合に上書きするかどうかを指定する。 C7_TRUE であれば <a class="el" href="group__c7parray.html#ga1ab2a23a04f676681399da3449540134" title="要素を解放する。">c7_parray_free()</a> でその要素を削除し、C7_FALSE であればエラーとする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>移動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<p>成否は次のように定まる:</p><ol type="1">
+<li>src_index と dst_index が同じ場合は何もせずに成功。</li>
+<li>dst_index に要素が既に存在して overwrite が C7_FALSE であれば失敗。</li>
+<li>dst_index に要素が既に存在して overwrite が C7_TRUE であれば成功。<ul>
+<li><a class="el" href="group__c7parray.html#gaee6092c0132939857e0704c4e1768c9f" title="parrayを初期化する。">c7_parray_create()</a> で deinit が定義されていれば dst_index に対して呼ばれる。</li>
+<li>移動完了後、src_index は空きとなる。 </li>
 </ul>
+</li>
+</ol>
+
+</div>
+</div>
+<a id="ga29c9d953d0b32bf9bbbcafd0a14fcdf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga29c9d953d0b32bf9bbbcafd0a14fcdf7">&#9670;&nbsp;</a></span>c7_parray_release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_parray_release </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>要素を parray から切り離す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">index</td><td>切り離したい要素のインデックス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>インデックスに要素が存在すればその要素のアドレスを戻し、なければ NULL を戻す。</dd></dl>
+<p>index に要素が存在した場合、この切り離し処理で deinit は呼ばれない。 また切り離しにより index は空きとなる。 </p>
+
+</div>
+</div>
+<a id="ga1e4419777a812a3585b9ddd07fa73e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e4419777a812a3585b9ddd07fa73e71">&#9670;&nbsp;</a></span>c7_parray_last_index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_parray_last_index </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray に登録されている最大のインデックスを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>parray に登録されている最大のインデックスを戻す。特に空であれば -1 を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga1ab2a23a04f676681399da3449540134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ab2a23a04f676681399da3449540134">&#9670;&nbsp;</a></span>c7_parray_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_parray_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>要素を解放する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。 </td></tr>
+    <tr><td class="paramname">index</td><td>解放したい要素のインデックス。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>index に要素が存在した場合解放する。解放の前に deinit が NULL でなければ呼ばれる。 解放後に index は空きとなる。最初から index の要素がなかった場合は何もしない。 </p>
+
+</div>
+</div>
+<a id="ga5868f1d065712b9c8cb50f54c88040cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5868f1d065712b9c8cb50f54c88040cb">&#9670;&nbsp;</a></span>c7_parray_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_parray_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7parray.html#ga4c722c8c69457048599b04b0bd685d98">c7_parray_t</a>&#160;</td>
+          <td class="paramname"><em>parray</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parray を削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parray</td><td>parrayオブジェクト。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>登録されている全ての要素に <a class="el" href="group__c7parray.html#ga1ab2a23a04f676681399da3449540134" title="要素を解放する。">c7_parray_free()</a> を呼び出したあと、parray 自体を解放する。 </p>
 
 </div>
 </div>

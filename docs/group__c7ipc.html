@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -76,9 +76,12 @@ $(function() {
 Enumerations</h2></td></tr>
 <tr class="memitem:gaa7d5578ddeada372fb30c29ed9c25054"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaa7d5578ddeada372fb30c29ed9c25054">c7_ipc_result_t</a> { <br />
 &#160;&#160;<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a7345d218d1184f602bf42a4715667ac4">C7_IPC_RESULT_OK</a>, 
-<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a7aa9032000a19ae0918d9cb9c0debefc">C7_IPC_RESULT_ERR</a>, 
-<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a6b22733cf311c44316b8f0d35b316212">C7_IPC_RESULT_BUSY</a>, 
-<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a12507ebe2a9e2b6f4886d609e2e72ae4">C7_IPC_RESULT_CLS</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a7aa9032000a19ae0918d9cb9c0debefc">C7_IPC_RESULT_ERR</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a6b22733cf311c44316b8f0d35b316212">C7_IPC_RESULT_BUSY</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054a12507ebe2a9e2b6f4886d609e2e72ae4">C7_IPC_RESULT_CLS</a>, 
 <br />
 &#160;&#160;<a class="el" href="group__c7ipc.html#ggaa7d5578ddeada372fb30c29ed9c25054af8ebc52459c482d650b74667b4dbe148">C7_IPC_RESULT_INCOMP</a>
 <br />
@@ -88,167 +91,123 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 sockaddr関連</h2></td></tr>
-<tr class="memitem:gab5fc4de8a92ba7f88a885c2adba40dac"><td class="memItemLeft" align="right" valign="top"><a id="gab5fc4de8a92ba7f88a885c2adba40dac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gab5fc4de8a92ba7f88a885c2adba40dac">c7_sockaddr_in_setport</a> (struct sockaddr_in *inaddr, int port)</td></tr>
-<tr class="memdesc:gab5fc4de8a92ba7f88a885c2adba40dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットアドレス inaddr のポート番号に port を設定する。 <br /></td></tr>
+<tr class="memitem:gab5fc4de8a92ba7f88a885c2adba40dac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gab5fc4de8a92ba7f88a885c2adba40dac">c7_sockaddr_in_setport</a> (struct sockaddr_in *inaddr, int port)</td></tr>
+<tr class="memdesc:gab5fc4de8a92ba7f88a885c2adba40dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4ソケットアドレスにポート番号を設定する。  <a href="#gab5fc4de8a92ba7f88a885c2adba40dac">More...</a><br /></td></tr>
 <tr class="separator:gab5fc4de8a92ba7f88a885c2adba40dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafd6e9e2f39a3d8d17d68edd61b52af91"><td class="memItemLeft" align="right" valign="top"><a id="gafd6e9e2f39a3d8d17d68edd61b52af91"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gafd6e9e2f39a3d8d17d68edd61b52af91">c7_sockaddr_in_ip</a> (struct sockaddr_in *inaddr, uint32_t ipaddr, int port)</td></tr>
-<tr class="memdesc:gafd6e9e2f39a3d8d17d68edd61b52af91"><td class="mdescLeft">&#160;</td><td class="mdescRight">32bitの IPv4 アドレス ipaddr とポート番号 port でソケットアドレス inaddr を初期化する。<br />
-port はホストバイトオーダであるが、ipaddr はネットワークバイトオーダでなければならない。 これは、ipaddr を getpeername() などから得た sockaddr_in 構造体から sin_addr.s_addr で直接に得ることを想定しているためである。 <br /></td></tr>
+<tr class="memitem:gafd6e9e2f39a3d8d17d68edd61b52af91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gafd6e9e2f39a3d8d17d68edd61b52af91">c7_sockaddr_in_ip</a> (struct sockaddr_in *inaddr, uint32_t ipaddr, int port)</td></tr>
+<tr class="memdesc:gafd6e9e2f39a3d8d17d68edd61b52af91"><td class="mdescLeft">&#160;</td><td class="mdescRight">32bit の IPv4 アドレスとポート番号でソケットアドレスを初期化する。  <a href="#gafd6e9e2f39a3d8d17d68edd61b52af91">More...</a><br /></td></tr>
 <tr class="separator:gafd6e9e2f39a3d8d17d68edd61b52af91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7b659c5319ee7b2a6bfe67cc1acfc49d"><td class="memItemLeft" align="right" valign="top"><a id="ga7b659c5319ee7b2a6bfe67cc1acfc49d"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga7b659c5319ee7b2a6bfe67cc1acfc49d">c7_sockaddr_in</a> (struct sockaddr_in *inaddr, const char *host, int port)</td></tr>
-<tr class="memdesc:ga7b659c5319ee7b2a6bfe67cc1acfc49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ホスト名 host とポート番号 port から IPv4 のソケットアドレス inaddr を初期化する。<br />
-host が NULL または、空文字列、"*" の場合は INADDR_ANY が用いられる。 gethostbyname() で IPv4 アドレスが得られなければ C7_FALSE を戻し、得られれば C7_TRUE を戻す。 <br /></td></tr>
+<tr class="memitem:ga7b659c5319ee7b2a6bfe67cc1acfc49d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga7b659c5319ee7b2a6bfe67cc1acfc49d">c7_sockaddr_in</a> (struct sockaddr_in *inaddr, const char *host, int port)</td></tr>
+<tr class="memdesc:ga7b659c5319ee7b2a6bfe67cc1acfc49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ホスト名とポート番号でソケットアドレスを初期化する。  <a href="#ga7b659c5319ee7b2a6bfe67cc1acfc49d">More...</a><br /></td></tr>
 <tr class="separator:ga7b659c5319ee7b2a6bfe67cc1acfc49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga14d86e1a6ea1b809dbffe20307295970"><td class="memItemLeft" align="right" valign="top"><a id="ga14d86e1a6ea1b809dbffe20307295970"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga14d86e1a6ea1b809dbffe20307295970">c7_sock_getself_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
-<tr class="memdesc:ga14d86e1a6ea1b809dbffe20307295970"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット記述子 sock から自分側のソケットアドレス inaddr を得る。 <br /></td></tr>
+<tr class="memitem:ga14d86e1a6ea1b809dbffe20307295970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga14d86e1a6ea1b809dbffe20307295970">c7_sock_getself_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
+<tr class="memdesc:ga14d86e1a6ea1b809dbffe20307295970"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット記述子から自分側のソケットアドレスを得る。  <a href="#ga14d86e1a6ea1b809dbffe20307295970">More...</a><br /></td></tr>
 <tr class="separator:ga14d86e1a6ea1b809dbffe20307295970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd482b528b1d5320a587a31aadd9ba91"><td class="memItemLeft" align="right" valign="top"><a id="gadd482b528b1d5320a587a31aadd9ba91"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gadd482b528b1d5320a587a31aadd9ba91">c7_sock_getpeer_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
-<tr class="memdesc:gadd482b528b1d5320a587a31aadd9ba91"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット記述子 sock から相手側のソケットアドレス inaddr を得る。 <br /></td></tr>
+<tr class="memitem:gadd482b528b1d5320a587a31aadd9ba91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gadd482b528b1d5320a587a31aadd9ba91">c7_sock_getpeer_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
+<tr class="memdesc:gadd482b528b1d5320a587a31aadd9ba91"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット記述子から相手側のソケットアドレスを得る。  <a href="#gadd482b528b1d5320a587a31aadd9ba91">More...</a><br /></td></tr>
 <tr class="separator:gadd482b528b1d5320a587a31aadd9ba91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ソケット準備</h2></td></tr>
-<tr class="memitem:ga7d937174bb51618e89e3cab6aae552e5"><td class="memItemLeft" align="right" valign="top"><a id="ga7d937174bb51618e89e3cab6aae552e5"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga7d937174bb51618e89e3cab6aae552e5">c7_udp</a> (void)</td></tr>
-<tr class="memdesc:ga7d937174bb51618e89e3cab6aae552e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">UDP用のソケットを得る。失敗すれば C7_SYSERR が戻る。 <br /></td></tr>
+<tr class="memitem:ga7d937174bb51618e89e3cab6aae552e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga7d937174bb51618e89e3cab6aae552e5">c7_udp</a> (void)</td></tr>
+<tr class="memdesc:ga7d937174bb51618e89e3cab6aae552e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">UDP用のソケットを得る。  <a href="#ga7d937174bb51618e89e3cab6aae552e5">More...</a><br /></td></tr>
 <tr class="separator:ga7d937174bb51618e89e3cab6aae552e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabd5ae3c4ac1e0f4433cf6f83d6df33ea"><td class="memItemLeft" align="right" valign="top"><a id="gabd5ae3c4ac1e0f4433cf6f83d6df33ea"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gabd5ae3c4ac1e0f4433cf6f83d6df33ea">c7_tcp</a> (void)</td></tr>
-<tr class="memdesc:gabd5ae3c4ac1e0f4433cf6f83d6df33ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP用のソケットを得る。失敗すれば C7_SYSERR が戻る。 <br /></td></tr>
+<tr class="memitem:gabd5ae3c4ac1e0f4433cf6f83d6df33ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gabd5ae3c4ac1e0f4433cf6f83d6df33ea">c7_tcp</a> (void)</td></tr>
+<tr class="memdesc:gabd5ae3c4ac1e0f4433cf6f83d6df33ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP用のソケットを得る。  <a href="#gabd5ae3c4ac1e0f4433cf6f83d6df33ea">More...</a><br /></td></tr>
 <tr class="separator:gabd5ae3c4ac1e0f4433cf6f83d6df33ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga97c92ca34d884bca480740d5d9f21312"><td class="memItemLeft" align="right" valign="top"><a id="ga97c92ca34d884bca480740d5d9f21312"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga97c92ca34d884bca480740d5d9f21312">c7_unixstream</a> (void)</td></tr>
-<tr class="memdesc:ga97c92ca34d884bca480740d5d9f21312"><td class="mdescLeft">&#160;</td><td class="mdescRight">UNIXドメインのストリーム用のソケットを得る。失敗すれば C7_SYSERR が戻る。 <br /></td></tr>
+<tr class="memitem:ga97c92ca34d884bca480740d5d9f21312"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga97c92ca34d884bca480740d5d9f21312">c7_unixstream</a> (void)</td></tr>
+<tr class="memdesc:ga97c92ca34d884bca480740d5d9f21312"><td class="mdescLeft">&#160;</td><td class="mdescRight">UNIXドメインのストリーム用のソケットを得る。  <a href="#ga97c92ca34d884bca480740d5d9f21312">More...</a><br /></td></tr>
 <tr class="separator:ga97c92ca34d884bca480740d5d9f21312"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6a6d6723cde6f16f8a1b7ab288d0054a"><td class="memItemLeft" align="right" valign="top"><a id="ga6a6d6723cde6f16f8a1b7ab288d0054a"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga6a6d6723cde6f16f8a1b7ab288d0054a">c7_sock_bind_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
-<tr class="memdesc:ga6a6d6723cde6f16f8a1b7ab288d0054a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット sock に、IPv4のソケットアドレス inaddr を bind する。<br />
-ソケットには SO_REUSEADDR オプションが設定される。 <br /></td></tr>
+<tr class="memitem:ga6a6d6723cde6f16f8a1b7ab288d0054a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga6a6d6723cde6f16f8a1b7ab288d0054a">c7_sock_bind_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
+<tr class="memdesc:ga6a6d6723cde6f16f8a1b7ab288d0054a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットに IPv4 ソケットアドレスをバインドする。  <a href="#ga6a6d6723cde6f16f8a1b7ab288d0054a">More...</a><br /></td></tr>
 <tr class="separator:ga6a6d6723cde6f16f8a1b7ab288d0054a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6b04c2ba31570dc26bf4471a813f76c7"><td class="memItemLeft" align="right" valign="top"><a id="ga6b04c2ba31570dc26bf4471a813f76c7"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga6b04c2ba31570dc26bf4471a813f76c7">c7_sock_bind</a> (int sock, const char *host, int port)</td></tr>
-<tr class="memdesc:ga6b04c2ba31570dc26bf4471a813f76c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット sock に、host, port から初期化したソケットアドレスを bind する。<br />
-ソケットには SO_REUSEADDR オプションが設定される。 <br /></td></tr>
+<tr class="memitem:ga6b04c2ba31570dc26bf4471a813f76c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga6b04c2ba31570dc26bf4471a813f76c7">c7_sock_bind</a> (int sock, const char *host, int port)</td></tr>
+<tr class="memdesc:ga6b04c2ba31570dc26bf4471a813f76c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットに、ホスト名、ポート番号から定まるソケットアドレスをバインドする。  <a href="#ga6b04c2ba31570dc26bf4471a813f76c7">More...</a><br /></td></tr>
 <tr class="separator:ga6b04c2ba31570dc26bf4471a813f76c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad661e7f8ceba0caa948e25c2060d52ee"><td class="memItemLeft" align="right" valign="top"><a id="gad661e7f8ceba0caa948e25c2060d52ee"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gad661e7f8ceba0caa948e25c2060d52ee">c7_sock_connect_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
-<tr class="memdesc:gad661e7f8ceba0caa948e25c2060d52ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット sock で IPv4のソケットアドレス inaddr に connect する。 ソケットに対して <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 <br /></td></tr>
+<tr class="memitem:gad661e7f8ceba0caa948e25c2060d52ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gad661e7f8ceba0caa948e25c2060d52ee">c7_sock_connect_in</a> (int sock, struct sockaddr_in *inaddr)</td></tr>
+<tr class="memdesc:gad661e7f8ceba0caa948e25c2060d52ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットを IPv4ソケットアドレスに接続する。  <a href="#gad661e7f8ceba0caa948e25c2060d52ee">More...</a><br /></td></tr>
 <tr class="separator:gad661e7f8ceba0caa948e25c2060d52ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafd37e9988b920a63f09fe085d6d84d80"><td class="memItemLeft" align="right" valign="top"><a id="gafd37e9988b920a63f09fe085d6d84d80"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gafd37e9988b920a63f09fe085d6d84d80">c7_sock_connect</a> (int sock, const char *host, int port)</td></tr>
-<tr class="memdesc:gafd37e9988b920a63f09fe085d6d84d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット sock で host, port から初期化したソケットアドレスに connect する。<br />
-ソケットに対して <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 <br /></td></tr>
+<tr class="memitem:gafd37e9988b920a63f09fe085d6d84d80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gafd37e9988b920a63f09fe085d6d84d80">c7_sock_connect</a> (int sock, const char *host, int port)</td></tr>
+<tr class="memdesc:gafd37e9988b920a63f09fe085d6d84d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットを、ホスト名、ポート番号から定まるソケットアドレスに接続する。  <a href="#gafd37e9988b920a63f09fe085d6d84d80">More...</a><br /></td></tr>
 <tr class="separator:gafd37e9988b920a63f09fe085d6d84d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf6fa1e601711ef8c9b1d44bddc873114"><td class="memItemLeft" align="right" valign="top"><a id="gaf6fa1e601711ef8c9b1d44bddc873114"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaf6fa1e601711ef8c9b1d44bddc873114">c7_sock_accept</a> (int server_socket)</td></tr>
-<tr class="memdesc:gaf6fa1e601711ef8c9b1d44bddc873114"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット server_socket で accept() を呼び出す。<br />
-得られたソケットに対して <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 <br /></td></tr>
+<tr class="memitem:gaf6fa1e601711ef8c9b1d44bddc873114"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaf6fa1e601711ef8c9b1d44bddc873114">c7_sock_accept</a> (int server_socket)</td></tr>
+<tr class="memdesc:gaf6fa1e601711ef8c9b1d44bddc873114"><td class="mdescLeft">&#160;</td><td class="mdescRight">サーバー(listen済み)ソケットでアクセプトする。  <a href="#gaf6fa1e601711ef8c9b1d44bddc873114">More...</a><br /></td></tr>
 <tr class="separator:gaf6fa1e601711ef8c9b1d44bddc873114"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga76362701d2300a877fd93afaab6657c9"><td class="memItemLeft" align="right" valign="top"><a id="ga76362701d2300a877fd93afaab6657c9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga76362701d2300a877fd93afaab6657c9">c7_udp_server</a> (const char *host, int port)</td></tr>
-<tr class="memdesc:ga76362701d2300a877fd93afaab6657c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">host, port で初期化した UDP のサーバーソケットを得る。 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。 <br /></td></tr>
+<tr class="memitem:ga76362701d2300a877fd93afaab6657c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga76362701d2300a877fd93afaab6657c9">c7_udp_server</a> (const char *host, int port)</td></tr>
+<tr class="memdesc:ga76362701d2300a877fd93afaab6657c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ホスト名とポート番号で初期化した UDP のサーバーソケットを得る。  <a href="#ga76362701d2300a877fd93afaab6657c9">More...</a><br /></td></tr>
 <tr class="separator:ga76362701d2300a877fd93afaab6657c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad79c31b8a441acc155e1b88696db1351"><td class="memItemLeft" align="right" valign="top"><a id="gad79c31b8a441acc155e1b88696db1351"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gad79c31b8a441acc155e1b88696db1351">c7_tcp_server</a> (const char *host, int port, int listen_n)</td></tr>
-<tr class="memdesc:gad79c31b8a441acc155e1b88696db1351"><td class="mdescLeft">&#160;</td><td class="mdescRight">host, port, listen_n で初期化した TCP のサーバーソケットを得る。 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。<br />
-ソケットには SO_REUSEADDR オプションが設定される。<br />
-listen_n に -1 を指定すると SOMAXCONN が用いられる。 <br /></td></tr>
+<tr class="memitem:gad79c31b8a441acc155e1b88696db1351"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gad79c31b8a441acc155e1b88696db1351">c7_tcp_server</a> (const char *host, int port, int listen_n)</td></tr>
+<tr class="memdesc:gad79c31b8a441acc155e1b88696db1351"><td class="mdescLeft">&#160;</td><td class="mdescRight">ホスト名、ポート番号、バックログ数で初期化した TCP のサーバーソケットを得る。  <a href="#gad79c31b8a441acc155e1b88696db1351">More...</a><br /></td></tr>
 <tr class="separator:gad79c31b8a441acc155e1b88696db1351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8449345a8583485204e947b037dc6a61"><td class="memItemLeft" align="right" valign="top"><a id="ga8449345a8583485204e947b037dc6a61"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga8449345a8583485204e947b037dc6a61">c7_tcp_client</a> (const char *host, int port)</td></tr>
-<tr class="memdesc:ga8449345a8583485204e947b037dc6a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">host, port に接続した TCP ソケットを得る。 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。<br />
-得られたソケットに対して <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 <br /></td></tr>
+<tr class="memitem:ga8449345a8583485204e947b037dc6a61"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga8449345a8583485204e947b037dc6a61">c7_tcp_client</a> (const char *host, int port)</td></tr>
+<tr class="memdesc:ga8449345a8583485204e947b037dc6a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">ホスト名、ポート番号から定まるソケットアドレスに接続した TCPソケットを得る。  <a href="#ga8449345a8583485204e947b037dc6a61">More...</a><br /></td></tr>
 <tr class="separator:ga8449345a8583485204e947b037dc6a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac27a68c102d31872a937213dcb49c105"><td class="memItemLeft" align="right" valign="top"><a id="gac27a68c102d31872a937213dcb49c105"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gac27a68c102d31872a937213dcb49c105">c7_unixstream_server</a> (const char *path, int listen_n)</td></tr>
-<tr class="memdesc:gac27a68c102d31872a937213dcb49c105"><td class="mdescLeft">&#160;</td><td class="mdescRight">path, listen_n で初期化した UNIXドメインストリームのサーバーソケットを得る。 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。<br />
-listen_n に -1 を指定すると SOMAXCONN が用いられる。<br />
-path を削除しておくのは状態にするのは呼出し側の責任とする。 <br /></td></tr>
+<tr class="memitem:gac27a68c102d31872a937213dcb49c105"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gac27a68c102d31872a937213dcb49c105">c7_unixstream_server</a> (const char *path, int listen_n)</td></tr>
+<tr class="memdesc:gac27a68c102d31872a937213dcb49c105"><td class="mdescLeft">&#160;</td><td class="mdescRight">パス名、バックログ数で初期化したUNIXドメインストリームのサーバーソケットを得る。  <a href="#gac27a68c102d31872a937213dcb49c105">More...</a><br /></td></tr>
 <tr class="separator:gac27a68c102d31872a937213dcb49c105"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaedc349a521795f754c9d4fc387727a53"><td class="memItemLeft" align="right" valign="top"><a id="gaedc349a521795f754c9d4fc387727a53"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaedc349a521795f754c9d4fc387727a53">c7_unixstream_client</a> (const char *path)</td></tr>
-<tr class="memdesc:gaedc349a521795f754c9d4fc387727a53"><td class="mdescLeft">&#160;</td><td class="mdescRight">path に接続したUNIXドメインストリームのソケットを得る。 成功すればソケット記述子(≧0)が戻り、失敗すれば C7_SYSERR が戻る。 <br /></td></tr>
+<tr class="memitem:gaedc349a521795f754c9d4fc387727a53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaedc349a521795f754c9d4fc387727a53">c7_unixstream_client</a> (const char *path)</td></tr>
+<tr class="memdesc:gaedc349a521795f754c9d4fc387727a53"><td class="mdescLeft">&#160;</td><td class="mdescRight">パス名で初期化したUNIXドメインストリームのクライアントソケットを得る。  <a href="#gaedc349a521795f754c9d4fc387727a53">More...</a><br /></td></tr>
 <tr class="separator:gaedc349a521795f754c9d4fc387727a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ソケットオプション</h2></td></tr>
-<tr class="memitem:gaeb935feadb29716789ff55d12b7a5123"><td class="memItemLeft" align="right" valign="top"><a id="gaeb935feadb29716789ff55d12b7a5123"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123">c7_tcp_keepalive</a> (int sock)</td></tr>
-<tr class="memdesc:gaeb935feadb29716789ff55d12b7a5123"><td class="mdescLeft">&#160;</td><td class="mdescRight">c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。 <br /></td></tr>
+<tr class="memitem:gaeb935feadb29716789ff55d12b7a5123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123">c7_tcp_keepalive</a> (int sock)</td></tr>
+<tr class="memdesc:gaeb935feadb29716789ff55d12b7a5123"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCPソケットの KEEPALIVE を有効にする。  <a href="#gaeb935feadb29716789ff55d12b7a5123">More...</a><br /></td></tr>
 <tr class="separator:gaeb935feadb29716789ff55d12b7a5123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3610e004bd007c14827bfb8159099094"><td class="memItemLeft" align="right" valign="top"><a id="ga3610e004bd007c14827bfb8159099094"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga3610e004bd007c14827bfb8159099094">c7_tcp_keepalive_detail</a> (int sock, int kpidle, int kpintvl, int kpcnt)</td></tr>
-<tr class="memdesc:ga3610e004bd007c14827bfb8159099094"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCPソケット sock の KEEPALIVE を有効にする。 kp* 引数でもって、TCP_KEPALIVE, TCP_KEEPIDLE, TCP_KEEPINTVL, TCP_KEEPCNT が有効であれば 設定を試みる。 <br /></td></tr>
+<tr class="memitem:ga3610e004bd007c14827bfb8159099094"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga3610e004bd007c14827bfb8159099094">c7_tcp_keepalive_detail</a> (int sock, int kpidle, int kpintvl, int kpcnt)</td></tr>
+<tr class="memdesc:ga3610e004bd007c14827bfb8159099094"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCPソケットの KEEPALIVE を有効にする(詳細版)。  <a href="#ga3610e004bd007c14827bfb8159099094">More...</a><br /></td></tr>
 <tr class="separator:ga3610e004bd007c14827bfb8159099094"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0adf26a07a88420cb2bb6e945ab1e434"><td class="memItemLeft" align="right" valign="top"><a id="ga0adf26a07a88420cb2bb6e945ab1e434"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga0adf26a07a88420cb2bb6e945ab1e434">c7_tcp_nodelay</a> (int sock, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> apply)</td></tr>
-<tr class="memdesc:ga0adf26a07a88420cb2bb6e945ab1e434"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCPソケット sock に対して TCP_NODELAY オプションの有効性 apply を設定する。 <br /></td></tr>
+<tr class="memitem:ga0adf26a07a88420cb2bb6e945ab1e434"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga0adf26a07a88420cb2bb6e945ab1e434">c7_tcp_nodelay</a> (int sock, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> apply)</td></tr>
+<tr class="memdesc:ga0adf26a07a88420cb2bb6e945ab1e434"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCPソケットに対して TCP_NODELAY オプションを設定する。  <a href="#ga0adf26a07a88420cb2bb6e945ab1e434">More...</a><br /></td></tr>
 <tr class="separator:ga0adf26a07a88420cb2bb6e945ab1e434"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafacae764e8ce0c916e5d1dafeafea8a5"><td class="memItemLeft" align="right" valign="top"><a id="gafacae764e8ce0c916e5d1dafeafea8a5"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gafacae764e8ce0c916e5d1dafeafea8a5">c7_sock_rcvbuf</a> (int sock, int nbytes)</td></tr>
-<tr class="memdesc:gafacae764e8ce0c916e5d1dafeafea8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットの SO_RCVBUF を nbytes に設定する。 <br /></td></tr>
+<tr class="memitem:gafacae764e8ce0c916e5d1dafeafea8a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gafacae764e8ce0c916e5d1dafeafea8a5">c7_sock_rcvbuf</a> (int sock, int nbytes)</td></tr>
+<tr class="memdesc:gafacae764e8ce0c916e5d1dafeafea8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットの受信バッファサイズ(SO_RCVBUF)を設定する。  <a href="#gafacae764e8ce0c916e5d1dafeafea8a5">More...</a><br /></td></tr>
 <tr class="separator:gafacae764e8ce0c916e5d1dafeafea8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga67ba5e1e82358c86a532703ed88fe22f"><td class="memItemLeft" align="right" valign="top"><a id="ga67ba5e1e82358c86a532703ed88fe22f"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga67ba5e1e82358c86a532703ed88fe22f">c7_sock_sndbuf</a> (int sock, int nbytes)</td></tr>
-<tr class="memdesc:ga67ba5e1e82358c86a532703ed88fe22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットの SO_SNDBUF を nbytes に設定する。 <br /></td></tr>
+<tr class="memitem:ga67ba5e1e82358c86a532703ed88fe22f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga67ba5e1e82358c86a532703ed88fe22f">c7_sock_sndbuf</a> (int sock, int nbytes)</td></tr>
+<tr class="memdesc:ga67ba5e1e82358c86a532703ed88fe22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットの送信バッファサイズ(SO_SNDBUF)を設定する。  <a href="#ga67ba5e1e82358c86a532703ed88fe22f">More...</a><br /></td></tr>
 <tr class="separator:ga67ba5e1e82358c86a532703ed88fe22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5f7e6db91e69872933638f933e0d1426"><td class="memItemLeft" align="right" valign="top"><a id="ga5f7e6db91e69872933638f933e0d1426"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga5f7e6db91e69872933638f933e0d1426">c7_sock_sndtmo</a> (int sock, int tmo_us)</td></tr>
-<tr class="memdesc:ga5f7e6db91e69872933638f933e0d1426"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット sock に tmo_us マイクロ秒の送信タイムアウト SO_SNDTIMEO を設定する。 <br /></td></tr>
+<tr class="memitem:ga5f7e6db91e69872933638f933e0d1426"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga5f7e6db91e69872933638f933e0d1426">c7_sock_sndtmo</a> (int sock, int tmo_us)</td></tr>
+<tr class="memdesc:ga5f7e6db91e69872933638f933e0d1426"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットに送信タイムアウト(SO_SNDTIMEO)を設定する。  <a href="#ga5f7e6db91e69872933638f933e0d1426">More...</a><br /></td></tr>
 <tr class="separator:ga5f7e6db91e69872933638f933e0d1426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae861932eba1ee5a185536584b40416ba"><td class="memItemLeft" align="right" valign="top"><a id="gae861932eba1ee5a185536584b40416ba"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gae861932eba1ee5a185536584b40416ba">c7_sock_rcvtmo</a> (int sock, int tmo_us)</td></tr>
-<tr class="memdesc:gae861932eba1ee5a185536584b40416ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケット sock に tmo_us マイクロ秒の受信タイムアウト SO_RCVTIMEO を設定する。 <br /></td></tr>
+<tr class="memitem:gae861932eba1ee5a185536584b40416ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gae861932eba1ee5a185536584b40416ba">c7_sock_rcvtmo</a> (int sock, int tmo_us)</td></tr>
+<tr class="memdesc:gae861932eba1ee5a185536584b40416ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">ソケットに受信タイムアウト(SO_RCVTIMEO)を設定する。  <a href="#gae861932eba1ee5a185536584b40416ba">More...</a><br /></td></tr>
 <tr class="separator:gae861932eba1ee5a185536584b40416ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ソケット(pipe,FIFO)I/O</h2></td></tr>
 <tr class="memitem:ga4247cf2207e987285b07bacd305e3389"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7ipc.html#gaa7d5578ddeada372fb30c29ed9c25054">c7_ipc_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga4247cf2207e987285b07bacd305e3389">c7_ipc_read_n</a> (int desc, void *buf, const ssize_t req_n, ssize_t *act_n)</td></tr>
-<tr class="memdesc:ga4247cf2207e987285b07bacd305e3389"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc から req_n バイトをバッファ buf へ読み込む。  <a href="#ga4247cf2207e987285b07bacd305e3389">More...</a><br /></td></tr>
+<tr class="memdesc:ga4247cf2207e987285b07bacd305e3389"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子から指定バイト数のデータを読み込む。  <a href="#ga4247cf2207e987285b07bacd305e3389">More...</a><br /></td></tr>
 <tr class="separator:ga4247cf2207e987285b07bacd305e3389"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17167984b054c30372ce9063ddb2c4f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7ipc.html#gaa7d5578ddeada372fb30c29ed9c25054">c7_ipc_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga17167984b054c30372ce9063ddb2c4f8">c7_ipc_write_n</a> (int desc, const void *buf, ssize_t req_n, ssize_t *act_n)</td></tr>
-<tr class="memdesc:ga17167984b054c30372ce9063ddb2c4f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc にバッファ buf から req_n バイトを書き込む。  <a href="#ga17167984b054c30372ce9063ddb2c4f8">More...</a><br /></td></tr>
+<tr class="memdesc:ga17167984b054c30372ce9063ddb2c4f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子に指定バイト数のデータを書き込む。  <a href="#ga17167984b054c30372ce9063ddb2c4f8">More...</a><br /></td></tr>
 <tr class="separator:ga17167984b054c30372ce9063ddb2c4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c2b4a73d9f5441072bd41aa6c0fdf22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7ipc.html#gaa7d5578ddeada372fb30c29ed9c25054">c7_ipc_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga8c2b4a73d9f5441072bd41aa6c0fdf22">c7_ipc_writev</a> (int desc, struct iovec *iov, int ioc)</td></tr>
-<tr class="memdesc:ga8c2b4a73d9f5441072bd41aa6c0fdf22"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc に iov, ioc で指定されるデータを書き込む。  <a href="#ga8c2b4a73d9f5441072bd41aa6c0fdf22">More...</a><br /></td></tr>
+<tr class="memdesc:ga8c2b4a73d9f5441072bd41aa6c0fdf22"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子に iovec 形式でデータを書き込む。  <a href="#ga8c2b4a73d9f5441072bd41aa6c0fdf22">More...</a><br /></td></tr>
 <tr class="separator:ga8c2b4a73d9f5441072bd41aa6c0fdf22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga88b85b1fd0c3ffcd238255e6f08452e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga88b85b1fd0c3ffcd238255e6f08452e6">c7_ipc_waitfor</a> (int desc, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *readable, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> *writable, int tmo_us)</td></tr>
-<tr class="memdesc:ga88b85b1fd0c3ffcd238255e6f08452e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc が読み書き可能になるまで select(2) で待機する。  <a href="#ga88b85b1fd0c3ffcd238255e6f08452e6">More...</a><br /></td></tr>
+<tr class="memdesc:ga88b85b1fd0c3ffcd238255e6f08452e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子が読み込みや書き込みが可能になるまで待機する。  <a href="#ga88b85b1fd0c3ffcd238255e6f08452e6">More...</a><br /></td></tr>
 <tr class="separator:ga88b85b1fd0c3ffcd238255e6f08452e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga55c0916a94eff050b72405d932b4c7c1"><td class="memItemLeft" align="right" valign="top"><a id="ga55c0916a94eff050b72405d932b4c7c1"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga55c0916a94eff050b72405d932b4c7c1">c7_ipc_readable</a> (int desc, int tmo_us)</td></tr>
-<tr class="memdesc:ga55c0916a94eff050b72405d932b4c7c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc が読み込み可能になるまで待機する。c7_ipc_waitfor()で readable を指定した状態。 <br /></td></tr>
+<tr class="memitem:ga55c0916a94eff050b72405d932b4c7c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga55c0916a94eff050b72405d932b4c7c1">c7_ipc_readable</a> (int desc, int tmo_us)</td></tr>
+<tr class="memdesc:ga55c0916a94eff050b72405d932b4c7c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子が読み込み可能になるまで待機する。  <a href="#ga55c0916a94eff050b72405d932b4c7c1">More...</a><br /></td></tr>
 <tr class="separator:ga55c0916a94eff050b72405d932b4c7c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2419fc4569d99ea8ccfeb9392b2db96d"><td class="memItemLeft" align="right" valign="top"><a id="ga2419fc4569d99ea8ccfeb9392b2db96d"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga2419fc4569d99ea8ccfeb9392b2db96d">c7_ipc_writable</a> (int desc, int tmo_us)</td></tr>
-<tr class="memdesc:ga2419fc4569d99ea8ccfeb9392b2db96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc が書き込み可能になるまで待機する。c7_ipc_waitfor()で writable を指定した状態。 <br /></td></tr>
+<tr class="memitem:ga2419fc4569d99ea8ccfeb9392b2db96d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga2419fc4569d99ea8ccfeb9392b2db96d">c7_ipc_writable</a> (int desc, int tmo_us)</td></tr>
+<tr class="memdesc:ga2419fc4569d99ea8ccfeb9392b2db96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子が書き込み可能になるまで待機する。  <a href="#ga2419fc4569d99ea8ccfeb9392b2db96d">More...</a><br /></td></tr>
 <tr class="separator:ga2419fc4569d99ea8ccfeb9392b2db96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ソケットI/O (長さデータ付き文字列)</h2></td></tr>
 <tr class="memitem:gaf813267707dce44b3cda23cee9f6e22f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f">c7_ipc_puts</a> (int desc, const char *s)</td></tr>
-<tr class="memdesc:gaf813267707dce44b3cda23cee9f6e22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc に長さデータとともに文字列 s を終端null文字を含めて送信する。  <a href="#gaf813267707dce44b3cda23cee9f6e22f">More...</a><br /></td></tr>
+<tr class="memdesc:gaf813267707dce44b3cda23cee9f6e22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子に長さデータを伴った文字列を送信する。  <a href="#gaf813267707dce44b3cda23cee9f6e22f">More...</a><br /></td></tr>
 <tr class="separator:gaf813267707dce44b3cda23cee9f6e22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac778428c07461b79d37bf9094ee79865"><td class="memItemLeft" align="right" valign="top"><a id="gac778428c07461b79d37bf9094ee79865"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gac778428c07461b79d37bf9094ee79865">c7_ipc_putsb</a> (int desc, const <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
-<tr class="memdesc:gac778428c07461b79d37bf9094ee79865"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子 desc に長さデータとともにC7文字列 sbp を終端null文字を含めて送信する。<br />
-c7_ipc_puts(desc, c7_strbuf(sbp)) と等価。 <br /></td></tr>
+<tr class="memitem:gac778428c07461b79d37bf9094ee79865"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#gac778428c07461b79d37bf9094ee79865">c7_ipc_putsb</a> (int desc, const <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:gac778428c07461b79d37bf9094ee79865"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述子に長さデータを伴った文字列を送信する(C7文字列版)。  <a href="#gac778428c07461b79d37bf9094ee79865">More...</a><br /></td></tr>
 <tr class="separator:gac778428c07461b79d37bf9094ee79865"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7e6627c8feacd8f21d566bf0c51a8605"><td class="memItemLeft" align="right" valign="top"><a id="ga7e6627c8feacd8f21d566bf0c51a8605"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga7e6627c8feacd8f21d566bf0c51a8605">c7_ipc_getsb</a> (int desc, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
-<tr class="memdesc:ga7e6627c8feacd8f21d566bf0c51a8605"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述 desc から <a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f" title="記述子 desc に長さデータとともに文字列 s を終端null文字を含めて送信する。">c7_ipc_puts()</a> で送信されたデータを C7文字列 sbp に読み込む。<br />
-この関数は読み込む際に c7_str_reuse(sbp) を呼び出すので必ずバッファの先頭にデータが入る。 <br /></td></tr>
-<tr class="separator:ga7e6627c8feacd8f21d566bf0c51a8605"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga41037c1b28dd593e9a07fdf4c86c57e4"><td class="memItemLeft" align="right" valign="top"><a id="ga41037c1b28dd593e9a07fdf4c86c57e4"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga41037c1b28dd593e9a07fdf4c86c57e4">c7_ipc_getsb_append</a> (int desc, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
-<tr class="memdesc:ga41037c1b28dd593e9a07fdf4c86c57e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">記述 desc から <a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f" title="記述子 desc に長さデータとともに文字列 s を終端null文字を含めて送信する。">c7_ipc_puts()</a> で送信されたデータを C7文字列 sbp に追加で読み込む。<br />
-<br /></td></tr>
+<tr class="memitem:ga41037c1b28dd593e9a07fdf4c86c57e4"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga41037c1b28dd593e9a07fdf4c86c57e4">c7_ipc_getsb_append</a> (int desc, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:ga41037c1b28dd593e9a07fdf4c86c57e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">通信相手が <a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f" title="記述子に長さデータを伴った文字列を送信する。">c7_ipc_puts()</a> で送ってきた文字列を、記述子から読み込んで C7文字列へ追加する。  <a href="#ga41037c1b28dd593e9a07fdf4c86c57e4">More...</a><br /></td></tr>
 <tr class="separator:ga41037c1b28dd593e9a07fdf4c86c57e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e6627c8feacd8f21d566bf0c51a8605"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7ipc.html#ga7e6627c8feacd8f21d566bf0c51a8605">c7_ipc_getsb</a> (int desc, <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:ga7e6627c8feacd8f21d566bf0c51a8605"><td class="mdescLeft">&#160;</td><td class="mdescRight">通信相手が <a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f" title="記述子に長さデータを伴った文字列を送信する。">c7_ipc_puts()</a> で送ってきた文字列を、記述子から読み込んで C7文字列へ設定する。  <a href="#ga7e6627c8feacd8f21d566bf0c51a8605">More...</a><br /></td></tr>
+<tr class="separator:ga7e6627c8feacd8f21d566bf0c51a8605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>コマンドライン引数のオプション解析 </p>
@@ -282,6 +241,933 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gab5fc4de8a92ba7f88a885c2adba40dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab5fc4de8a92ba7f88a885c2adba40dac">&#9670;&nbsp;</a></span>c7_sockaddr_in_setport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_sockaddr_in_setport </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IPv4ソケットアドレスにポート番号を設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inaddr</td><td>IPv4ソケットアドレス。sin_port が変更される。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gafd6e9e2f39a3d8d17d68edd61b52af91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd6e9e2f39a3d8d17d68edd61b52af91">&#9670;&nbsp;</a></span>c7_sockaddr_in_ip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sockaddr_in_ip </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>ipaddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>32bit の IPv4 アドレスとポート番号でソケットアドレスを初期化する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inaddr</td><td>IPv4ソケットアドレス。sin_addr.s_addr, sin_family, sin_port が変更される。 </td></tr>
+    <tr><td class="paramname">ipaddr</td><td>32bitのIPv4アドレス。ネットワークバイトオーダで指定する。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>常に C7_TRUE を戻す。</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>port と違い ipaddr がネットワークバイトオーダなのは、 ipaddr を getpeername() などから得た sockaddr_in 構造体から l* sin_addr.s_addr で直接に得ることを想定しているためである。 </dd></dl>
+
+</div>
+</div>
+<a id="ga7b659c5319ee7b2a6bfe67cc1acfc49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b659c5319ee7b2a6bfe67cc1acfc49d">&#9670;&nbsp;</a></span>c7_sockaddr_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sockaddr_in </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ホスト名とポート番号でソケットアドレスを初期化する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inaddr</td><td>IPv4ソケットアドレス。sin_addr.s_addr, sin_family, sin_port が変更される。 </td></tr>
+    <tr><td class="paramname">host</td><td>ホスト名。NULL、空文字列、"*" を指定した場合は INADDR_ANY が用いられる。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>gethostbyname() で IPv4 アドレスが得られなければ C7_FALSE を戻し、得られれば C7_TRUE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga14d86e1a6ea1b809dbffe20307295970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga14d86e1a6ea1b809dbffe20307295970">&#9670;&nbsp;</a></span>c7_sock_getself_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_getself_in </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケット記述子から自分側のソケットアドレスを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">inaddr</td><td>得られたソケットアドレスが格納される。NULLは指定できない。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>アドレスを取得できれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gadd482b528b1d5320a587a31aadd9ba91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd482b528b1d5320a587a31aadd9ba91">&#9670;&nbsp;</a></span>c7_sock_getpeer_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_getpeer_in </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケット記述子から相手側のソケットアドレスを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">inaddr</td><td>得られたソケットアドレスが格納される。NULLは指定できない。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>アドレスを取得できれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga7d937174bb51618e89e3cab6aae552e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7d937174bb51618e89e3cab6aae552e5">&#9670;&nbsp;</a></span>c7_udp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_udp </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UDP用のソケットを得る。 </p>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子を、失敗すれば C7_SYSERR を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gabd5ae3c4ac1e0f4433cf6f83d6df33ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabd5ae3c4ac1e0f4433cf6f83d6df33ea">&#9670;&nbsp;</a></span>c7_tcp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_tcp </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TCP用のソケットを得る。 </p>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子を、失敗すれば C7_SYSERR を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga97c92ca34d884bca480740d5d9f21312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga97c92ca34d884bca480740d5d9f21312">&#9670;&nbsp;</a></span>c7_unixstream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_unixstream </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UNIXドメインのストリーム用のソケットを得る。 </p>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子を、失敗すれば C7_SYSERR を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga6a6d6723cde6f16f8a1b7ab288d0054a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a6d6723cde6f16f8a1b7ab288d0054a">&#9670;&nbsp;</a></span>c7_sock_bind_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_bind_in </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットに IPv4 ソケットアドレスをバインドする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">inaddr</td><td>IPv4ソケットアドレス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>バインドに成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>バインド前に、ソケットには SO_REUSEADDR オプションが設定される。 </dd></dl>
+
+</div>
+</div>
+<a id="ga6b04c2ba31570dc26bf4471a813f76c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6b04c2ba31570dc26bf4471a813f76c7">&#9670;&nbsp;</a></span>c7_sock_bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_bind </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットに、ホスト名、ポート番号から定まるソケットアドレスをバインドする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">host</td><td>ホスト名。NULL、空文字列、"*" を指定した場合は INADDR_ANY が用いられる。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bind(2)に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>bind(2)前に、ソケットには SO_REUSEADDR オプションが設定される。 </dd></dl>
+
+</div>
+</div>
+<a id="gad661e7f8ceba0caa948e25c2060d52ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad661e7f8ceba0caa948e25c2060d52ee">&#9670;&nbsp;</a></span>c7_sock_connect_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_connect_in </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct sockaddr_in *&#160;</td>
+          <td class="paramname"><em>inaddr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットを IPv4ソケットアドレスに接続する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">inaddr</td><td>IPv4ソケットアドレス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>接続に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>接続後のソケットで <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="TCPソケットの KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 </dd></dl>
+
+</div>
+</div>
+<a id="gafd37e9988b920a63f09fe085d6d84d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd37e9988b920a63f09fe085d6d84d80">&#9670;&nbsp;</a></span>c7_sock_connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_connect </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットを、ホスト名、ポート番号から定まるソケットアドレスに接続する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">host</td><td>ホスト名。NULL、空文字列、"*" を指定した場合は INADDR_ANY が用いられる。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>接続に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>接続後のソケットで <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="TCPソケットの KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 </dd></dl>
+
+</div>
+</div>
+<a id="gaf6fa1e601711ef8c9b1d44bddc873114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6fa1e601711ef8c9b1d44bddc873114">&#9670;&nbsp;</a></span>c7_sock_accept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_sock_accept </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>server_socket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>サーバー(listen済み)ソケットでアクセプトする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server_socket</td><td>listen済みのソケット。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>accept(2)に成功すればソケット記述子を、失敗すれば C7_SYSERR を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>acccept()が成功した場合、得られたソケットに対して <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="TCPソケットの KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 </dd></dl>
+
+</div>
+</div>
+<a id="ga76362701d2300a877fd93afaab6657c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga76362701d2300a877fd93afaab6657c9">&#9670;&nbsp;</a></span>c7_udp_server()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_udp_server </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ホスト名とポート番号で初期化した UDP のサーバーソケットを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>ホスト名。NULL、空文字列、"*" を指定した場合は INADDR_ANY が用いられる。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子(≧0)を戻し、失敗すれば C7_SYSERR を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gad79c31b8a441acc155e1b88696db1351"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad79c31b8a441acc155e1b88696db1351">&#9670;&nbsp;</a></span>c7_tcp_server()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_tcp_server </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>listen_n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ホスト名、ポート番号、バックログ数で初期化した TCP のサーバーソケットを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>ホスト名。NULL、空文字列、"*" を指定した場合は INADDR_ANY が用いられる。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+    <tr><td class="paramname">listen_n</td><td>listen(2)に渡すバックログ数。-1 の場合は SOMAXCONN が用いられる。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子(≧0)を戻し、失敗すれば C7_SYSERR を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>bind(2)前に、ソケットには SO_REUSEADDR オプションが設定される。 </dd></dl>
+
+</div>
+</div>
+<a id="ga8449345a8583485204e947b037dc6a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8449345a8583485204e947b037dc6a61">&#9670;&nbsp;</a></span>c7_tcp_client()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_tcp_client </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ホスト名、ポート番号から定まるソケットアドレスに接続した TCPソケットを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>ホスト名。NULL、空文字列、"*" を指定した場合は INADDR_ANY が用いられる。 </td></tr>
+    <tr><td class="paramname">port</td><td>ポート番号。ホストバイトオーダで指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子(≧0)を戻し、失敗すれば C7_SYSERR を戻す。</dd></dl>
+<p>接続後のソケットで <a class="el" href="group__c7ipc.html#gaeb935feadb29716789ff55d12b7a5123" title="TCPソケットの KEEPALIVE を有効にする。">c7_tcp_keepalive()</a> が呼び出される。 </p>
+
+</div>
+</div>
+<a id="gac27a68c102d31872a937213dcb49c105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac27a68c102d31872a937213dcb49c105">&#9670;&nbsp;</a></span>c7_unixstream_server()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_unixstream_server </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>listen_n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>パス名、バックログ数で初期化したUNIXドメインストリームのサーバーソケットを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>UNIXドメインのアドレスとなるパス名。 このパス名のファイルを削除しておくのは呼出し側の責任とする。 </td></tr>
+    <tr><td class="paramname">listen_n</td><td>listen(2)に渡すバックログ数。-1 の場合は SOMAXCONN が用いられる。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子(≧0)を戻し、失敗すれば C7_SYSERR を戻す。</dd></dl>
+<p>path を削除しておくのは状態にするのは呼出し側の責任とする。 </p>
+
+</div>
+</div>
+<a id="gaedc349a521795f754c9d4fc387727a53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaedc349a521795f754c9d4fc387727a53">&#9670;&nbsp;</a></span>c7_unixstream_client()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_unixstream_client </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>パス名で初期化したUNIXドメインストリームのクライアントソケットを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>UNIXドメインのアドレスとなるパス名。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればソケット記述子(≧0)を戻し、失敗すれば C7_SYSERR を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gaeb935feadb29716789ff55d12b7a5123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb935feadb29716789ff55d12b7a5123">&#9670;&nbsp;</a></span>c7_tcp_keepalive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_tcp_keepalive </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TCPソケットの KEEPALIVE を有効にする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>TCPソケット。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>c7_tcp_keepalive_detail(sock, 180, 5, 12) を呼び出して KEEPALIVE を有効にする。 </p>
+
+</div>
+</div>
+<a id="ga3610e004bd007c14827bfb8159099094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3610e004bd007c14827bfb8159099094">&#9670;&nbsp;</a></span>c7_tcp_keepalive_detail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_tcp_keepalive_detail </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kpidle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kpintvl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kpcnt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TCPソケットの KEEPALIVE を有効にする(詳細版)。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>TCPソケット。 </td></tr>
+    <tr><td class="paramname">kpidle</td><td>TCP_KEEPALIVE または TCP_KEEPIDLE が有効な場合に設定される。 </td></tr>
+    <tr><td class="paramname">kpintvl</td><td>TCP_KEEPINTVL が有効な場合に設定される。 </td></tr>
+    <tr><td class="paramname">kpcnt</td><td>TCP_KEEPCNT が有効な場合に設定される。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga0adf26a07a88420cb2bb6e945ab1e434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0adf26a07a88420cb2bb6e945ab1e434">&#9670;&nbsp;</a></span>c7_tcp_nodelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_tcp_nodelay </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td>
+          <td class="paramname"><em>apply</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TCPソケットに対して TCP_NODELAY オプションを設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>TCPソケット。 </td></tr>
+    <tr><td class="paramname">apply</td><td>C7_FALSE なら TCP_NODELAY を無効にし、それ以外なら有効にする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>setsockopt(2)に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gafacae764e8ce0c916e5d1dafeafea8a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafacae764e8ce0c916e5d1dafeafea8a5">&#9670;&nbsp;</a></span>c7_sock_rcvbuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_rcvbuf </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットの受信バッファサイズ(SO_RCVBUF)を設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">nbytes</td><td>受信バッファサイズ。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>setsockopt(2)に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>TCPソケットの場合、受信バッファサイズの変更にはタイミングがある。<ul>
+<li>サーバーの場合は、listen(2) 前でなければならない。</li>
+<li>クライアントの場合は、connect(2) 前でなければならない。 </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga67ba5e1e82358c86a532703ed88fe22f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga67ba5e1e82358c86a532703ed88fe22f">&#9670;&nbsp;</a></span>c7_sock_sndbuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_sndbuf </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットの送信バッファサイズ(SO_SNDBUF)を設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">nbytes</td><td>送信バッファサイズ。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>setsockopt(2)に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga5f7e6db91e69872933638f933e0d1426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f7e6db91e69872933638f933e0d1426">&#9670;&nbsp;</a></span>c7_sock_sndtmo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_sndtmo </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットに送信タイムアウト(SO_SNDTIMEO)を設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>タイムアウトまでの時間をマイクロ秒単位で指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>setsockopt(2)に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gae861932eba1ee5a185536584b40416ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae861932eba1ee5a185536584b40416ba">&#9670;&nbsp;</a></span>c7_sock_rcvtmo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_sock_rcvtmo </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ソケットに受信タイムアウト(SO_RCVTIMEO)を設定する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sock</td><td>ソケット記述子。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>タイムアウトまでの時間をマイクロ秒単位で指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>setsockopt(2)に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
 <a id="ga4247cf2207e987285b07bacd305e3389"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4247cf2207e987285b07bacd305e3389">&#9670;&nbsp;</a></span>c7_ipc_read_n()</h2>
 
@@ -320,7 +1206,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
       </table>
 </div><div class="memdoc">
 
-<p>記述子 desc から req_n バイトをバッファ buf へ読み込む。 </p>
+<p>記述子から指定バイト数のデータを読み込む。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">desc</td><td>ソケット、pipe、FIFO記述子。 </td></tr>
@@ -379,7 +1265,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
       </table>
 </div><div class="memdoc">
 
-<p>記述子 desc にバッファ buf から req_n バイトを書き込む。 </p>
+<p>記述子に指定バイト数のデータを書き込む。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">desc</td><td>ソケット、pipe、FIFO記述子。 </td></tr>
@@ -430,7 +1316,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
       </table>
 </div><div class="memdoc">
 
-<p>記述子 desc に iov, ioc で指定されるデータを書き込む。 </p>
+<p>記述子に iovec 形式でデータを書き込む。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">desc</td><td>ソケット、pipe、FIFO記述子。 </td></tr>
@@ -486,7 +1372,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
       </table>
 </div><div class="memdoc">
 
-<p>記述子 desc が読み書き可能になるまで select(2) で待機する。 </p>
+<p>記述子が読み込みや書き込みが可能になるまで待機する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">desc</td><td>対象となる記述子。 </td></tr>
@@ -497,9 +1383,89 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>読み込みか書き込みのいずれかが可能になれば C7_TRUE を戻し、 タイムアウト(tmo_us≧0)するか EINTR以外のエラーの場合は C7_FALSE を戻す。<br />
- タイムアウトした場合は <a class="el" href="group__c7status.html#gac94f57f0ebde80d8919680d0e41d2f81" title="現スレッドのステータス情報をクリアする。リングバッファのポインタを操作するだけなので高速である。errno はクリアしない。">c7_status_clear()</a> され errno に EWOULDBLOCK が設定される。<br />
+ タイムアウトした場合は <a class="el" href="group__c7status.html#gac94f57f0ebde80d8919680d0e41d2f81" title="現スレッドのステータス情報をクリアする。">c7_status_clear()</a> され errno に EWOULDBLOCK が設定される。<br />
  シグナルによる割込みの場合はタイムアウト値を再計算したうえで再度 select(2) を呼び出す。</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>readable, writable 共に NULL ポインタを指定すると、tmo_us が -1 の場合には永遠に戻ってこない。 </dd></dl>
+
+</div>
+</div>
+<a id="ga55c0916a94eff050b72405d932b4c7c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga55c0916a94eff050b72405d932b4c7c1">&#9670;&nbsp;</a></span>c7_ipc_readable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_ipc_readable </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子が読み込み可能になるまで待機する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">desc</td><td>対象となる記述子。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>読み込み可能になるまで待機する場合のタイムアウト値。 -1 であればタイムアウトさせず、0 であれば待機時間なしで調べ、それ以外では最大マイクロ秒待機する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>読み込みか可能になれば C7_TRUE を戻し、 タイムアウト(tmo_us≧0)するか EINTR以外のエラーの場合は C7_FALSE を戻す。<br />
+ タイムアウトした場合は <a class="el" href="group__c7status.html#gac94f57f0ebde80d8919680d0e41d2f81" title="現スレッドのステータス情報をクリアする。">c7_status_clear()</a> され errno に EWOULDBLOCK が設定される。<br />
+ シグナルによる割込みの場合はタイムアウト値を再計算したうえで再度 select(2) を呼び出す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga2419fc4569d99ea8ccfeb9392b2db96d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2419fc4569d99ea8ccfeb9392b2db96d">&#9670;&nbsp;</a></span>c7_ipc_writable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_ipc_writable </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子が書き込み可能になるまで待機する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">desc</td><td>対象となる記述子。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>書き込み可能になるまで待機する場合のタイムアウト値。 -1 であればタイムアウトさせず、0 であれば待機時間なしで調べ、それ以外では最大マイクロ秒待機する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>読み込みか可能になれば C7_TRUE を戻し、 タイムアウト(tmo_us≧0)するか EINTR以外のエラーの場合は C7_FALSE を戻す。<br />
+ タイムアウトした場合は <a class="el" href="group__c7status.html#gac94f57f0ebde80d8919680d0e41d2f81" title="現スレッドのステータス情報をクリアする。">c7_status_clear()</a> され errno に EWOULDBLOCK が設定される。<br />
+ シグナルによる割込みの場合はタイムアウト値を再計算したうえで再度 select(2) を呼び出す。 </dd></dl>
 
 </div>
 </div>
@@ -529,8 +1495,116 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
       </table>
 </div><div class="memdoc">
 
-<p>記述子 desc に長さデータとともに文字列 s を終端null文字を含めて送信する。 </p>
-<p>長さデータは 4 byte で、終端null文字を含む長さ(strlen(s)+1)で、ネットワークバイトオーダで送信される。 </p>
+<p>記述子に長さデータを伴った文字列を送信する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">desc</td><td>対象となる記述子。 </td></tr>
+    <tr><td class="paramname">s</td><td>文字列。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>送信に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。</dd></dl>
+<p>この関数では、文字列の送信前に 4 バイトの長さデータを送信し、続いて文字列のデータを送信する。 長さデータは終端null文字を含む長さ(strlen(s)+1)で、ネットワークバイトオーダである。 長さデータの後に送信される文字列も終端null文字まで含めて送信される。 </p>
+
+</div>
+</div>
+<a id="gac778428c07461b79d37bf9094ee79865"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac778428c07461b79d37bf9094ee79865">&#9670;&nbsp;</a></span>c7_ipc_putsb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_ipc_putsb </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>記述子に長さデータを伴った文字列を送信する(C7文字列版)。 </p>
+<p>c7_ipc_puts(desc, c7_strbuf(sbp)) と等価。 </p>
+
+</div>
+</div>
+<a id="ga41037c1b28dd593e9a07fdf4c86c57e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga41037c1b28dd593e9a07fdf4c86c57e4">&#9670;&nbsp;</a></span>c7_ipc_getsb_append()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* c7_ipc_getsb_append </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>通信相手が <a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f" title="記述子に長さデータを伴った文字列を送信する。">c7_ipc_puts()</a> で送ってきた文字列を、記述子から読み込んで C7文字列へ追加する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">desc</td><td>対象となる記述子。 </td></tr>
+    <tr><td class="paramname">sbp</td><td>C7文字列。NULL は指定できない。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>正常に読み込めれば <a class="el" href="group__c7string__strbuf.html#ga347f442db207a60567666f44774ccae0" title="c7_str_buf()の別名">c7_strbuf(sbp)</a> を戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga7e6627c8feacd8f21d566bf0c51a8605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7e6627c8feacd8f21d566bf0c51a8605">&#9670;&nbsp;</a></span>c7_ipc_getsb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* c7_ipc_getsb </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>通信相手が <a class="el" href="group__c7ipc.html#gaf813267707dce44b3cda23cee9f6e22f" title="記述子に長さデータを伴った文字列を送信する。">c7_ipc_puts()</a> で送ってきた文字列を、記述子から読み込んで C7文字列へ設定する。 </p>
+<p>c7_str_reuse(sbp) して c7_ipc_getsb_append(desc, sbp) するのと等価。 </p>
 
 </div>
 </div>

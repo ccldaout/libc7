@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -154,8 +154,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </table>
   </dd>
 </dl>
-<p>このフックは、c7_thread_mutex_init(), <a class="el" href="group__c7thread.html#ga44c13920503a02f11ccc142f6b139970" title="(PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。 エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.">c7_thread_recursive_mutex_init()</a>, <a class="el" href="group__c7thread.html#ga4f630e8dc7e3d0b9aa94aed3d51388c8" title="pthread_cond_init() の代替。 エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.">c7_thread_cond_init()</a>, <a class="el" href="group__c7thread.html#ga6553f67e3001ad8420d428c70d68fe43" title="pthread_mutex_lock() の代替。 エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.">c7_thread_lock()</a>, <a class="el" href="group__c7thread.html#ga07019610a1cdd5c2b331b0f6e5fd4487" title="pthread_mutex_trylock() の代替。 mutex が既にロックされている場合は errno に EBUSY が設定され C7_FALSE が戻される。この時フックは呼び出されない。 ...">c7_thread_trylock()</a>, <a class="el" href="group__c7thread.html#ga0a6a3f8af847f99f8af5152c7e168d3a" title="pthread_mutex_unlock() の代替。 エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.">c7_thread_unlock()</a>, <a class="el" href="group__c7thread.html#ga5e99118b64d05d201c4a0ea1ded30b45" title="pthread_cond_signal() の代替。 エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.">c7_thread_notify()</a>, <a class="el" href="group__c7thread.html#gac694848922f24e90b50451a662affa1d" title="pthread_cond_broadcast() の代替。 エラー時は c7status に情報が保存され、フックを呼び出したあと(cf.">c7_thread_notify_all()</a>, <a class="el" href="group__c7thread.html#ga1f658f7266cf1395f6ae96d014f45fd9" title="pthread_cond_wait() / pthread_cond_timedwait() の代替。">c7_thread_wait()</a> でエラーとなった場合に呼ばれる。 ただし、以下のケースでは pthread API がエラーとなってもフックは呼ばれない。</p><ul>
-<li><a class="el" href="group__c7thread.html#ga07019610a1cdd5c2b331b0f6e5fd4487" title="pthread_mutex_trylock() の代替。 mutex が既にロックされている場合は errno に EBUSY が設定され C7_FALSE が戻される。この時フックは呼び出されない。 ...">c7_thread_trylock()</a> で EBUSY の場合。</li>
+<p>このフックは、c7_thread_mutex_init(), <a class="el" href="group__c7thread.html#ga44c13920503a02f11ccc142f6b139970" title="(PTHREAD_MUTEX_RECURSIVE 属性をセットした) pthread_mutex_init() の代替。">c7_thread_recursive_mutex_init()</a>, <a class="el" href="group__c7thread.html#ga4f630e8dc7e3d0b9aa94aed3d51388c8" title="pthread_cond_init() の代替。">c7_thread_cond_init()</a>, <a class="el" href="group__c7thread.html#ga6553f67e3001ad8420d428c70d68fe43" title="pthread_mutex_lock() の代替。">c7_thread_lock()</a>, <a class="el" href="group__c7thread.html#ga07019610a1cdd5c2b331b0f6e5fd4487" title="pthread_mutex_trylock() の代替。">c7_thread_trylock()</a>, <a class="el" href="group__c7thread.html#ga0a6a3f8af847f99f8af5152c7e168d3a" title="pthread_mutex_unlock() の代替。">c7_thread_unlock()</a>, <a class="el" href="group__c7thread.html#ga5e99118b64d05d201c4a0ea1ded30b45" title="pthread_cond_signal() の代替。">c7_thread_notify()</a>, <a class="el" href="group__c7thread.html#gac694848922f24e90b50451a662affa1d" title="pthread_cond_broadcast() の代替。">c7_thread_notify_all()</a>, <a class="el" href="group__c7thread.html#ga1f658f7266cf1395f6ae96d014f45fd9" title="pthread_cond_wait() / pthread_cond_timedwait() の代替。">c7_thread_wait()</a> でエラーとなった場合に呼ばれる。 ただし、以下のケースでは pthread API がエラーとなってもフックは呼ばれない。</p><ul>
+<li><a class="el" href="group__c7thread.html#ga07019610a1cdd5c2b331b0f6e5fd4487" title="pthread_mutex_trylock() の代替。">c7_thread_trylock()</a> で EBUSY の場合。</li>
 <li><a class="el" href="group__c7thread.html#ga1f658f7266cf1395f6ae96d014f45fd9" title="pthread_cond_wait() / pthread_cond_timedwait() の代替。">c7_thread_wait()</a> のタイムアウト指定ありで、EINTR もしくは ETIMEDOUT の場合。</li>
 </ul>
 <p>とくに C7_API_thread_{lock,trylock,unlock,notify,notify_all,wait} で hook が呼ばれる場合は、 実質的にエラー回復不可能と言えるので、フックで <a class="el" href="group__c7thread.html#ga4b9332c30a99892b6e2f30876106c623" title="スレッドを異常終了する。">c7_thread_abort()</a> してデータを完全に再初期化 するなどの処置が適切かもしれない。 </p>
@@ -182,7 +182,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </table>
   </dd>
 </dl>
-<p>このフックは <a class="el" href="group__c7poll.html#ga5489f78cb565123c33297a0422ab5a32" title="ポーラーの監視ループを開始する。 致命的なエラーを検出すればループを停止後 C7_FALSE を戻す。 c7_poll_stop() されればループを停止後 C7_TRUE を戻す。">c7_poll_start()</a> もしくは <a class="el" href="group__c7poll.html#ga8fe9eec775440ad65c0c13984fc530ac" title="ポーラーの監視ループを stacksize_kb のスタックを持つスレッドで開始する。 スレッドが起動すれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。">c7_poll_start_thread()</a> で開始した ポーリングのループ内部でエラーを検出した場合に呼ばれる。libc7 r0.1 時点では、 ポーリング機構の内部処理が対象となっている。 </p>
+<p>このフックは <a class="el" href="group__c7poll.html#ga5489f78cb565123c33297a0422ab5a32" title="ポーラーの監視ループを起動する。">c7_poll_start()</a> もしくは <a class="el" href="group__c7poll.html#ga8fe9eec775440ad65c0c13984fc530ac" title="ポーラーの監視ループを別スレッドで起動する。">c7_poll_start_thread()</a> で開始した ポーリングのループ内部でエラーを検出した場合に呼ばれる。libc7 r0.1 時点では、 ポーリング機構の内部処理が対象となっている。 </p>
 
 </div>
 </div>

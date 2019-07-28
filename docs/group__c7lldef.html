@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -77,11 +77,11 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga87fb30da61606155c222d3a1ddd3f6fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga87fb30da61606155c222d3a1ddd3f6fd">C7_LL_INIT</a>(bp)</td></tr>
-<tr class="memdesc:ga87fb30da61606155c222d3a1ddd3f6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベースオブジェクトの初期化子。  <a href="#ga87fb30da61606155c222d3a1ddd3f6fd">More...</a><br /></td></tr>
+<tr class="memdesc:ga87fb30da61606155c222d3a1ddd3f6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストオブジェクトの初期化子。  <a href="#ga87fb30da61606155c222d3a1ddd3f6fd">More...</a><br /></td></tr>
 <tr class="separator:ga87fb30da61606155c222d3a1ddd3f6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabe5e63f9ed38af8a37ab19090d03df5e"><td class="memItemLeft" align="right" valign="top"><a id="gabe5e63f9ed38af8a37ab19090d03df5e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gabe5e63f9ed38af8a37ab19090d03df5e">C7_LL_IS_EMPTY</a>(bp)</td></tr>
-<tr class="memdesc:gabe5e63f9ed38af8a37ab19090d03df5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp が空の場合真となる。 <br /></td></tr>
+<tr class="memdesc:gabe5e63f9ed38af8a37ab19090d03df5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp が空の場合真となる。 <br /></td></tr>
 <tr class="separator:gabe5e63f9ed38af8a37ab19090d03df5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga618ba12ff1cced623a7ad4e3f16812ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga618ba12ff1cced623a7ad4e3f16812ac">C7_LL_IS_TERMINAL</a>(bp,  lnk)</td></tr>
 <tr class="memdesc:ga618ba12ff1cced623a7ad4e3f16812ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。  <a href="#ga618ba12ff1cced623a7ad4e3f16812ac">More...</a><br /></td></tr>
@@ -93,18 +93,18 @@ Macros</h2></td></tr>
 <tr class="separator:gae77d456ea4a88ab054b0f5ce510a2603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga53973af5b78482c9f8d8c070e7f7a6d9"><td class="memItemLeft" align="right" valign="top"><a id="ga53973af5b78482c9f8d8c070e7f7a6d9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga53973af5b78482c9f8d8c070e7f7a6d9">C7_LL_TAIL</a>(bp)</td></tr>
-<tr class="memdesc:ga53973af5b78482c9f8d8c070e7f7a6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の最後尾リンクを void * として戻す。<br />
+<tr class="memdesc:ga53973af5b78482c9f8d8c070e7f7a6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の末尾リンクを void * として戻す。<br />
 <b>連結リストが空の場合は bp 自身が戻ることに注意。</b> <br /></td></tr>
 <tr class="separator:ga53973af5b78482c9f8d8c070e7f7a6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6960ecbc2fb256d94e077bdc99e63286"><td class="memItemLeft" align="right" valign="top"><a id="ga6960ecbc2fb256d94e077bdc99e63286"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga6960ecbc2fb256d94e077bdc99e63286">C7_LL_NEXT</a>(lnk)</td></tr>
 <tr class="memdesc:ga6960ecbc2fb256d94e077bdc99e63286"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk の次のリンクを void * として戻す。<br />
-<b>lnk が最後尾であれば連結リストベースが戻るため注意が必要。</b> <br /></td></tr>
+<b>lnk が末尾であれば連結リストが戻るため注意が必要。</b> <br /></td></tr>
 <tr class="separator:ga6960ecbc2fb256d94e077bdc99e63286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac2455bef14b15b2959e950454963be20"><td class="memItemLeft" align="right" valign="top"><a id="gac2455bef14b15b2959e950454963be20"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gac2455bef14b15b2959e950454963be20">C7_LL_PREV</a>(lnk)</td></tr>
 <tr class="memdesc:gac2455bef14b15b2959e950454963be20"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk の前のリンクを void * として戻す。<br />
-<b>lnk が先頭であれば連結リストベースが戻るため注意が必要。</b> <br /></td></tr>
+<b>lnk が先頭であれば連結リストが戻るため注意が必要。</b> <br /></td></tr>
 <tr class="separator:gac2455bef14b15b2959e950454963be20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3a1ccacb2c8d36e37ae5c44725ebf7fc"><td class="memItemLeft" align="right" valign="top"><a id="ga3a1ccacb2c8d36e37ae5c44725ebf7fc"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga3a1ccacb2c8d36e37ae5c44725ebf7fc">C7_LL_PUTHEAD</a>(bp,  lnk)</td></tr>
@@ -112,7 +112,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga3a1ccacb2c8d36e37ae5c44725ebf7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga691a070d4f94a132e4759d34dde41f13"><td class="memItemLeft" align="right" valign="top"><a id="ga691a070d4f94a132e4759d34dde41f13"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13">C7_LL_PUTTAIL</a>(bp,  lnk)</td></tr>
-<tr class="memdesc:ga691a070d4f94a132e4759d34dde41f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk を連結リスト bp の最後尾として挿入する。 <br /></td></tr>
+<tr class="memdesc:ga691a070d4f94a132e4759d34dde41f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk を連結リスト bp の末尾として挿入する。 <br /></td></tr>
 <tr class="separator:ga691a070d4f94a132e4759d34dde41f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga809dbdb622c3e12afc324b8a9716a3fa"><td class="memItemLeft" align="right" valign="top"><a id="ga809dbdb622c3e12afc324b8a9716a3fa"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga809dbdb622c3e12afc324b8a9716a3fa">C7_LL_PUTNEXT</a>(lnk,  new_next_lnk)</td></tr>
@@ -127,19 +127,19 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga045ab91c70b301584c275d4d354b156e"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk を連結リストから取り除く。 <br /></td></tr>
 <tr class="separator:ga045ab91c70b301584c275d4d354b156e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafad20fdfed8ead6c9ab8996a40b6268a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gafad20fdfed8ead6c9ab8996a40b6268a">C7_LL_FOREACH</a>(bp,  pointer_var_name)</td></tr>
-<tr class="memdesc:gafad20fdfed8ead6c9ab8996a40b6268a"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp の先頭から全てのリンクについてループする。  <a href="#gafad20fdfed8ead6c9ab8996a40b6268a">More...</a><br /></td></tr>
+<tr class="memdesc:gafad20fdfed8ead6c9ab8996a40b6268a"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の先頭から全てのリンクについてループする。  <a href="#gafad20fdfed8ead6c9ab8996a40b6268a">More...</a><br /></td></tr>
 <tr class="separator:gafad20fdfed8ead6c9ab8996a40b6268a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad25c10c3fae81d3aadc4b23f53224055"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gad25c10c3fae81d3aadc4b23f53224055">C7_LL_FOREACH_X</a>(bp,  offset_of_link,  pointer_var_name)</td></tr>
-<tr class="memdesc:gad25c10c3fae81d3aadc4b23f53224055"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp の先頭から全てのリンクについてループする (2)。  <a href="#gad25c10c3fae81d3aadc4b23f53224055">More...</a><br /></td></tr>
+<tr class="memdesc:gad25c10c3fae81d3aadc4b23f53224055"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の先頭から全てのリンクについてループする (2)。  <a href="#gad25c10c3fae81d3aadc4b23f53224055">More...</a><br /></td></tr>
 <tr class="separator:gad25c10c3fae81d3aadc4b23f53224055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0c662691ca7907a8210d6f79d9e6c83d"><td class="memItemLeft" align="right" valign="top"><a id="ga0c662691ca7907a8210d6f79d9e6c83d"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga0c662691ca7907a8210d6f79d9e6c83d">C7_LL_FOREACH_R</a>(bp,  pointer_var_name)</td></tr>
-<tr class="memdesc:ga0c662691ca7907a8210d6f79d9e6c83d"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp の最後尾から全てのリンクについてループする。<br />
+<tr class="memdesc:ga0c662691ca7907a8210d6f79d9e6c83d"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の末尾から全てのリンクについてループする。<br />
 ループの方向が逆向きになるほかは、C7_LL_FOREACH() と同様である。 <br /></td></tr>
 <tr class="separator:ga0c662691ca7907a8210d6f79d9e6c83d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga024644f2833a39367e39aa07edc482d0"><td class="memItemLeft" align="right" valign="top"><a id="ga024644f2833a39367e39aa07edc482d0"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga024644f2833a39367e39aa07edc482d0">C7_LL_FOREACH_RX</a>(bp,  offset_of_link,  pointer_var_name)</td></tr>
-<tr class="memdesc:ga024644f2833a39367e39aa07edc482d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp の最後尾から全てのリンクについてループする。(2)<br />
+<tr class="memdesc:ga024644f2833a39367e39aa07edc482d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の末尾から全てのリンクについてループする。(2)<br />
 ループの方向が逆向きになるほかは、C7_LL_FOREACH_X() と同様である。 <br /></td></tr>
 <tr class="separator:ga024644f2833a39367e39aa07edc482d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -151,53 +151,40 @@ typedef struct c7_ll_link_t_&#160;</td><td class="memItemRight" valign="bottom">
 <tr class="separator:ga28099cb84affc928589b9b31714b9fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga23a584c5ada22b20396b7f484b779cef"><td class="memItemLeft" align="right" valign="top"><a id="ga23a584c5ada22b20396b7f484b779cef"></a>
 typedef struct c7_ll_base_t_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a></td></tr>
-<tr class="memdesc:ga23a584c5ada22b20396b7f484b779cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベースオブジェクト。連結リストの基点となるデータ型。 <br /></td></tr>
+<tr class="memdesc:ga23a584c5ada22b20396b7f484b779cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストオブジェクト。連結リストの基点となるデータ型。 <br /></td></tr>
 <tr class="separator:ga23a584c5ada22b20396b7f484b779cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga9d16c98e84bbbb046c96f078f58be7ed"><td class="memItemLeft" align="right" valign="top"><a id="ga9d16c98e84bbbb046c96f078f58be7ed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga9d16c98e84bbbb046c96f078f58be7ed">c7_ll_init</a> (<a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
-<tr class="memdesc:ga9d16c98e84bbbb046c96f078f58be7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp を初期化(空の状態)する。 <br /></td></tr>
+<tr class="memitem:ga9d16c98e84bbbb046c96f078f58be7ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga9d16c98e84bbbb046c96f078f58be7ed">c7_ll_init</a> (<a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
+<tr class="memdesc:ga9d16c98e84bbbb046c96f078f58be7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストを初期化(空の状態)する。  <a href="#ga9d16c98e84bbbb046c96f078f58be7ed">More...</a><br /></td></tr>
 <tr class="separator:ga9d16c98e84bbbb046c96f078f58be7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2346d684d524063797a15d8d89f26f2c"><td class="memItemLeft" align="right" valign="top"><a id="ga2346d684d524063797a15d8d89f26f2c"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga2346d684d524063797a15d8d89f26f2c">c7_ll_is_empty</a> (const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
-<tr class="memdesc:ga2346d684d524063797a15d8d89f26f2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストベース bp が空の場合 C7_TRUE を戻す。 <br /></td></tr>
+<tr class="memitem:ga2346d684d524063797a15d8d89f26f2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga2346d684d524063797a15d8d89f26f2c">c7_ll_is_empty</a> (const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
+<tr class="memdesc:ga2346d684d524063797a15d8d89f26f2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストが空かうか調べる。  <a href="#ga2346d684d524063797a15d8d89f26f2c">More...</a><br /></td></tr>
 <tr class="separator:ga2346d684d524063797a15d8d89f26f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa3b1fa6d69c4b6412b73ebf9d7cdee8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d">c7_ll_is_terminal</a> (<a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp, <a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
-<tr class="memdesc:gaa3b1fa6d69c4b6412b73ebf9d7cdee8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。  <a href="#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d">More...</a><br /></td></tr>
+<tr class="memdesc:gaa3b1fa6d69c4b6412b73ebf9d7cdee8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンクが連結リストの端点かどうか調べる。  <a href="#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d">More...</a><br /></td></tr>
 <tr class="separator:gaa3b1fa6d69c4b6412b73ebf9d7cdee8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9d8fb7b1f1c030d9d2d4871077054b86"><td class="memItemLeft" align="right" valign="top"><a id="ga9d8fb7b1f1c030d9d2d4871077054b86"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga9d8fb7b1f1c030d9d2d4871077054b86">c7_ll_head</a> (const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
-<tr class="memdesc:ga9d8fb7b1f1c030d9d2d4871077054b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の先頭リンクを void * として戻す。<br />
-<b>連結リストが空の場合は bp 自身が戻ることに注意。</b> <br /></td></tr>
+<tr class="memitem:ga9d8fb7b1f1c030d9d2d4871077054b86"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga9d8fb7b1f1c030d9d2d4871077054b86">c7_ll_head</a> (const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
+<tr class="memdesc:ga9d8fb7b1f1c030d9d2d4871077054b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストの先頭リンクを得る。  <a href="#ga9d8fb7b1f1c030d9d2d4871077054b86">More...</a><br /></td></tr>
 <tr class="separator:ga9d8fb7b1f1c030d9d2d4871077054b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa0ffaf7f36a07c69f353e691d7241eae"><td class="memItemLeft" align="right" valign="top"><a id="gaa0ffaf7f36a07c69f353e691d7241eae"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gaa0ffaf7f36a07c69f353e691d7241eae">c7_ll_tail</a> (const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
-<tr class="memdesc:gaa0ffaf7f36a07c69f353e691d7241eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リスト bp の最後尾リンクを void * として戻す。<br />
-<b>連結リストが空の場合は bp 自身が戻ることに注意。</b> <br /></td></tr>
+<tr class="memitem:gaa0ffaf7f36a07c69f353e691d7241eae"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gaa0ffaf7f36a07c69f353e691d7241eae">c7_ll_tail</a> (const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *bp)</td></tr>
+<tr class="memdesc:gaa0ffaf7f36a07c69f353e691d7241eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">連結リストの末尾リンクを得る。  <a href="#gaa0ffaf7f36a07c69f353e691d7241eae">More...</a><br /></td></tr>
 <tr class="separator:gaa0ffaf7f36a07c69f353e691d7241eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga63ac80dc8d5981786498d8b43059566c"><td class="memItemLeft" align="right" valign="top"><a id="ga63ac80dc8d5981786498d8b43059566c"></a>
-<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga63ac80dc8d5981786498d8b43059566c">c7_ll_next</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
-<tr class="memdesc:ga63ac80dc8d5981786498d8b43059566c"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk の次のリンクを戻す。<br />
-<b>lnk が最後尾であれば連結リストベースが戻るため注意が必要。</b> <br /></td></tr>
+<tr class="memitem:ga63ac80dc8d5981786498d8b43059566c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga63ac80dc8d5981786498d8b43059566c">c7_ll_next</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
+<tr class="memdesc:ga63ac80dc8d5981786498d8b43059566c"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンクの次のリンクを戻す。  <a href="#ga63ac80dc8d5981786498d8b43059566c">More...</a><br /></td></tr>
 <tr class="separator:ga63ac80dc8d5981786498d8b43059566c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00a84df54f949e2aaeb7887b9bbd8364"><td class="memItemLeft" align="right" valign="top"><a id="ga00a84df54f949e2aaeb7887b9bbd8364"></a>
-<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga00a84df54f949e2aaeb7887b9bbd8364">c7_ll_prev</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
-<tr class="memdesc:ga00a84df54f949e2aaeb7887b9bbd8364"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk の前のリンクを戻す。<br />
-<b>lnk が最後尾であれば連結リストベースが戻るため注意が必要。</b> <br /></td></tr>
+<tr class="memitem:ga00a84df54f949e2aaeb7887b9bbd8364"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga00a84df54f949e2aaeb7887b9bbd8364">c7_ll_prev</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
+<tr class="memdesc:ga00a84df54f949e2aaeb7887b9bbd8364"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンクの前のリンクを戻す。  <a href="#ga00a84df54f949e2aaeb7887b9bbd8364">More...</a><br /></td></tr>
 <tr class="separator:ga00a84df54f949e2aaeb7887b9bbd8364"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1ba83286fc5b4b0be21a0dfce519cdad"><td class="memItemLeft" align="right" valign="top"><a id="ga1ba83286fc5b4b0be21a0dfce519cdad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga1ba83286fc5b4b0be21a0dfce519cdad">c7_ll_putnext</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *cur, <a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *new_next_lnk)</td></tr>
-<tr class="memdesc:ga1ba83286fc5b4b0be21a0dfce519cdad"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk の次の要素となるように new_next_lnk を挿入する。 <br /></td></tr>
-<tr class="separator:ga1ba83286fc5b4b0be21a0dfce519cdad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4b5600fb4d3b0d9d83461aad95cc890e"><td class="memItemLeft" align="right" valign="top"><a id="ga4b5600fb4d3b0d9d83461aad95cc890e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga4b5600fb4d3b0d9d83461aad95cc890e">c7_ll_putprev</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk, <a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *new_prev_lnk)</td></tr>
-<tr class="memdesc:ga4b5600fb4d3b0d9d83461aad95cc890e"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk の前の要素となるように new_prev_lnk を挿入する。 <br /></td></tr>
+<tr class="memitem:ga7461e23483e71ac8f223f5a642e67df9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga7461e23483e71ac8f223f5a642e67df9">c7_ll_putnext</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk, <a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *new_next_lnk)</td></tr>
+<tr class="memdesc:ga7461e23483e71ac8f223f5a642e67df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンクの次の要素となるように新しいリンクを挿入する。  <a href="#ga7461e23483e71ac8f223f5a642e67df9">More...</a><br /></td></tr>
+<tr class="separator:ga7461e23483e71ac8f223f5a642e67df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4b5600fb4d3b0d9d83461aad95cc890e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#ga4b5600fb4d3b0d9d83461aad95cc890e">c7_ll_putprev</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk, <a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *new_prev_lnk)</td></tr>
+<tr class="memdesc:ga4b5600fb4d3b0d9d83461aad95cc890e"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンクの前の要素となるように新しいリンクを挿入する。  <a href="#ga4b5600fb4d3b0d9d83461aad95cc890e">More...</a><br /></td></tr>
 <tr class="separator:ga4b5600fb4d3b0d9d83461aad95cc890e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa53f138649c16565341ce8d5a8bd4590"><td class="memItemLeft" align="right" valign="top"><a id="gaa53f138649c16565341ce8d5a8bd4590"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gaa53f138649c16565341ce8d5a8bd4590">c7_ll_unlink</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
-<tr class="memdesc:gaa53f138649c16565341ce8d5a8bd4590"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンク lnk を連結リストから取り除く。 <br /></td></tr>
+<tr class="memitem:gaa53f138649c16565341ce8d5a8bd4590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7lldef.html#gaa53f138649c16565341ce8d5a8bd4590">c7_ll_unlink</a> (<a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *lnk)</td></tr>
+<tr class="memdesc:gaa53f138649c16565341ce8d5a8bd4590"><td class="mdescLeft">&#160;</td><td class="mdescRight">リンクを連結リストから取り除く。  <a href="#gaa53f138649c16565341ce8d5a8bd4590">More...</a><br /></td></tr>
 <tr class="separator:gaa53f138649c16565341ce8d5a8bd4590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -219,7 +206,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>連結リストベースオブジェクトの初期化子。 </p>
+<p>連結リストオブジェクトの初期化子。 </p>
 <div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> NodeList = <a class="code" href="group__c7lldef.html#ga87fb30da61606155c222d3a1ddd3f6fd">C7_LL_INIT</a>(&amp;NodeList)</div></div><!-- fragment --> 
 </div>
 </div>
@@ -250,7 +237,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 
 <p>リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。 </p>
-<p><a class="el" href="group__c7lldef.html#gae77d456ea4a88ab054b0f5ce510a2603" title="連結リスト bp の先頭リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_HEAD()</a>, <a class="el" href="group__c7lldef.html#ga53973af5b78482c9f8d8c070e7f7a6d9" title="連結リスト bp の最後尾リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_TAIL()</a>, <a class="el" href="group__c7lldef.html#ga9d8fb7b1f1c030d9d2d4871077054b86" title="連結リスト bp の先頭リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">c7_ll_head()</a>, <a class="el" href="group__c7lldef.html#gaa0ffaf7f36a07c69f353e691d7241eae" title="連結リスト bp の最後尾リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">c7_ll_tail()</a> は連結リストベースが空の場合、 <a class="el" href="group__c7lldef.html#ga6960ecbc2fb256d94e077bdc99e63286" title="リンク lnk の次のリンクを void * として戻す。 lnk が最後尾であれば連結リストベースが戻るため注意が必要。">C7_LL_NEXT()</a>, <a class="el" href="group__c7lldef.html#ga63ac80dc8d5981786498d8b43059566c" title="リンク lnk の次のリンクを戻す。 lnk が最後尾であれば連結リストベースが戻るため注意が必要。">c7_ll_next()</a> は引数のリンクが最後尾の場合、 <a class="el" href="group__c7lldef.html#gac2455bef14b15b2959e950454963be20" title="リンク lnk の前のリンクを void * として戻す。 lnk が先頭であれば連結リストベースが戻るため注意が必要。">C7_LL_PREV()</a>, <a class="el" href="group__c7lldef.html#ga00a84df54f949e2aaeb7887b9bbd8364" title="リンク lnk の前のリンクを戻す。 lnk が最後尾であれば連結リストベースが戻るため注意が必要。">c7_ll_prev()</a> は引数のリンクが先頭の場合に、連結リストベースのアドレスを戻してしまう。 そこで、それらの結果に対して <a class="el" href="group__c7lldef.html#ga618ba12ff1cced623a7ad4e3f16812ac" title="リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。">C7_LL_IS_TERMINAL()</a> または <a class="el" href="group__c7lldef.html#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d" title="リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。">c7_ll_is_terminal()</a> を適用してリスト内のリンクであることを確認しなければならない。 </p>
+<p><a class="el" href="group__c7lldef.html#gae77d456ea4a88ab054b0f5ce510a2603" title="連結リスト bp の先頭リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_HEAD()</a>, <a class="el" href="group__c7lldef.html#ga53973af5b78482c9f8d8c070e7f7a6d9" title="連結リスト bp の末尾リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_TAIL()</a>, <a class="el" href="group__c7lldef.html#ga9d8fb7b1f1c030d9d2d4871077054b86" title="連結リストの先頭リンクを得る。">c7_ll_head()</a>, <a class="el" href="group__c7lldef.html#gaa0ffaf7f36a07c69f353e691d7241eae" title="連結リストの末尾リンクを得る。">c7_ll_tail()</a> は連結リストが空の場合、 <a class="el" href="group__c7lldef.html#ga6960ecbc2fb256d94e077bdc99e63286" title="リンク lnk の次のリンクを void * として戻す。 lnk が末尾であれば連結リストが戻るため注意が必要。">C7_LL_NEXT()</a>, <a class="el" href="group__c7lldef.html#ga63ac80dc8d5981786498d8b43059566c" title="リンクの次のリンクを戻す。">c7_ll_next()</a> は引数のリンクが末尾の場合、 <a class="el" href="group__c7lldef.html#gac2455bef14b15b2959e950454963be20" title="リンク lnk の前のリンクを void * として戻す。 lnk が先頭であれば連結リストが戻るため注意が必要。">C7_LL_PREV()</a>, <a class="el" href="group__c7lldef.html#ga00a84df54f949e2aaeb7887b9bbd8364" title="リンクの前のリンクを戻す。">c7_ll_prev()</a> は引数のリンクが先頭の場合に、連結リストのアドレスを戻してしまう。 そこで、それらの結果に対して <a class="el" href="group__c7lldef.html#ga618ba12ff1cced623a7ad4e3f16812ac" title="リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。">C7_LL_IS_TERMINAL()</a> または <a class="el" href="group__c7lldef.html#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d" title="リンクが連結リストの端点かどうか調べる。">c7_ll_is_terminal()</a> を適用してリスト内のリンクであることを確認しなければならない。 </p>
 
 </div>
 </div>
@@ -280,10 +267,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>連結リストベース bp の先頭から全てのリンクについてループする。 </p>
+<p>連結リスト bp の先頭から全てのリンクについてループする。 </p>
 <p>pointer_var_name はポインタ型の変数名で、ループ本体に入る前にリンクのアドレスが設定される。 また、最後までループを終えた場合は pointer_var_name は NULL になっているので、本体を break で抜けたかどうかを、これで判定することができる。</p>
 <p>このマクロは、c7_ll_link_t をノードデータ構造の先頭に配置してある場合の、 次のような使い方を想定している。</p>
-<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>node_t_ {</div><div class="line">    <a class="code" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> lnk;</div><div class="line">    ...</div><div class="line">    <span class="keywordtype">char</span> *name;</div><div class="line">    ...</div><div class="line">} node_t;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <a class="code" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> NodeList = <a class="code" href="group__c7lldef.html#ga87fb30da61606155c222d3a1ddd3f6fd">C7_LL_INIT</a>(&amp;NodeList);</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> add_node(node_t *node)</div><div class="line">{</div><div class="line">    <a class="code" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13">C7_LL_PUTTAIL</a>(&amp;NodeList, node);     <span class="comment">// (void *)node == (void *)(&amp;node-&gt;lnk)</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> print_name(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    node_t *node;</div><div class="line">    <a class="code" href="group__c7lldef.html#gafad20fdfed8ead6c9ab8996a40b6268a">C7_LL_FOREACH</a>(&amp;NodeList, node) {</div><div class="line">        (void)printf(<span class="stringliteral">&quot;Name: &#39;%s&#39;\n&quot;</span>, node-&gt;name);</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><p>上の例での <a class="el" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13" title="リンク lnk を連結リスト bp の最後尾として挿入する。">C7_LL_PUTTAIL()</a> は C7_LL_PUTTAIL(&amp;NodeList, &amp;node-&gt;lnk) と書くべき ところであるが、マクロは強制的に型変換しているため node_t へのポインタでもコンパイル エラーとはならない。もちろん、これが動作するのは lnkメンバーが node_t の先頭にあるからである。 </p>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>node_t_ {</div><div class="line">    <a class="code" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> lnk;</div><div class="line">    ...</div><div class="line">    <span class="keywordtype">char</span> *name;</div><div class="line">    ...</div><div class="line">} node_t;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <a class="code" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> NodeList = <a class="code" href="group__c7lldef.html#ga87fb30da61606155c222d3a1ddd3f6fd">C7_LL_INIT</a>(&amp;NodeList);</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> add_node(node_t *node)</div><div class="line">{</div><div class="line">    <a class="code" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13">C7_LL_PUTTAIL</a>(&amp;NodeList, node);     <span class="comment">// (void *)node == (void *)(&amp;node-&gt;lnk)</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> print_name(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    node_t *node;</div><div class="line">    <a class="code" href="group__c7lldef.html#gafad20fdfed8ead6c9ab8996a40b6268a">C7_LL_FOREACH</a>(&amp;NodeList, node) {</div><div class="line">        (void)printf(<span class="stringliteral">&quot;Name: &#39;%s&#39;\n&quot;</span>, node-&gt;name);</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><p>上の例での <a class="el" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13" title="リンク lnk を連結リスト bp の末尾として挿入する。">C7_LL_PUTTAIL()</a> は C7_LL_PUTTAIL(&amp;NodeList, &amp;node-&gt;lnk) と書くべき ところであるが、マクロは強制的に型変換しているため node_t へのポインタでもコンパイル エラーとはならない。もちろん、これが動作するのは lnkメンバーが node_t の先頭にあるからである。 </p>
 
 </div>
 </div>
@@ -319,14 +306,67 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>連結リストベース bp の先頭から全てのリンクについてループする (2)。 </p>
+<p>連結リスト bp の先頭から全てのリンクについてループする (2)。 </p>
 <p>pointer_var_name はポインタ型の変数名で、ループ本体に入る前に リンクのアドレスから offset_of_link を減じた値が設定される。 また、最後までループを終えた場合は pointer_var_name は NULL になっているので、本体を break で抜けたかどうかを、これで判定することができる。</p>
 <p>このマクロは、c7_ll_link_t をノードデータ構造の途中に配置してある場合の、 次のような使い方を想定している。</p>
-<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>node_t_ {</div><div class="line">    <span class="keywordtype">char</span> *name;</div><div class="line">    ...</div><div class="line">    <a class="code" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> lnk;</div><div class="line">    ...</div><div class="line">} node_t;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <a class="code" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> NodeList = <a class="code" href="group__c7lldef.html#ga87fb30da61606155c222d3a1ddd3f6fd">C7_LL_INIT</a>(&amp;NodeList);</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> add_node(node_t *node)</div><div class="line">{</div><div class="line">    <a class="code" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13">C7_LL_PUTTAIL</a>(&amp;NodeList, &amp;node-&gt;lnk);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> print_name(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    node_t *node;</div><div class="line">    <a class="code" href="group__c7lldef.html#gad25c10c3fae81d3aadc4b23f53224055">C7_LL_FOREACH_X</a>(&amp;NodeList, offsetof(node_t, lnk), node) {</div><div class="line">        (void)printf(<span class="stringliteral">&quot;Name: &#39;%s&#39;\n&quot;</span>, node-&gt;name);</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><p>先に出てきた <a class="el" href="group__c7lldef.html#gafad20fdfed8ead6c9ab8996a40b6268a" title="連結リストベース bp の先頭から全てのリンクについてループする。">C7_LL_FOREACH()</a> は offset_of_link を 0 にした <a class="el" href="group__c7lldef.html#gad25c10c3fae81d3aadc4b23f53224055" title="連結リストベース bp の先頭から全てのリンクについてループする (2)。">C7_LL_FOREACH_X()</a> の特殊版にすぎない。 </p>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>node_t_ {</div><div class="line">    <span class="keywordtype">char</span> *name;</div><div class="line">    ...</div><div class="line">    <a class="code" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> lnk;</div><div class="line">    ...</div><div class="line">} node_t;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <a class="code" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> NodeList = <a class="code" href="group__c7lldef.html#ga87fb30da61606155c222d3a1ddd3f6fd">C7_LL_INIT</a>(&amp;NodeList);</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> add_node(node_t *node)</div><div class="line">{</div><div class="line">    <a class="code" href="group__c7lldef.html#ga691a070d4f94a132e4759d34dde41f13">C7_LL_PUTTAIL</a>(&amp;NodeList, &amp;node-&gt;lnk);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> print_name(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    node_t *node;</div><div class="line">    <a class="code" href="group__c7lldef.html#gad25c10c3fae81d3aadc4b23f53224055">C7_LL_FOREACH_X</a>(&amp;NodeList, offsetof(node_t, lnk), node) {</div><div class="line">        (void)printf(<span class="stringliteral">&quot;Name: &#39;%s&#39;\n&quot;</span>, node-&gt;name);</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><p>先に出てきた <a class="el" href="group__c7lldef.html#gafad20fdfed8ead6c9ab8996a40b6268a" title="連結リスト bp の先頭から全てのリンクについてループする。">C7_LL_FOREACH()</a> は offset_of_link を 0 にした <a class="el" href="group__c7lldef.html#gad25c10c3fae81d3aadc4b23f53224055" title="連結リスト bp の先頭から全てのリンクについてループする (2)。">C7_LL_FOREACH_X()</a> の特殊版にすぎない。 </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga9d16c98e84bbbb046c96f078f58be7ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d16c98e84bbbb046c96f078f58be7ed">&#9670;&nbsp;</a></span>c7_ll_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_ll_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *&#160;</td>
+          <td class="paramname"><em>bp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>連結リストを初期化(空の状態)する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bp</td><td>連結リスト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga2346d684d524063797a15d8d89f26f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2346d684d524063797a15d8d89f26f2c">&#9670;&nbsp;</a></span>c7_ll_is_empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_ll_is_empty </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *&#160;</td>
+          <td class="paramname"><em>bp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>連結リストが空かうか調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bp</td><td>連結リスト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>連結リストが空であれば C7_TRUE を、そうでなければ C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
 <a id="gaa3b1fa6d69c4b6412b73ebf9d7cdee8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d">&#9670;&nbsp;</a></span>c7_ll_is_terminal()</h2>
 
@@ -353,8 +393,212 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。 </p>
-<p><a class="el" href="group__c7lldef.html#gae77d456ea4a88ab054b0f5ce510a2603" title="連結リスト bp の先頭リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_HEAD()</a>, <a class="el" href="group__c7lldef.html#ga53973af5b78482c9f8d8c070e7f7a6d9" title="連結リスト bp の最後尾リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_TAIL()</a>, <a class="el" href="group__c7lldef.html#ga9d8fb7b1f1c030d9d2d4871077054b86" title="連結リスト bp の先頭リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">c7_ll_head()</a>, <a class="el" href="group__c7lldef.html#gaa0ffaf7f36a07c69f353e691d7241eae" title="連結リスト bp の最後尾リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">c7_ll_tail()</a> は連結リストベースが空の場合、 <a class="el" href="group__c7lldef.html#ga6960ecbc2fb256d94e077bdc99e63286" title="リンク lnk の次のリンクを void * として戻す。 lnk が最後尾であれば連結リストベースが戻るため注意が必要。">C7_LL_NEXT()</a>, <a class="el" href="group__c7lldef.html#ga63ac80dc8d5981786498d8b43059566c" title="リンク lnk の次のリンクを戻す。 lnk が最後尾であれば連結リストベースが戻るため注意が必要。">c7_ll_next()</a> は引数のリンクが最後尾の場合、 <a class="el" href="group__c7lldef.html#gac2455bef14b15b2959e950454963be20" title="リンク lnk の前のリンクを void * として戻す。 lnk が先頭であれば連結リストベースが戻るため注意が必要。">C7_LL_PREV()</a>, <a class="el" href="group__c7lldef.html#ga00a84df54f949e2aaeb7887b9bbd8364" title="リンク lnk の前のリンクを戻す。 lnk が最後尾であれば連結リストベースが戻るため注意が必要。">c7_ll_prev()</a> は引数のリンクが先頭の場合に、連結リストベースのアドレスを戻してしまう。 そこで、それらの結果に対して <a class="el" href="group__c7lldef.html#ga618ba12ff1cced623a7ad4e3f16812ac" title="リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。">C7_LL_IS_TERMINAL()</a> または <a class="el" href="group__c7lldef.html#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d" title="リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。">c7_ll_is_terminal()</a> を適用してリスト内のリンクであることを確認しなければならない。 </p>
+<p>リンクが連結リストの端点かどうか調べる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bp</td><td>連結リスト。 </td></tr>
+    <tr><td class="paramname">lnk</td><td>調べる対象のリンク。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>リンクが連結リストの端点であれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 「端点である」とは連結リスト内のノードではないことを意味する。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="group__c7lldef.html#gae77d456ea4a88ab054b0f5ce510a2603" title="連結リスト bp の先頭リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_HEAD()</a>, <a class="el" href="group__c7lldef.html#ga53973af5b78482c9f8d8c070e7f7a6d9" title="連結リスト bp の末尾リンクを void * として戻す。 連結リストが空の場合は bp 自身が戻ることに注意。">C7_LL_TAIL()</a>, <a class="el" href="group__c7lldef.html#ga9d8fb7b1f1c030d9d2d4871077054b86" title="連結リストの先頭リンクを得る。">c7_ll_head()</a>, <a class="el" href="group__c7lldef.html#gaa0ffaf7f36a07c69f353e691d7241eae" title="連結リストの末尾リンクを得る。">c7_ll_tail()</a> は連結リストが空の場合、 <a class="el" href="group__c7lldef.html#ga6960ecbc2fb256d94e077bdc99e63286" title="リンク lnk の次のリンクを void * として戻す。 lnk が末尾であれば連結リストが戻るため注意が必要。">C7_LL_NEXT()</a>, <a class="el" href="group__c7lldef.html#ga63ac80dc8d5981786498d8b43059566c" title="リンクの次のリンクを戻す。">c7_ll_next()</a> は引数のリンクが末尾の場合、 <a class="el" href="group__c7lldef.html#gac2455bef14b15b2959e950454963be20" title="リンク lnk の前のリンクを void * として戻す。 lnk が先頭であれば連結リストが戻るため注意が必要。">C7_LL_PREV()</a>, <a class="el" href="group__c7lldef.html#ga00a84df54f949e2aaeb7887b9bbd8364" title="リンクの前のリンクを戻す。">c7_ll_prev()</a> は引数のリンクが先頭の場合に、連結リストのアドレスを戻してしまう。 そこで、それらの結果に対して <a class="el" href="group__c7lldef.html#ga618ba12ff1cced623a7ad4e3f16812ac" title="リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。">C7_LL_IS_TERMINAL()</a> または <a class="el" href="group__c7lldef.html#gaa3b1fa6d69c4b6412b73ebf9d7cdee8d" title="リンクが連結リストの端点かどうか調べる。">c7_ll_is_terminal()</a> を適用してリスト内のリンクであることを確認しなければならない。 </dd></dl>
+
+</div>
+</div>
+<a id="ga9d8fb7b1f1c030d9d2d4871077054b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d8fb7b1f1c030d9d2d4871077054b86">&#9670;&nbsp;</a></span>c7_ll_head()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_ll_head </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *&#160;</td>
+          <td class="paramname"><em>bp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>連結リストの先頭リンクを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bp</td><td>連結リスト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>連結リストの先頭リンクを戻す。 連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。 </dd></dl>
+
+</div>
+</div>
+<a id="gaa0ffaf7f36a07c69f353e691d7241eae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa0ffaf7f36a07c69f353e691d7241eae">&#9670;&nbsp;</a></span>c7_ll_tail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_ll_tail </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7lldef.html#ga23a584c5ada22b20396b7f484b779cef">c7_ll_base_t</a> *&#160;</td>
+          <td class="paramname"><em>bp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>連結リストの末尾リンクを得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bp</td><td>連結リスト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>連結リストの末尾リンクを戻す。 連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。 </dd></dl>
+
+</div>
+</div>
+<a id="ga63ac80dc8d5981786498d8b43059566c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga63ac80dc8d5981786498d8b43059566c">&#9670;&nbsp;</a></span>c7_ll_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a>* c7_ll_next </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>lnk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>リンクの次のリンクを戻す。 </p>
+<dl class="section return"><dt>Returns</dt><dd>リンクの次のリンクを戻す。 連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。 </dd></dl>
+
+</div>
+</div>
+<a id="ga00a84df54f949e2aaeb7887b9bbd8364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00a84df54f949e2aaeb7887b9bbd8364">&#9670;&nbsp;</a></span>c7_ll_prev()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a>* c7_ll_prev </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>lnk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>リンクの前のリンクを戻す。 </p>
+<dl class="section return"><dt>Returns</dt><dd>リンクの前のリンクを戻す。 連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。 </dd></dl>
+
+</div>
+</div>
+<a id="ga7461e23483e71ac8f223f5a642e67df9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7461e23483e71ac8f223f5a642e67df9">&#9670;&nbsp;</a></span>c7_ll_putnext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_ll_putnext </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>lnk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>new_next_lnk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>リンクの次の要素となるように新しいリンクを挿入する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lnk</td><td>リンク。 </td></tr>
+    <tr><td class="paramname">new_next_lnk</td><td>挿入されるリンク。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga4b5600fb4d3b0d9d83461aad95cc890e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4b5600fb4d3b0d9d83461aad95cc890e">&#9670;&nbsp;</a></span>c7_ll_putprev()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_ll_putprev </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>lnk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>new_prev_lnk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>リンクの前の要素となるように新しいリンクを挿入する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lnk</td><td>リンク。 </td></tr>
+    <tr><td class="paramname">new_prev_lnk</td><td>挿入されるリンク。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaa53f138649c16565341ce8d5a8bd4590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa53f138649c16565341ce8d5a8bd4590">&#9670;&nbsp;</a></span>c7_ll_unlink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_ll_unlink </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7lldef.html#ga28099cb84affc928589b9b31714b9fc7">c7_ll_link_t</a> *&#160;</td>
+          <td class="paramname"><em>lnk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>リンクを連結リストから取り除く。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lnk</td><td>取り除かれるリンク。 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

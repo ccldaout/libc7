@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -110,21 +110,17 @@ typedef struct c7_poll_t_ *&#160;</td><td class="memItemRight" valign="bottom"><
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga08a02ff35e0a1d9ca6e6c7088320d704"><td class="memItemLeft" align="right" valign="top"><a id="ga08a02ff35e0a1d9ca6e6c7088320d704"></a>
-<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga08a02ff35e0a1d9ca6e6c7088320d704">c7_poll_init</a> (void)</td></tr>
-<tr class="memdesc:ga08a02ff35e0a1d9ca6e6c7088320d704"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーを初期化する。 <br /></td></tr>
+<tr class="memitem:ga08a02ff35e0a1d9ca6e6c7088320d704"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga08a02ff35e0a1d9ca6e6c7088320d704">c7_poll_init</a> (void)</td></tr>
+<tr class="memdesc:ga08a02ff35e0a1d9ca6e6c7088320d704"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーを初期化する。  <a href="#ga08a02ff35e0a1d9ca6e6c7088320d704">More...</a><br /></td></tr>
 <tr class="separator:ga08a02ff35e0a1d9ca6e6c7088320d704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5489f78cb565123c33297a0422ab5a32"><td class="memItemLeft" align="right" valign="top"><a id="ga5489f78cb565123c33297a0422ab5a32"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga5489f78cb565123c33297a0422ab5a32">c7_poll_start</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller)</td></tr>
-<tr class="memdesc:ga5489f78cb565123c33297a0422ab5a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーの監視ループを開始する。 致命的なエラーを検出すればループを停止後 C7_FALSE を戻す。 <a class="el" href="group__c7poll.html#ga9af1ef42bea0fa582de0e5e4a60d47cb" title="ポーラーの監視ループの停止を要求する。 要求をキューイングできれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。 この関数では要求のキューイングまでで、その要求が受理されたか、停止し...">c7_poll_stop()</a> されればループを停止後 C7_TRUE を戻す。 <br /></td></tr>
+<tr class="memitem:ga5489f78cb565123c33297a0422ab5a32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga5489f78cb565123c33297a0422ab5a32">c7_poll_start</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller)</td></tr>
+<tr class="memdesc:ga5489f78cb565123c33297a0422ab5a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーの監視ループを起動する。  <a href="#ga5489f78cb565123c33297a0422ab5a32">More...</a><br /></td></tr>
 <tr class="separator:ga5489f78cb565123c33297a0422ab5a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8fe9eec775440ad65c0c13984fc530ac"><td class="memItemLeft" align="right" valign="top"><a id="ga8fe9eec775440ad65c0c13984fc530ac"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga8fe9eec775440ad65c0c13984fc530ac">c7_poll_start_thread</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int stacksize_kb)</td></tr>
-<tr class="memdesc:ga8fe9eec775440ad65c0c13984fc530ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーの監視ループを stacksize_kb のスタックを持つスレッドで開始する。 スレッドが起動すれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。 <br /></td></tr>
+<tr class="memitem:ga8fe9eec775440ad65c0c13984fc530ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga8fe9eec775440ad65c0c13984fc530ac">c7_poll_start_thread</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int stacksize_kb)</td></tr>
+<tr class="memdesc:ga8fe9eec775440ad65c0c13984fc530ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーの監視ループを別スレッドで起動する。  <a href="#ga8fe9eec775440ad65c0c13984fc530ac">More...</a><br /></td></tr>
 <tr class="separator:ga8fe9eec775440ad65c0c13984fc530ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9af1ef42bea0fa582de0e5e4a60d47cb"><td class="memItemLeft" align="right" valign="top"><a id="ga9af1ef42bea0fa582de0e5e4a60d47cb"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga9af1ef42bea0fa582de0e5e4a60d47cb">c7_poll_stop</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller)</td></tr>
-<tr class="memdesc:ga9af1ef42bea0fa582de0e5e4a60d47cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーの監視ループの停止を要求する。 要求をキューイングできれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。 この関数では要求のキューイングまでで、その要求が受理されたか、停止したかは確認できない。 <br /></td></tr>
+<tr class="memitem:ga9af1ef42bea0fa582de0e5e4a60d47cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga9af1ef42bea0fa582de0e5e4a60d47cb">c7_poll_stop</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller)</td></tr>
+<tr class="memdesc:ga9af1ef42bea0fa582de0e5e4a60d47cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーの監視ループの停止を要求する。  <a href="#ga9af1ef42bea0fa582de0e5e4a60d47cb">More...</a><br /></td></tr>
 <tr class="separator:ga9af1ef42bea0fa582de0e5e4a60d47cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9a542c36b281fd0c41fa59cdc5726f1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga9a542c36b281fd0c41fa59cdc5726f1a">c7_poll_register</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc, uint32_t evmask, void(*on_event)(<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc, int evmask, void *__arg), void *__arg)</td></tr>
 <tr class="memdesc:ga9a542c36b281fd0c41fa59cdc5726f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーに記述子を監視対象として登録する。  <a href="#ga9a542c36b281fd0c41fa59cdc5726f1a">More...</a><br /></td></tr>
@@ -135,31 +131,140 @@ Functions</h2></td></tr>
 <tr class="memitem:ga61c8e4b4e7d4110f006235ccacfdccc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga61c8e4b4e7d4110f006235ccacfdccc9">c7_poll_unregister</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc)</td></tr>
 <tr class="memdesc:ga61c8e4b4e7d4110f006235ccacfdccc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーに登録済みの記述子を監視対象から外す。  <a href="#ga61c8e4b4e7d4110f006235ccacfdccc9">More...</a><br /></td></tr>
 <tr class="separator:ga61c8e4b4e7d4110f006235ccacfdccc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae2f72571d1c6b62670d1f0959bd9de6a"><td class="memItemLeft" align="right" valign="top"><a id="gae2f72571d1c6b62670d1f0959bd9de6a"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#gae2f72571d1c6b62670d1f0959bd9de6a">c7_poll_pause</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc)</td></tr>
-<tr class="memdesc:gae2f72571d1c6b62670d1f0959bd9de6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーに登録済みの記述子を一時的に監視対象から外す。<br />
-現在の evmask を退避したあと、c7_poll_modify(poller, desc, 0) を呼ぶ。 <br /></td></tr>
+<tr class="memitem:gae2f72571d1c6b62670d1f0959bd9de6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#gae2f72571d1c6b62670d1f0959bd9de6a">c7_poll_pause</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc)</td></tr>
+<tr class="memdesc:gae2f72571d1c6b62670d1f0959bd9de6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーに登録済みの記述子を一時的に監視対象から外す。  <a href="#gae2f72571d1c6b62670d1f0959bd9de6a">More...</a><br /></td></tr>
 <tr class="separator:gae2f72571d1c6b62670d1f0959bd9de6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga08c8dd79e3721f32dc2489538887d6e1"><td class="memItemLeft" align="right" valign="top"><a id="ga08c8dd79e3721f32dc2489538887d6e1"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga08c8dd79e3721f32dc2489538887d6e1">c7_poll_resume</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc)</td></tr>
-<tr class="memdesc:ga08c8dd79e3721f32dc2489538887d6e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">一時的に監視対象から外す記述子を再び監視対象とする。<br />
-<a class="el" href="group__c7poll.html#gae2f72571d1c6b62670d1f0959bd9de6a" title="ポーラーに登録済みの記述子を一時的に監視対象から外す。 現在の evmask を退避したあと、c7_poll_modify(poller, desc, 0) を呼ぶ。">c7_poll_pause()</a>で退避した evmask で、c7_poll_modify(poller, desc, evmask) を呼ぶ。 <br /></td></tr>
+<tr class="memitem:ga08c8dd79e3721f32dc2489538887d6e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga08c8dd79e3721f32dc2489538887d6e1">c7_poll_resume</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int desc)</td></tr>
+<tr class="memdesc:ga08c8dd79e3721f32dc2489538887d6e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">一時的に監視対象から外す記述子を再び監視対象とする。  <a href="#ga08c8dd79e3721f32dc2489538887d6e1">More...</a><br /></td></tr>
 <tr class="separator:ga08c8dd79e3721f32dc2489538887d6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga38a5ae688bf11041c8537dde8f8dfcb3"><td class="memItemLeft" align="right" valign="top">c7_alarm_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga38a5ae688bf11041c8537dde8f8dfcb3">c7_poll_alarm_on</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, int delay_ms, void(*on_alarm)(<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, void *__arg), void *__arg)</td></tr>
 <tr class="memdesc:ga38a5ae688bf11041c8537dde8f8dfcb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーにアラームをセットする。  <a href="#ga38a5ae688bf11041c8537dde8f8dfcb3">More...</a><br /></td></tr>
 <tr class="separator:ga38a5ae688bf11041c8537dde8f8dfcb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga80868e534c62fa5670c2d53fe68cf9fb"><td class="memItemLeft" align="right" valign="top"><a id="ga80868e534c62fa5670c2d53fe68cf9fb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga80868e534c62fa5670c2d53fe68cf9fb">c7_poll_alarm_off</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> pl, c7_alarm_t alarm_id)</td></tr>
-<tr class="memdesc:ga80868e534c62fa5670c2d53fe68cf9fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーに設定した alarm_id のアラームを解除する。 <br /></td></tr>
-<tr class="separator:ga80868e534c62fa5670c2d53fe68cf9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3836680e03be1d287930225f29d0863"><td class="memItemLeft" align="right" valign="top"><a id="gaf3836680e03be1d287930225f29d0863"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#gaf3836680e03be1d287930225f29d0863">c7_poll_free</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller)</td></tr>
-<tr class="memdesc:gaf3836680e03be1d287930225f29d0863"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーを削除する。 <br /></td></tr>
+<tr class="memitem:ga77f6978935cc1269647bbd130e5ef87a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#ga77f6978935cc1269647bbd130e5ef87a">c7_poll_alarm_off</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller, c7_alarm_t alarm_id)</td></tr>
+<tr class="memdesc:ga77f6978935cc1269647bbd130e5ef87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーに設定した alarm_id のアラームを解除する。  <a href="#ga77f6978935cc1269647bbd130e5ef87a">More...</a><br /></td></tr>
+<tr class="separator:ga77f6978935cc1269647bbd130e5ef87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3836680e03be1d287930225f29d0863"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7poll.html#gaf3836680e03be1d287930225f29d0863">c7_poll_free</a> (<a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> poller)</td></tr>
+<tr class="memdesc:gaf3836680e03be1d287930225f29d0863"><td class="mdescLeft">&#160;</td><td class="mdescRight">ポーラーを削除する。  <a href="#gaf3836680e03be1d287930225f29d0863">More...</a><br /></td></tr>
 <tr class="separator:gaf3836680e03be1d287930225f29d0863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>epoll(linux), poll(cygwin) を用いた I/O 多重化機能 </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga08a02ff35e0a1d9ca6e6c7088320d704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08a02ff35e0a1d9ca6e6c7088320d704">&#9670;&nbsp;</a></span>c7_poll_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a> c7_poll_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーを初期化する。 </p>
+<dl class="section return"><dt>Returns</dt><dd>ポーラーの初期化に成功すればポーラーオブジェクトを戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga5489f78cb565123c33297a0422ab5a32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5489f78cb565123c33297a0422ab5a32">&#9670;&nbsp;</a></span>c7_poll_start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_poll_start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーの監視ループを起動する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラー。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>致命的なエラーを検出すればループを停止後 C7_FALSE を戻す。 <a class="el" href="group__c7poll.html#ga9af1ef42bea0fa582de0e5e4a60d47cb" title="ポーラーの監視ループの停止を要求する。">c7_poll_stop()</a> されればループを停止後 C7_TRUE を戻す。</dd></dl>
+<p>ポーラーの監視ループを開始するため、致命的なエラーの検出や明示的なループ停止要求がなければ、この関数から戻ることはない。 </p>
+
+</div>
+</div>
+<a id="ga8fe9eec775440ad65c0c13984fc530ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fe9eec775440ad65c0c13984fc530ac">&#9670;&nbsp;</a></span>c7_poll_start_thread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_poll_start_thread </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>stacksize_kb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーの監視ループを別スレッドで起動する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラー。 </td></tr>
+    <tr><td class="paramname">stacksize_kb</td><td>監視ループを動かすスレッドのスタックサイズ(KB)。0 の場合はデフォルトのスタックサイズとなる。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>スレッドが起動すれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga9af1ef42bea0fa582de0e5e4a60d47cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9af1ef42bea0fa582de0e5e4a60d47cb">&#9670;&nbsp;</a></span>c7_poll_stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_poll_stop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーの監視ループの停止を要求する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラー。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>要求をキューイングできれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。</dd></dl>
+<p>この関数では要求のキューイングまでで、その要求が受理されたか、停止したかは確認できない。 </p>
+
+</div>
+</div>
 <a id="ga9a542c36b281fd0c41fa59cdc5726f1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9a542c36b281fd0c41fa59cdc5726f1a">&#9670;&nbsp;</a></span>c7_poll_register()</h2>
 
@@ -207,7 +312,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <p>ポーラーに記述子を監視対象として登録する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">poller</td><td>ポーラーオブジェクト。 </td></tr>
+    <tr><td class="paramname">poller</td><td>ポーラー。 </td></tr>
     <tr><td class="paramname">desc</td><td>監視する記述子。 </td></tr>
     <tr><td class="paramname">evmask</td><td>監視するイベント。C7_POLL_EVENT_xxx の論理和を指定する。 </td></tr>
     <tr><td class="paramname">on_event</td><td>evmaskで指定したイベントが発生した場合に呼ばれる関数。この関数に渡される poller, desc, __arg はこの関数に渡されてきたもの。evmask は実際に発生したイベントのマスクとなる。 </td></tr>
@@ -252,6 +357,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 
 <p>ポーラーに登録済みの記述子について、監視するイベントを変更する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラー。 </td></tr>
+    <tr><td class="paramname">desc</td><td>変更対象の記述子。 </td></tr>
+    <tr><td class="paramname">evmask</td><td>変更後の監視するイベント。C7_POLL_EVENT_xxx の論理和を指定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>descが監視対象でなければ C7_FALES を戻す。 監視対象の場合、epollバージョンは変更に成功したかどうか、 pollバージョンでは変更要求をキューイングできたかどうかを戻す。 </dd></dl>
 
 </div>
@@ -283,7 +396,76 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 
 <p>ポーラーに登録済みの記述子を監視対象から外す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラー。 </td></tr>
+    <tr><td class="paramname">desc</td><td>監視対象から外す記述子。 </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>descが監視対象でなければ C7_FALES を戻す。 監視対象の場合、epollバージョンは削除に成功したかどうか、 pollバージョンでは削除要求をキューイングできたかどうかを戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gae2f72571d1c6b62670d1f0959bd9de6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2f72571d1c6b62670d1f0959bd9de6a">&#9670;&nbsp;</a></span>c7_poll_pause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_poll_pause </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーに登録済みの記述子を一時的に監視対象から外す。 </p>
+<p>現在の evmask を退避したあと、c7_poll_modify(poller, desc, 0) を呼ぶ。 </p>
+
+</div>
+</div>
+<a id="ga08c8dd79e3721f32dc2489538887d6e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08c8dd79e3721f32dc2489538887d6e1">&#9670;&nbsp;</a></span>c7_poll_resume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_poll_resume </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>desc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>一時的に監視対象から外す記述子を再び監視対象とする。 </p>
+<p><a class="el" href="group__c7poll.html#gae2f72571d1c6b62670d1f0959bd9de6a" title="ポーラーに登録済みの記述子を一時的に監視対象から外す。">c7_poll_pause()</a>で退避した evmask で、c7_poll_modify(poller, desc, evmask) を呼ぶ。 </p>
 
 </div>
 </div>
@@ -336,6 +518,70 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>アラームの登録に成功すればアラームID(≠C7_TIMER_INV_ALARM)を戻し、 失敗すれば C7_TIMER_INV_ALARM を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga77f6978935cc1269647bbd130e5ef87a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77f6978935cc1269647bbd130e5ef87a">&#9670;&nbsp;</a></span>c7_poll_alarm_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_poll_alarm_off </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">c7_alarm_t&#160;</td>
+          <td class="paramname"><em>alarm_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーに設定した alarm_id のアラームを解除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラーオブジェクト。 </td></tr>
+    <tr><td class="paramname">alarm_id</td><td>解除したいアラームID。c7_poll_alarm_on() の戻り値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf3836680e03be1d287930225f29d0863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf3836680e03be1d287930225f29d0863">&#9670;&nbsp;</a></span>c7_poll_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_poll_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7poll.html#ga499df4169eee79d5557ef794111dac07">c7_poll_t</a>&#160;</td>
+          <td class="paramname"><em>poller</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ポーラーを削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">poller</td><td>ポーラーオブジェクト。c7_poll_stop() で停止していなければならない。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>現在の実装では、監視ループをスレッドで起動した場合、そのスレッドが停止したことを 確認する術がないため、この関数を呼び出すのは危険である。 </dd></dl>
 
 </div>
 </div>

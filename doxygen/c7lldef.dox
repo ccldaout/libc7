@@ -21,11 +21,11 @@
  */
 typedef struct c7_ll_link_t_ c7_ll_link_t;
 
-/** 連結リストベースオブジェクト。連結リストの基点となるデータ型。
+/** 連結リストオブジェクト。連結リストの基点となるデータ型。
  */
 typedef struct c7_ll_base_t_ c7_ll_base_t;
 
-/** 連結リストベースオブジェクトの初期化子。
+/** 連結リストオブジェクトの初期化子。
  *
  * @code
 static c7_ll_base_t NodeList = C7_LL_INIT(&NodeList)
@@ -33,15 +33,15 @@ static c7_ll_base_t NodeList = C7_LL_INIT(&NodeList)
  */
 #define C7_LL_INIT(bp)
 
-/** 連結リストベース bp が空の場合真となる。
+/** 連結リスト bp が空の場合真となる。
  */
 #define C7_LL_IS_EMPTY(bp)
 
 /** リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。
  *
- * C7_LL_HEAD(), C7_LL_TAIL(), c7_ll_head(), c7_ll_tail() は連結リストベースが空の場合、
- * C7_LL_NEXT(), c7_ll_next() は引数のリンクが最後尾の場合、
- * C7_LL_PREV(), c7_ll_prev() は引数のリンクが先頭の場合に、連結リストベースのアドレスを戻してしまう。
+ * C7_LL_HEAD(), C7_LL_TAIL(), c7_ll_head(), c7_ll_tail() は連結リストが空の場合、
+ * C7_LL_NEXT(), c7_ll_next() は引数のリンクが末尾の場合、
+ * C7_LL_PREV(), c7_ll_prev() は引数のリンクが先頭の場合に、連結リストのアドレスを戻してしまう。
  * そこで、それらの結果に対して C7_LL_IS_TERMINAL() または c7_ll_is_terminal() を適用してリスト内のリンクであることを確認しなければならない。
  */
 #define C7_LL_IS_TERMINAL(bp, lnk)		
@@ -51,18 +51,18 @@ static c7_ll_base_t NodeList = C7_LL_INIT(&NodeList)
  */
 #define C7_LL_HEAD(bp)
 
-/** 連結リスト bp の最後尾リンクを void * として戻す。\n
+/** 連結リスト bp の末尾リンクを void * として戻す。\n
  * <B>連結リストが空の場合は bp 自身が戻ることに注意。</B>
  */
 #define C7_LL_TAIL(bp)
 
 /** リンク lnk の次のリンクを void * として戻す。\n
- * <B>lnk が最後尾であれば連結リストベースが戻るため注意が必要。</B>
+ * <B>lnk が末尾であれば連結リストが戻るため注意が必要。</B>
  */
 #define C7_LL_NEXT(lnk)
 
 /** リンク lnk の前のリンクを void * として戻す。\n
- * <B>lnk が先頭であれば連結リストベースが戻るため注意が必要。</B>
+ * <B>lnk が先頭であれば連結リストが戻るため注意が必要。</B>
  */
 #define C7_LL_PREV(lnk)
 
@@ -70,7 +70,7 @@ static c7_ll_base_t NodeList = C7_LL_INIT(&NodeList)
  */
 #define C7_LL_PUTHEAD(bp, lnk)	
 
-/** リンク lnk を連結リスト bp の最後尾として挿入する。
+/** リンク lnk を連結リスト bp の末尾として挿入する。
  */
 #define C7_LL_PUTTAIL(bp, lnk)
 
@@ -86,7 +86,7 @@ static c7_ll_base_t NodeList = C7_LL_INIT(&NodeList)
  */
 #define C7_LL_UNLINK(lnk)
 
-/** 連結リストベース bp の先頭から全てのリンクについてループする。
+/** 連結リスト bp の先頭から全てのリンクについてループする。
  *
  * pointer_var_name はポインタ型の変数名で、ループ本体に入る前にリンクのアドレスが設定される。
  * また、最後までループを終えた場合は pointer_var_name は NULL になっているので、本体を break
@@ -125,7 +125,7 @@ void print_name(void)
  */
 #define C7_LL_FOREACH(bp, pointer_var_name)
 
-/** 連結リストベース bp の先頭から全てのリンクについてループする (2)。
+/** 連結リスト bp の先頭から全てのリンクについてループする (2)。
  *
  * pointer_var_name はポインタ型の変数名で、ループ本体に入る前に
  * リンクのアドレスから offset_of_link を減じた値が設定される。
@@ -164,63 +164,92 @@ void print_name(void)
  */
 #define C7_LL_FOREACH_X(bp, offset_of_link, pointer_var_name)
 
-/** 連結リストベース bp の最後尾から全てのリンクについてループする。\n
+/** 連結リスト bp の末尾から全てのリンクについてループする。\n
  * ループの方向が逆向きになるほかは、C7_LL_FOREACH() と同様である。
  */
 #define C7_LL_FOREACH_R(bp, pointer_var_name)
 
 
-/** 連結リストベース bp の最後尾から全てのリンクについてループする。(2)\n
+/** 連結リスト bp の末尾から全てのリンクについてループする。(2)\n
  * ループの方向が逆向きになるほかは、C7_LL_FOREACH_X() と同様である。
  */
 #define C7_LL_FOREACH_RX(bp, offset_of_link, pointer_var_name)
 
-/** 連結リストベース bp を初期化(空の状態)する。
+/** 連結リストを初期化(空の状態)する。
+ *
+ * @param bp 連結リスト。
  */
 void c7_ll_init(c7_ll_base_t *bp);
 
-/** 連結リストベース bp が空の場合 C7_TRUE を戻す。
+/** 連結リストが空かうか調べる。
+ *
+ * @param bp 連結リスト。
+ * @return 連結リストが空であれば C7_TRUE を、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_ll_is_empty(const c7_ll_base_t *bp);
 
-/** リンク lnk が連結リスト bp の端点(リンクではない)であれば真となる。
+/** リンクが連結リストの端点かどうか調べる。
  *
- * C7_LL_HEAD(), C7_LL_TAIL(), c7_ll_head(), c7_ll_tail() は連結リストベースが空の場合、
- * C7_LL_NEXT(), c7_ll_next() は引数のリンクが最後尾の場合、
- * C7_LL_PREV(), c7_ll_prev() は引数のリンクが先頭の場合に、連結リストベースのアドレスを戻してしまう。
+ * @param bp 連結リスト。
+ * @param lnk 調べる対象のリンク。
+ * @return リンクが連結リストの端点であれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ *         「端点である」とは連結リスト内のノードではないことを意味する。
+ * 
+ * @note
+ * C7_LL_HEAD(), C7_LL_TAIL(), c7_ll_head(), c7_ll_tail() は連結リストが空の場合、
+ * C7_LL_NEXT(), c7_ll_next() は引数のリンクが末尾の場合、
+ * C7_LL_PREV(), c7_ll_prev() は引数のリンクが先頭の場合に、連結リストのアドレスを戻してしまう。
  * そこで、それらの結果に対して C7_LL_IS_TERMINAL() または c7_ll_is_terminal() を適用してリスト内のリンクであることを確認しなければならない。
  */
 c7_bool_t c7_ll_is_terminal(c7_ll_base_t *bp, c7_ll_link_t *lnk);
 
-/** 連結リスト bp の先頭リンクを void * として戻す。\n
- * <B>連結リストが空の場合は bp 自身が戻ることに注意。</B>
+/** 連結リストの先頭リンクを得る。
+ *
+ * @param bp 連結リスト。
+ * @return 連結リストの先頭リンクを戻す。
+ *	   連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。
  */
 void *c7_ll_head(const c7_ll_base_t *bp);
 
-/** 連結リスト bp の最後尾リンクを void * として戻す。\n
- * <B>連結リストが空の場合は bp 自身が戻ることに注意。</B>
+/** 連結リストの末尾リンクを得る。
+ *
+ * @param bp 連結リスト。
+ * @return 連結リストの末尾リンクを戻す。
+ *	   連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。
  */
 void *c7_ll_tail(const c7_ll_base_t *bp);
 
-/** リンク lnk の次のリンクを戻す。\n
- * <B>lnk が最後尾であれば連結リストベースが戻るため注意が必要。</B>
+/** リンクの次のリンクを戻す。
+ *
+ * @return リンクの次のリンクを戻す。
+ *	   連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。
  */
 c7_ll_link_t *c7_ll_next(c7_ll_link_t *lnk);
 
-/** リンク lnk の前のリンクを戻す。\n
- * <B>lnk が最後尾であれば連結リストベースが戻るため注意が必要。</B>
+/** リンクの前のリンクを戻す。
+ *
+ * @return リンクの前のリンクを戻す。
+ *	   連結リストが空の場合は連結リスト自身が戻るため、c7_ll_is_terminal() で検査することが必要である。
  */
 c7_ll_link_t *c7_ll_prev(c7_ll_link_t *lnk);
 
-/** リンク lnk の次の要素となるように new_next_lnk を挿入する。
+/** リンクの次の要素となるように新しいリンクを挿入する。
+ *
+ * @param lnk リンク。
+ * @param new_next_lnk 挿入されるリンク。
  */
-void c7_ll_putnext(c7_ll_link_t *cur, c7_ll_link_t *new_next_lnk);
+void c7_ll_putnext(c7_ll_link_t *lnk, c7_ll_link_t *new_next_lnk);
 
-/** リンク lnk の前の要素となるように new_prev_lnk を挿入する。
+/** リンクの前の要素となるように新しいリンクを挿入する。
+ *
+ * @param lnk リンク。
+ * @param new_prev_lnk 挿入されるリンク。
  */
 void c7_ll_putprev(c7_ll_link_t *lnk, c7_ll_link_t *new_prev_lnk);
 
-/** リンク lnk を連結リストから取り除く。
+/** リンクを連結リストから取り除く。
+ *
+ * @param lnk 取り除かれるリンク。
  */
 void c7_ll_unlink(c7_ll_link_t *lnk);
 

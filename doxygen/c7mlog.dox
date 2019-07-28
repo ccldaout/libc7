@@ -37,7 +37,7 @@ typedef struct c7_mlog_t_ *c7_mlog_t;
 
 /** mlogを書き込みモードでオープンする。
  *
- * @param name オープンする mlog の名称。これは 環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、
+ * @param name オープンする mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、
  *             c7_file_special_path() に渡されて実際のパス名への変換される。
  * @param hdrsize_b ヘッダー部分のアプリケーションで使用したい記録エリアのサイズ(bytes)。
  *                  この領域は c7_mlog_hdraddr() で得ることができる。
@@ -59,29 +59,42 @@ c7_mlog_t c7_mlog_open_w(const char *name,
 			 const char *hint_op,
 			 uint32_t flags);
 
-/** mlogのアプリケーションエリアのアドレスを得る。hdrsize_b_op が NULL でなければ、
- * c7_mlog_open_w() の logsize_b で指定した値が戻される。
+/** mlogのアプリケーションエリアのアドレスを得る。
+ *
+ * @param mlog mlogオブジェクト。
+ * @param hdrsize_b_op NULLでなければ、c7_mlog_open_w() の logsize_b で指定した値が戻される。
+ * @return アプリケーションエリアのアドレスを戻す。
  */
 void *c7_mlog_hdraddr(c7_mlog_t mlog, size_t *hdrsize_b_op);
 
-/** mlog のヒント情報が戻される。
+/** mlog のヒント情報を得る。
+ *
+ * @param mlog mlogオブジェクト。
+ * @return c7_mlog_open_w() の hint_op に指定した文字列を戻す。
  */
 const char *c7_mlog_hint(c7_mlog_t mlog);
 
-/** mlog への書き込みアクセスを pthread_mutex_t で排他制御する。
- * mutex_op が NULL の場合は、関数内で  mutex を確保する。
- * ロックの初期化に成功すれば C7_TRUE を戻す。
- * 既に排他制御が設定されているとエラーとなる。
+/** mlogへの書き込みアクセスを pthread_mutex_t で排他制御する。
+ *
+ * @param mlog mlogオブジェクト。
+ * @param mutex_op pthread の mutex オブジェクト。NULLの場合は関数内で確保する。
+ * @return ロックの初期化に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。
+ *         既に排他制御が設定されていると失敗となる。
  */
 c7_bool_t c7_mlog_mutex(c7_mlog_t mlog, pthread_mutex_t *mutex_op);
 
-/** mlog への書き込みアクセスをアドバイザイリロックで排他制御する。
- * ロックの初期化に成功すれば C7_TRUE を戻す。
- * 既に排他制御が設定されているとエラーとなる。
+/** mlogへの書き込みアクセスをアドバイザイリロックで排他制御する。
+ *
+ * @param mlog mlogオブジェクト。
+ * @return ロックの初期化に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。
+ *         既に排他制御が設定されていると失敗となる。
  */
 c7_bool_t c7_mlog_advlock(c7_mlog_t mlog);
 
-/** mlog への書き込みアクセスが排他制御されていれば C7_TRUE を戻す。
+/** mlog への書き込みアクセスが排他制御されているか調べる。
+ *
+ * @param mlog mlogオブジェクト。
+ * @return 排他制御されていれば C7_TRUE を、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_mlog_has_lock(c7_mlog_t mlog);
 
@@ -111,7 +124,8 @@ c7_bool_t c7_mlog_put(c7_mlog_t mlog, c7_time_t time_us,
 		      const char *src_name, int src_line,
 		      const void *logaddr, size_t logsize_b);
 
-/** printf(3)の形式で mlog へ記録する。\n
+/** printf(3)の形式で mlog へ記録する。
+ *
  * format 以降の引数から logaddr と logisize_b を得て c7_mlog_put() を呼ぶ。
  */
 c7_bool_t c7_mlog_pfx(c7_mlog_t mlog, c7_time_t time_us,
@@ -119,7 +133,8 @@ c7_bool_t c7_mlog_pfx(c7_mlog_t mlog, c7_time_t time_us,
 		      const char *src_name, int src_line,
 		      const char *format, ...);
 
-/** vprintf(3)の形式で mlog へ記録する。\n
+/** vprintf(3)の形式で mlog へ記録する。
+ *
  * format と ap から logaddr と logisize_b を得て c7_mlog_put() を呼ぶ。
  */
 c7_bool_t c7_mlog_vpfx(c7_mlog_t mlog, c7_time_t time_us,
@@ -128,13 +143,20 @@ c7_bool_t c7_mlog_vpfx(c7_mlog_t mlog, c7_time_t time_us,
 		       const char *format, va_list ap);
 
 /** ログレベルとカテゴリーは明示的引数とする c7_mlog_pfx() の簡易版。
+ *
+ * c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, categroy, 0,
+ *	       __FILE__, __LINE__, format, ...) と等価。
  */
-#define c7_mlog_pfc(g, v, c, ...)	c7_mlog_pfx((g), C7_MLOG_AUTO_TIME, (v), (c), \
-						    0, __FILE__, __LINE__, __VA_ARGS__)
+c7_bool_t c7_mlog_pfc(c7_mlog_t mlog, uint32_t level, uint32_t categroy,
+		      const char *format, ...);
 
 /** ログレベルは明示的引数とする c7_mlog_pfx() の簡易版。
+ *
+ * c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, 0, 0,
+ *	       __FILE__, __LINE__, format, ...) と等価。
  */
-#define c7_mlog_pf(g, v, ...)		c7_mlog_pfc((g), (v), 0, __VA_ARGS__)
+c7_bool_t c7_mlog_pf(c7_mlog_t mlog, uint32_t level,
+		     const char *format, ...);
 
 /** dconf の C7_DCONF_MLOG の設定からログレベルによる記録の抑制を行うマクロ。
  * ログレベル v には C7_LOG_xxx の xxx のみを指定する。
@@ -142,13 +164,15 @@ c7_bool_t c7_mlog_vpfx(c7_mlog_t mlog, c7_time_t time_us,
 #define c7mlog(g, v, ...)		(void)((C7_LOG_##v <= c7_dconf_i(C7_DCONF_MLOG)) ? \
 					       c7_mlog_pf((g), C7_LOG_##v, __VA_ARGS__) : 0)
 
-/** 名前 name の mlog を読み込み用にメモリにロードする。\n
- * 正常に読み込めれば mlogオブジェクトを戻し、失敗すれば NULL を戻す。
+/** mlogを読み込み用として初期化する。
+ *
+ * @param name オープンする mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、
+ *             c7_file_special_path() に渡されて実際のパス名への変換される。
+ * @return 正常に初期化できれば mlogオブジェクトを戻し、失敗すれば NULL を戻す。
  */
 c7_mlog_t c7_mlog_open_r(const char *name);
 
-/** c7_mlog_open_r()で読み込み用にオープンされた mlog の記録内容を走査する。\n
- * c7mlogコマンドもこの関数で実装されている。
+/** 読み込み用にオープンされた mlog の記録内容を走査する。
  *
  * @param mlog c7_mlog_open_r()でオープンした mlog オブジェクト。
  * @param maxcount 最大でアクセスする記録数。
@@ -157,6 +181,9 @@ c7_mlog_t c7_mlog_open_r(const char *name);
  * @param choice 記録の選択関数を指定する。NULLを指定した場合は全ての記録が選択される。
  * @param access maxcount, order_min, time_us_min, choice() で選択された記録にアクセスする関数。
  * @param __param choise() や access() に渡すパラメータ。
+ * @return
+ *
+ * @note c7mlogコマンドもこの関数で実装されている。
  */
 c7_bool_t c7_mlog_scan(c7_mlog_t mlog,
 		       size_t maxcount,
@@ -167,10 +194,16 @@ c7_bool_t c7_mlog_scan(c7_mlog_t mlog,
 		       void *__param);
 
 /** mlogをクローズする。
+ *
+ * @param mlog mlogオブジェクト。
  */
 void c7_mlog_close(c7_mlog_t mlog);
 
-/** name の mlog の内容を空の状態にする。
+/** mlogファイルの記録をクリアする。
+ *
+ * @param name 操作対象となる mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、
+ *             c7_file_special_path() に渡されて実際のパス名への変換される。
+ * @return mlogファイルの記録をクリアできれば C7_TRUE を、そうでなければ C7_FALSE を戻す。
  */
 c7_bool_t c7_mlog_clear(const char *name);
 

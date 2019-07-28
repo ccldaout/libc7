@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -76,21 +76,18 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gac6af9d3a4555275454b638a6bbcc7680"><td class="memItemLeft" align="right" valign="top"><a id="gac6af9d3a4555275454b638a6bbcc7680"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gac6af9d3a4555275454b638a6bbcc7680">c7_deque_foreach</a>(dq,  vn)</td></tr>
-<tr class="memdesc:gac6af9d3a4555275454b638a6bbcc7680"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の先頭から順に、要素のポインタを vn に設定しながらループする。<br />
-vn はポインタ型を格納できる変数として宣言されていなければならない。 <br /></td></tr>
+<tr class="memitem:gac6af9d3a4555275454b638a6bbcc7680"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gac6af9d3a4555275454b638a6bbcc7680">c7_deque_foreach</a>(dq,  vn)</td></tr>
+<tr class="memdesc:gac6af9d3a4555275454b638a6bbcc7680"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの全ての要素についてループする。  <a href="#gac6af9d3a4555275454b638a6bbcc7680">More...</a><br /></td></tr>
 <tr class="separator:gac6af9d3a4555275454b638a6bbcc7680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4828dc2e3c72115591fe064496c25a94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga4828dc2e3c72115591fe064496c25a94">c7_deque_foreach_idx</a>(dq,  vn,  iv)</td></tr>
-<tr class="memdesc:ga4828dc2e3c72115591fe064496c25a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の先頭から順に、要素のポインタとインデックスを vn, iv に設定しながらループする。<br />
- vn はポインタ型を格納できる変数として、iv は ssize_t 型の変数として宣言されていなければならない。  <a href="#ga4828dc2e3c72115591fe064496c25a94">More...</a><br /></td></tr>
+<tr class="memdesc:ga4828dc2e3c72115591fe064496c25a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの全ての要素についてインデックスも得ながらループする。  <a href="#ga4828dc2e3c72115591fe064496c25a94">More...</a><br /></td></tr>
 <tr class="separator:ga4828dc2e3c72115591fe064496c25a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ga97f8255349daf8dc442af015351df1ae"><td class="memItemLeft" align="right" valign="top"><a id="ga97f8255349daf8dc442af015351df1ae"></a>
 typedef struct c7_deque_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a></td></tr>
-<tr class="memdesc:ga97f8255349daf8dc442af015351df1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">dequeオブジェクト <br /></td></tr>
+<tr class="memdesc:ga97f8255349daf8dc442af015351df1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックオブジェクト <br /></td></tr>
 <tr class="separator:ga97f8255349daf8dc442af015351df1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -98,67 +95,89 @@ Functions</h2></td></tr>
 <tr class="memitem:ga91ba1afe70421373d6dfd83eb83bfe9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c">c7_deque_create</a> (size_t item_size, void(*on_remove)(const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, void *item))</td></tr>
 <tr class="memdesc:ga91ba1afe70421373d6dfd83eb83bfe9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックを生成する。  <a href="#ga91ba1afe70421373d6dfd83eb83bfe9c">More...</a><br /></td></tr>
 <tr class="separator:ga91ba1afe70421373d6dfd83eb83bfe9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c16a1e404882f46662c9335b45e55a5"><td class="memItemLeft" align="right" valign="top"><a id="ga3c16a1e404882f46662c9335b45e55a5"></a>
-ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga3c16a1e404882f46662c9335b45e55a5">c7_deque_index</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, void *item)</td></tr>
-<tr class="memdesc:ga3c16a1e404882f46662c9335b45e55a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">item の デック dq 上のインデックスを戻す。item が範囲外であれば -1 を戻す。 <br /></td></tr>
+<tr class="memitem:ga3c16a1e404882f46662c9335b45e55a5"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga3c16a1e404882f46662c9335b45e55a5">c7_deque_index</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, void *item)</td></tr>
+<tr class="memdesc:ga3c16a1e404882f46662c9335b45e55a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック上の要素のインデックスを戻す。  <a href="#ga3c16a1e404882f46662c9335b45e55a5">More...</a><br /></td></tr>
 <tr class="separator:ga3c16a1e404882f46662c9335b45e55a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga48fd9e4ee52d64d03e981d1938134eab"><td class="memItemLeft" align="right" valign="top"><a id="ga48fd9e4ee52d64d03e981d1938134eab"></a>
-ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga48fd9e4ee52d64d03e981d1938134eab">c7_deque_count</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
-<tr class="memdesc:ga48fd9e4ee52d64d03e981d1938134eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq 上の要素数を戻す。 <br /></td></tr>
+<tr class="memitem:ga48fd9e4ee52d64d03e981d1938134eab"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga48fd9e4ee52d64d03e981d1938134eab">c7_deque_count</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
+<tr class="memdesc:ga48fd9e4ee52d64d03e981d1938134eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの要素数を戻す。  <a href="#ga48fd9e4ee52d64d03e981d1938134eab">More...</a><br /></td></tr>
 <tr class="separator:ga48fd9e4ee52d64d03e981d1938134eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c777bddec0f42cf5a254728937427df"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga8c777bddec0f42cf5a254728937427df">c7_deque_nth</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, ssize_t idx)</td></tr>
-<tr class="memdesc:ga8c777bddec0f42cf5a254728937427df"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq 上の idx 番目の要素のポインタを戻す。idx が範囲外であれば NULL を戻す。  <a href="#ga8c777bddec0f42cf5a254728937427df">More...</a><br /></td></tr>
+<tr class="memdesc:ga8c777bddec0f42cf5a254728937427df"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック上のインデックス位置の要素を戻す。  <a href="#ga8c777bddec0f42cf5a254728937427df">More...</a><br /></td></tr>
 <tr class="separator:ga8c777bddec0f42cf5a254728937427df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8404f5394fb16022810d090e68ef1dc3"><td class="memItemLeft" align="right" valign="top"><a id="ga8404f5394fb16022810d090e68ef1dc3"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga8404f5394fb16022810d090e68ef1dc3">c7_deque_buffer</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
-<tr class="memdesc:ga8404f5394fb16022810d090e68ef1dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq のバッファを戻す。c7_deque_nth(dq, 0) と等価。 <br /></td></tr>
+<tr class="memitem:ga8404f5394fb16022810d090e68ef1dc3"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga8404f5394fb16022810d090e68ef1dc3">c7_deque_buffer</a> (const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
+<tr class="memdesc:ga8404f5394fb16022810d090e68ef1dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックのバッファを戻す。  <a href="#ga8404f5394fb16022810d090e68ef1dc3">More...</a><br /></td></tr>
 <tr class="separator:ga8404f5394fb16022810d090e68ef1dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga14007074a627645ed4c5c72209cf0487"><td class="memItemLeft" align="right" valign="top"><a id="ga14007074a627645ed4c5c72209cf0487"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga14007074a627645ed4c5c72209cf0487">c7_deque_pop_head</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
-<tr class="memdesc:ga14007074a627645ed4c5c72209cf0487"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の先頭の要素を取り出す。取り出された要素のポインタを戻す。 一つも要素がなけば NULL ポインタを戻す。<br />
-<b> <a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c" title="デックを生成する。">c7_deque_create()</a> で指定した on_remove は呼び出されない。<br />
-また、戻されたアドレスは、この後の要素の追加や削除処理によって無効となることに留意せよ。</b> <br /></td></tr>
+<tr class="memitem:ga14007074a627645ed4c5c72209cf0487"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga14007074a627645ed4c5c72209cf0487">c7_deque_pop_head</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
+<tr class="memdesc:ga14007074a627645ed4c5c72209cf0487"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの先頭要素を取り出す。  <a href="#ga14007074a627645ed4c5c72209cf0487">More...</a><br /></td></tr>
 <tr class="separator:ga14007074a627645ed4c5c72209cf0487"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1306f62869f989879b853fb4d6b894df"><td class="memItemLeft" align="right" valign="top"><a id="ga1306f62869f989879b853fb4d6b894df"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga1306f62869f989879b853fb4d6b894df">c7_deque_pop_tail</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
-<tr class="memdesc:ga1306f62869f989879b853fb4d6b894df"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の最後尾の要素を取り出す。取り出された要素のポインタを戻す。 一つも要素がなけば NULL ポインタを戻す。<br />
-<b> <a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c" title="デックを生成する。">c7_deque_create()</a> で指定した on_remove は呼び出されない。<br />
-また、戻されたアドレスは、この後の要素の追加や削除処理によって無効となることに留意せよ。</b> <br /></td></tr>
+<tr class="memitem:ga1306f62869f989879b853fb4d6b894df"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga1306f62869f989879b853fb4d6b894df">c7_deque_pop_tail</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
+<tr class="memdesc:ga1306f62869f989879b853fb4d6b894df"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの末尾要素を取り出す。  <a href="#ga1306f62869f989879b853fb4d6b894df">More...</a><br /></td></tr>
 <tr class="separator:ga1306f62869f989879b853fb4d6b894df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga50e59882f80990172211962aa201a819"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga50e59882f80990172211962aa201a819">c7_deque_push_head</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, void *item_opt)</td></tr>
-<tr class="memdesc:ga50e59882f80990172211962aa201a819"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の先頭に要素を挿入し、dq 上の先頭要素のポインタを戻す。 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。  <a href="#ga50e59882f80990172211962aa201a819">More...</a><br /></td></tr>
+<tr class="memdesc:ga50e59882f80990172211962aa201a819"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの先頭に要素を挿入する。  <a href="#ga50e59882f80990172211962aa201a819">More...</a><br /></td></tr>
 <tr class="separator:ga50e59882f80990172211962aa201a819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf62f72d3fe78af0003829485c3ab55af"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gaf62f72d3fe78af0003829485c3ab55af">c7_deque_push_tail</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, void *item_opt)</td></tr>
-<tr class="memdesc:gaf62f72d3fe78af0003829485c3ab55af"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の終端に要素を追加し、dq 上の最後尾要素のポインタを戻す。 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。  <a href="#gaf62f72d3fe78af0003829485c3ab55af">More...</a><br /></td></tr>
+<tr class="memdesc:gaf62f72d3fe78af0003829485c3ab55af"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの末尾に要素を追加する。  <a href="#gaf62f72d3fe78af0003829485c3ab55af">More...</a><br /></td></tr>
 <tr class="separator:gaf62f72d3fe78af0003829485c3ab55af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf42d801c757c77618ce7bc56e4a45533"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gaf42d801c757c77618ce7bc56e4a45533">c7_deque_insert</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, size_t index, void *item, size_t count)</td></tr>
-<tr class="memdesc:gaf42d801c757c77618ce7bc56e4a45533"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の index の位置に item の指す count 個の要素(列)を挿入し、挿入後の index 位置のポインタを戻す。 index が範囲外かメモリの伸長に失敗した場合は NULL ポインタが戻る。  <a href="#gaf42d801c757c77618ce7bc56e4a45533">More...</a><br /></td></tr>
+<tr class="memdesc:gaf42d801c757c77618ce7bc56e4a45533"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの指定位置に複数の要素を挿入する。  <a href="#gaf42d801c757c77618ce7bc56e4a45533">More...</a><br /></td></tr>
 <tr class="separator:gaf42d801c757c77618ce7bc56e4a45533"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga344a58adcb4aa6d2fc1cd2a78c1389bf"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga344a58adcb4aa6d2fc1cd2a78c1389bf">c7_deque_append</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, void *item, size_t count)</td></tr>
-<tr class="memdesc:ga344a58adcb4aa6d2fc1cd2a78c1389bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の終端に item の指す count 個の要素(列)を追加し、追加後の最後尾要素のポインタを戻す。 メモリの伸長に失敗した場合は NULL ポインタが戻る。  <a href="#ga344a58adcb4aa6d2fc1cd2a78c1389bf">More...</a><br /></td></tr>
+<tr class="memdesc:ga344a58adcb4aa6d2fc1cd2a78c1389bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの末尾に複数の要素を追加する。  <a href="#ga344a58adcb4aa6d2fc1cd2a78c1389bf">More...</a><br /></td></tr>
 <tr class="separator:ga344a58adcb4aa6d2fc1cd2a78c1389bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaafb47d85a59e27d412d3487e6c65bb7e"><td class="memItemLeft" align="right" valign="top"><a id="gaafb47d85a59e27d412d3487e6c65bb7e"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gaafb47d85a59e27d412d3487e6c65bb7e">c7_deque_extend</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq_ext)</td></tr>
-<tr class="memdesc:gaafb47d85a59e27d412d3487e6c65bb7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の終端に デック dq_ext を追加する。<br />
-c7_deque_append(dq, c7_deque_buffer(dq_ext), c7_deque_count(dq_ext)) と等価。 <br /></td></tr>
+<tr class="memitem:gaafb47d85a59e27d412d3487e6c65bb7e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gaafb47d85a59e27d412d3487e6c65bb7e">c7_deque_extend</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq_ext)</td></tr>
+<tr class="memdesc:gaafb47d85a59e27d412d3487e6c65bb7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの末尾に別のデックの内容を追加する。  <a href="#gaafb47d85a59e27d412d3487e6c65bb7e">More...</a><br /></td></tr>
 <tr class="separator:gaafb47d85a59e27d412d3487e6c65bb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabb255b6584a00238adb268c52aff6d41"><td class="memItemLeft" align="right" valign="top"><a id="gabb255b6584a00238adb268c52aff6d41"></a>
-<a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gabb255b6584a00238adb268c52aff6d41">c7_deque_remove</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, size_t index, size_t count)</td></tr>
-<tr class="memdesc:gabb255b6584a00238adb268c52aff6d41"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の index 番目から count 個の要素を削除する。 index が範囲外であった場合だけ何もせず C7_FALSE を戻す。 index が範囲内で count を含めて範囲外の場合は最後尾まで削除する。 削除される要素については <a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c" title="デックを生成する。">c7_deque_create()</a> の on_remove で与えた関数が呼び出される。 <br /></td></tr>
+<tr class="memitem:gabb255b6584a00238adb268c52aff6d41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#gabb255b6584a00238adb268c52aff6d41">c7_deque_remove</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq, size_t index, size_t count)</td></tr>
+<tr class="memdesc:gabb255b6584a00238adb268c52aff6d41"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの指定インデックスから複数の要素を削除する。  <a href="#gabb255b6584a00238adb268c52aff6d41">More...</a><br /></td></tr>
 <tr class="separator:gabb255b6584a00238adb268c52aff6d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94e64d026493e44fa48364bc59cdb3ef"><td class="memItemLeft" align="right" valign="top"><a id="ga94e64d026493e44fa48364bc59cdb3ef"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga94e64d026493e44fa48364bc59cdb3ef">c7_deque_reset</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
-<tr class="memdesc:ga94e64d026493e44fa48364bc59cdb3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の要素を全て削除する。<br />
-c7_deque_remove(dq, 0, c7_deque_coount(dq)) と等価。 <br /></td></tr>
+<tr class="memitem:ga94e64d026493e44fa48364bc59cdb3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga94e64d026493e44fa48364bc59cdb3ef">c7_deque_reset</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
+<tr class="memdesc:ga94e64d026493e44fa48364bc59cdb3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの全ての要素を削除する。  <a href="#ga94e64d026493e44fa48364bc59cdb3ef">More...</a><br /></td></tr>
 <tr class="separator:ga94e64d026493e44fa48364bc59cdb3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga384302fbadeffbfc8c7df3b5f1dec9e4"><td class="memItemLeft" align="right" valign="top"><a id="ga384302fbadeffbfc8c7df3b5f1dec9e4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga384302fbadeffbfc8c7df3b5f1dec9e4">c7_deque_destroy</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
-<tr class="memdesc:ga384302fbadeffbfc8c7df3b5f1dec9e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">デック dq の要素を全て削除して dq 自体も削除する。 <br /></td></tr>
+<tr class="memitem:ga384302fbadeffbfc8c7df3b5f1dec9e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7deque.html#ga384302fbadeffbfc8c7df3b5f1dec9e4">c7_deque_destroy</a> (<a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a> dq)</td></tr>
+<tr class="memdesc:ga384302fbadeffbfc8c7df3b5f1dec9e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">デックの全ての要素を削除し、デック自体も削除する。  <a href="#ga384302fbadeffbfc8c7df3b5f1dec9e4">More...</a><br /></td></tr>
 <tr class="separator:ga384302fbadeffbfc8c7df3b5f1dec9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>deque (デック、double ended queue) </p>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="gac6af9d3a4555275454b638a6bbcc7680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac6af9d3a4555275454b638a6bbcc7680">&#9670;&nbsp;</a></span>c7_deque_foreach</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define c7_deque_foreach</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">dq, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">vn&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの全ての要素についてループする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デックオブジェクト </td></tr>
+    <tr><td class="paramname">vn</td><td>デック内の要素へのポインタを格納するためのポインタ型変数の名前。 ループが正常に終了した時は NULL が格納される。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>デックの先頭から順に、要素のポインタを vn に設定しながらループする。 次のように使用する。 </p><div class="fragment"><div class="line"> {</div><div class="line">     elm_t *elm;</div><div class="line">     <a class="code" href="group__c7deque.html#gac6af9d3a4555275454b638a6bbcc7680">c7_deque_foreach</a>(dq, elm) {</div><div class="line">         (void)printf(<span class="stringliteral">&quot;name: &lt;%s&gt;\n&quot;</span>, elm-&gt;name);</div><div class="line">     }</div><div class="line">}</div></div><!-- fragment --> 
+</div>
+</div>
 <a id="ga4828dc2e3c72115591fe064496c25a94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4828dc2e3c72115591fe064496c25a94">&#9670;&nbsp;</a></span>c7_deque_foreach_idx</h2>
 
@@ -191,9 +210,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>デック dq の先頭から順に、要素のポインタとインデックスを vn, iv に設定しながらループする。<br />
- vn はポインタ型を格納できる変数として、iv は ssize_t 型の変数として宣言されていなければならない。 </p>
-<div class="fragment"><div class="line"> {</div><div class="line">     elm_t *elm;</div><div class="line">     ssize_t idx;</div><div class="line">     <a class="code" href="group__c7deque.html#gac6af9d3a4555275454b638a6bbcc7680">c7_deque_foreach</a>(dq, elm, idx) {</div><div class="line">         (void)printf(<span class="stringliteral">&quot;dq[%d] name: &lt;%s&gt;\n&quot;</span>, idx, elm-&gt;name);</div><div class="line">     }</div><div class="line">}</div></div><!-- fragment --> 
+<p>デックの全ての要素についてインデックスも得ながらループする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デックオブジェクト </td></tr>
+    <tr><td class="paramname">vn</td><td>デック内の要素へのポインタを格納するためのポインタ型変数の名前。 ループが正常に終了した時は NULL が格納される。 </td></tr>
+    <tr><td class="paramname">iv</td><td>vnに設定された要素のデック内のインデックスを格納するための ssize_t 型の変数の名前。 ループが正常に終了した時は -1 が格納される。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>デックの先頭から順に、要素のポインタとインデックスを vn, iv に設定しながらループする。 次のように使用する。 </p><div class="fragment"><div class="line"> {</div><div class="line">     elm_t *elm;</div><div class="line">     ssize_t idx;</div><div class="line">     <a class="code" href="group__c7deque.html#ga4828dc2e3c72115591fe064496c25a94">c7_deque_foreach_idx</a>(dq, elm, idx) {</div><div class="line">         (void)printf(<span class="stringliteral">&quot;dq[%d] name: &lt;%s&gt;\n&quot;</span>, idx, elm-&gt;name);</div><div class="line">     }</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -227,10 +253,76 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">item_size</td><td>要素のサイズ(バイト数) </td></tr>
-    <tr><td class="paramname">on_remove</td><td>要素が削除される場合に呼び出される関数。この関数の item 引数は削除される要素のポインタ。 </td></tr>
+    <tr><td class="paramname">on_remove</td><td>要素が削除される場合に呼び出される関数。この関数の item 引数には削除される要素のポインタ が渡される。 </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すればデックオブジェクトを戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga3c16a1e404882f46662c9335b45e55a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3c16a1e404882f46662c9335b45e55a5">&#9670;&nbsp;</a></span>c7_deque_index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ssize_t c7_deque_index </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デック上の要素のインデックスを戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+    <tr><td class="paramname">item</td><td>要素のアドレス。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>item がデック上のものであればインデックス(≧9)を戻し、範囲外であれば -1 を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga48fd9e4ee52d64d03e981d1938134eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga48fd9e4ee52d64d03e981d1938134eab">&#9670;&nbsp;</a></span>c7_deque_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ssize_t c7_deque_count </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの要素数を戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>デック上の要素数(≧9)を戻す。 </dd></dl>
 
 </div>
 </div>
@@ -260,10 +352,117 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>デック dq 上の idx 番目の要素のポインタを戻す。idx が範囲外であれば NULL を戻す。 </p>
-<dl class="section remark"><dt>Remarks</dt><dd><b>戻されたアドレスは要素の追加や削除処理によって無効となることに留意せよ。</b><br />
-追加処理：c7_deque_push_head(), <a class="el" href="group__c7deque.html#gaf62f72d3fe78af0003829485c3ab55af" title="デック dq の終端に要素を追加し、dq 上の最後尾要素のポインタを戻す。 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。">c7_deque_push_tail()</a>, <a class="el" href="group__c7deque.html#gaf42d801c757c77618ce7bc56e4a45533" title="デック dq の index の位置に item の指す count 個の要素(列)を挿入し、挿入後の index 位置のポインタを戻す。 index が範囲外かメモリの伸長に失敗した場合は NULL ...">c7_deque_insert()</a>, <a class="el" href="group__c7deque.html#ga344a58adcb4aa6d2fc1cd2a78c1389bf" title="デック dq の終端に item の指す count 個の要素(列)を追加し、追加後の最後尾要素のポインタを戻す。 メモリの伸長に失敗した場合は NULL ポインタが戻る。">c7_deque_append()</a>, <a class="el" href="group__c7deque.html#gaafb47d85a59e27d412d3487e6c65bb7e" title="デック dq の終端に デック dq_ext を追加する。 c7_deque_append(dq, c7_deque_buffer(dq_ext), c7_deque_count(dq_ext)) と等...">c7_deque_extend()</a> <br />
-削除処理：c7_deque_remove(), <a class="el" href="group__c7deque.html#ga94e64d026493e44fa48364bc59cdb3ef" title="デック dq の要素を全て削除する。 c7_deque_remove(dq, 0, c7_deque_coount(dq)) と等価。">c7_deque_reset()</a>, <a class="el" href="group__c7deque.html#ga384302fbadeffbfc8c7df3b5f1dec9e4" title="デック dq の要素を全て削除して dq 自体も削除する。">c7_deque_destroy()</a> </dd></dl>
+<p>デック上のインデックス位置の要素を戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+    <tr><td class="paramname">idx</td><td>インデックス。0以上 <a class="el" href="group__c7deque.html#ga48fd9e4ee52d64d03e981d1938134eab" title="デックの要素数を戻す。">c7_deque_count()</a>未満の整数でなければならない。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>idx が範囲内であればデック上の要素のアドレスを戻し、そうでなければ NULL を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><b>戻されたアドレスは、この呼び出しの後に続く同デックへの要素の追加や削除処理によって無効となるよ。</b><ul>
+<li>追加処理は <a class="el" href="group__c7deque.html#ga50e59882f80990172211962aa201a819" title="デックの先頭に要素を挿入する。">c7_deque_push_head()</a>, <a class="el" href="group__c7deque.html#gaf62f72d3fe78af0003829485c3ab55af" title="デックの末尾に要素を追加する。">c7_deque_push_tail()</a>, <a class="el" href="group__c7deque.html#gaf42d801c757c77618ce7bc56e4a45533" title="デックの指定位置に複数の要素を挿入する。">c7_deque_insert()</a>, <a class="el" href="group__c7deque.html#ga344a58adcb4aa6d2fc1cd2a78c1389bf" title="デックの末尾に複数の要素を追加する。">c7_deque_append()</a>, <a class="el" href="group__c7deque.html#gaafb47d85a59e27d412d3487e6c65bb7e" title="デックの末尾に別のデックの内容を追加する。">c7_deque_extend()</a> によって起る。</li>
+<li>削除処理は <a class="el" href="group__c7deque.html#gabb255b6584a00238adb268c52aff6d41" title="デックの指定インデックスから複数の要素を削除する。">c7_deque_remove()</a>, <a class="el" href="group__c7deque.html#ga94e64d026493e44fa48364bc59cdb3ef" title="デックの全ての要素を削除する。">c7_deque_reset()</a>, <a class="el" href="group__c7deque.html#ga384302fbadeffbfc8c7df3b5f1dec9e4" title="デックの全ての要素を削除し、デック自体も削除する。">c7_deque_destroy()</a> によって起る。 </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga8404f5394fb16022810d090e68ef1dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8404f5394fb16022810d090e68ef1dc3">&#9670;&nbsp;</a></span>c7_deque_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_deque_buffer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックのバッファを戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>デックのバッファを戻す。c7_deque_nth(dq, 0) と等価である。 </dd></dl>
+
+</div>
+</div>
+<a id="ga14007074a627645ed4c5c72209cf0487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga14007074a627645ed4c5c72209cf0487">&#9670;&nbsp;</a></span>c7_deque_pop_head()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_deque_pop_head </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの先頭要素を取り出す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>デックが空でなければ先頭要素を取り出し、取り除いた先頭要素を戻す。 デックが空だった場合は NULL を戻す。</dd></dl>
+<ul>
+<li>取り出し操作は内部的にはポインタの移動のみで、メモリのコピー処理は発生しない。</li>
+<li><a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c" title="デックを生成する。">c7_deque_create()</a> で指定した on_remove は呼び出されない。</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li><b>戻されたアドレスは、この呼び出しの後に続く同デックへの要素の追加や削除処理によって無効となる。</b> </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga1306f62869f989879b853fb4d6b894df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1306f62869f989879b853fb4d6b894df">&#9670;&nbsp;</a></span>c7_deque_pop_tail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_deque_pop_tail </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの末尾要素を取り出す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>デックが空でなければ末尾要素を取り出し、取り除いた末尾要素を戻す。 デックが空だった場合は NULL を戻す。</dd></dl>
+<ul>
+<li>取り出し操作は内部的にはポインタの移動のみで、メモリのコピー処理は発生しない。</li>
+<li><a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c" title="デックを生成する。">c7_deque_create()</a> で指定した on_remove は呼び出されない。</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li><b>戻されたアドレスは、この呼び出しの後に続く同デックへの要素の追加や削除処理によって無効となる。</b> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -293,9 +492,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>デック dq の先頭に要素を挿入し、dq 上の先頭要素のポインタを戻す。 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。 </p>
-<p>先頭要素のスペースを確保し item_opt が NULL ポインタでなればコピーを行う。 スペースの確保はポインタの移動ですむ場合もあれば、要素の再配置を伴う場合もある。 後者の場合は、既存の要素のアドレスは変化するため、事前に取得した dq 上の要素のポインタは無効になる。</p>
-<p>item_opt が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。 </p>
+<p>デックの先頭に要素を挿入する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+    <tr><td class="paramname">item_opt</td><td>NULLでなければ、先頭位置へのコピー対象となる。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>先頭要素の挿入に成功すれば先頭要素のアドレスを、そうでなければ NULL を戻す。</dd></dl>
+<ul>
+<li>挿入される要素のスペース確保は、ポインタの移動で済む場合もあれば、メモリ伸長や要素の再配置を伴う場合もある。</li>
+<li>要素の再配置が起きた場合は、既存の要素のアドレスは変化するため、c7_deque_nt() などで事前に取得した要素のアドレスは無効になる。</li>
+<li>先頭要素のスペースを確保できた場合、item_opt が NULL ポインタでなればコピーを行う。</li>
+<li>item_opt に NULL ポインタを指定するということは、スペースの確保のみを行い、返却値をもとに呼び出し側が要素のセットアップをすることになる。</li>
+<li>item_opt がデック上の要素のアドレスであった場合に再配置が起きても正しくコピーは行われる。 </li>
+</ul>
 
 </div>
 </div>
@@ -325,9 +537,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>デック dq の終端に要素を追加し、dq 上の最後尾要素のポインタを戻す。 再配置に伴うメモリの伸長に失敗した場合は NULL ポインタが戻る。 </p>
-<p>最後尾要素のスペースを確保し item_opt が NULL ポインタでなればコピーを行う。 スペースの確保はポインタの移動ですむ場合もあれば、要素の再配置を伴う場合もある。 後者の場合は、既存の要素のアドレスは変化するため、事前に取得した dq 上の要素のポインタは無効になる。</p>
-<p>item_opt が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。 </p>
+<p>デックの末尾に要素を追加する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+    <tr><td class="paramname">item_opt</td><td>NULLでなければ、末尾位置へのコピー対象となる。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>末尾要素の追加に成功すれば末尾要素のアドレスを、そうでなければ NULL を戻す。</dd></dl>
+<ul>
+<li>末尾要素のスペース確保は、ポインタの移動で済む場合もあれば、メモリ伸長や要素の再配置を伴う場合もある。</li>
+<li>要素の再配置が起きた場合は、既存の要素のアドレスは変化するため、c7_deque_nt() などで事前に取得した要素のアドレスは無効になる。</li>
+<li>末尾要素のスペースを確保できた場合、item_opt が NULL ポインタでなればコピーを行う。</li>
+<li>item_opt に NULL ポインタを指定するということは、スペースの確保のみを行い、返却値をもとに呼び出し側が要素のセットアップをすることになる。</li>
+<li>item_opt がデック上の要素のアドレスであった場合に再配置が起きても正しくコピーは行われる。 </li>
+</ul>
 
 </div>
 </div>
@@ -369,9 +594,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>デック dq の index の位置に item の指す count 個の要素(列)を挿入し、挿入後の index 位置のポインタを戻す。 index が範囲外かメモリの伸長に失敗した場合は NULL ポインタが戻る。 </p>
-<p>再配置に伴い、事前に取得した dq 上の要素のポインタは無効になる。</p>
-<p>item が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。 </p>
+<p>デックの指定位置に複数の要素を挿入する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+    <tr><td class="paramname">index</td><td>挿入するインデックス。このインデックスの手前までの要素はそのままで、このインデックスの要素が後方へずれる。 </td></tr>
+    <tr><td class="paramname">item</td><td>挿入される要素の(配列の先頭)アドレス。NULLは指定できない。 </td></tr>
+    <tr><td class="paramname">count</td><td>itemの指す要素列の要素数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>挿入処理に成功すれば index 位置のアドレス(c7_deque_nth(index))を戻し、失敗すれば NULL を戻す。</dd></dl>
+<ul>
+<li>挿入される要素のスペース確保は、ポインタの移動で済む場合もあれば、メモリ伸長や要素の再配置を伴う場合もある。</li>
+<li>要素の再配置が起きた場合は、既存の要素のアドレスは変化するため、c7_deque_nt() などで事前に取得した要素のアドレスは無効になる。</li>
+<li>挿入要素列のスペースを確保できた場合、item から始まる count 個の要素をコピーする。</li>
+<li>item がデック上の要素のアドレスであった場合に再配置が起きても正しくコピーは行われる。 </li>
+</ul>
 
 </div>
 </div>
@@ -407,9 +646,164 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>デック dq の終端に item の指す count 個の要素(列)を追加し、追加後の最後尾要素のポインタを戻す。 メモリの伸長に失敗した場合は NULL ポインタが戻る。 </p>
-<p>再配置に伴い、事前に取得した dq 上の要素のポインタは無効になる。</p>
-<p>item が dq 上の要素のポインタの場合でも、再配置を考慮して正しくコピーは行われる。 </p>
+<p>デックの末尾に複数の要素を追加する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック。 </td></tr>
+    <tr><td class="paramname">item</td><td>追加される要素の(配列の先頭)アドレス。NULLは指定できない。 </td></tr>
+    <tr><td class="paramname">count</td><td>itemの指す要素列の要素数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>追加処理に成功すれば、追加した要素列の先頭要素のアドレス c7_deque_nth(<a class="el" href="group__c7deque.html#ga48fd9e4ee52d64d03e981d1938134eab" title="デックの要素数を戻す。">c7_deque_count()</a>-count) を戻し、失敗すれば NULL を戻す。</dd></dl>
+<ul>
+<li>追加される要素のスペース確保は、ポインタの移動で済む場合もあれば、メモリ伸長や要素の再配置を伴う場合もある。</li>
+<li>要素の再配置が起きた場合は、既存の要素のアドレスは変化するため、c7_deque_nt() などで事前に取得した要素のアドレスは無効になる。</li>
+<li>追加要素のスペースを確保できた場合、item から始まる count 個の要素をコピーする。</li>
+<li>item がデック上の要素のアドレスであった場合に再配置が起きても正しくコピーは行われる。 </li>
+</ul>
+
+</div>
+</div>
+<a id="gaafb47d85a59e27d412d3487e6c65bb7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaafb47d85a59e27d412d3487e6c65bb7e">&#9670;&nbsp;</a></span>c7_deque_extend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* c7_deque_extend </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq_ext</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの末尾に別のデックの内容を追加する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>追加により拡張される側のデック。 </td></tr>
+    <tr><td class="paramname">dq_ext</td><td>追加対象の要素を持つデック。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>追加処理に成功すれば、追加した要素列の先頭要素のアドレスを戻し、失敗すれば NULL を戻す。</dd></dl>
+<p>c7_deque_append(dq, c7_deque_buffer(dq_ext), c7_deque_count(dq_ext)) と等価である。 </p>
+
+</div>
+</div>
+<a id="gabb255b6584a00238adb268c52aff6d41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabb255b6584a00238adb268c52aff6d41">&#9670;&nbsp;</a></span>c7_deque_remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_deque_remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの指定インデックスから複数の要素を削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック </td></tr>
+    <tr><td class="paramname">index</td><td>削除を開始するインデックス。 </td></tr>
+    <tr><td class="paramname">count</td><td>削除される要素数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>index が範囲内であれば C7_TRUE を戻し、そうでなければ何もせず C7_FALSE を戻す。</dd></dl>
+<ul>
+<li>index が範囲内で count を含めると範囲外に場合は末尾までの削除となる。</li>
+<li>削除される要素については <a class="el" href="group__c7deque.html#ga91ba1afe70421373d6dfd83eb83bfe9c" title="デックを生成する。">c7_deque_create()</a> の on_remove で与えた関数が呼び出される。</li>
+<li>削除対象の後方に位置する要素は再配置によりアドレスが変化するため、c7_deque_nt() などで事前に取得した要素のアドレスは無効になる。 </li>
+</ul>
+
+</div>
+</div>
+<a id="ga94e64d026493e44fa48364bc59cdb3ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga94e64d026493e44fa48364bc59cdb3ef">&#9670;&nbsp;</a></span>c7_deque_reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_deque_reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの全ての要素を削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>c7_deque_remove(dq, 0, c7_deque_coount(dq)) と等価である。 </p>
+
+</div>
+</div>
+<a id="ga384302fbadeffbfc8c7df3b5f1dec9e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga384302fbadeffbfc8c7df3b5f1dec9e4">&#9670;&nbsp;</a></span>c7_deque_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_deque_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7deque.html#ga97f8255349daf8dc442af015351df1ae">c7_deque_t</a>&#160;</td>
+          <td class="paramname"><em>dq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デックの全ての要素を削除し、デック自体も削除する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dq</td><td>デック </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.0</span>
+   &#160;<span id="projectnumber">r0.1.1</span>
    </div>
   </td>
  </tr>
@@ -72,20 +72,17 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 パス名に関する処理</h2></td></tr>
-<tr class="memitem:ga5d10bd1a79d0b8391ec5281ceff95ddc"><td class="memItemLeft" align="right" valign="top"><a id="ga5d10bd1a79d0b8391ec5281ceff95ddc"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga5d10bd1a79d0b8391ec5281ceff95ddc">c7_path_name</a> (const char *path)</td></tr>
-<tr class="memdesc:ga5d10bd1a79d0b8391ec5281ceff95ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">パス名 path のファイル名部分を戻す。 <br /></td></tr>
+<tr class="memitem:ga5d10bd1a79d0b8391ec5281ceff95ddc"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga5d10bd1a79d0b8391ec5281ceff95ddc">c7_path_name</a> (const char *path)</td></tr>
+<tr class="memdesc:ga5d10bd1a79d0b8391ec5281ceff95ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">パス名のファイル名部分を戻す。  <a href="#ga5d10bd1a79d0b8391ec5281ceff95ddc">More...</a><br /></td></tr>
 <tr class="separator:ga5d10bd1a79d0b8391ec5281ceff95ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="memItemLeft" align="right" valign="top"><a id="gab2353a2de919656c35c3d8e7fa3b4d6d"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gab2353a2de919656c35c3d8e7fa3b4d6d">c7_path_suffix</a> (const char *file)</td></tr>
-<tr class="memdesc:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル名 file のサフィクス(最後の'. ')もしくは終端を戻す。<br />
-注意: file にディレクトリ部分があると正しく動作しない。 <br /></td></tr>
+<tr class="memitem:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gab2353a2de919656c35c3d8e7fa3b4d6d">c7_path_suffix</a> (const char *file)</td></tr>
+<tr class="memdesc:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル名のサフィクスを戻す。  <a href="#gab2353a2de919656c35c3d8e7fa3b4d6d">More...</a><br /></td></tr>
 <tr class="separator:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7cff6ce94d1b999eef932fc745b76748"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga7cff6ce94d1b999eef932fc745b76748">c7_file_special_path</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *dir_envname_op, const char *name, const char *suffix)</td></tr>
 <tr class="memdesc:ga7cff6ce94d1b999eef932fc745b76748"><td class="mdescLeft">&#160;</td><td class="mdescRight">[libc7ライブラリ向け] 特殊ファイルのパス名を決定する。  <a href="#ga7cff6ce94d1b999eef932fc745b76748">More...</a><br /></td></tr>
 <tr class="separator:ga7cff6ce94d1b999eef932fc745b76748"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81a50e8afd0bf7e58df47de76e219747"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga81a50e8afd0bf7e58df47de76e219747">c7_file_search</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *name, const char **pathlistv, const char *suffix)</td></tr>
-<tr class="memdesc:ga81a50e8afd0bf7e58df47de76e219747"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル name を pathlistv, default_suffix に基づいて検索する。  <a href="#ga81a50e8afd0bf7e58df47de76e219747">More...</a><br /></td></tr>
+<tr class="memdesc:ga81a50e8afd0bf7e58df47de76e219747"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルを検索リストやデフォルトサフィクスの情報に基づいて検索する。  <a href="#ga81a50e8afd0bf7e58df47de76e219747">More...</a><br /></td></tr>
 <tr class="separator:ga81a50e8afd0bf7e58df47de76e219747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -95,39 +92,93 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-ファイル名単位での入出力</h2></td></tr>
+ファイル単位での入出力</h2></td></tr>
 <tr class="memitem:ga356e5f587c53ac9efc7a059935dfb0d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga356e5f587c53ac9efc7a059935dfb0d2">c7_file_write</a> (const char *path, int mode, void *buf, size_t size)</td></tr>
-<tr class="memdesc:ga356e5f587c53ac9efc7a059935dfb0d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファの内容で path 名のファイルを書き込む。  <a href="#ga356e5f587c53ac9efc7a059935dfb0d2">More...</a><br /></td></tr>
+<tr class="memdesc:ga356e5f587c53ac9efc7a059935dfb0d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファの内容でファイルを書き込む。  <a href="#ga356e5f587c53ac9efc7a059935dfb0d2">More...</a><br /></td></tr>
 <tr class="separator:ga356e5f587c53ac9efc7a059935dfb0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1d01035ab495bd0a7b27d6d53d689667"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga1d01035ab495bd0a7b27d6d53d689667">c7_file_rewrite</a> (const char *path, void *buf, size_t size, const char *bck_suffix)</td></tr>
-<tr class="memdesc:ga1d01035ab495bd0a7b27d6d53d689667"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファの内容で path 名のファイルを可能な限り安全に書き換える。  <a href="#ga1d01035ab495bd0a7b27d6d53d689667">More...</a><br /></td></tr>
+<tr class="memdesc:ga1d01035ab495bd0a7b27d6d53d689667"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファの内容でファイルを可能な限り安全に書き換える。  <a href="#ga1d01035ab495bd0a7b27d6d53d689667">More...</a><br /></td></tr>
 <tr class="separator:ga1d01035ab495bd0a7b27d6d53d689667"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga39cb48eea27c3cf9ab6845ca3e314a94"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga39cb48eea27c3cf9ab6845ca3e314a94">c7_file_read</a> (const char *path, void *buf, size_t size)</td></tr>
-<tr class="memdesc:ga39cb48eea27c3cf9ab6845ca3e314a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル path (もしくは標準入力)から buf に size バイトのデータを読み込む。  <a href="#ga39cb48eea27c3cf9ab6845ca3e314a94">More...</a><br /></td></tr>
+<tr class="memdesc:ga39cb48eea27c3cf9ab6845ca3e314a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル(もしくは標準入力)から指定サイズ分のデータを読み込む。  <a href="#ga39cb48eea27c3cf9ab6845ca3e314a94">More...</a><br /></td></tr>
 <tr class="separator:ga39cb48eea27c3cf9ab6845ca3e314a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac7934b853c47a8d9a16066037864a905"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gac7934b853c47a8d9a16066037864a905">c7_file_read_x</a> (const char *path, size_t *sizep_o)</td></tr>
-<tr class="memdesc:gac7934b853c47a8d9a16066037864a905"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル path (もしくは標準入力)からEOFまで全データを読み込む。  <a href="#gac7934b853c47a8d9a16066037864a905">More...</a><br /></td></tr>
+<tr class="memdesc:gac7934b853c47a8d9a16066037864a905"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル(もしくは標準入力)からEOFに到達するまで全データを読み込む。  <a href="#gac7934b853c47a8d9a16066037864a905">More...</a><br /></td></tr>
 <tr class="separator:gac7934b853c47a8d9a16066037864a905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ef7cac89ee23d7bbdc49bb9063892b0"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga1ef7cac89ee23d7bbdc49bb9063892b0">c7_file_readlines_x</a> (const char *path, size_t *nlinep_o)</td></tr>
-<tr class="memdesc:ga1ef7cac89ee23d7bbdc49bb9063892b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">テキストファイル path (もしくは標準入力)からEOFまで全データを読み込み行の配列として戻す。  <a href="#ga1ef7cac89ee23d7bbdc49bb9063892b0">More...</a><br /></td></tr>
+<tr class="memdesc:ga1ef7cac89ee23d7bbdc49bb9063892b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">テキストファイル(もしくは標準入力)から読み込んだデータを行の配列として戻す。  <a href="#ga1ef7cac89ee23d7bbdc49bb9063892b0">More...</a><br /></td></tr>
 <tr class="separator:ga1ef7cac89ee23d7bbdc49bb9063892b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ファイルの簡易 mmap インターフェース</h2></td></tr>
 <tr class="memitem:gab8001f1fdc8c57d453b186bba26a3d19"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gab8001f1fdc8c57d453b186bba26a3d19">c7_file_mmap_r</a> (const char *path, size_t *sizep_o)</td></tr>
-<tr class="memdesc:gab8001f1fdc8c57d453b186bba26a3d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル path を読み込み専用で mmap する。  <a href="#gab8001f1fdc8c57d453b186bba26a3d19">More...</a><br /></td></tr>
+<tr class="memdesc:gab8001f1fdc8c57d453b186bba26a3d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルを読み込み専用で mmap する。  <a href="#gab8001f1fdc8c57d453b186bba26a3d19">More...</a><br /></td></tr>
 <tr class="separator:gab8001f1fdc8c57d453b186bba26a3d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ea7ee1619a5d73d631aab70ae084cbc"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga7ea7ee1619a5d73d631aab70ae084cbc">c7_file_mmap_rw</a> (const char *path, size_t *sizep_io, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> create)</td></tr>
-<tr class="memdesc:ga7ea7ee1619a5d73d631aab70ae084cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル path を読み書き両用で mmap する。  <a href="#ga7ea7ee1619a5d73d631aab70ae084cbc">More...</a><br /></td></tr>
+<tr class="memdesc:ga7ea7ee1619a5d73d631aab70ae084cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルを読み書き両用で mmap する。  <a href="#ga7ea7ee1619a5d73d631aab70ae084cbc">More...</a><br /></td></tr>
 <tr class="separator:ga7ea7ee1619a5d73d631aab70ae084cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa28293a7bc1e9eb6a86cc1d335b8e934"><td class="memItemLeft" align="right" valign="top"><a id="gaa28293a7bc1e9eb6a86cc1d335b8e934"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gaa28293a7bc1e9eb6a86cc1d335b8e934">c7_file_munmap</a> (void *addr, size_t size)</td></tr>
-<tr class="memdesc:gaa28293a7bc1e9eb6a86cc1d335b8e934"><td class="mdescLeft">&#160;</td><td class="mdescRight">mmap したメモリを munmap する。 <br /></td></tr>
+<tr class="memitem:gaa28293a7bc1e9eb6a86cc1d335b8e934"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gaa28293a7bc1e9eb6a86cc1d335b8e934">c7_file_munmap</a> (void *addr, size_t size)</td></tr>
+<tr class="memdesc:gaa28293a7bc1e9eb6a86cc1d335b8e934"><td class="mdescLeft">&#160;</td><td class="mdescRight">mmap したメモリを munmap する。  <a href="#gaa28293a7bc1e9eb6a86cc1d335b8e934">More...</a><br /></td></tr>
 <tr class="separator:gaa28293a7bc1e9eb6a86cc1d335b8e934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>ファイルまたはファイル名の操作 </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga5d10bd1a79d0b8391ec5281ceff95ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d10bd1a79d0b8391ec5281ceff95ddc">&#9670;&nbsp;</a></span>c7_path_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* c7_path_name </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>パス名のファイル名部分を戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>パス名。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>path に '/' が含まれていたら最後の '/' の直後を、そうでなければ path を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gab2353a2de919656c35c3d8e7fa3b4d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab2353a2de919656c35c3d8e7fa3b4d6d">&#9670;&nbsp;</a></span>c7_path_suffix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* c7_path_suffix </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ファイル名のサフィクスを戻す。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>ファイル名。ディレクトリを含んでいないことを想定している。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>file に '. ' が含まれていたら最後の '. ' の直後を、そうでなければ終端を戻す。</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>file にディレクトリ部分が存在し、そこに '. ' が含まれていると正しく動作しない場合がある。 </dd></dl>
+
+</div>
+</div>
 <a id="ga7cff6ce94d1b999eef932fc745b76748"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7cff6ce94d1b999eef932fc745b76748">&#9670;&nbsp;</a></span>c7_file_special_path()</h2>
 
@@ -227,7 +278,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>ファイル name を pathlistv, default_suffix に基づいて検索する。 </p>
+<p>ファイルを検索リストやデフォルトサフィクスの情報に基づいて検索する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sbp</td><td>検索して見つかったパス名を設定するC7文字列。NULLを指定することはできない。 </td></tr>
@@ -274,12 +325,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 
 <p>可能な限り一行分('\n')を読み込む fgets() の拡張版。 </p>
-<ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sbp</td><td>C7文字列。NULLは許されない。読み込む前に sbp に含まれている内容はリセットされる。 </td></tr>
+    <tr><td class="paramname">fp</td><td>読み込む FILE オブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>正常に読み込めたら <a class="el" href="group__c7string__strbuf.html#ga347f442db207a60567666f44774ccae0" title="c7_str_buf()の別名">c7_strbuf(sbp)</a> を戻し、それ以外は NULL を戻す。 NULL が戻った場合に、エラーなのか EOF なのかは c7_status_had_error() で調べるしかない。</dd></dl>
+<p>この関数は次のように動作する:</p><ul>
+<li><a class="el" href="group__c7status.html#gac94f57f0ebde80d8919680d0e41d2f81" title="現スレッドのステータス情報をクリアする。">c7_status_clear()</a> でステータス情報をクリアする。</li>
 <li>fgets() の結果に '\n' が含まれるまで、fgets() を繰り返し呼び出し、 sbp に読み込み結果を追加していく。</li>
 <li>'\n' を読み込んだら <a class="el" href="group__c7string__strbuf.html#ga347f442db207a60567666f44774ccae0" title="c7_str_buf()の別名">c7_strbuf(sbp)</a> を戻す。</li>
 <li>'\n' を読み込む前に fgets() が NULL を戻したら、sbp へ '\n' を追加して、 エラーがなければ <a class="el" href="group__c7string__strbuf.html#ga347f442db207a60567666f44774ccae0" title="c7_str_buf()の別名">c7_strbuf(sbp)</a> を戻す。</li>
 <li>sbp への追加でエラーが発生したら NULL を戻す。</li>
-<li>EOFに達した場合も NULL が戻るが、この場合 <a class="el" href="group__c7status.html#ga150ad617668b564c0e990d82b3c77b0a" title="現スレッドのステータス情報にステータス情報が残っていれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。">c7_status_has_error()</a> は C7_FALSE となる。 </li>
+<li>読み込みでエラーが発生した場合は <a class="el" href="group__c7status.html#ga8f081e437b82497de02ae0bebe4f8ab9" title="ステータス情報を追加する。">c7_status_add()</a> でエラーを記録し NULL を戻す。</li>
+<li>EOFを検出した場合はエラーは記録せず NULL を戻す。 </li>
 </ul>
 
 </div>
@@ -322,11 +383,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>バッファの内容で path 名のファイルを書き込む。 </p>
-<ul>
-<li>path は open(path, O_WRONLY|O_CREAT|O_TRUNC, mode) でオープンされる。</li>
-<li>size バイトを書き込めた場合だけ C7_TRUE を戻す。 </li>
-</ul>
+<p>バッファの内容でファイルを書き込む。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>書き込まれるファイル名。ファイルが存在しなければ作成され、存在すれば中身はリセットされる。 </td></tr>
+    <tr><td class="paramname">mode</td><td>新規作成される場合の保護モード。 </td></tr>
+    <tr><td class="paramname">buf</td><td>ファイルに書き込まれる内容。 </td></tr>
+    <tr><td class="paramname">size</td><td>ファイルに書き込むバイト数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>処理に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。 </dd></dl>
 
 </div>
 </div>
@@ -368,7 +435,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>バッファの内容で path 名のファイルを可能な限り安全に書き換える。 </p>
+<p>バッファの内容でファイルを可能な限り安全に書き換える。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>書き換えの対象となるファイル名。存在しなければエラーとなる。 </td></tr>
@@ -415,7 +482,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>ファイル path (もしくは標準入力)から buf に size バイトのデータを読み込む。 </p>
+<p>ファイル(もしくは標準入力)から指定サイズ分のデータを読み込む。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。 </td></tr>
@@ -454,7 +521,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>ファイル path (もしくは標準入力)からEOFまで全データを読み込む。 </p>
+<p>ファイル(もしくは標準入力)からEOFに到達するまで全データを読み込む。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。 </td></tr>
@@ -492,7 +559,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>テキストファイル path (もしくは標準入力)からEOFまで全データを読み込み行の配列として戻す。 </p>
+<p>テキストファイル(もしくは標準入力)から読み込んだデータを行の配列として戻す。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>読み込むファイル名。NULLポインタ、空文字列、"-" のいずれかの場合は標準入力(記述子0)から読み込む。 </td></tr>
@@ -531,7 +598,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>ファイル path を読み込み専用で mmap する。 </p>
+<p>ファイルを読み込み専用で mmap する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>mmapするファイル名。存在する必要がある。 </td></tr>
@@ -575,7 +642,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>ファイル path を読み書き両用で mmap する。 </p>
+<p>ファイルを読み書き両用で mmap する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>mmapするファイル名。 </td></tr>
@@ -586,6 +653,43 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>成功すれば mmap したアドレスを戻し、失敗すれば NULL を戻す((void*)-1 ではない)。 失敗するとすれば、open(2), fstat(2), ftruncate(2), mmap(2) のいずれかで発生する。</dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>ファイルが存在しない時に sizep_io にNULLポインタ、あるいは *sizep_io が 0 の場合、 ファイルが新規作成されたとしてもサイズが 0 のため mmap が失敗するだろう。 </dd></dl>
+
+</div>
+</div>
+<a id="gaa28293a7bc1e9eb6a86cc1d335b8e934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa28293a7bc1e9eb6a86cc1d335b8e934">&#9670;&nbsp;</a></span>c7_file_munmap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_file_munmap </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>mmap したメモリを munmap する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>c7_file?mmap_r() や <a class="el" href="group__c7file.html#ga7ea7ee1619a5d73d631aab70ae084cbc" title="ファイルを読み書き両用で mmap する。">c7_file_mmap_rw()</a> の戻り値。 </td></tr>
+    <tr><td class="paramname">size</td><td>addr に mmap されたバイト数。 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
