@@ -21,7 +21,7 @@ typedef struct c7_tpool_t_ *c7_tpool_t;
  */
 c7_tpool_t c7_tpool_init(int thread_count, int stacksize_kb);
 
-/** スレッドプールにタスクキューにタスクを投入する。
+/** スレッドプールのタスクキューにタスクを投入する。
  *
  * @param tp スレッドプール。
  * @param function タスクとなる関数。
@@ -43,7 +43,7 @@ c7_tpool_t c7_tpool_init(int thread_count, int stacksize_kb);
  * finish_countdown_opt の利用
  * - これは n 個のタスクをプールの資源の限り並列で実行し、投入したタスクが全て終わるのを待つために用いることができる。
  * - スレッドプールの場合は基本的にスレッドは終了しないので c7_thread_join() ができない。そこでC7同期カウンタを使用する。
- * - タスクを投入する前にカウンタに投入するタスクを設定しておき、すべてのタスクの投入時に同じ同期カウンタを指定する。
+ * - タスクを投入する前に同期カウンタに投入するタスク数を設定しておく。すべてのタスクの投入時に同じ同期カウンタを指定する。
  * - 全てのタスクの投入が終われば c7_thread_counter_wait() でカウント値が 0 になるまで待機すれば良い。
  */
 uint64_t c7_tpool_register(c7_tpool_t tp,

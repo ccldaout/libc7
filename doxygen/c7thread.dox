@@ -403,6 +403,15 @@ void c7_thread_counter_up(c7_thread_counter_t ct);
  */
 void c7_thread_counter_down(c7_thread_counter_t ct);
 
+/** C7カウンタの値が 1 以上になったら 1 減らす。
+ *
+ * @param ct C7カウンタ。
+ * @param tmo_us 非負(≧0)ならマイクロ秒単位のタイムアウト値とする。
+ * @return タイムアウトまでの間にカウンタが 1 以上になれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ *         タイムアウトした場合は errno に ETIMEDOUT が設定される。
+ */
+void c7_thread_counter_down_if(c7_thread_counter_t ct, int tmo_us);
+
 /** C7カウンタの値をシフトする。
  *
  * @param ct C7カウンタ。
@@ -479,6 +488,12 @@ void c7_thread_event_clear(c7_thread_event ev);
  * c7_thread_counter_wait(ev, 1, tmo_us) と等価。
  */
 c7_bool_t c7_thread_event_wait(c7_thread_event ev, int tmo_us);
+
+/** C7同期イベントがセット状態になるまで待機した後クリアする。
+ *
+ * c7_thread_counter_down_if(ev, tmo_us) と等価。
+ */
+c7_bool_t c7_thread_event_waitclear(c7_thread_event ev, int tmo_us);
 
 /** C7同期イベントを破棄する。
  *
@@ -637,7 +652,7 @@ c7_bool_t c7_thread_vpipe_put(c7_thread_vpipe_t vpipe, void *data);
  *
  * 一度、EOF を検出すると、c7_thread_fpipe_reset() されるまで、ずっと EOF の NULL が戻る。
  */
-void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, volatile int tmo_us);
+void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, int tmo_us);
 
 /** vpipeを破棄する。
  *
