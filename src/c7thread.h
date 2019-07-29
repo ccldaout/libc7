@@ -154,6 +154,7 @@ int c7_thread_counter_value(c7_thread_counter_t ct);
 c7_bool_t c7_thread_counter_is(c7_thread_counter_t ct, int count);
 #define c7_thread_counter_up(c)		c7_thread_counter_move(c, 1)
 #define c7_thread_counter_down(c)	c7_thread_counter_move(c, -1)
+c7_bool_t c7_thread_counter_down_if(c7_thread_counter_t ct, volatile int tmo_us);
 void c7_thread_counter_move(c7_thread_counter_t ct, int delta);
 void c7_thread_counter_set(c7_thread_counter_t ct, int count);
 c7_bool_t c7_thread_counter_wait(c7_thread_counter_t ct, int expect, volatile int tmo_us);
@@ -173,6 +174,7 @@ typedef c7_thread_counter_t c7_thread_event_t;
 #define c7_thread_event_set(e)		c7_thread_counter_set(e, 1)
 #define c7_thread_event_clear(e)	c7_thread_counter_set(e, 0)
 #define c7_thread_event_wait(e, t)	c7_thread_counter_wait(e, 1, t)
+#define c7_thread_event_waitclear(e, t)	c7_thread_counter_down_if(e, t)
 #define c7_thread_event_free(e)		c7_thread_counter_free(e)
 
 

@@ -625,6 +625,24 @@ c7_bool_t c7_thread_counter_is(c7_thread_counter_t ct, int count)
     return v;
 }
 
+c7_bool_t c7_thread_counter_down_if(c7_thread_counter_t ct, volatile int tmo_us)
+{
+    struct timespec tmo_time, *tmsp = NULL;
+    if (tmo_us >= 0)
+	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
+
+    C7_THREAD_GUARD_ENTER(&ct->mutex);
+    while (ct->counter <= 0) {
+	if (!c7_thread_wait(&ct->cond, &ct->mutex, tmsp)) {
+	    c7_thread_unlock(&ct->mutex);
+	    return C7_FALSE;		// timeout (ETIMEDOUT) or error
+	}
+    }
+    ct->counter--;
+    C7_THREAD_GUARD_EXIT(&ct->mutex);
+    return C7_TRUE;
+}
+
 void c7_thread_counter_move(c7_thread_counter_t ct, int delta)
 {
     c7_thread_lock(&ct->mutex);
