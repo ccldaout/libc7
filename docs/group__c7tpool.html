@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.1</span>
+   &#160;<span id="projectnumber">r0.1.2</span>
    </div>
   </td>
  </tr>
@@ -78,7 +78,7 @@ $(function() {
 Macros</h2></td></tr>
 <tr class="memitem:ga9c40efaa19e5ca3687d054f7c0299656"><td class="memItemLeft" align="right" valign="top"><a id="ga9c40efaa19e5ca3687d054f7c0299656"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7tpool.html#ga9c40efaa19e5ca3687d054f7c0299656">C7_TPOOL_REGISTER_FAIL</a></td></tr>
-<tr class="memdesc:ga9c40efaa19e5ca3687d054f7c0299656"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7tpool.html#ga30d306383b2f893feb553bedbc2c2a06" title="スレッドプールにタスクキューにタスクを投入する。">c7_tpool_register()</a> 失敗時の戻り値 <br /></td></tr>
+<tr class="memdesc:ga9c40efaa19e5ca3687d054f7c0299656"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7tpool.html#ga30d306383b2f893feb553bedbc2c2a06" title="スレッドプールのタスクキューにタスクを投入する。">c7_tpool_register()</a> 失敗時の戻り値 <br /></td></tr>
 <tr class="separator:ga9c40efaa19e5ca3687d054f7c0299656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -94,7 +94,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaf3fe40d13981d2881c66c27a9d9e3ffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">スレッドプールを生成する。  <a href="#gaf3fe40d13981d2881c66c27a9d9e3ffb">More...</a><br /></td></tr>
 <tr class="separator:gaf3fe40d13981d2881c66c27a9d9e3ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30d306383b2f893feb553bedbc2c2a06"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7tpool.html#ga30d306383b2f893feb553bedbc2c2a06">c7_tpool_register</a> (<a class="el" href="group__c7tpool.html#ga507ecf60539c6e5681ce2229ff1b81c7">c7_tpool_t</a> tp, void(*function)(void *__arg), void *__arg, <a class="el" href="group__c7thread.html#gaec7ec33aefd3a77d7adadf1d33410a40">c7_thread_counter_t</a> finish_countdown_opt)</td></tr>
-<tr class="memdesc:ga30d306383b2f893feb553bedbc2c2a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">スレッドプールにタスクキューにタスクを投入する。  <a href="#ga30d306383b2f893feb553bedbc2c2a06">More...</a><br /></td></tr>
+<tr class="memdesc:ga30d306383b2f893feb553bedbc2c2a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">スレッドプールのタスクキューにタスクを投入する。  <a href="#ga30d306383b2f893feb553bedbc2c2a06">More...</a><br /></td></tr>
 <tr class="separator:ga30d306383b2f893feb553bedbc2c2a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4d3752499b062a2b3a8f14d468e49231"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7tpool.html#ga4d3752499b062a2b3a8f14d468e49231">c7_tpool_shutdown</a> (<a class="el" href="group__c7tpool.html#ga507ecf60539c6e5681ce2229ff1b81c7">c7_tpool_t</a> tp)</td></tr>
 <tr class="memdesc:ga4d3752499b062a2b3a8f14d468e49231"><td class="mdescLeft">&#160;</td><td class="mdescRight">スレッドプールを破棄する。  <a href="#ga4d3752499b062a2b3a8f14d468e49231">More...</a><br /></td></tr>
@@ -180,7 +180,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>スレッドプールにタスクキューにタスクを投入する。 </p>
+<p>スレッドプールのタスクキューにタスクを投入する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tp</td><td>スレッドプール。 </td></tr>
@@ -201,7 +201,7 @@ Functions</h2></td></tr>
 <p>finish_countdown_opt の利用</p><ul>
 <li>これは n 個のタスクをプールの資源の限り並列で実行し、投入したタスクが全て終わるのを待つために用いることができる。</li>
 <li>スレッドプールの場合は基本的にスレッドは終了しないので <a class="el" href="group__c7thread.html#ga3cf6adeace126e47f8a56a8289a8c676" title="C7スレッドの終了を待機する。">c7_thread_join()</a> ができない。そこでC7同期カウンタを使用する。</li>
-<li>タスクを投入する前にカウンタに投入するタスクを設定しておき、すべてのタスクの投入時に同じ同期カウンタを指定する。</li>
+<li>タスクを投入する前に同期カウンタに投入するタスク数を設定しておく。すべてのタスクの投入時に同じ同期カウンタを指定する。</li>
 <li>全てのタスクの投入が終われば <a class="el" href="group__c7thread.html#ga5f7aeb001851e73078c85f1379c49934" title="C7カウンタの値が指定値になるまで待機する。">c7_thread_counter_wait()</a> でカウント値が 0 になるまで待機すれば良い。 </li>
 </ul>
 
