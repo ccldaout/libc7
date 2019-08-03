@@ -27,7 +27,7 @@ c7_tpool_t c7_tpool_init(int thread_count, int stacksize_kb);
  * @param function タスクとなる関数。
  * @param __arg functionに渡す引数。
  * @param finish_countdown_opt NULLでなければ function が終了したあとに c7_thread_counter_down() が呼ばれる。
- * @return タスク情報をのタスクキューに登録できればリクエストIDが戻され、失敗すれば C7_TPOOL_REGISTER_FAIL が戻される。
+ * @return タスク情報をタスクキューに登録できればリクエストIDが戻され、失敗すれば C7_TPOOL_REGISTER_FAIL が戻される。
  *         現在のバージョンではリクエストIDを利用する手段がないため、単純に戻り値を C7_TPOOL_REGISTER_FAIL と比較するだけで良い。
  *
  * この関数はスレッドプール内にある可変長のタスクキューにタスク情報(function, __arg, finish_countdown_opt)を登録する。

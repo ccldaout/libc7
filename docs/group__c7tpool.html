@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.2</span>
+   &#160;<span id="projectnumber">r0.2.0</span>
    </div>
   </td>
  </tr>
@@ -190,7 +190,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>タスク情報をのタスクキューに登録できればリクエストIDが戻され、失敗すれば C7_TPOOL_REGISTER_FAIL が戻される。 現在のバージョンではリクエストIDを利用する手段がないため、単純に戻り値を C7_TPOOL_REGISTER_FAIL と比較するだけで良い。</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>タスク情報をタスクキューに登録できればリクエストIDが戻され、失敗すれば C7_TPOOL_REGISTER_FAIL が戻される。 現在のバージョンではリクエストIDを利用する手段がないため、単純に戻り値を C7_TPOOL_REGISTER_FAIL と比較するだけで良い。</dd></dl>
 <p>この関数はスレッドプール内にある可変長のタスクキューにタスク情報(function, __arg, finish_countdown_opt)を登録する。 プール内のスレッド数は固定であるが、タスクキューは可変なのでメモリの許す限り事前にタスクを登録することはできる。</p>
 <p>タスク情報となる __arg と function の制約</p><ul>
 <li>__arg の指すデータはいつ function に渡されるか、呼び出し側からはまったく予測できないためヒープに確保するのが望ましい。</li>

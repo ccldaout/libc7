@@ -95,6 +95,17 @@ char *c7_fgets(c7_str_t *sbp, FILE *fp);
 //@}
 
 
+/// @name ファイルに対する操作
+//@{
+/** ファイルの所有者をファイルの属するディレクトリに合わせる。
+ *
+ * @param path ファイル名。
+ * @return 処理に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。
+ */
+c7_bool_t c7_file_inherit_owner(const char *path);
+//@}
+
+
 /// @name ファイル単位での入出力
 //@{
 /** バッファの内容でファイルを書き込む。

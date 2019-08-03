@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.1.2</span>
+   &#160;<span id="projectnumber">r0.2.0</span>
    </div>
   </td>
  </tr>
@@ -90,6 +90,12 @@ $(function() {
 <tr class="memitem:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gab8051ee7dffffc2bb22d39f9972e9c5c">c7_fgets</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, FILE *fp)</td></tr>
 <tr class="memdesc:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">可能な限り一行分('\n')を読み込む fgets() の拡張版。  <a href="#gab8051ee7dffffc2bb22d39f9972e9c5c">More...</a><br /></td></tr>
 <tr class="separator:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+ファイルに対する操作</h2></td></tr>
+<tr class="memitem:gae40c91950dc43e8210878777448ea642"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gae40c91950dc43e8210878777448ea642">c7_file_inherit_owner</a> (const char *path)</td></tr>
+<tr class="memdesc:gae40c91950dc43e8210878777448ea642"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルの所有者をファイルの属するディレクトリに合わせる。  <a href="#gae40c91950dc43e8210878777448ea642">More...</a><br /></td></tr>
+<tr class="separator:gae40c91950dc43e8210878777448ea642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ファイル単位での入出力</h2></td></tr>
@@ -342,6 +348,33 @@ $(function() {
 <li>読み込みでエラーが発生した場合は <a class="el" href="group__c7status.html#ga8f081e437b82497de02ae0bebe4f8ab9" title="ステータス情報を追加する。">c7_status_add()</a> でエラーを記録し NULL を戻す。</li>
 <li>EOFを検出した場合はエラーは記録せず NULL を戻す。 </li>
 </ul>
+
+</div>
+</div>
+<a id="gae40c91950dc43e8210878777448ea642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae40c91950dc43e8210878777448ea642">&#9670;&nbsp;</a></span>c7_file_inherit_owner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_file_inherit_owner </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ファイルの所有者をファイルの属するディレクトリに合わせる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>ファイル名。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>処理に成功すれば C7_TRUE を戻し、失敗すれば C7_FALSE を戻す。 </dd></dl>
 
 </div>
 </div>

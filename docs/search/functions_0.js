@@ -50,6 +50,7 @@ var searchData=
   ['c7_5ffd_5fsetcloexec',['c7_fd_setcloexec',['../group__c7fd.html#ga06be31121e0549f0cae107ef948e5bbe',1,'c7fd.dox']]],
   ['c7_5ffd_5fsetnonblock',['c7_fd_setnonblock',['../group__c7fd.html#gaf1c842ecef0eb35ff81d783834a3e8ca',1,'c7fd.dox']]],
   ['c7_5ffgets',['c7_fgets',['../group__c7file.html#gab8051ee7dffffc2bb22d39f9972e9c5c',1,'c7file.dox']]],
+  ['c7_5ffile_5finherit_5fowner',['c7_file_inherit_owner',['../group__c7file.html#gae40c91950dc43e8210878777448ea642',1,'c7file.dox']]],
   ['c7_5ffile_5fmmap_5fr',['c7_file_mmap_r',['../group__c7file.html#gab8001f1fdc8c57d453b186bba26a3d19',1,'c7file.dox']]],
   ['c7_5ffile_5fmmap_5frw',['c7_file_mmap_rw',['../group__c7file.html#ga7ea7ee1619a5d73d631aab70ae084cbc',1,'c7file.dox']]],
   ['c7_5ffile_5fmunmap',['c7_file_munmap',['../group__c7file.html#gaa28293a7bc1e9eb6a86cc1d335b8e934',1,'c7file.dox']]],
