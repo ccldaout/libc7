@@ -47,9 +47,10 @@ static int get_i(const char *env, int defval)
 static size_t sizeofhelp(int defc, const c7_dconf_def_t *defv)
 {
     size_t n = 0;
-    for (int i = 0; i < defc; i++)
-	n += strlen(defv->ident) + strlen(defv->descrip);
-    n += _INDEX_LIM * 2 + 1; 		// 2: ':' and '\a'
+    for (int i = 0; i < defc; i++, defv++)
+	n += strlen(defv->ident) + strlen(defv->descrip) +1;	// +1: ':'
+    n += _INDEX_LIM * 1; 		// all index has '\a'.
+    n++;				// last null
     return n;
 }
 
