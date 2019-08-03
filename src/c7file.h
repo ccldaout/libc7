@@ -35,6 +35,8 @@ void *c7_file_mmap_r(const char *path, size_t *sizep_o);
 void *c7_file_mmap_rw(const char *path, size_t *sizep_io, c7_bool_t create);
 void c7_file_munmap(void *addr, size_t size);
 
+c7_bool_t c7_file_inherit_owner(const char *path);
+
 c7_bool_t c7_file_search(c7_str_t *sbp,
 			 const char *name,
 			 const char **pathlistv,	// vector of pathlist

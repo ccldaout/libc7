@@ -359,6 +359,8 @@ static void *dommap(const char *path, size_t *sizep_io, int oflag, int prot)
 	c7_status_add(errno, ": c7_file_mmap*: open: <%s>\n", path);
 	return NULL;
     }
+    if ((oflag & O_CREAT) != 0)
+	c7_file_inherit_owner(path);
     if (sizep_io == NULL) {
 	size_t __mapsize = 0;
 	sizep_io = &__mapsize;
@@ -385,6 +387,29 @@ void c7_file_munmap(void *addr, size_t size)
 {
     (void)munmap(addr, size);
 }
+
+
+/*----------------------------------------------------------------------------
+                            other file opearation
+----------------------------------------------------------------------------*/
+
+c7_bool_t c7_file_inherit_owner(const char *path)
+{
+    struct stat st;
+    size_t len = strlen(path);
+    char dir[len + 1];
+    (void)c7strbcpy_x(dir, path, c7_path_name(path));
+    if (stat(dir, &st) == C7_SYSOK) {
+	if (chown(path, st.st_uid, st.st_gid) == C7_SYSOK) {
+	    return C7_TRUE;
+	}
+	c7_status_add(errno, ": c7_file_inherit_owner: chown: %s, %u, %u\n",
+		      path, (uint32_t)st.st_uid, (uint32_t)st.st_gid);
+    } else
+	c7_status_add(errno, ": c7_file_inherit_owner: stat: %s\n", dir);
+    return C7_FALSE;
+}
+
 
 
 /*----------------------------------------------------------------------------

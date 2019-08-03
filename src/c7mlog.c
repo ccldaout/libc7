@@ -160,16 +160,6 @@ static char *mlogpath_x(const char *name)
     return c7_str_release(&sb);
 }
 
-static void inherit_owner(const char *path)
-{
-    struct stat st;
-    size_t len = strlen(path);
-    char dir[len + 1];
-    (void)c7strbcpy_x(dir, path, c7_path_name(path));
-    if (stat(dir, &st) == C7_SYSOK)
-	(void)chown(path, st.st_uid, st.st_gid);
-}
-
 static c7_mlog_t mlog_new(const char *path, size_t hdrsize_b, size_t logsize_b)
 {
     c7_mlog_t g;
@@ -202,7 +192,6 @@ c7_mlog_t c7_mlog_open_w(const char *name, size_t hdrsize_b, size_t logsize_b,
 	return NULL;
     }
 
-    inherit_owner(name);
     g->path = path;
     g->flags = flags;
     g->lock = NULL;
