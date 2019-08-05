@@ -19,7 +19,9 @@ C7_CLEAN_REMOVED += $(PRGS)
 
 CFLAGS += -Wno-unused-value
 
-$(C7_OUT_BINDIR)/c7gitbr: C7_NOLIBC7 = y C7_NOTHREAD = y
+$(C7_OUT_BINDIR)/c7prompt: C7_NOLIBC7 = y
+$(C7_OUT_BINDIR)/c7prompt: C7_NOTHREAD = y
+$(C7_OUT_BINDIR)/c7gitbr: C7_NOLIBC7 = y
 $(C7_OUT_BINDIR)/c7gitbr: C7_NOTHREAD = y
 $(C7_OUT_BINDIR)/c7npipe: C7_NOLIBC7 = y
 $(C7_OUT_BINDIR)/c7npipe: C7_NOTHREAD = y

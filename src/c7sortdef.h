@@ -11,7 +11,10 @@ extern "C" {
 #endif
 
 
-#include <c7config.h>
+/*** DON'T INCLUDE c7config.h to BE USED UNDER C89 ***/
+/***#include <c7config.h>***/
+
+
 /*
  * c7sortdef.h
  *
@@ -99,6 +102,8 @@ extern "C" {
 #if !defined(C7_KEY_BIT_TEST) && (defined(C7_RSORT_ST) || defined(C7_RSORT_MT))
 # error "C7_KEY_BIT_TEST is required for radix sort."
 #endif
+
+#define __C7_NUMOF(a)	(sizeof(a)/sizeof((a)[0]))
 
 #undef __C7_MM
 #undef __C7_MS
@@ -398,7 +403,7 @@ static void __C7_MSORT_ST_MAIN(int parity, C7_ELM_TYPE *out, C7_ELM_TYPE *in, pt
 		n = stack[stack_idx].n;
 	    } else {
 		C7_ELM_TYPE *tmp;
-		if ((stack_idx + 2) > c7_numberof(stack)) {
+		if ((stack_idx + 2) > __C7_NUMOF(stack)) {
 		    abort();
 		}
 		stack[stack_idx].op = OP_MERGE;
@@ -637,7 +642,7 @@ static void __C7_QSORT_ST_MAIN(C7_ELM_TYPE *left, C7_ELM_TYPE *right)
 	    }
 	} while (p < q);
 
-	if (stack_idx == c7_numberof(stack)) {
+	if (stack_idx == __C7_NUMOF(stack)) {
 	    __C7_HSORT_ST(left, (q - left) + 1);
 	    __C7_HSORT_ST(p,    (right - p) + 1);
 	    stack_idx--;
@@ -984,6 +989,7 @@ static void __C7_RSORT_MT(C7_ELM_TYPE *left, ptrdiff_t n, size_t keymask, int th
 /* keep C7_QSORT_MAX_DEPTH */
 /* keep C7_RSORT_THRESHOLD */
 
+#undef __C7_NUMOF
 #undef __C7_MSORT_THRESHOLD
 #undef __C7_MSORT_MAX_DEPTH
 #undef __C7_QSORT_THRESHOLD
