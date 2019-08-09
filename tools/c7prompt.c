@@ -1,5 +1,5 @@
 /*
- * c7gitbr.c
+ * c7prompt.c
  *
  * Copyright (c) 2019 ccldaout@gmail.com
  *
@@ -128,7 +128,7 @@ int main(int argc, char **argv)
     if (cdgit() == 0 ||
 	(HEAD = readall("HEAD", &size)) == NULL) {
 	print(curr_dir, base_dir, NULL);
-	return 1;
+	return 0;
     }
 
     char *p = HEAD + size;
