@@ -25,7 +25,8 @@ c7_tpool_t c7_tpool_init(int thread_count, int stacksize_kb);
  *
  * @param tp スレッドプール。
  * @param function タスクとなる関数。
- * @param __arg functionに渡す引数。
+ * @param finalize タスク終了時に呼ばれる関数。
+ * @param __arg function や finalize に渡す引数。
  * @param finish_countdown_opt NULLでなければ function が終了したあとに c7_thread_counter_down() が呼ばれる。
  * @return タスク情報をタスクキューに登録できればリクエストIDが戻され、失敗すれば C7_TPOOL_REGISTER_FAIL が戻される。
  *         現在のバージョンではリクエストIDを利用する手段がないため、単純に戻り値を C7_TPOOL_REGISTER_FAIL と比較するだけで良い。
@@ -36,9 +37,62 @@ c7_tpool_t c7_tpool_init(int thread_count, int stacksize_kb);
  * タスク情報となる __arg と function の制約
  * - __arg の指すデータはいつ function に渡されるか、呼び出し側からはまったく予測できないためヒープに確保するのが望ましい。
  * - 逆に、いつ不要になるか、つまり function がいつ終わるかを、呼出し側から知るのも困難(不可能ではない)である。そのため、
- * - function の中で __arg のデータを解放するのが良い。
- * - function の中で c7_thread_exit() や c7_thread_abort() を呼ぶと、function が終了するのではなく、タスクを実行するスレッド自体が
- *   終了してしまうので、これらを呼んではならない。
+ *   fininalize を定義して、その中で __arg のデータを解放するのが良い。
+ * - c7_tpool_exit() を呼び出した場合でも finialize() は呼び出される。
+ * - c7_thread_exit() や c7_thread_abort() を呼んだ場合でも finalize() は呼び出される。
+ *   しかし、これらの関数はタスクを実行するスレッド自体が終了するため、スレッドプールを本当に停止したいのでなければ呼ぶべきではない。
+ *
+ * finish_countdown_opt の利用
+ * - これは n 個のタスクをプールの資源の限り並列で実行し、投入したタスクが全て終わるのを待つために用いることができる。
+ * - スレッドプールの場合は基本的にスレッドは終了しないので c7_thread_join() ができない。そこでC7同期カウンタを使用する。
+ * - タスクを投入する前に同期カウンタに投入するタスク数を設定しておく。すべてのタスクの投入時に同じ同期カウンタを指定する。
+ * - 全てのタスクの投入が終われば c7_thread_counter_wait() でカウント値が 0 になるまで待機すれば良い。
+ */
+uint64_t c7_tpool_enqueue(c7_tpool_t tp,
+			  void (*function)(void *__arg),
+			  void (*finalize)(void *__arg),
+			  void *__arg,
+			  c7_thread_counter_t finish_countdown_opt);
+
+/** タスク(の関数)を終了する。
+ *
+ * この関数を呼びだしたタスク関数に渡された引数 __arg を得る。
+ */
+void *c7_tpool_arg(void);
+
+/** タスク(の関数)を終了する。
+ *
+ * この関数を呼びだしたタスク関数を終了する。
+ * 引き続き c7_tpool_enqueue() で登録された finalize が呼ばれる。
+ */
+void c7_tpool_exit(void);
+
+/** スレッドプールを破棄する。
+ *
+ * @param tp スレッドプール。
+ *
+ * タスクキューに特別なタスクを投入し、プール内の全てのスレッドを停止させる。
+ * この関数を呼んだ時点で既に投入されているタスクは破棄されない。
+ * 全てのスレッドが停止したら制御データを解放して戻る。
+ */
+void c7_tpool_shutdown(c7_tpool_t tp);
+
+/** スレッドプールのタスクキューにタスクを投入する [非推奨]。
+ *
+ * @param tp スレッドプール。
+ * @param function タスクとなる関数。
+ * @param __arg functionに渡す引数。
+ * @param finish_countdown_opt NULLでなければ function が終了したあとに c7_thread_counter_down() が呼ばれる。
+ * @return タスク情報をタスクキューに登録できればリクエストIDが戻され、失敗すれば C7_TPOOL_REGISTER_FAIL が戻される。
+ *         現在のバージョンではリクエストIDを利用する手段がないため、単純に戻り値を C7_TPOOL_REGISTER_FAIL と比較するだけで良い。
+ *
+ * c7_tpool_enqueue(tp, function, NULL, __arg, finish_countdown_opt) と等価である。
+ *
+ * タスク情報となる __arg と function の制約
+ * - __arg の指すデータはいつ function に渡されるか、呼び出し側からはまったく予測できないためヒープに確保するのが望ましい。
+ * - 逆に、いつ不要になるか、つまり function がいつ終わるかを、呼出し側から知るのも困難(不可能ではない)である。そのため、
+ *   function の中で __arg のデータを解放するのが良い。ただし、この場合は c7_tpool_exit() を呼んだ場合には対応できない。
+ * - c7_thread_exit() や c7_thread_abort() はタスクを実行するスレッド自体が終了するため、スレッドプールを本当に停止したいのでなければ呼ぶべきではない。
  *
  * finish_countdown_opt の利用
  * - これは n 個のタスクをプールの資源の限り並列で実行し、投入したタスクが全て終わるのを待つために用いることができる。
@@ -50,16 +104,6 @@ uint64_t c7_tpool_register(c7_tpool_t tp,
 			   void (*function)(void *__arg),
 			   void *__arg,
 			   c7_thread_counter_t finish_countdown_opt);
-
-/** スレッドプールを破棄する。
- *
- * @param tp スレッドプール。
- *
- * タスクキューに特別なタスクを投入し、プール内の全てのスレッドを停止させる。
- * この関数を呼んだ時点で既に投入されているタスクは破棄されない。
- * 全てのスレッドが停止したら制御データを解放して戻る。
- */
-void c7_tpool_shutdown(c7_tpool_t tp);
 
 
 //@}

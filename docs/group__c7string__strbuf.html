@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.2.0</span>
+   &#160;<span id="projectnumber">r0.3.0</span>
    </div>
   </td>
  </tr>
@@ -242,7 +242,7 @@ C7文字列の基本文字列操作</h2></td></tr>
 <tr class="memdesc:ga7ce2fd9607e671ed9467a1f463011faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列 sbp の off 位置から del_n 文字を削除し、off 位置に文字列 s の先頭から e までを挿入する。  <a href="#ga7ce2fd9607e671ed9467a1f463011faa">More...</a><br /></td></tr>
 <tr class="separator:ga7ce2fd9607e671ed9467a1f463011faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga72f0baa471a702219a23804e0e4781ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga72f0baa471a702219a23804e0e4781ef">c7_strconcat</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *sep, const char **sv, int sc)</td></tr>
-<tr class="memdesc:ga72f0baa471a702219a23804e0e4781ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列をこの順で追加する。  <a href="#ga72f0baa471a702219a23804e0e4781ef">More...</a><br /></td></tr>
+<tr class="memdesc:ga72f0baa471a702219a23804e0e4781ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列を sep 文字列を狭みながら追加する。  <a href="#ga72f0baa471a702219a23804e0e4781ef">More...</a><br /></td></tr>
 <tr class="separator:ga72f0baa471a702219a23804e0e4781ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0214d7ca8a2c6a42af61980252d6127d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga0214d7ca8a2c6a42af61980252d6127d">c7_sprintf</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *fmt,...)</td></tr>
 <tr class="memdesc:ga0214d7ca8a2c6a42af61980252d6127d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列 sbp に printf(fmt, ...) 相当の結果を追加する。  <a href="#ga0214d7ca8a2c6a42af61980252d6127d">More...</a><br /></td></tr>
@@ -1310,7 +1310,7 @@ C7文字列の応用文字列操作</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列をこの順で追加する。 </p>
+<p>C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列を sep 文字列を狭みながら追加する。 </p>
 <p>文字の追加処理の詳細は <a class="el" href="group__c7string__strbuf.html#ga7753748e63febce269094d14f8ad98fb" title="C7文字列 sbp に文字列 s を追加する。">c7_strcpy()</a> に準ずる。 sc が負の場合は、sv[0]から始めて sv[i] が NULL となる i を検索してそれを sc とする。 </p>
 
 </div>

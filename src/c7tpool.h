@@ -22,12 +22,20 @@ extern "C" {
 typedef struct c7_tpool_t_ *c7_tpool_t;
 
 c7_tpool_t c7_tpool_init(int thread_count, int stacksize_kb);
+uint64_t c7_tpool_enqueue(c7_tpool_t tp,
+			  void (*function)(void *__arg),
+			  void (*finalize)(void *__arg),
+			  void *__arg,
+			  c7_thread_counter_t finish_countdown_opt);
+void *c7_tpool_arg(void);
+void c7_tpool_exit(void);
+void c7_tpool_shutdown(c7_tpool_t tp);
+
+// OBSOLETE
 uint64_t c7_tpool_register(c7_tpool_t tp,
 			   void (*function)(void *__arg),
 			   void *__arg,
 			   c7_thread_counter_t finish_countdown_opt);
-void c7_tpool_shutdown(c7_tpool_t tp);
-
 
 #if defined(__cplusplus)
 }

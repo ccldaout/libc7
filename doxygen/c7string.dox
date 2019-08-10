@@ -618,7 +618,7 @@ c7_str_t *c7_strnedit(c7_str_t *sbp, int off, int del_n, const char *s, int n);
  */
 c7_str_t *c7_strbedit(c7_str_t *sbp, int off, int del_n, const char *s, const char *e);
 
-/** C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列をこの順で追加する。
+/** C7文字列 sbp に、sv[0]..sv[sc-1] の sc 個の文字列を sep 文字列を狭みながら追加する。
  *
  * 文字の追加処理の詳細は c7_strcpy() に準ずる。
  * sc が負の場合は、sv[0]から始めて sv[i] が NULL となる i を検索してそれを sc とする。

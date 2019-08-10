@@ -9,6 +9,7 @@
 #include "_config.h"
 
 #include <unistd.h>
+#include <setjmp.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
@@ -29,6 +30,7 @@ typedef struct _req_t {
     uint64_t id;
     c7_thread_counter_t finish_countdown;	/* optional */
     void (*function)(void *__arg);
+    void (*finalize)(void *__arg);
     void *__arg;
 } _req_t;
 
@@ -41,6 +43,12 @@ struct c7_tpool_t_ {
 	uint64_t id;
     } req;
 };
+
+static c7_thread_local struct {
+    _req_t *req;
+    jmp_buf jmpbuf;
+} Context;
+
 
 static void worker_thread(void *__arg)
 {
@@ -58,11 +66,20 @@ static void worker_thread(void *__arg)
 	    return;
 	}
 
-	req.function(req.__arg);
+	pthread_cleanup_push(req.finalize, req.__arg);
+	Context.req = &req;
+	if (setjmp(Context.jmpbuf) == 0)
+	    req.function(req.__arg);
+	pthread_cleanup_pop(1);
 
 	if (req.finish_countdown)
 	    c7_thread_counter_down(req.finish_countdown);
     }
+}
+
+static void default_finalize(void *__arg)
+{
+    ;
 }
 
 static void worker_finish(void *__arg)
@@ -125,6 +142,15 @@ uint64_t c7_tpool_register(c7_tpool_t tp,
 			   void *__arg,
 			   c7_thread_counter_t finish_countdown_opt)
 {
+    return c7_tpool_enqueue(tp, function, NULL, __arg, finish_countdown_opt);
+}
+
+uint64_t c7_tpool_enqueue(c7_tpool_t tp,
+			  void (*function)(void *__arg),
+			  void (*finalize)(void *__arg),
+			  void *__arg,
+			  c7_thread_counter_t finish_countdown_opt)
+{
     _req_t req;
 
     c7_thread_lock(&tp->req.mutex);
@@ -134,6 +160,7 @@ uint64_t c7_tpool_register(c7_tpool_t tp,
     req.id = tp->req.id++;
     req.finish_countdown = finish_countdown_opt;
     req.function = function;
+    req.finalize = (finalize != NULL) ? finalize : default_finalize;
     req.__arg = __arg;
     if (c7_deque_push_tail(tp->req.que, &req))
 	c7_thread_notify_all(&tp->req.wakeup);
@@ -144,6 +171,16 @@ uint64_t c7_tpool_register(c7_tpool_t tp,
     c7_thread_unlock(&tp->req.mutex);
 
     return req.id;
+}
+
+void c7_tpool_exit(void)
+{
+    longjmp(Context.jmpbuf, 1);
+}
+
+void *c7_tpool_arg(void)
+{
+    return Context.req->__arg;
 }
 
 void c7_tpool_shutdown(c7_tpool_t tp)
