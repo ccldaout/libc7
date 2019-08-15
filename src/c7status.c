@@ -23,6 +23,7 @@ typedef struct sts_data_t_ {
 
 
 /*----------------------------------------------------------------------------
+                   status catalogue and convert status code
 ----------------------------------------------------------------------------*/
 
 static pthread_mutex_t _Mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -62,7 +63,7 @@ void c7_status_add_convert(c7_str_t *(*convert)(c7_str_t *, c7_status_t, void *)
     _Converter.arg = arg;
 }
 
-static c7_str_t *_status_string(c7_str_t *sbp, c7_status_t status)
+c7_str_t *c7_status_str(c7_str_t *sbp, c7_status_t status)
 {
     c7_status_t cat = C7_STATUS_CAT(status);
     c7_status_t sts = C7_STATUS_STS(status);
@@ -100,6 +101,7 @@ static c7_str_t *_status_string(c7_str_t *sbp, c7_status_t status)
 
 
 /*----------------------------------------------------------------------------
+                  management of multiple status informations
 ----------------------------------------------------------------------------*/
 
 static c7_thread_local c7_status_stack_t status_stack = {
@@ -214,6 +216,11 @@ void __c7_status_add_va(const char *file, int line,
     errno = errno_save;
 }
 
+
+/*----------------------------------------------------------------------------
+                 handle saved status information (to string)
+----------------------------------------------------------------------------*/
+
 c7_bool_t c7_status_has_error(void)
 {
     c7_status_stack_t *ssp = get_status_stack_p();
@@ -245,7 +252,7 @@ static c7_bool_t sts_callback(void *__data, rbuf_unit_t size_b, void *__prm)
 
     if (sts->status != 0) {
 	(void)c7_strcpy(sbp, prefbuf);
-	(void)c7_stradd(_status_string(sbp, sts->status), '\n');
+	(void)c7_stradd(c7_status_str(sbp, sts->status), '\n');
     }
 
     if (size_b != sizeof(*sts)) {

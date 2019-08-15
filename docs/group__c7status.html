@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.3.0</span>
+   &#160;<span id="projectnumber">r1.0.0</span>
    </div>
   </td>
  </tr>
@@ -136,6 +136,9 @@ typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <tr class="memitem:gabae6aa29ed5dc2d87a8030eed64cdf28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7status.html#gabae6aa29ed5dc2d87a8030eed64cdf28">c7_status_add_convert</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *(*convert)(<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, <a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a> status, void *arg), void *arg)</td></tr>
 <tr class="memdesc:gabae6aa29ed5dc2d87a8030eed64cdf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">ステータスコードを文字列に変換するコンバータを登録する。  <a href="#gabae6aa29ed5dc2d87a8030eed64cdf28">More...</a><br /></td></tr>
 <tr class="separator:gabae6aa29ed5dc2d87a8030eed64cdf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa393b6938436d99b8045bc3b898f00af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7status.html#gaa393b6938436d99b8045bc3b898f00af">c7_status_str</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, <a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a> status)</td></tr>
+<tr class="memdesc:gaa393b6938436d99b8045bc3b898f00af"><td class="mdescLeft">&#160;</td><td class="mdescRight">ステータスコードを文字列に変換する。  <a href="#gaa393b6938436d99b8045bc3b898f00af">More...</a><br /></td></tr>
+<tr class="separator:gaa393b6938436d99b8045bc3b898f00af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ステータス情報の保存</h2></td></tr>
@@ -284,7 +287,7 @@ defc の指す配列の要素数。 </td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { <a class="code" href="group__c7status.html#gafe83b074822e47cfffec54e954c59d76">c7_status_stack_t</a> __save_stack;    \</div><div class="line">    __c7_status_push(&amp;__save_stack)</div><div class="ttc" id="group__c7status_html_gafe83b074822e47cfffec54e954c59d76"><div class="ttname"><a href="group__c7status.html#gafe83b074822e47cfffec54e954c59d76">c7_status_stack_t</a></div><div class="ttdeci">struct c7_status_stack_t_ c7_status_stack_t</div><div class="ttdoc">ステータス情報の保存エリアの型。</div><div class="ttdef"><b>Definition:</b> c7status.dox:170</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { <a class="code" href="group__c7status.html#gafe83b074822e47cfffec54e954c59d76">c7_status_stack_t</a> __save_stack;    \</div><div class="line">    __c7_status_push(&amp;__save_stack)</div><div class="ttc" id="group__c7status_html_gafe83b074822e47cfffec54e954c59d76"><div class="ttname"><a href="group__c7status.html#gafe83b074822e47cfffec54e954c59d76">c7_status_stack_t</a></div><div class="ttdeci">struct c7_status_stack_t_ c7_status_stack_t</div><div class="ttdoc">ステータス情報の保存エリアの型。</div><div class="ttdef"><b>Definition:</b> c7status.dox:181</div></div>
 </div><!-- fragment -->
 <p>このマクロは <a class="el" href="group__c7status.html#ga8fd5357e4e7f6d2578ec52427d559a37" title="c7_status_push で退避した保存エリアを元に戻す。::c7_status_push 同様、ポインタの 付け替えのみなので高速に動作する。">c7_status_pop</a> と共に用い、一時的にステータス情報の保存エリアを退避し、 自動変数として準備したメモリをステータス情報の保存エリアとして使用する。この退避動作は ポインタの付け替えのみなので比較的高速に動作する。 </p>
 
@@ -387,6 +390,45 @@ defc の指す配列の要素数。 </td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>現在のバージョンではコンバータは一つしか登録できない。 </dd></dl>
+
+</div>
+</div>
+<a id="gaa393b6938436d99b8045bc3b898f00af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa393b6938436d99b8045bc3b898f00af">&#9670;&nbsp;</a></span>c7_status_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a>* c7_status_str </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a>&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ステータスコードを文字列に変換する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sbp</td><td>プリフィクス文字列を格納するC7文字列。NULLの場合は <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> で確保される。 </td></tr>
+    <tr><td class="paramname">status</td><td>対象となるステータスコード。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sbp に <a class="el" href="group__c7string__strbuf.html#ga0214d7ca8a2c6a42af61980252d6127d" title="C7文字列 sbp に printf(fmt, ...) 相当の結果を追加する。">c7_sprintf()</a> を適用した結果がそのまま戻される。</dd></dl>
+<p>この関数は引数で指定した単一のステータスコードに対応する文字列をカタログなどから得るものである。 c7status に保持されているステータス情報をまとめて文字列化する場合は <a class="el" href="group__c7status.html#gaddcb50896bd6b389af29199aac301160" title="現スレッドのステータス情報を文字列化してC7文字列 sbp に追加する。sbp が NULL の場合は c7_str_new_sg() で確保する。">c7_status_string()</a> を使用する。 </p>
 
 </div>
 </div>

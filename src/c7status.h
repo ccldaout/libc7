@@ -25,12 +25,6 @@ extern "C" {
 
 typedef uint32_t c7_status_t;
 
-typedef struct c7_status_stack_t_ {
-    rbuf_unit_t rbuf[C7_RBUF_SIZE(C7_CONFIG_STS_RBUF_SIZE)];
-    struct c7_status_stack_t_ *pushed;
-} c7_status_stack_t;
-
-
 #define C7_STATUS(c, s)		((((c7_status_t)(c))<<16) | ((c7_status_t)(s)))
 #define C7_STATUS_OPT(s)	( ((c7_status_t)(s)) & 0xf0000000       )
 #define C7_STATUS_CAT(s)	((((c7_status_t)(s)) & 0x0fff0000) >> 16)
@@ -42,6 +36,10 @@ typedef struct c7_status_stack_t_ {
 #define C7_STATUS_OPT_CLEAR	0x40000000	// c7_app_*_err
 #define C7_STATUS_INVALID	C7_STATUS(C7_STATUS_CAT_C7, 0x7fff)
 
+
+/*----------------------------------------------------------------------------
+                   status catalogue and convert status code
+----------------------------------------------------------------------------*/
 
 typedef struct c7_status_def_t_ {
     const char *sts_msg;
@@ -57,12 +55,21 @@ typedef struct c7_status_catalog_t_ {
     int defc;
 } c7_status_catalog_t;
 
-
-// 'cat' must point to a permanent area.
 void c7_status_add_catalog(c7_status_catalog_t *cat);
 
 void c7_status_add_convert(c7_str_t *(*convert)(c7_str_t *, c7_status_t, void *),
 			   void *arg);
+c7_str_t *c7_status_str(c7_str_t *sbp, c7_status_t status);
+
+
+/*----------------------------------------------------------------------------
+                  management of multiple status informations
+----------------------------------------------------------------------------*/
+
+typedef struct c7_status_stack_t_ {
+    rbuf_unit_t rbuf[C7_RBUF_SIZE(C7_CONFIG_STS_RBUF_SIZE)];
+    struct c7_status_stack_t_ *pushed;
+} c7_status_stack_t;
 
 #define c7_status_push				\
     do { c7_status_stack_t __save_stack;	\
@@ -96,6 +103,10 @@ void __c7_status_add(const char *file, int line,
 void __c7_status_add_va(const char *file, int line,
 			c7_status_t status, const char *fmt, va_list ap);
 
+
+/*----------------------------------------------------------------------------
+                 handle saved status information (to string)
+----------------------------------------------------------------------------*/
 
 c7_bool_t c7_status_has_error(void);
 c7_str_t *c7_status_prefix(c7_str_t *sbp, const char *file, int line);

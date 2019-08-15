@@ -281,47 +281,65 @@ void *__c7_coroutine_for_stop(c7_coroutine_t *cop)
 //                                generator
 //----------------------------------------------------------------------------
 
+struct __c7_generator_prm_t_ {
+    void *start_param;
+    void (*finalize)(c7_mgroup_t, void *param);
+};
+
 c7_bool_t c7_generator_init(c7_generator_t *gen,
 			    size_t stacksize_kb,
 			    void (*generator)(c7_mgroup_t, void *param),
+			    void (*finalize)(c7_mgroup_t, void *param),
 			    void *param)
 {
-    if ((gen->co = c7_coroutine_new(stacksize_kb, generator)) != NULL) {
-	gen->start_prm = param;
-	gen->end_value = (void *)gen;
-	return C7_TRUE;
-    } else
-	gen->end_value = __C7_COROUTINE_YIELD_FAIL;
+    if ((gen->__co = c7_coroutine_new(stacksize_kb, generator)) != NULL) {
+	gen->__param = c7_mg_malloc(gen->__co->mg, sizeof(*gen->__param));
+	if (gen->__param != NULL) {
+	    gen->__param->start_param = param;
+	    gen->__param->finalize = finalize;
+	    gen->__end_value = (void *)gen;
+	    return C7_TRUE;
+	}
+	c7_coroutine_free(gen->__co);
+    }
+    gen->__end_value = __C7_COROUTINE_YIELD_FAIL;
     return C7_FALSE;
+}
+
+static void finalize_generator(c7_generator_t *gen)
+{
+    if (gen->__param->finalize != NULL) {
+	gen->__param->finalize(gen->__co->mg, gen->__param->start_param);
+    }
+    c7_coroutine_free(gen->__co);
+    gen->__co = NULL;
 }
 
 c7_bool_t __c7_generator_next(c7_generator_t *gen, void **vpp)
 {
-    if (gen->co != NULL) {
-	if (gen->end_value == NULL)
-	    *vpp = c7_coroutine_yield(gen->co, NULL);
-	else {	// gen->end_value == (void *)gen
-	    gen->end_value = NULL;
-	    *vpp = c7_coroutine_start(gen->co, gen->start_prm);
+    if (gen->__co != NULL) {
+	if (gen->__end_value == NULL)
+	    *vpp = c7_coroutine_yield(gen->__co, NULL);
+	else {	// gen->__end_value == (void *)gen
+	    gen->__end_value = NULL;
+	    *vpp = c7_coroutine_start(gen->__co, gen->__param->start_param);
 	}
 	if (c7_coroutine_is_valid(*vpp)) {
 	    return C7_TRUE;
 	}
-	c7_coroutine_free(gen->co);
-	gen->co = NULL;
-	gen->end_value = *vpp;
+	finalize_generator(gen);
+	gen->__end_value = *vpp;
     } else {
-	*vpp = gen->end_value;
+	*vpp = gen->__end_value;
     }
     return C7_FALSE;
 }
 
 void c7_generator_stop(c7_generator_t *gen)
 {
-    if (gen->co != NULL) {
-	c7_coroutine_free(gen->co);
-	gen->co = NULL;
-	gen->end_value = __C7_COROUTINE_YIELD_EXIT;
+    if (gen->__co != NULL) {
+	finalize_generator(gen);
+	gen->__end_value = __C7_COROUTINE_YIELD_EXIT;
     }
 }
 

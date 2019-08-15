@@ -503,6 +503,83 @@ void c7_thread_event_free(c7_thread_event_t ev);
 //@}
 
 
+/// @name ビットマスク同期機能
+//@{
+/** ビットマスク同期オブジェクト。
+ *
+ * 符号無し整数のビットマスクに基づく同期機構を提供する。
+ * 排他制御(pthread_mutex_t)や条件変数(pthread_cond_t)を用いるが、初期化以外で、正しい使い方をしている
+ * lock/unlock/notify/wait について戻り値をチェックしない。
+ * そのため、c7hook 機構を用いて、これらの関数でエラーした場合に処理を記述しておくのが良いだろう。
+ */
+typedef struct c7_thread_mask_t_ *c7_thread_mask_t;
+
+/** ビットマスク同期オブジェクトを生成する。
+ *
+ * @param ini_mask ビットマスクの初期値。
+ * @return 成功すれば ビットマスク同期オブジェクトを戻し、失敗すれば NULL を戻す。
+ */
+c7_thread_mask_t c7_thread_mask_init(uint64_t ini_mask);
+
+/** ビットマスク同期オブジェクトの現在値を得る。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ * @return 現在のカウンタ値を戻す。
+ */
+int c7_thread_mask_value(c7_thread_mask_t msk);
+
+/** ビットマスク同期オブジェクトの値をクリアする。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ */
+void c7_thread_mask_clear(c7_thread_mask_t msk);
+
+/** ビットマスク同期オブジェクトの値の指定ビットを立てる。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ * @param set onにされるビットマスク値。
+ */
+void c7_thread_mask_on(c7_thread_mask_t msk, uint64_t set);
+
+/** ビットマスク同期オブジェクトの値の指定ビットを下げる。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ * @param clear offにされるビットマスク値。
+ */
+void c7_thread_mask_onr(c7_thread_mask_t msk, uint64_t clear);
+
+/** ビットマスク同期オブジェクトの値を操作する。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ * @param set onにされるビットマスク値。
+ * @param clear offにされるビットマスク値。
+ *
+ * on 操作のあと off 操作を行うため、set と clear で共通のビットがあった場合、そのビットは off になる。
+ */
+void c7_thread_mask_change(c7_thread_mask_t msk, uint64_t set, uint64_t clear);
+
+/** ビットマスク同期オブジェクトの値の指定ビットが立つまで待機する。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ * @param expect 監視するビットマスク。このマスクで指定するいずれかのビットが立てば条件成立となる。
+ * @param clear 条件成立時に off にするビットマスク。
+ * @param tmo_us 非負(≧0)ならマイクロ秒単位のタイムアウト値とする。
+ * @return タイムアウトまでの間に条件が成立すれば、成立時の expect との論理積の値(≠0)を戻す。
+ *         この値は clear によるビットoffの前に確定する。
+ *	   タイムアウトした場合は 0 が戻され、errno には ETIMEDOUT が設定される。
+ */
+uint64_t c7_thread_mask_wait(c7_thread_mask_t msk, uint64_t expect, uint64_t clear, int tmo_us);
+
+/** ビットマスク同期オブジェクトを破棄する。
+ *
+ * @param msk ビットマスク同期オブジェクト。
+ *
+ * ビットマスク同期オブジェクトで待機しているスレッドがあった場合の動作は予測不可能である。
+ */
+void c7_thread_mask_free(c7_thread_mask_t msk);
+//@}
+
+
 /// @name スレッド間固定長パイプ (配列使用のエントリ数固定型)
 //@{
 

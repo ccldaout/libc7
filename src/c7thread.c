@@ -685,6 +685,78 @@ void c7_thread_counter_free(c7_thread_counter_t ct)
 
 
 /*----------------------------------------------------------------------------
+                   mask - bitwise synchronization mechanism
+----------------------------------------------------------------------------*/
+
+struct c7_thread_mask_t_ {
+    pthread_mutex_t mutex;
+    pthread_cond_t cond;
+    uint64_t mask;
+};
+
+c7_thread_mask_t c7_thread_mask_init(uint64_t ini_mask)
+{
+    c7_thread_mask_t m = c7_malloc(sizeof(*m));
+    if (m != NULL) {
+	if (c7_thread_mutex_init(&m->mutex, NULL)) {
+	    if (c7_thread_cond_init(&m->cond, NULL)) {
+		m->mask = ini_mask;
+		return m;
+	    }
+	    (void)pthread_mutex_destroy(&m->mutex);
+	}
+	free(m);
+    }
+    return NULL;
+}
+    
+uint64_t c7_thread_mask_value(c7_thread_mask_t m)
+{
+    uint64_t mask;
+    c7_thread_lock(&m->mutex);
+    mask = m->mask;
+    c7_thread_unlock(&m->mutex);
+    return mask;
+    
+}
+
+void c7_thread_mask_change(c7_thread_mask_t m, uint64_t set, uint64_t clear)
+{
+    c7_thread_lock(&m->mutex);
+    m->mask |= set;
+    m->mask &= (~clear);
+    c7_thread_notify_all(&m->cond);
+    c7_thread_unlock(&m->mutex);
+}
+
+uint64_t c7_thread_mask_wait(c7_thread_mask_t m, uint64_t expect, uint64_t clear, volatile int tmo_us)
+{
+    struct timespec tmo_time, *tmsp = NULL;
+    if (tmo_us >= 0)
+	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
+
+    C7_THREAD_GUARD_ENTER(&m->mutex);
+    while ((m->mask & expect) == 0) {
+	if (!c7_thread_wait(&m->cond, &m->mutex, tmsp)) {
+	    c7_thread_unlock(&m->mutex);
+	    return 0;			// timeout (ETIMEDOUT) or error
+	}
+    }
+    expect &= m->mask;
+    m->mask &= (~clear);
+    C7_THREAD_GUARD_EXIT(&m->mutex);
+    return expect;
+}
+
+void c7_thread_mask_free(c7_thread_mask_t m)
+{
+    (void)pthread_cond_destroy(&m->cond);
+    (void)pthread_mutex_destroy(&m->mutex);
+    free(m);
+}
+
+
+/*----------------------------------------------------------------------------
                inter-thread pipe (fixed size array of pointer)
 ----------------------------------------------------------------------------*/
 

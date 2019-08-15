@@ -107,7 +107,7 @@ c7_bool_t c7_mlog_has_lock(c7_mlog_t mlog);
  *		この dconf の値のデフォルト値は ::C7_LOG_BRF (==4) である。
  *		プログラムで独自の dconf を初期化していない場合、この設定値を変更する方法は C7_DCONF_MLOG
  *		という環境変数を定義することである。
- * @param categroy ログカテゴリ。
+ * @param category ログカテゴリ。
  * @param minidata 64bit分のアプリケーション任意データ。
  * @param src_name ソースファイルのパス名。記録の必要のない場は c7_mlog_open_w() の flags の指定にかかわらず NULLで構わない。
  *                 逆に flags に C7_MLOG_F_SOURCE_NAME が指定されてなければ、この引数が NULL でなくても記録されない。
@@ -120,7 +120,7 @@ c7_bool_t c7_mlog_has_lock(c7_mlog_t mlog);
  * 正常に記録できれば C7_TRUE を戻す。logsize_b が記録エリアに対して大きすぎる場合はエラーとなり C7_FALSE を戻す。
  */
 c7_bool_t c7_mlog_put(c7_mlog_t mlog, c7_time_t time_us,
-		      uint32_t level, uint32_t categroy, uint64_t minidata,
+		      uint32_t level, uint32_t category, uint64_t minidata,
 		      const char *src_name, int src_line,
 		      const void *logaddr, size_t logsize_b);
 
@@ -129,7 +129,7 @@ c7_bool_t c7_mlog_put(c7_mlog_t mlog, c7_time_t time_us,
  * format 以降の引数から logaddr と logisize_b を得て c7_mlog_put() を呼ぶ。
  */
 c7_bool_t c7_mlog_pfx(c7_mlog_t mlog, c7_time_t time_us,
-		      uint32_t level, uint32_t categroy, uint64_t minidata,
+		      uint32_t level, uint32_t category, uint64_t minidata,
 		      const char *src_name, int src_line,
 		      const char *format, ...);
 
@@ -138,16 +138,46 @@ c7_bool_t c7_mlog_pfx(c7_mlog_t mlog, c7_time_t time_us,
  * format と ap から logaddr と logisize_b を得て c7_mlog_put() を呼ぶ。
  */
 c7_bool_t c7_mlog_vpfx(c7_mlog_t mlog, c7_time_t time_us,
-		       uint32_t level, uint32_t categroy, uint64_t minidata,
+		       uint32_t level, uint32_t category, uint64_t minidata,
 		       const char *src_name, int src_line,
 		       const char *format, va_list ap);
 
+/** ステータス情報と付属メッセージを mlog へ記録する。
+ *
+ * @param mlog mlogオブジェクト。
+ * @param time_us マイクロ秒単位の時刻データ。C7_MLOG_AUTO_TIME が指定されていれば、この関数で時刻を得る。
+ * @param category ログカテゴリ。
+ * @param minidata 64bit分のアプリケーション任意データ。
+ * @param status 0 でなければ、この値から c7_status_str() で得た文字列を記録する。
+ * @param include_old C7_FALSE でなければ、c7status に保存されているステータス情報を記録する。
+ * @param src_name ソースファイルのパス名。記録の必要のない場は c7_mlog_open_w() の flags の指定にかかわらず NULLで構わない。
+ *                 逆に flags に C7_MLOG_F_SOURCE_NAME が指定されてなければ、この引数が NULL でなくても記録されない。
+ *                 この名前のファイル名部分のみが記録される。
+ * @param src_line ソースファイルの行番号。
+ * @param format ステータス情報に追加するメッセージの書式指定文字列。不要の場合は NULL をする。
+ */
+c7_bool_t c7_mlog_pfx_status(c7_mlog_t mlog, c7_time_t time_us,
+			     uint32_t category, uint64_t minidata,
+			     c7_status_t status, c7_bool_t include_old,
+			     const char *src_name, int src_line,
+			     const char *format, ...);
+
+/** ステータス情報と付属メッセージを mlog へ記録する。
+ *
+ * c7_mlog_pfx_status() の va_list 版。
+ */
+c7_bool_t c7_mlog_vpfx_status(c7_mlog_t mlog, c7_time_t time_us,
+			      uint32_t category, uint64_t minidata,
+			      c7_status_t status, c7_bool_t include_old,
+			      const char *src_name, int src_line,
+			      const char *format, va_list ap);
+
 /** ログレベルとカテゴリーは明示的引数とする c7_mlog_pfx() の簡易版。
  *
- * c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, categroy, 0,
+ * c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, category, 0,
  *	       __FILE__, __LINE__, format, ...) と等価。
  */
-c7_bool_t c7_mlog_pfc(c7_mlog_t mlog, uint32_t level, uint32_t categroy,
+c7_bool_t c7_mlog_pfc(c7_mlog_t mlog, uint32_t level, uint32_t category,
 		      const char *format, ...);
 
 /** ログレベルは明示的引数とする c7_mlog_pfx() の簡易版。

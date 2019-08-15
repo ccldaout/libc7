@@ -179,6 +179,22 @@ typedef c7_thread_counter_t c7_thread_event_t;
 
 
 /*----------------------------------------------------------------------------
+                   mask - bitwise synchronization mechanism
+----------------------------------------------------------------------------*/
+
+typedef struct c7_thread_mask_t_ *c7_thread_mask_t;
+
+c7_thread_mask_t c7_thread_mask_init(uint64_t ini_mask);
+uint64_t c7_thread_mask_value(c7_thread_mask_t m);
+#define c7_thread_mask_clear(m)		c7_thread_mask_change(m, 0, -1UL);
+#define c7_thread_mask_on(m,s)		c7_thread_mask_change(m, s, 0)
+#define c7_thread_mask_off(m,c)		c7_thread_mask_change(m, 0, c)
+void c7_thread_mask_change(c7_thread_mask_t m, uint64_t set, uint64_t clear);
+uint64_t c7_thread_mask_wait(c7_thread_mask_t m, uint64_t expect, uint64_t clear, volatile int tmo_us);
+void c7_thread_mask_free(c7_thread_mask_t m);
+
+
+/*----------------------------------------------------------------------------
                inter-thread pipe (fixed size array of pointer)
 ----------------------------------------------------------------------------*/
 

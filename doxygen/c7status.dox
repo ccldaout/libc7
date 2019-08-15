@@ -135,6 +135,17 @@ void c7_status_add_catalog(c7_status_catalog_t *cat);
 void c7_status_add_convert(c7_str_t *(*convert)(c7_str_t *sbp, c7_status_t status, void *arg),
 			   void *arg);
 
+/** ステータスコードを文字列に変換する。
+ *
+ * @param sbp プリフィクス文字列を格納するC7文字列。NULLの場合は c7_str_new_sg() で確保される。
+ * @param status 対象となるステータスコード。
+ * @return sbp に c7_sprintf() を適用した結果がそのまま戻される。
+ *
+ * この関数は引数で指定した単一のステータスコードに対応する文字列をカタログなどから得るものである。
+ * c7status に保持されているステータス情報をまとめて文字列化する場合は c7_status_string() を使用する。
+ */
+c7_str_t *c7_status_str(c7_str_t *sbp, c7_status_t status);
+
 //@}
 
 

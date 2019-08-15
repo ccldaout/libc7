@@ -83,6 +83,18 @@ c7_bool_t c7_mlog_vpfx(c7_mlog_t log, c7_time_t time_us,
 		       const char *src_name, int src_line,
 		       const char *format, va_list ap);
 
+c7_bool_t c7_mlog_pfx_status(c7_mlog_t log, c7_time_t time_us,
+			     uint32_t category, uint64_t minidata,
+			     c7_status_t status, c7_bool_t include_old,
+			     const char *src_name, int src_line,
+			     const char *format, ...);
+
+c7_bool_t c7_mlog_vpfx_status(c7_mlog_t log, c7_time_t time_us,
+			      uint32_t category, uint64_t minidata,
+			      c7_status_t status, c7_bool_t include_old,
+			      const char *src_name, int src_line,
+			      const char *format, va_list ap);
+
 #define c7_mlog_pfc(g, v, c, ...)	c7_mlog_pfx((g), C7_MLOG_AUTO_TIME, (v), (c), \
 						    0, __FILE__, __LINE__, __VA_ARGS__)
 

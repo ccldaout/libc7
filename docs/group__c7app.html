@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.3.0</span>
+   &#160;<span id="projectnumber">r1.0.0</span>
    </div>
   </td>
  </tr>
@@ -133,7 +133,7 @@ Functions</h2></td></tr>
 <dd>
 <a class="el" href="group__c7dconf.html#gga06fc87d81c62e9abb8790b6e5713c55ba63d58b8bf389616f52b7941b2e1903be" title="c7echo系の表示レベル">C7_DCONF_ECHO</a> の dconf 設定値のデフォルトは <a class="el" href="group__c7types.html#ga2e36a410ec498897ff8313d3953f84b1" title="情報レベル">C7_LOG_INF</a> (==3) となっている。 プログラムで独自の dconf を初期化していない場合、この設定値を変更する方法は C7_DCONF_ECHO という環境変数を定義することである。</dd>
 <dd>
-また、これらの関数は <a class="el" href="group__c7hook.html#gac9739a4dfe740d32f1259d931dce5bfd" title="stdout/stderr へのメッセージ出力機構のフックを設定する。">c7_hook_set_echo()</a> または <a class="el" href="group__c7hook.html#ga7f5ca22bbc919a247b18fe5fa054fdc1" title="stdout/stderr へのメッセージ出力機構で mlog 出力のフックを設定する。">c7_hook_set_echo_mlog()</a> で指定した hook を呼び出すが、この呼び出し自体は <a class="el" href="group__c7dconf.html#gga06fc87d81c62e9abb8790b6e5713c55ba63d58b8bf389616f52b7941b2e1903be" title="c7echo系の表示レベル">C7_DCONF_ECHO</a> の dconf 設定値には影響されない。 ただし、c7_hook_set_echo_mlog() を使った場合のように hook で <a class="el" href="group__c7mlog.html#ga7195c642850be0042370b66c9c17d2b8" title="mlog へ記録する。">c7_mlog_put()</a> を呼び出すときは、記録動作は <a class="el" href="group__c7dconf.html#gga06fc87d81c62e9abb8790b6e5713c55ba78f0eaf26c0437b066af39dcc19f0bec" title="mlog記録レベル">C7_DCONF_MLOG</a> の dconf 設定値に依存する。 </dd></dl>
+また、これらの関数は <a class="el" href="group__c7hook.html#gac9739a4dfe740d32f1259d931dce5bfd" title="stdout/stderr へのメッセージ出力機構のフックを設定する。">c7_hook_set_echo()</a> または <a class="el" href="group__c7hook.html#ga7f5ca22bbc919a247b18fe5fa054fdc1" title="stdout/stderr へのメッセージ出力機構で mlog 出力のフックを設定する。">c7_hook_set_echo_mlog()</a> で指定した hook を呼び出すが、この呼び出し自体は <a class="el" href="group__c7dconf.html#gga06fc87d81c62e9abb8790b6e5713c55ba63d58b8bf389616f52b7941b2e1903be" title="c7echo系の表示レベル">C7_DCONF_ECHO</a> の dconf 設定値には影響されない。 ただし、c7_hook_set_echo_mlog() を使った場合のように hook で <a class="el" href="group__c7mlog.html#gac108a8d38b1643df10f01711d08988f3" title="mlog へ記録する。">c7_mlog_put()</a> を呼び出すときは、記録動作は <a class="el" href="group__c7dconf.html#gga06fc87d81c62e9abb8790b6e5713c55ba78f0eaf26c0437b066af39dcc19f0bec" title="mlog記録レベル">C7_DCONF_MLOG</a> の dconf 設定値に依存する。 </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaf6c1861e5461815dfb3e091b2798107e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaf6c1861e5461815dfb3e091b2798107e">&#9670;&nbsp;</a></span>c7_init()</h2>

@@ -192,6 +192,7 @@ typedef struct c7_generator_t_ c7_generator_t;
  * @param gen ジェネレータオブジェクトへのポインタ。
  * @param stacksize_kb コルーチンが使用するスタックの大きさを KB単位で指定する。
  * @param coroutine コルーチンで実行する関数。
+ * @param finalize NULLでなければコルーチンオブジェクト削除前に呼び出される。
  * @param param coroutine() に渡すパラメータ。
  * @return ジェネレータオブジェクトの初期化に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。
  *
@@ -203,14 +204,21 @@ static void gen(c7_mgroup_t mg, void *param)
 	c7_coroutine_yield(NULL, s);
 }
 
+static void fin(c7_mgroup_t mg, void *param)
+{
+    c7echo(": fin\n");
+    free(param);
+}
+
 int main(int argc, char **argv)
 {
     char *s;
     c7_generator_t g;
-    if (c7_generator_init(&g, 2, gen, argv[1])) {
+    int stksize_kb = 1;
+    if (c7_generator_init(&g, stksize_kb, gen, fin, c7strdup(argv[1]))) {
 	while (c7_generator_next(&g, &s))
 	    c7echo(": <%s>\n", s);
-	if (!c7_coroutine_is_valid(s))
+	if (!c7_coroutine_is_exited(s))
 	    c7exit_err(0, ": error happen in generator_next\n");
     } else
 	c7exit_err(0, ": error happen in generator_init\n");
@@ -221,6 +229,7 @@ int main(int argc, char **argv)
 c7_bool_t c7_generator_init(c7_generator_t *gen,
 			    size_t stacksize_kb,
 			    void (*coroutine)(c7_mgroup_t, void *param),
+			    void (*finalize)(c7_mgroup_t, void *param),
 			    void *param);
 
 /** ジェネレータから値を得る。

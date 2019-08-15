@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.3.0</span>
+   &#160;<span id="projectnumber">r1.0.0</span>
    </div>
   </td>
  </tr>
@@ -292,6 +292,36 @@ mp には pthread_mutex_t のポインタを指定する。 <br /></td></tr>
 <tr class="separator:ga9992735e6e7633e32fd8d08440ad6c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+ビットマスク同期機能</h2></td></tr>
+<tr class="memitem:gaeb25e7228af176e650eab60d03251b99"><td class="memItemLeft" align="right" valign="top">typedef struct c7_thread_mask_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a></td></tr>
+<tr class="memdesc:gaeb25e7228af176e650eab60d03251b99"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクト。  <a href="#gaeb25e7228af176e650eab60d03251b99">More...</a><br /></td></tr>
+<tr class="separator:gaeb25e7228af176e650eab60d03251b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28c9389d035d72f4627738b03c0dd36d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga28c9389d035d72f4627738b03c0dd36d">c7_thread_mask_init</a> (uint64_t ini_mask)</td></tr>
+<tr class="memdesc:ga28c9389d035d72f4627738b03c0dd36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトを生成する。  <a href="#ga28c9389d035d72f4627738b03c0dd36d">More...</a><br /></td></tr>
+<tr class="separator:ga28c9389d035d72f4627738b03c0dd36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24a9c1a3b0c376ad1eba6a5217f5054d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga24a9c1a3b0c376ad1eba6a5217f5054d">c7_thread_mask_value</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk)</td></tr>
+<tr class="memdesc:ga24a9c1a3b0c376ad1eba6a5217f5054d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトの現在値を得る。  <a href="#ga24a9c1a3b0c376ad1eba6a5217f5054d">More...</a><br /></td></tr>
+<tr class="separator:ga24a9c1a3b0c376ad1eba6a5217f5054d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabe49d73e0b198705cc332fd313eff60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaabe49d73e0b198705cc332fd313eff60">c7_thread_mask_clear</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk)</td></tr>
+<tr class="memdesc:gaabe49d73e0b198705cc332fd313eff60"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトの値をクリアする。  <a href="#gaabe49d73e0b198705cc332fd313eff60">More...</a><br /></td></tr>
+<tr class="separator:gaabe49d73e0b198705cc332fd313eff60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga876854d014f63bc8ee2bafa1f2f9dc61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga876854d014f63bc8ee2bafa1f2f9dc61">c7_thread_mask_on</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk, uint64_t set)</td></tr>
+<tr class="memdesc:ga876854d014f63bc8ee2bafa1f2f9dc61"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトの値の指定ビットを立てる。  <a href="#ga876854d014f63bc8ee2bafa1f2f9dc61">More...</a><br /></td></tr>
+<tr class="separator:ga876854d014f63bc8ee2bafa1f2f9dc61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c9db80e7df21aa0a2ea0a2fb2dfcb21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga5c9db80e7df21aa0a2ea0a2fb2dfcb21">c7_thread_mask_onr</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk, uint64_t clear)</td></tr>
+<tr class="memdesc:ga5c9db80e7df21aa0a2ea0a2fb2dfcb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトの値の指定ビットを下げる。  <a href="#ga5c9db80e7df21aa0a2ea0a2fb2dfcb21">More...</a><br /></td></tr>
+<tr class="separator:ga5c9db80e7df21aa0a2ea0a2fb2dfcb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa44091f714209e5bafed29117dded309"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa44091f714209e5bafed29117dded309">c7_thread_mask_change</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk, uint64_t set, uint64_t clear)</td></tr>
+<tr class="memdesc:gaa44091f714209e5bafed29117dded309"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトの値を操作する。  <a href="#gaa44091f714209e5bafed29117dded309">More...</a><br /></td></tr>
+<tr class="separator:gaa44091f714209e5bafed29117dded309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08f4ef6c55a7f7b4844558af4c3e50d5"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga08f4ef6c55a7f7b4844558af4c3e50d5">c7_thread_mask_wait</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk, uint64_t expect, uint64_t clear, int tmo_us)</td></tr>
+<tr class="memdesc:ga08f4ef6c55a7f7b4844558af4c3e50d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトの値の指定ビットが立つまで待機する。  <a href="#ga08f4ef6c55a7f7b4844558af4c3e50d5">More...</a><br /></td></tr>
+<tr class="separator:ga08f4ef6c55a7f7b4844558af4c3e50d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac2a4e859a174ae93fb573a0df6f2bf4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gac2a4e859a174ae93fb573a0df6f2bf4e">c7_thread_mask_free</a> (<a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> msk)</td></tr>
+<tr class="memdesc:gac2a4e859a174ae93fb573a0df6f2bf4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビットマスク同期オブジェクトを破棄する。  <a href="#gac2a4e859a174ae93fb573a0df6f2bf4e">More...</a><br /></td></tr>
+<tr class="separator:gac2a4e859a174ae93fb573a0df6f2bf4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 スレッド間固定長パイプ (配列使用のエントリ数固定型)</h2></td></tr>
 <tr class="memitem:ga1f1747cf77d2dba798d5e4a77882c5e7"><td class="memItemLeft" align="right" valign="top"><a id="ga1f1747cf77d2dba798d5e4a77882c5e7"></a>
 typedef struct c7_thread_fpipe_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a></td></tr>
@@ -416,6 +446,23 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 
 <p>C7同期イベント。 </p>
 <p>同期イベントは、セット状態とクリア状態の二つをもち、 それぞれを、0 と 1 に割り当てたC7カウンタの特殊ケース。 </p>
+
+</div>
+</div>
+<a id="gaeb25e7228af176e650eab60d03251b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb25e7228af176e650eab60d03251b99">&#9670;&nbsp;</a></span>c7_thread_mask_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct c7_thread_mask_t_* <a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクト。 </p>
+<p>符号無し整数のビットマスクに基づく同期機構を提供する。 排他制御(pthread_mutex_t)や条件変数(pthread_cond_t)を用いるが、初期化以外で、正しい使い方をしている lock/unlock/notify/wait について戻り値をチェックしない。 そのため、c7hook 機構を用いて、これらの関数でエラーした場合に処理を記述しておくのが良いだろう。 </p>
 
 </div>
 </div>
@@ -1816,6 +1863,284 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 
 <p>C7同期イベントを破棄する。 </p>
 <p>c7_thread_counter_free(ev) と等価。 </p>
+
+</div>
+</div>
+<a id="ga28c9389d035d72f4627738b03c0dd36d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28c9389d035d72f4627738b03c0dd36d">&#9670;&nbsp;</a></span>c7_thread_mask_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a> c7_thread_mask_init </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>ini_mask</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトを生成する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ini_mask</td><td>ビットマスクの初期値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すれば ビットマスク同期オブジェクトを戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="ga24a9c1a3b0c376ad1eba6a5217f5054d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga24a9c1a3b0c376ad1eba6a5217f5054d">&#9670;&nbsp;</a></span>c7_thread_mask_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_thread_mask_value </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトの現在値を得る。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>現在のカウンタ値を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gaabe49d73e0b198705cc332fd313eff60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaabe49d73e0b198705cc332fd313eff60">&#9670;&nbsp;</a></span>c7_thread_mask_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_mask_clear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトの値をクリアする。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga876854d014f63bc8ee2bafa1f2f9dc61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga876854d014f63bc8ee2bafa1f2f9dc61">&#9670;&nbsp;</a></span>c7_thread_mask_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_mask_on </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>set</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトの値の指定ビットを立てる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。 </td></tr>
+    <tr><td class="paramname">set</td><td>onにされるビットマスク値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga5c9db80e7df21aa0a2ea0a2fb2dfcb21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5c9db80e7df21aa0a2ea0a2fb2dfcb21">&#9670;&nbsp;</a></span>c7_thread_mask_onr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_mask_onr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>clear</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトの値の指定ビットを下げる。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。 </td></tr>
+    <tr><td class="paramname">clear</td><td>offにされるビットマスク値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaa44091f714209e5bafed29117dded309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa44091f714209e5bafed29117dded309">&#9670;&nbsp;</a></span>c7_thread_mask_change()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_mask_change </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>clear</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトの値を操作する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。 </td></tr>
+    <tr><td class="paramname">set</td><td>onにされるビットマスク値。 </td></tr>
+    <tr><td class="paramname">clear</td><td>offにされるビットマスク値。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>on 操作のあと off 操作を行うため、set と clear で共通のビットがあった場合、そのビットは off になる。 </p>
+
+</div>
+</div>
+<a id="ga08f4ef6c55a7f7b4844558af4c3e50d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08f4ef6c55a7f7b4844558af4c3e50d5">&#9670;&nbsp;</a></span>c7_thread_mask_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t c7_thread_mask_wait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>expect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>clear</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトの値の指定ビットが立つまで待機する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。 </td></tr>
+    <tr><td class="paramname">expect</td><td>監視するビットマスク。このマスクで指定するいずれかのビットが立てば条件成立となる。 </td></tr>
+    <tr><td class="paramname">clear</td><td>条件成立時に off にするビットマスク。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>非負(≧0)ならマイクロ秒単位のタイムアウト値とする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>タイムアウトまでの間に条件が成立すれば、成立時の expect との論理積の値(≠0)を戻す。 この値は clear によるビットoffの前に確定する。 タイムアウトした場合は 0 が戻され、errno には ETIMEDOUT が設定される。 </dd></dl>
+
+</div>
+</div>
+<a id="gac2a4e859a174ae93fb573a0df6f2bf4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac2a4e859a174ae93fb573a0df6f2bf4e">&#9670;&nbsp;</a></span>c7_thread_mask_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_mask_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#gaeb25e7228af176e650eab60d03251b99">c7_thread_mask_t</a>&#160;</td>
+          <td class="paramname"><em>msk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビットマスク同期オブジェクトを破棄する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msk</td><td>ビットマスク同期オブジェクト。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>ビットマスク同期オブジェクトで待機しているスレッドがあった場合の動作は予測不可能である。 </p>
 
 </div>
 </div>

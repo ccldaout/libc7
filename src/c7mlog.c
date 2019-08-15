@@ -328,29 +328,91 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
     return C7_TRUE;
 }
 
-c7_bool_t c7_mlog_pfx(c7_mlog_t log, c7_time_t time_us,
-		      uint32_t level, uint32_t categroy, uint64_t minidata,
-		      const char *src_name, int src_line,
-		      const char *format, ...)
-{
-    va_list ap;
-    va_start(ap, format);
-    c7_bool_t r = c7_mlog_vpfx(log, time_us, level, categroy, minidata,
-			       src_name, src_line, format, ap);
-    va_end(ap);
-    return r;
-}
-
 c7_bool_t c7_mlog_vpfx(c7_mlog_t log, c7_time_t time_us,
-		       uint32_t level, uint32_t categroy, uint64_t minidata,
+		       uint32_t level, uint32_t category, uint64_t minidata,
 		       const char *src_name, int src_line,
 		       const char *format, va_list ap)
 {
     static c7_thread_local c7_str_t sb = C7_STR_INIT_TLS();
     (void)C7_STR_REUSE(&sb);
     c7_vsprintf(&sb, format, ap);
-    c7_bool_t r = c7_mlog_put(log, time_us, level, categroy, minidata,
-			      src_name, src_line, c7_strbuf(&sb), C7_STR_LEN(&sb));
+    c7_bool_t r = c7_mlog_put(log, time_us, level, category, minidata,
+			      src_name, src_line, c7_strbuf(&sb), C7_STR_LEN(&sb)+1);
+    return r;
+}
+
+c7_bool_t c7_mlog_pfx(c7_mlog_t log, c7_time_t time_us,
+		      uint32_t level, uint32_t category, uint64_t minidata,
+		      const char *src_name, int src_line,
+		      const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+    c7_bool_t r = c7_mlog_vpfx(log, time_us, level, category, minidata,
+			       src_name, src_line, format, ap);
+    va_end(ap);
+    return r;
+}
+
+typedef struct _putstatus_t_ {
+    c7_str_t sb;
+    c7_mlog_t log;
+    c7_time_t time_us;
+    uint32_t category;
+} _putstatus_t;
+
+static void putstatus(const char *src_name, int src_line,
+		      c7_status_t status, const char *message,
+		      const void *__uctx)
+{
+    _putstatus_t *prm = (_putstatus_t *)__uctx;
+    c7_str_reuse(&prm->sb);
+    if (status != 0) {
+	c7_status_str(&prm->sb, status);
+	c7_mlog_put(prm->log, prm->time_us, C7_LOG_ERR, prm->category, 0,
+		    src_name, src_line, c7_strbuf(&prm->sb), C7_STR_LEN(&prm->sb)+1);
+    }
+    if (message != NULL) {
+	c7_mlog_put(prm->log, prm->time_us, C7_LOG_ERR, prm->category, 0,
+		    src_name, src_line, message, -1UL);
+    }
+}
+
+c7_bool_t c7_mlog_vpfx_status(c7_mlog_t log, c7_time_t time_us,
+			      uint32_t category, uint64_t minidata,
+			      c7_status_t status, c7_bool_t include_old,
+			      const char *src_name, int src_line,
+			      const char *format, va_list ap)
+{
+    if (time_us == C7_MLOG_AUTO_TIME)
+	time_us = c7_time_us();
+
+    _putstatus_t prm = {
+	.sb = C7_STR_INIT_MA(), .log = log, .time_us = time_us, .category = category
+    };
+    if (include_old)
+	c7_status_scan(putstatus, &prm);
+    if (status != 0)
+	putstatus(src_name, src_line, status, NULL, &prm);
+    if (format != NULL)
+	(void)c7_mlog_vpfx(log, time_us, C7_LOG_ERR, category, minidata,
+			   src_name, src_line, format, ap);
+    c7_str_free(&prm.sb);
+    return C7_TRUE;
+}
+
+c7_bool_t c7_mlog_pfx_status(c7_mlog_t log, c7_time_t time_us,
+			     uint32_t category, uint64_t minidata,
+			     c7_status_t status, c7_bool_t include_old,
+			     const char *src_name, int src_line,
+			     const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+    c7_bool_t r = c7_mlog_vpfx_status(log, time_us, category, minidata,
+				      status, include_old,
+				      src_name, src_line, format, ap);
+    va_end(ap);
     return r;
 }
 
@@ -476,7 +538,7 @@ __attribute__((unused))
 static void dumplnk(c7_mlog_t g, raddr_t addr, const _lnk_t *lnk)
 {
     c7echo("%10d: order: %d, prevoff: %d (prevaddr: %d), nextoff: %d (nextaddr: %d), size_b: %d\n"
-	   "          : control: %d, time_us: %ld, minidata: %ld, level: %d, categroy: %d, th_id: %ld\n",
+	   "          : control: %d, time_us: %ld, minidata: %ld, level: %d, category: %d, th_id: %ld\n",
 	   addr % g->hdr->logsize_b,
 	   lnk->order,
 	   lnk->prevlnkoff, (addr - lnk->prevlnkoff) % g->hdr->logsize_b,

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.3.0</span>
+   &#160;<span id="projectnumber">r1.0.0</span>
    </div>
   </td>
  </tr>
@@ -134,20 +134,26 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3413eb3a637fe88d95a0cfc22c5eb983"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga3413eb3a637fe88d95a0cfc22c5eb983">c7_mlog_has_lock</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog)</td></tr>
 <tr class="memdesc:ga3413eb3a637fe88d95a0cfc22c5eb983"><td class="mdescLeft">&#160;</td><td class="mdescRight">mlog への書き込みアクセスが排他制御されているか調べる。  <a href="#ga3413eb3a637fe88d95a0cfc22c5eb983">More...</a><br /></td></tr>
 <tr class="separator:ga3413eb3a637fe88d95a0cfc22c5eb983"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7195c642850be0042370b66c9c17d2b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga7195c642850be0042370b66c9c17d2b8">c7_mlog_put</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t level, uint32_t categroy, uint64_t minidata, const char *src_name, int src_line, const void *logaddr, size_t logsize_b)</td></tr>
-<tr class="memdesc:ga7195c642850be0042370b66c9c17d2b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">mlog へ記録する。  <a href="#ga7195c642850be0042370b66c9c17d2b8">More...</a><br /></td></tr>
-<tr class="separator:ga7195c642850be0042370b66c9c17d2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad08c021f3c5074f45d70fddddf2024ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#gad08c021f3c5074f45d70fddddf2024ed">c7_mlog_pfx</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t level, uint32_t categroy, uint64_t minidata, const char *src_name, int src_line, const char *format,...)</td></tr>
-<tr class="memdesc:gad08c021f3c5074f45d70fddddf2024ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">printf(3)の形式で mlog へ記録する。  <a href="#gad08c021f3c5074f45d70fddddf2024ed">More...</a><br /></td></tr>
-<tr class="separator:gad08c021f3c5074f45d70fddddf2024ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1f854e8f30d318e67584e1b2bcd9906b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga1f854e8f30d318e67584e1b2bcd9906b">c7_mlog_vpfx</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t level, uint32_t categroy, uint64_t minidata, const char *src_name, int src_line, const char *format, va_list ap)</td></tr>
-<tr class="memdesc:ga1f854e8f30d318e67584e1b2bcd9906b"><td class="mdescLeft">&#160;</td><td class="mdescRight">vprintf(3)の形式で mlog へ記録する。  <a href="#ga1f854e8f30d318e67584e1b2bcd9906b">More...</a><br /></td></tr>
-<tr class="separator:ga1f854e8f30d318e67584e1b2bcd9906b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad38ea70e2b89838b1870402bfa0060cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#gad38ea70e2b89838b1870402bfa0060cd">c7_mlog_pfc</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, uint32_t level, uint32_t categroy, const char *format,...)</td></tr>
-<tr class="memdesc:gad38ea70e2b89838b1870402bfa0060cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">ログレベルとカテゴリーは明示的引数とする <a class="el" href="group__c7mlog.html#gad08c021f3c5074f45d70fddddf2024ed" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。  <a href="#gad38ea70e2b89838b1870402bfa0060cd">More...</a><br /></td></tr>
-<tr class="separator:gad38ea70e2b89838b1870402bfa0060cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac108a8d38b1643df10f01711d08988f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#gac108a8d38b1643df10f01711d08988f3">c7_mlog_put</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t level, uint32_t category, uint64_t minidata, const char *src_name, int src_line, const void *logaddr, size_t logsize_b)</td></tr>
+<tr class="memdesc:gac108a8d38b1643df10f01711d08988f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">mlog へ記録する。  <a href="#gac108a8d38b1643df10f01711d08988f3">More...</a><br /></td></tr>
+<tr class="separator:gac108a8d38b1643df10f01711d08988f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84ea07aa250e40b609eccf11765c2c69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga84ea07aa250e40b609eccf11765c2c69">c7_mlog_pfx</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t level, uint32_t category, uint64_t minidata, const char *src_name, int src_line, const char *format,...)</td></tr>
+<tr class="memdesc:ga84ea07aa250e40b609eccf11765c2c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">printf(3)の形式で mlog へ記録する。  <a href="#ga84ea07aa250e40b609eccf11765c2c69">More...</a><br /></td></tr>
+<tr class="separator:ga84ea07aa250e40b609eccf11765c2c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46458d5df4fd5a1b3097cbf9805cc28f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga46458d5df4fd5a1b3097cbf9805cc28f">c7_mlog_vpfx</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t level, uint32_t category, uint64_t minidata, const char *src_name, int src_line, const char *format, va_list ap)</td></tr>
+<tr class="memdesc:ga46458d5df4fd5a1b3097cbf9805cc28f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vprintf(3)の形式で mlog へ記録する。  <a href="#ga46458d5df4fd5a1b3097cbf9805cc28f">More...</a><br /></td></tr>
+<tr class="separator:ga46458d5df4fd5a1b3097cbf9805cc28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae57dfb6167a02a0ed883d0022082f68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#gaae57dfb6167a02a0ed883d0022082f68">c7_mlog_pfx_status</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t category, uint64_t minidata, <a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a> status, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> include_old, const char *src_name, int src_line, const char *format,...)</td></tr>
+<tr class="memdesc:gaae57dfb6167a02a0ed883d0022082f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">ステータス情報と付属メッセージを mlog へ記録する。  <a href="#gaae57dfb6167a02a0ed883d0022082f68">More...</a><br /></td></tr>
+<tr class="separator:gaae57dfb6167a02a0ed883d0022082f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f32690eca10562fcfece801a8a4f1c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga3f32690eca10562fcfece801a8a4f1c3">c7_mlog_vpfx_status</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, <a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a> time_us, uint32_t category, uint64_t minidata, <a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a> status, <a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> include_old, const char *src_name, int src_line, const char *format, va_list ap)</td></tr>
+<tr class="memdesc:ga3f32690eca10562fcfece801a8a4f1c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">ステータス情報と付属メッセージを mlog へ記録する。  <a href="#ga3f32690eca10562fcfece801a8a4f1c3">More...</a><br /></td></tr>
+<tr class="separator:ga3f32690eca10562fcfece801a8a4f1c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81b48255d6ff25adce1aaa0fd37c255d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga81b48255d6ff25adce1aaa0fd37c255d">c7_mlog_pfc</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, uint32_t level, uint32_t category, const char *format,...)</td></tr>
+<tr class="memdesc:ga81b48255d6ff25adce1aaa0fd37c255d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ログレベルとカテゴリーは明示的引数とする <a class="el" href="group__c7mlog.html#ga84ea07aa250e40b609eccf11765c2c69" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。  <a href="#ga81b48255d6ff25adce1aaa0fd37c255d">More...</a><br /></td></tr>
+<tr class="separator:ga81b48255d6ff25adce1aaa0fd37c255d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd783f9071a37d9e6a9200ef2fa21c71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#gabd783f9071a37d9e6a9200ef2fa21c71">c7_mlog_pf</a> (<a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a> mlog, uint32_t level, const char *format,...)</td></tr>
-<tr class="memdesc:gabd783f9071a37d9e6a9200ef2fa21c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">ログレベルは明示的引数とする <a class="el" href="group__c7mlog.html#gad08c021f3c5074f45d70fddddf2024ed" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。  <a href="#gabd783f9071a37d9e6a9200ef2fa21c71">More...</a><br /></td></tr>
+<tr class="memdesc:gabd783f9071a37d9e6a9200ef2fa21c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">ログレベルは明示的引数とする <a class="el" href="group__c7mlog.html#ga84ea07aa250e40b609eccf11765c2c69" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。  <a href="#gabd783f9071a37d9e6a9200ef2fa21c71">More...</a><br /></td></tr>
 <tr class="separator:gabd783f9071a37d9e6a9200ef2fa21c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8a5ba1ad3b3dceaac8b1e82995c41b59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mlog.html#ga8a5ba1ad3b3dceaac8b1e82995c41b59">c7_mlog_open_r</a> (const char *name)</td></tr>
 <tr class="memdesc:ga8a5ba1ad3b3dceaac8b1e82995c41b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">mlogを読み込み用として初期化する。  <a href="#ga8a5ba1ad3b3dceaac8b1e82995c41b59">More...</a><br /></td></tr>
@@ -503,8 +509,8 @@ minidata</td>
 
 </div>
 </div>
-<a id="ga7195c642850be0042370b66c9c17d2b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7195c642850be0042370b66c9c17d2b8">&#9670;&nbsp;</a></span>c7_mlog_put()</h2>
+<a id="gac108a8d38b1643df10f01711d08988f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac108a8d38b1643df10f01711d08988f3">&#9670;&nbsp;</a></span>c7_mlog_put()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +537,7 @@ minidata</td>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>categroy</em>, </td>
+          <td class="paramname"><em>category</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -577,7 +583,7 @@ minidata</td>
     <tr><td class="paramname">mlog</td><td>mlogオブジェクト。 </td></tr>
     <tr><td class="paramname">time_us</td><td>マイクロ秒単位の時刻データ。C7_MLOG_AUTO_TIME が指定されていれば、この関数で時刻を得る。 </td></tr>
     <tr><td class="paramname">level</td><td>ログレベル(c7types.h の C7_LOG_xxx)。 この値が dconf の <a class="el" href="group__c7dconf.html#gga06fc87d81c62e9abb8790b6e5713c55ba78f0eaf26c0437b066af39dcc19f0bec" title="mlog記録レベル">C7_DCONF_MLOG</a> インデックスの値より大きいとログファイルに記録されない。 この dconf の値のデフォルト値は <a class="el" href="group__c7types.html#ga736fb6f6b92fd859d156e5408a30334f" title="簡潔な追加情報">C7_LOG_BRF</a> (==4) である。 プログラムで独自の dconf を初期化していない場合、この設定値を変更する方法は C7_DCONF_MLOG という環境変数を定義することである。 </td></tr>
-    <tr><td class="paramname">categroy</td><td>ログカテゴリ。 </td></tr>
+    <tr><td class="paramname">category</td><td>ログカテゴリ。 </td></tr>
     <tr><td class="paramname">minidata</td><td>64bit分のアプリケーション任意データ。 </td></tr>
     <tr><td class="paramname">src_name</td><td>ソースファイルのパス名。記録の必要のない場は <a class="el" href="group__c7mlog.html#gadcf62288ff8d0a75454a2e0bdd3dbfbe" title="mlogを書き込みモードでオープンする。">c7_mlog_open_w()</a> の flags の指定にかかわらず NULLで構わない。 逆に flags に C7_MLOG_F_SOURCE_NAME が指定されてなければ、この引数が NULL でなくても記録されない。 この名前のファイル名部分のみが記録される。 </td></tr>
     <tr><td class="paramname">src_line</td><td>ソースファイルの行番号。 </td></tr>
@@ -590,8 +596,8 @@ minidata</td>
 
 </div>
 </div>
-<a id="gad08c021f3c5074f45d70fddddf2024ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad08c021f3c5074f45d70fddddf2024ed">&#9670;&nbsp;</a></span>c7_mlog_pfx()</h2>
+<a id="ga84ea07aa250e40b609eccf11765c2c69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84ea07aa250e40b609eccf11765c2c69">&#9670;&nbsp;</a></span>c7_mlog_pfx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -618,7 +624,7 @@ minidata</td>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>categroy</em>, </td>
+          <td class="paramname"><em>category</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -659,12 +665,12 @@ minidata</td>
 </div><div class="memdoc">
 
 <p>printf(3)の形式で mlog へ記録する。 </p>
-<p>format 以降の引数から logaddr と logisize_b を得て <a class="el" href="group__c7mlog.html#ga7195c642850be0042370b66c9c17d2b8" title="mlog へ記録する。">c7_mlog_put()</a> を呼ぶ。 </p>
+<p>format 以降の引数から logaddr と logisize_b を得て <a class="el" href="group__c7mlog.html#gac108a8d38b1643df10f01711d08988f3" title="mlog へ記録する。">c7_mlog_put()</a> を呼ぶ。 </p>
 
 </div>
 </div>
-<a id="ga1f854e8f30d318e67584e1b2bcd9906b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1f854e8f30d318e67584e1b2bcd9906b">&#9670;&nbsp;</a></span>c7_mlog_vpfx()</h2>
+<a id="ga46458d5df4fd5a1b3097cbf9805cc28f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46458d5df4fd5a1b3097cbf9805cc28f">&#9670;&nbsp;</a></span>c7_mlog_vpfx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -691,7 +697,7 @@ minidata</td>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>categroy</em>, </td>
+          <td class="paramname"><em>category</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -732,18 +738,18 @@ minidata</td>
 </div><div class="memdoc">
 
 <p>vprintf(3)の形式で mlog へ記録する。 </p>
-<p>format と ap から logaddr と logisize_b を得て <a class="el" href="group__c7mlog.html#ga7195c642850be0042370b66c9c17d2b8" title="mlog へ記録する。">c7_mlog_put()</a> を呼ぶ。 </p>
+<p>format と ap から logaddr と logisize_b を得て <a class="el" href="group__c7mlog.html#gac108a8d38b1643df10f01711d08988f3" title="mlog へ記録する。">c7_mlog_put()</a> を呼ぶ。 </p>
 
 </div>
 </div>
-<a id="gad38ea70e2b89838b1870402bfa0060cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad38ea70e2b89838b1870402bfa0060cd">&#9670;&nbsp;</a></span>c7_mlog_pfc()</h2>
+<a id="gaae57dfb6167a02a0ed883d0022082f68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae57dfb6167a02a0ed883d0022082f68">&#9670;&nbsp;</a></span>c7_mlog_pfx_status()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_mlog_pfc </td>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_mlog_pfx_status </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a>&#160;</td>
           <td class="paramname"><em>mlog</em>, </td>
@@ -751,14 +757,44 @@ minidata</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>level</em>, </td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a>&#160;</td>
+          <td class="paramname"><em>time_us</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>categroy</em>, </td>
+          <td class="paramname"><em>category</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>minidata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a>&#160;</td>
+          <td class="paramname"><em>status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td>
+          <td class="paramname"><em>include_old</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>src_line</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -780,8 +816,149 @@ minidata</td>
       </table>
 </div><div class="memdoc">
 
-<p>ログレベルとカテゴリーは明示的引数とする <a class="el" href="group__c7mlog.html#gad08c021f3c5074f45d70fddddf2024ed" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。 </p>
-<p>c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, categroy, 0, <b>FILE</b>, <b>LINE</b>, format, ...) と等価。 </p>
+<p>ステータス情報と付属メッセージを mlog へ記録する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mlog</td><td>mlogオブジェクト。 </td></tr>
+    <tr><td class="paramname">time_us</td><td>マイクロ秒単位の時刻データ。C7_MLOG_AUTO_TIME が指定されていれば、この関数で時刻を得る。 </td></tr>
+    <tr><td class="paramname">category</td><td>ログカテゴリ。 </td></tr>
+    <tr><td class="paramname">minidata</td><td>64bit分のアプリケーション任意データ。 </td></tr>
+    <tr><td class="paramname">status</td><td>0 でなければ、この値から <a class="el" href="group__c7status.html#gaa393b6938436d99b8045bc3b898f00af" title="ステータスコードを文字列に変換する。">c7_status_str()</a> で得た文字列を記録する。 </td></tr>
+    <tr><td class="paramname">include_old</td><td>C7_FALSE でなければ、c7status に保存されているステータス情報を記録する。 </td></tr>
+    <tr><td class="paramname">src_name</td><td>ソースファイルのパス名。記録の必要のない場は <a class="el" href="group__c7mlog.html#gadcf62288ff8d0a75454a2e0bdd3dbfbe" title="mlogを書き込みモードでオープンする。">c7_mlog_open_w()</a> の flags の指定にかかわらず NULLで構わない。 逆に flags に C7_MLOG_F_SOURCE_NAME が指定されてなければ、この引数が NULL でなくても記録されない。 この名前のファイル名部分のみが記録される。 </td></tr>
+    <tr><td class="paramname">src_line</td><td>ソースファイルの行番号。 </td></tr>
+    <tr><td class="paramname">format</td><td>ステータス情報に追加するメッセージの書式指定文字列。不要の場合は NULL をする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga3f32690eca10562fcfece801a8a4f1c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f32690eca10562fcfece801a8a4f1c3">&#9670;&nbsp;</a></span>c7_mlog_vpfx_status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_mlog_vpfx_status </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a>&#160;</td>
+          <td class="paramname"><em>mlog</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a>&#160;</td>
+          <td class="paramname"><em>time_us</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>category</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>minidata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7status.html#ga708d256a331017df499e3e945133434b">c7_status_t</a>&#160;</td>
+          <td class="paramname"><em>status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td>
+          <td class="paramname"><em>include_old</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>src_line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>ap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ステータス情報と付属メッセージを mlog へ記録する。 </p>
+<p><a class="el" href="group__c7mlog.html#gaae57dfb6167a02a0ed883d0022082f68" title="ステータス情報と付属メッセージを mlog へ記録する。">c7_mlog_pfx_status()</a> の va_list 版。 </p>
+
+</div>
+</div>
+<a id="ga81b48255d6ff25adce1aaa0fd37c255d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81b48255d6ff25adce1aaa0fd37c255d">&#9670;&nbsp;</a></span>c7_mlog_pfc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_mlog_pfc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7mlog.html#gae3435b61d298e3eee6dd52f8fa896ada">c7_mlog_t</a>&#160;</td>
+          <td class="paramname"><em>mlog</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>category</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ログレベルとカテゴリーは明示的引数とする <a class="el" href="group__c7mlog.html#ga84ea07aa250e40b609eccf11765c2c69" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。 </p>
+<p>c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, category, 0, <b>FILE</b>, <b>LINE</b>, format, ...) と等価。 </p>
 
 </div>
 </div>
@@ -823,7 +1000,7 @@ minidata</td>
       </table>
 </div><div class="memdoc">
 
-<p>ログレベルは明示的引数とする <a class="el" href="group__c7mlog.html#gad08c021f3c5074f45d70fddddf2024ed" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。 </p>
+<p>ログレベルは明示的引数とする <a class="el" href="group__c7mlog.html#ga84ea07aa250e40b609eccf11765c2c69" title="printf(3)の形式で mlog へ記録する。">c7_mlog_pfx()</a> の簡易版。 </p>
 <p>c7_mlog_pfx(mlog, C7_MLOG_AUTO_TIME, level, 0, 0, <b>FILE</b>, <b>LINE</b>, format, ...) と等価。 </p>
 
 </div>

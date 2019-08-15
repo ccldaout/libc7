@@ -64,14 +64,15 @@ void *__c7_coroutine_for_stop(c7_coroutine_t *cop);
 
 
 typedef struct c7_generator_t_ {
-    c7_coroutine_t co;
-    void *start_prm;
-    void *end_value;
+    c7_coroutine_t __co;
+    void *__end_value;
+    struct __c7_generator_prm_t_ *__param;
 } c7_generator_t;
 
 c7_bool_t c7_generator_init(c7_generator_t *gen,
 			    size_t stacksize_kb,
 			    void (*generator)(c7_mgroup_t, void *param),
+			    void (*finalize)(c7_mgroup_t, void *param),
 			    void *param);
 c7_bool_t __c7_generator_next(c7_generator_t *gen, void **vpp);
 #define c7_generator_next(gen, pp)	__c7_generator_next((gen), (void **)(pp))

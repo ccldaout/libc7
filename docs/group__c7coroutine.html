@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r0.3.0</span>
+   &#160;<span id="projectnumber">r1.0.0</span>
    </div>
   </td>
  </tr>
@@ -129,9 +129,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5e4e608efccceecaa8f55795a9479b0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a> (void *yield_data)</td></tr>
 <tr class="memdesc:ga5e4e608efccceecaa8f55795a9479b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンからの戻り値が通常データ(コルーチンの処理結果)であるかどうかを調べる。  <a href="#ga5e4e608efccceecaa8f55795a9479b0a">More...</a><br /></td></tr>
 <tr class="separator:ga5e4e608efccceecaa8f55795a9479b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga9e638f2983d01d3b34968e5cf2a5de4b">c7_generator_init</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen, size_t stacksize_kb, void(*coroutine)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a>, void *param), void *param)</td></tr>
-<tr class="memdesc:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンを用いたジェネレータオブジェクトを初期化する。  <a href="#ga9e638f2983d01d3b34968e5cf2a5de4b">More...</a><br /></td></tr>
-<tr class="separator:ga9e638f2983d01d3b34968e5cf2a5de4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc6dce8e3532b0a34c7a35a2596de224"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#gadc6dce8e3532b0a34c7a35a2596de224">c7_generator_init</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen, size_t stacksize_kb, void(*coroutine)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a>, void *param), void(*finalize)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a>, void *param), void *param)</td></tr>
+<tr class="memdesc:gadc6dce8e3532b0a34c7a35a2596de224"><td class="mdescLeft">&#160;</td><td class="mdescRight">コルーチンを用いたジェネレータオブジェクトを初期化する。  <a href="#gadc6dce8e3532b0a34c7a35a2596de224">More...</a><br /></td></tr>
+<tr class="separator:gadc6dce8e3532b0a34c7a35a2596de224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a> (<a class="el" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> *gen, void **vpp)</td></tr>
 <tr class="memdesc:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">ジェネレータから値を得る。  <a href="#ga819cbdf2cb01be46d52b51a010bae8ac">More...</a><br /></td></tr>
 <tr class="separator:ga819cbdf2cb01be46d52b51a010bae8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -551,8 +551,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga9e638f2983d01d3b34968e5cf2a5de4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9e638f2983d01d3b34968e5cf2a5de4b">&#9670;&nbsp;</a></span>c7_generator_init()</h2>
+<a id="gadc6dce8e3532b0a34c7a35a2596de224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc6dce8e3532b0a34c7a35a2596de224">&#9670;&nbsp;</a></span>c7_generator_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -578,6 +578,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">void(*)(<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a>, void *param)&#160;</td>
+          <td class="paramname"><em>finalize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
@@ -595,12 +601,13 @@ Functions</h2></td></tr>
     <tr><td class="paramname">gen</td><td>ジェネレータオブジェクトへのポインタ。 </td></tr>
     <tr><td class="paramname">stacksize_kb</td><td>コルーチンが使用するスタックの大きさを KB単位で指定する。 </td></tr>
     <tr><td class="paramname">coroutine</td><td>コルーチンで実行する関数。 </td></tr>
+    <tr><td class="paramname">finalize</td><td>NULLでなければコルーチンオブジェクト削除前に呼び出される。 </td></tr>
     <tr><td class="paramname">param</td><td>coroutine() に渡すパラメータ。 </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ジェネレータオブジェクトの初期化に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
-<p>次のように使用する。 </p><div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> gen(<a class="code" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, <span class="keywordtype">void</span> *param)</div><div class="line">{</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> *s = param; *s; s++)</div><div class="line">        <a class="code" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36">c7_coroutine_yield</a>(NULL, s);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div><div class="line">{</div><div class="line">    <span class="keywordtype">char</span> *s;</div><div class="line">    <a class="code" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> g;</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__c7coroutine.html#ga9e638f2983d01d3b34968e5cf2a5de4b">c7_generator_init</a>(&amp;g, 2, gen, argv[1])) {</div><div class="line">        <span class="keywordflow">while</span> (<a class="code" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a>(&amp;g, &amp;s))</div><div class="line">            <a class="code" href="group__c7app.html#gada4714614514760e11b2dbc75c15b74c">c7echo</a>(<span class="stringliteral">&quot;: &lt;%s&gt;\n&quot;</span>, s);</div><div class="line">        <span class="keywordflow">if</span> (!<a class="code" href="group__c7coroutine.html#ga5e4e608efccceecaa8f55795a9479b0a">c7_coroutine_is_valid</a>(s))</div><div class="line">            <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_next\n&quot;</span>);</div><div class="line">    } <span class="keywordflow">else</span></div><div class="line">        <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_init\n&quot;</span>);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">}</div></div><!-- fragment --> 
+<p>次のように使用する。 </p><div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> gen(<a class="code" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, <span class="keywordtype">void</span> *param)</div><div class="line">{</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> *s = param; *s; s++)</div><div class="line">        <a class="code" href="group__c7coroutine.html#ga890076f4a75c1de47556a32aeb7c1b36">c7_coroutine_yield</a>(NULL, s);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> fin(<a class="code" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg, <span class="keywordtype">void</span> *param)</div><div class="line">{</div><div class="line">    <a class="code" href="group__c7app.html#gada4714614514760e11b2dbc75c15b74c">c7echo</a>(<span class="stringliteral">&quot;: fin\n&quot;</span>);</div><div class="line">    free(param);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div><div class="line">{</div><div class="line">    <span class="keywordtype">char</span> *s;</div><div class="line">    <a class="code" href="group__c7coroutine.html#gacc6948a5d80fed23610d4aa0d9382335">c7_generator_t</a> g;</div><div class="line">    <span class="keywordtype">int</span> stksize_kb = 1;</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__c7coroutine.html#gadc6dce8e3532b0a34c7a35a2596de224">c7_generator_init</a>(&amp;g, stksize_kb, gen, fin, <a class="code" href="group__c7string__charp.html#ga0bbacb449ca9686487c5c554ba0dc3b9">c7strdup</a>(argv[1]))) {</div><div class="line">        <span class="keywordflow">while</span> (<a class="code" href="group__c7coroutine.html#ga819cbdf2cb01be46d52b51a010bae8ac">c7_generator_next</a>(&amp;g, &amp;s))</div><div class="line">            <a class="code" href="group__c7app.html#gada4714614514760e11b2dbc75c15b74c">c7echo</a>(<span class="stringliteral">&quot;: &lt;%s&gt;\n&quot;</span>, s);</div><div class="line">        <span class="keywordflow">if</span> (!<a class="code" href="group__c7coroutine.html#ga4eb600c074a368ca24e13adb117d9863">c7_coroutine_is_exited</a>(s))</div><div class="line">            <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_next\n&quot;</span>);</div><div class="line">    } <span class="keywordflow">else</span></div><div class="line">        <a class="code" href="group__c7app.html#ga9ff26c97ebc70072ff67f169f2c9c99f">c7exit_err</a>(0, <span class="stringliteral">&quot;: error happen in generator_init\n&quot;</span>);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
 <a id="ga819cbdf2cb01be46d52b51a010bae8ac"></a>
