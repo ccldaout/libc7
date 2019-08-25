@@ -827,8 +827,8 @@ void c7_thread_fpipe_reset(c7_thread_fpipe_t fpipe)
 void c7_thread_fpipe_reset_and_put(c7_thread_fpipe_t fpipe, void *data)
 {
     c7_thread_lock(&fpipe->mutex);
-    fpipe->get_ptr = 0;
-    fpipe->buffer[fpipe->put_ptr = 1] = data;
+    fpipe->buffer[fpipe->get_ptr = 0] = data;
+    fpipe->put_ptr = 1;
     c7_thread_notify_all(&fpipe->cond);
     c7_thread_unlock(&fpipe->mutex);
 }
