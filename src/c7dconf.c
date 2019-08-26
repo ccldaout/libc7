@@ -36,6 +36,20 @@ static c7_dconf_val_t DefaultArray[_INDEX_LIM];
 c7_dconf_val_t *__C7_DCONF_Addr = DefaultArray;
 
 
+static char *dconfpath_x(const char *name, c7_bool_t exists)
+{
+    c7_str_t *sbp;
+    if (exists)
+	sbp = c7_file_special_find(NULL, C7_DCONF_DIR_ENV, name, ".dconf");
+    else
+	sbp = c7_file_special_path(NULL, C7_DCONF_DIR_ENV, name, ".dconf");
+    if (C7_STR_ERR(sbp)) {
+	c7_status_add(errno, "cannot create dconf path\n");
+	return NULL;
+    }
+    return c7_strbuf(sbp);
+}
+
 static int get_i(const char *env, int defval)
 {
     if (getenv(env) == NULL)
@@ -63,29 +77,18 @@ static const c7_dconf_def_t *finddef(int defc, const c7_dconf_def_t *defv, int i
     return NULL;
 }
 
-static const char *dconfpath(const char *name)
-{
-    c7_str_t *sbp = c7_file_special_path(NULL, C7_DCONF_DIR_ENV, name, ".dconf");
-    if (C7_STR_ERR(sbp))
-	return NULL;
-    c7dbg(": dconf: '%s'\n", c7_strbuf(sbp));
-    return c7_strbuf(sbp);
-}
-
 static _dconf_t *mapdconf(const char *name, int defc, const c7_dconf_def_t *defv)
 {
-    if ((name = dconfpath(name)) == NULL) {
-	c7echo_err(0, ": c7_dconf_init failed\n");
+    name = dconfpath_x(name, C7_FALSE);
+    if (name == NULL)
 	return NULL;
-    }
 
     size_t n = sizeofhelp(defc, defv);
     n += sizeof(_dconf_t);
     _dconf_t * const dc = c7_file_mmap_rw(name, &n, C7_TRUE);
-    if (dc == NULL) {
-	c7echo_err(0, NULL);
+    if (dc == NULL)
 	return NULL;
-    }
+
     if (__C7_DCONF_Addr != DefaultArray) {
 	_dconf_t *dc = (void *)((char *)__C7_DCONF_Addr - offsetof(_dconf_t, array));
 	c7_file_munmap(dc, dc->mapsize);
@@ -114,8 +117,8 @@ static const c7_dconf_def_t *mergedef(int *defcp, const c7_dconf_def_t *defv)
     for (int i = 0; i < *defcp; i++) {
 	if (defv[i].index < C7_DCONF_USER_INDEX_BASE ||
 	    defv[i].index >= C7_DCONF_USER_INDEX_LIM) {
-	    c7echo_err(EINVAL, ": dconf index '%d' for '%s' is out of range\n",
-		       defv[i].index, defv[i].ident);
+	    c7_status_add(EINVAL, ": dconf index '%d' for '%s' is out of range\n",
+			  defv[i].index, defv[i].ident);
 	    return NULL;
 	}
     }
@@ -160,6 +163,10 @@ void c7_dconf_init(const char *name, int defc, const c7_dconf_def_t *defv)
 
 static c7_dconf_def_t *loaddconf(const char *name, int *defc)
 {
+    name = dconfpath_x(name, C7_TRUE);
+    if (name == NULL)
+	return NULL;
+
     size_t n = 0;
     _dconf_t * const dc = c7_file_mmap_rw(name, &n, C7_FALSE);
     if (dc == NULL)
@@ -194,7 +201,7 @@ static c7_dconf_def_t *loaddconf(const char *name, int *defc)
 	}
     } else
 	c7_status_add(errno = EINVAL, ": invalid version: %d (expect: %d)\n",
-			dc->version, _VERSION);
+		      dc->version, _VERSION);
     c7_file_munmap(dc, n);
     return NULL;
 }
@@ -202,8 +209,6 @@ static c7_dconf_def_t *loaddconf(const char *name, int *defc)
 c7_dconf_def_t *c7_dconf_load(const char *name, int *defc)
 {
     c7_sg_push();
-    if ((name = dconfpath(name)) == NULL)
-	return NULL;
     c7_dconf_def_t *def = loaddconf(name, defc);
     c7_sg_pop();
     return def;

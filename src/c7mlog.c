@@ -150,13 +150,15 @@ struct c7_mlog_t_ {
                                write operation
 ----------------------------------------------------------------------------*/
 
-static char *mlogpath_x(const char *name)
+static char *mlogpath_x(const char *name, c7_bool_t exists)
 {
     c7_str_t sb = C7_STR_INIT_MA();
-    (void)c7_file_special_path(&sb, C7_MLOG_DIR_ENV, name, ".mlog");
+    if (exists)
+	(void)c7_file_special_find(&sb, C7_MLOG_DIR_ENV, name, ".mlog");
+    else
+	(void)c7_file_special_path(&sb, C7_MLOG_DIR_ENV, name, ".mlog");
     if (C7_STR_ERR(&sb))
 	return NULL;
-    c7dbg(": mlog: '%s'\n", c7_strbuf(&sb));
     return c7_str_release(&sb);
 }
 
@@ -183,7 +185,7 @@ static c7_mlog_t mlog_new(const char *path, size_t hdrsize_b, size_t logsize_b)
 c7_mlog_t c7_mlog_open_w(const char *name, size_t hdrsize_b, size_t logsize_b,
 			 const char *hint_op, uint32_t flags)
 {
-    char *path = mlogpath_x(name);
+    char *path = mlogpath_x(name, C7_FALSE);
     if (path == NULL)
 	return NULL;
     c7_mlog_t g = mlog_new(path, hdrsize_b, logsize_b);
@@ -491,7 +493,7 @@ c7_mlog_t c7_mlog_open_r(const char *name)
     c7_mlog_t g;
     if ((g = c7_calloc(sizeof(*g), 1)) == NULL)
 	return NULL;
-    if ((g->path = mlogpath_x(name)) == NULL) {
+    if ((g->path = mlogpath_x(name, C7_TRUE)) == NULL) {
 	free(g);
 	return NULL;
     }
@@ -653,7 +655,7 @@ const char *c7_mlog_hint(c7_mlog_t g)
 
 c7_bool_t c7_mlog_clear(const char *name)
 {
-    char *path = mlogpath_x(name);
+    char *path = mlogpath_x(name, C7_TRUE);
     if (path == NULL)
 	return C7_FALSE;
     _hdr_t hdr;

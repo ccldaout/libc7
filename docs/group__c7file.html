@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r1.0.0</span>
+   &#160;<span id="projectnumber">r1.1.0</span>
    </div>
   </td>
  </tr>
@@ -79,8 +79,11 @@ $(function() {
 <tr class="memdesc:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイル名のサフィクスを戻す。  <a href="#gab2353a2de919656c35c3d8e7fa3b4d6d">More...</a><br /></td></tr>
 <tr class="separator:gab2353a2de919656c35c3d8e7fa3b4d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7cff6ce94d1b999eef932fc745b76748"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga7cff6ce94d1b999eef932fc745b76748">c7_file_special_path</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *dir_envname_op, const char *name, const char *suffix)</td></tr>
-<tr class="memdesc:ga7cff6ce94d1b999eef932fc745b76748"><td class="mdescLeft">&#160;</td><td class="mdescRight">[libc7ライブラリ向け] 特殊ファイルのパス名を決定する。  <a href="#ga7cff6ce94d1b999eef932fc745b76748">More...</a><br /></td></tr>
+<tr class="memdesc:ga7cff6ce94d1b999eef932fc745b76748"><td class="mdescLeft">&#160;</td><td class="mdescRight">特殊ファイルのパス名を決定する [作成用]  <a href="#ga7cff6ce94d1b999eef932fc745b76748">More...</a><br /></td></tr>
 <tr class="separator:ga7cff6ce94d1b999eef932fc745b76748"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34d271a18f3777f1d33b75ff0478dc25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga34d271a18f3777f1d33b75ff0478dc25">c7_file_special_find</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *dir_envname_op, const char *name, const char *suffix)</td></tr>
+<tr class="memdesc:ga34d271a18f3777f1d33b75ff0478dc25"><td class="mdescLeft">&#160;</td><td class="mdescRight">特殊ファイルのパス名を決定する [参照・更新用]  <a href="#ga34d271a18f3777f1d33b75ff0478dc25">More...</a><br /></td></tr>
+<tr class="separator:ga34d271a18f3777f1d33b75ff0478dc25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81a50e8afd0bf7e58df47de76e219747"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga81a50e8afd0bf7e58df47de76e219747">c7_file_search</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, const char *name, const char **pathlistv, const char *suffix)</td></tr>
 <tr class="memdesc:ga81a50e8afd0bf7e58df47de76e219747"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルを検索リストやデフォルトサフィクスの情報に基づいて検索する。  <a href="#ga81a50e8afd0bf7e58df47de76e219747">More...</a><br /></td></tr>
 <tr class="separator:ga81a50e8afd0bf7e58df47de76e219747"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -90,6 +93,9 @@ $(function() {
 <tr class="memitem:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#gab8051ee7dffffc2bb22d39f9972e9c5c">c7_fgets</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, FILE *fp)</td></tr>
 <tr class="memdesc:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">可能な限り一行分('\n')を読み込む fgets() の拡張版。  <a href="#gab8051ee7dffffc2bb22d39f9972e9c5c">More...</a><br /></td></tr>
 <tr class="separator:gab8051ee7dffffc2bb22d39f9972e9c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga395e12edf71f9bd7517294f929081bab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7file.html#ga395e12edf71f9bd7517294f929081bab">c7_file_mkdir</a> (const char *path, mode_t mode, uid_t uid, gid_t gid)</td></tr>
+<tr class="memdesc:ga395e12edf71f9bd7517294f929081bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">再帰的 mkdir 関数  <a href="#ga395e12edf71f9bd7517294f929081bab">More...</a><br /></td></tr>
+<tr class="separator:ga395e12edf71f9bd7517294f929081bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 ファイルに対する操作</h2></td></tr>
@@ -223,7 +229,7 @@ $(function() {
       </table>
 </div><div class="memdoc">
 
-<p>[libc7ライブラリ向け] 特殊ファイルのパス名を決定する。 </p>
+<p>特殊ファイルのパス名を決定する [作成用] </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sbp</td><td>決定したパス名を設定するC7文字列。NULLの場合は <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> で確保される。 </td></tr>
@@ -233,15 +239,76 @@ $(function() {
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>sbp が戻される。NULL が指定されていた場合は <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> の結果が戻される。</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>sbp が戻される。NULL が指定されていた場合は <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> の結果が戻される。いずれの場合も決定したパス名が戻される。</dd></dl>
+<p>この関数は、rcファイルや confファイルといった特殊なファイルのパス名を決定する。 特にそのようなファイルをプログラムで新規に作成するケースを想定している。 既存の特殊ファイルの名前を決める場合は、c7_file_special_find() を使用する。</p>
 <p>パス名は以下の手順で決められる。</p><ol type="1">
 <li>name の後尾が suffix と一致しなければ、name に suffix を追加したものを name として扱う。</li>
+<li>name に '/' が含まれていれば、そのままパス名となる。</li>
+<li>以下の手順でディレクトリを決定する。 a. dir_envname_op が NULL でなく、それが環境変数として定義されていて、その環境変数の値が書き込み可能なディレクトリの場合。 b. もしくは、C7_ROOT_DIR が環境変数として定義されていて、その環境変数の値が書き込み可能なディレクトリの場合。 c. もしくは、"${HOME}/.c7" が書き込み可能なディレクトリの場合。</li>
+<li>3.でディレクトリが決まれば、そのディレクトリと name を結合したものをパス名とする。</li>
+<li>3.でディレクトリが決まれなければ "${HOME}/." と name を結合したものをパス名とする(隠しファイル名となることに注意)。 </li>
+</ol>
+
+</div>
+</div>
+<a id="ga34d271a18f3777f1d33b75ff0478dc25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga34d271a18f3777f1d33b75ff0478dc25">&#9670;&nbsp;</a></span>c7_file_special_find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a>* c7_file_special_find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>dir_envname_op</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>suffix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>特殊ファイルのパス名を決定する [参照・更新用] </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sbp</td><td>決定したパス名を設定するC7文字列。NULLの場合は <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> で確保される。 </td></tr>
+    <tr><td class="paramname">dir_envname_op</td><td>ディレクトリを指定する環境変数名。NULLを指定した場合は "C7_ROOT_DIR" が渡されたものとし扱われる。 </td></tr>
+    <tr><td class="paramname">name</td><td>ファイル名。suffix で指定するサフィクス文字列を含んでいてもよい。 </td></tr>
+    <tr><td class="paramname">suffix</td><td>サフィクス文字列。先頭文字が '. ' であることを仮定する。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sbp が戻される。NULL が指定されていた場合は <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> の結果が戻される。いずれの場合も決定したパス名が戻される。</dd></dl>
+<p>この関数は、rcファイルや confファイルといった特殊なファイルのパス名を決定する。 特にそのようなファイルが既に存在している場合を想定している。</p>
+<p>パス名は以下の手順で決められる。</p><ol type="1">
+<li>name の後尾が suffix と一致しなければ、name に suffix を追加したものを name として扱う。</li>
+<li>name に '/' が含まれていれば、そのままパス名となる。</li>
+</ol>
+<ol type="1">
 <li>name に '/' が含まれていれば、それを sbp にコピーして関数から戻る。</li>
-<li>dir_envname_op が NULL でなくて、それが環境変数として定義されていたら、環境変数の値をディレクトリとする。</li>
-<li>dir_envname_op が NULL の場合、C7_ROOT_DIR が環境変数として定義されていたら、その値をディレクトリとする。</li>
-<li>3., 4. のいずれでもなければ "${HOME}/.c7" をディレクトリとする。</li>
-<li>3., 4., 5. で決まったディレクトリが存在すれば、そのディレクトリと name を結合したものを sbp に設定して関数から戻る。</li>
-<li>ディレクトリが存在しなければ、"${HOME}/." と name を結合したものを sbp に設定して関数から戻る。 </li>
+<li>以下の手順でファイルを決定する。 a. dir_envname_op が NULL でなく、それが環境変数として定義されていて、その環境変数と name を結合したものが存在する場合。 b. もしくは、C7_ROOT_DIR が環境変数として定義されていて、その環境変数の値と name を結合したものが存在する場合。 c. もしくは、"${HOME}/.c7" と name を結合したものが存在する場合。</li>
+<li>3.でファイルが決まれなければ "${HOME}/." と name を結合したものをパス名とする。この場合は、ファイルの存在チェックはされない。 </li>
 </ol>
 
 </div>
@@ -348,6 +415,59 @@ $(function() {
 <li>読み込みでエラーが発生した場合は <a class="el" href="group__c7status.html#ga8f081e437b82497de02ae0bebe4f8ab9" title="ステータス情報を追加する。">c7_status_add()</a> でエラーを記録し NULL を戻す。</li>
 <li>EOFを検出した場合はエラーは記録せず NULL を戻す。 </li>
 </ul>
+
+</div>
+</div>
+<a id="ga395e12edf71f9bd7517294f929081bab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga395e12edf71f9bd7517294f929081bab">&#9670;&nbsp;</a></span>c7_file_mkdir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_file_mkdir </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">mode_t&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uid_t&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gid_t&#160;</td>
+          <td class="paramname"><em>gid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>再帰的 mkdir 関数 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>作成するディレクトリ。 </td></tr>
+    <tr><td class="paramname">mode</td><td>作成されたディレクトリに適用される保護モード。 </td></tr>
+    <tr><td class="paramname">uid</td><td>作成されたディレクトリの所有者UID。(特権有りの場合のみ) </td></tr>
+    <tr><td class="paramname">gid</td><td>作成されたディレクトリの所有者GID。(特権有りの場合のみ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ディレクトリが存在するか作成できたら C7_TRUE を戻し、それ以外は C7_FALSE を戻す。</dd></dl>
+<p>この関数は path で指定される複数階層のディレクトリをサブディレクトリを含めて作成する。 ディレクトリ(サブディレクトリ含む)が存在した場合でもエラーとはしない。 引数の mode, uid, gid はディレクトリ(サブディレクトリ含む)が存在しない場合のみ意味をもち、 既存のディレクトリの属性が変更されることはない。また、uid, gid による chown(2) の呼び出しの 正否は検査しない。 </p>
 
 </div>
 </div>

@@ -46,6 +46,12 @@ c7_str_t *c7_file_special_path(c7_str_t *sbp,
 			       const char *envname_op,
 			       const char *name,
 			       const char *suffix);	// include '.'
+c7_str_t *c7_file_special_find(c7_str_t *sbp,
+			       const char *envname_op,
+			       const char *name,
+			       const char *suffix);	// include '.'
+
+c7_bool_t c7_file_mkdir(const char *path, mode_t mode, uid_t uid, gid_t gid);
 
 
 #if defined(__cplusplus)
