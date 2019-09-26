@@ -55,12 +55,12 @@ static void worker_thread(void *__arg)
     c7_tpool_t tp = __arg;
     for (;;) {
 	_req_t req;
-
-	C7_THREAD_GUARD_ENTER(&tp->req.mutex);
+	
+	c7_thread_lock(&tp->req.mutex);
 	while (c7_deque_count(tp->req.que) == 0)
 	    c7_thread_wait(&tp->req.wakeup, &tp->req.mutex, NULL);
 	req = *(_req_t *)c7_deque_pop_head(tp->req.que);
-	C7_THREAD_GUARD_EXIT(&tp->req.mutex);
+	c7_thread_unlock(&tp->req.mutex);
 
 	if (req.type == _REQ_TYPE_SHUTDOWN) {
 	    return;

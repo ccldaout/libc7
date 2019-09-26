@@ -82,6 +82,37 @@ c7_mgroup_t c7_mg_thread_local(void);
  */
 c7_mgroup_t c7_mg_new(void);
 
+/** 一般のメモリオブジェクトをメモリグループの管理下に登録する。
+ *
+ * @param mg メモリグループ
+ * @param obj 管理したいメモリオブジェクト。
+ * @param freeobj メモリグループ解放時に obj を解放するために呼び出す関数。
+ * @return 登録に成功すれば obj をそのまま戻し、失敗すれば NULL を戻す。
+ *
+ * 登録に失敗した場合は freeobj(obj) を呼び出して obj の指すメモリオブジェクトを解放する。
+ * これは、次のような使い方を想定しているためである。
+ * @code
+ c7_deque_t *deq = c7_mg_manage(mg, c7_deque_create(size, on_remove), c7_deque_destroy);
+ if (deq == NULL) {
+     // error handlling
+ }
+ * @endcode
+ *
+ * c7_mg_manage() で登録したオブジェクトは c7_mg_freeall() 時に登録したのとは逆順に解放される。
+ */
+void *c7_mg_manage(c7_mgroup_t mg, void *obj, void (*freeobj)(void *));
+
+/** メモリグループ管理下においたオブジェクトを管理対象から外す。
+ *
+ * @param mg メモリグループ
+ * @param obj メモリグループに登録したメモリオブジェクト。
+ * @return objが登録されていれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ *
+ * メモリオブジェクト obj が登録されているかどうかは線型探索されるため、c7_mg_manage() の
+ * 呼び出した回数分の探索コストがかかる。
+ */
+c7_bool_t c7_mg_unmanage(c7_mgroup_t mg, void *obj);
+
 /** c7_memdup() のメモリグループ版。
  *
  * @param mg メモリグループ。NULLの場合は c7_malloc() を呼びグループ化しない。
@@ -163,7 +194,10 @@ void c7_mg_free(c7_mgroup_t mg, void *u_addr);
  *
  * @param mg メモリグループ。
  *
- * メモリグループに所属するメモリについて c7_mg_free() を呼び出す。メモリグループ自体は存続する。
+ * メモリグループに所属するメモリを解放する。
+ * c7_mg_manage()で登録したメモリオブジェクトは、登録とは逆順に登録時に freeobj 引数に指定した関数を呼びだす。
+ * それ以外の c7_mg_malloc()等で確保したメモリについては c7_mg_free() を呼び出す。
+ * メモリグループ自体は解放されず存続する。
  */
 void c7_mg_freeall(c7_mgroup_t mg);
 
@@ -174,6 +208,62 @@ void c7_mg_freeall(c7_mgroup_t mg);
  * メモリグループに対して c7_mg_freeall() を呼んだあと mg グループ自体も解放する。
  */
 void c7_mg_destroy(c7_mgroup_t mg);
+
+//@}
+
+
+/*----------------------------------------------------------------------------
+                             thread memory group
+----------------------------------------------------------------------------*/
+
+/** @name thread memory group
+ * スレッド固有メモリグループ.
+ *
+ * スレッドワイドなメモリグループの利用を容易にするためのラッパーAPI。
+ * この機能はC7スレッド(c7_thread_start() もしくは c7_thread_run() で起動したスレッド)でしか正しく動作しない。
+ */
+
+//@{
+
+/** スレッド固有メモリグループを意味するダミー変数。
+ */
+c7_mgroup_t c7_tg_thread_mg;
+
+/** c7_tg_manage(c7_tg_thread_mg, obj, freeobj) を呼び出す。
+ */
+void *c7_tg_manage(void *obj, void (*freeobj)(void *));
+
+/** c7_tg_unmanage(c7_tg_thread_mg, obj) を呼び出す。
+ */
+c7_bool_t c7_tg_unmanage(void *obj);
+
+/** c7_mg_memdup(c7_tg_thread_mg, addr, size) を呼び出す。
+ */
+void *c7_tg_memdup(const void *addr, size_t size);
+
+/** c7_mg_malloc(c7_tg_thread_mg, size) を呼び出す。
+ */
+void *c7_tg_malloc(size_t size);
+
+/** c7_mg_calloc(c7_tg_thread_mg, n, size) を呼び出す。
+ */
+void *c7_tg_calloc(size_t n, size_t z);
+
+/** c7_mg_realloc(c7_tg_thread_mg, u_addr, size) を呼び出す。
+ */
+void *c7_tg_realloc(void *u_addr, size_t size);
+
+/** c7_mg_unlink(c7_tg_thread_mg, u_addr, content_size) を呼び出す。
+ */
+void *c7_tg_unlink(void *u_addr, size_t content_size);
+
+/** c7_mg_free(c7_tg_thread_mg, u_addr) を呼び出す。
+ */
+void c7_tg_free(void *u_addr);
+
+/** c7_mg_freeall(c7_tg_thread_mg) を呼び出す。
+ */
+void c7_tg_freeall(void);
 
 //@}
 
@@ -204,21 +294,27 @@ c7_mgroup_t c7_sg_current_mg(void);
 
 /** 現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。
  *
- * @return メモリを確保できれば ::C7_TRUE を戻し、失敗すれば ::C7_FALSE を戻す。
- *
  * この関数は後述の c7_sg_push() と組み合わせて、関数における一時的な作業メモリの一括解放に利用できる。
  * 例えば、イベントハンドラなどの入口と出口でそれぞれ c7_sg_push(), c7_sg_pop() を呼び出せば、ハンドラ
  * 中に確保した作業メモリを容易に解放できる(簡易的なガーベージコレクション)。特に c7string による
  * <B>C7文字列</B>ではバッファのメモリ確保・伸長が発生するためスタッカブルメモリグループは有用である。
  */
-c7_bool_t c7_sg_push(void);
+void c7_sg_push(void);
 
-/** 現在のメモリグループを削除し、スタックからポップしたメモリグループを現在のメモリ
-グループとする。
- *	
- * @return スタックからポップできれば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+/** 現在のメモリグループを削除し、スタックからポップしたメモリグループを現在のメモリグループとする。
+ *
+ * c7_sg_pop() は c7_sg_push() と対で使用しなければならない。c7_sg_push() を呼び出した関数が、c7_sg_pop()
+ * を呼ばずに関数から return した場合、以降の動作は保証されない。
  */
-c7_bool_t c7_sg_pop(void);
+void c7_sg_pop(void);
+
+/** c7_sg_manage(c7_sg_current_mg(), obj, freeobj) を呼び出す。
+ */
+void *c7_sg_manage(void *obj, void (*freeobj)(void *));
+
+/** c7_sg_unmanage(c7_sg_current_mg(), obj) を呼び出す。
+ */
+c7_bool_t c7_sg_unmanage(void *obj);
 
 /** c7_mg_memdup(c7_sg_current_mg(), addr, size) を呼び出す。
  */

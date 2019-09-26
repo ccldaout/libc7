@@ -20,14 +20,11 @@ extern "C" {
 
 
 /*----------------------------------------------------------------------------
+                             C string operations
 ----------------------------------------------------------------------------*/
 
 const char *c7strtime_x(c7_time_t time_us);
 const char *c7getenv_x(const char *env, const char *alt);
-
-
-/*----------------------------------------------------------------------------
-----------------------------------------------------------------------------*/
 
 int c7strcount(const char *s, int ch);
 
@@ -70,6 +67,7 @@ void c7strvfree_mg(c7_mgroup_t mg, char ** const strv);
 
 
 /*----------------------------------------------------------------------------
+                       fundamental C7 string operations
 ----------------------------------------------------------------------------*/
 
 typedef struct c7_str_t_ {
@@ -99,8 +97,12 @@ extern const c7_str_t __C7_STR_None;
 
 #if !defined(C7_CONFIG_SCA)
 # define C7_STR_LEN(sbp)		((sbp)->__cur - (sbp)->__buf)
+# define C7_STR_SIZE(sbp)		((int)((sbp)->__lim - (sbp)->__buf))
 # define C7_STR_CHAR(sbp, idx)		((sbp)->__buf[(idx)])
 # define C7_STR_CHAR_R(sbp, idx)	((sbp)->__cur[(idx)])
+# define C7_STR_SETCUR(sbp)		((sbp)->__cur = strchr((sbp)->__buf, 0))
+# define C7_STR_SETERR(sbp)		((sbp)->__f |= __C7_STR_ERR)
+# define C7_STR_CLRERR(sbp)		__C7_STR_RESET_ERR(sbp)
 # define C7_STR_ERR(sbp)		(((sbp)->__f & __C7_STR_ERR) != 0)
 # define C7_STR_OK(sbp)			(((sbp)->__f & __C7_STR_ERR) == 0)
 # define C7_STR_REUSE(sbp)		((sbp) == C7_STR_None ? C7_FALSE : \
@@ -108,21 +110,26 @@ extern const c7_str_t __C7_STR_None;
 # define c7_strbuf(sbp)			((sbp)->__buf)
 #else
 # define C7_STR_LEN(sbp)		c7_str_len(sbp)
+# define C7_STR_SIZE(sbp)		c7_str_size(sbp)
 # define C7_STR_CHAR(sbp, idx)		c7_str_char(sbp, idx)
 # define C7_STR_CHAR_R(sbp, idx)	c7_str_char_r(sbp, idx)
+# define C7_STR_SETCUR(sbp)		c7_str_setcur(sbp)
+# define C7_STR_SETERR(sbp)		c7_str_seterr(sbp)
+# define C7_STR_CLRERR(sbp)		c7_str_clearerr(sbp)
 # define C7_STR_ERR(sbp)		c7_str_err(sbp)
 # define C7_STR_OK(sbp)			c7_str_ok(sbp)
 # define C7_STR_REUSE(sbp)		c7_str_reuse(sbp)
 # define c7_strbuf(sbp)			c7_str_buf(sbp)
 #endif
 
-c7_str_t *c7_str_new_ma(void);			//       malloc
-#define   c7_str_new_sg()			c7_str_new_mg(c7_sg_current_mg())
-c7_str_t *c7_str_new_mg(c7_mgroup_t);		// c7_mg_malloc
+c7_str_t *c7_str_new_ma(void);
+c7_str_t *c7_str_new_mg(c7_mgroup_t);
+#define   c7_str_new_sg()		c7_str_new_mg(c7_sg_current_mg())
+#define   c7_str_new_tls()		c7_str_new_mg(c7_tg_thread_mg)
 c7_bool_t c7_str_setbuf(c7_str_t *sbp, char *buf, size_t size);
 c7_bool_t c7_str_alloc(c7_str_t *sbp, size_t extend);
-c7_str_t *c7_str_unlink(c7_str_t *sbp);		// unlink from memory group
-c7_str_t *c7_strclone(c7_str_t *sbp);		// c7_sg_malloc
+c7_str_t *c7_str_unlink(c7_str_t *sbp);
+c7_str_t *c7_strclone(c7_str_t *sbp);
 char *c7_str_strdup(c7_str_t *sbp);
 char *c7_str_release(c7_str_t *sbp);
 char *c7_str_buf(c7_str_t *sbp);
@@ -133,8 +140,12 @@ c7_bool_t c7_str_err(c7_str_t *sbp);
 c7_bool_t c7_str_ok(c7_str_t *sbp);
 
 int c7_str_len(c7_str_t *sbp);
+int c7_str_size(c7_str_t *sbp);
 int c7_str_char(c7_str_t *sbp, int idx);
-int c7_str_char_r(c7_str_t *sbp, int r_idx);	// r_idx must be negative
+int c7_str_char_r(c7_str_t *sbp, int r_idx);
+c7_str_t *c7_str_setcur(c7_str_t *sbp);
+c7_str_t *c7_str_seterr(c7_str_t *sbp);
+c7_str_t *c7_str_clearerr(c7_str_t *sbp);
 c7_str_t *c7_strtrunc(c7_str_t *sbp, int n);
 c7_str_t *c7_stradd(c7_str_t *sbp, char ch);
 c7_str_t *c7_stradd_n(c7_str_t *sbp, char ch, int n);
@@ -158,6 +169,7 @@ c7_str_t *c7_vsprintf(c7_str_t *sbp, const char *fmt, va_list ap);
 
 
 /*----------------------------------------------------------------------------
+                               evaluate string
 ----------------------------------------------------------------------------*/
 
 c7_str_t *c7_streval_C(c7_str_t *out, const char *in);

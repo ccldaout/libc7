@@ -489,6 +489,11 @@ int c7_str_len(c7_str_t *sbp)
     return sbp->__cur - sbp->__buf;
 }	
 
+int c7_str_size(c7_str_t *sbp)
+{
+    return sbp->__lim - sbp->__buf;
+}	
+
 int c7_str_char(c7_str_t *sbp, int idx)
 {
     if (0 <= idx && idx < (sbp->__lim - sbp->__buf))
@@ -499,6 +504,24 @@ int c7_str_char(c7_str_t *sbp, int idx)
 int c7_str_char_r(c7_str_t *sbp, int r_idx)
 {
     return c7_str_char(sbp, c7_str_len(sbp) + r_idx);
+}
+
+c7_str_t *c7_str_setcur(c7_str_t *sbp)
+{
+    sbp->__cur = strchr(sbp->__buf, 0);
+    return sbp;
+}
+
+c7_str_t *c7_str_seterr(c7_str_t *sbp)
+{
+    sbp->__f |= __C7_STR_ERR;
+    return sbp;
+}
+
+c7_str_t *c7_str_clearerr(c7_str_t *sbp)
+{
+    sbp->__f &= (~__C7_STR_ERR);
+    return sbp;
 }
 
 c7_str_t *c7_strtrunc(c7_str_t *sbp, int n)

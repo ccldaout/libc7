@@ -16,8 +16,8 @@
 #include <c7app.h>
 
 
-#define _INDEX_LIM	(64)	// C7_DCONF_USER_INDEX_LIM..63: libc7 area
-#define _VERSION	(1)	// _INDEX_LIM:64, C7_DCONF_USER_INDEX_LIM:48
+#define _INDEX_LIM	(100)	// C7_DCONF_USER_INDEX_LIM..99: libc7 area
+#define _VERSION	(2)	// _INDEX_LIM:100, C7_DCONF_USER_INDEX_LIM:90
 
 typedef struct _dconf_t {
     int32_t version;
@@ -126,7 +126,7 @@ static const c7_dconf_def_t *mergedef(int *defcp, const c7_dconf_def_t *defv)
     size_t o_size = (*defcp) * sizeof(*defv);
     c7_dconf_def_t c7defs[] = {
 	C7_DCONF_DEF_I(C7_DCONF_ECHO, "echo level (default:3)"),
-	C7_DCONF_DEF_I(C7_DCONF_MLOG, "mlog level (default:4)"),
+	C7_DCONF_DEF_I(C7_DCONF_MLOG, "mlog level (default:5)"),
 	C7_DCONF_DEF_I(C7_DCONF_PREF, "echo/status prefix type (default:0)"),
 	C7_DCONF_DEF_I(C7_DCONF_STSSCN_MAX, "statsu scan limitation (default:10)"),
     };
@@ -150,7 +150,7 @@ void c7_dconf_init(const char *name, int defc, const c7_dconf_def_t *defv)
 	    if (c7_dconf_i(C7_DCONF_ECHO) == 0)
 		c7_dconf_i_set(C7_DCONF_ECHO, C7_LOG_INF);
 	    if (c7_dconf_i(C7_DCONF_MLOG) == 0)
-		c7_dconf_i_set(C7_DCONF_MLOG, C7_LOG_BRF);
+		c7_dconf_i_set(C7_DCONF_MLOG, C7_LOG_DTL);
 	    if (c7_dconf_i(C7_DCONF_STSSCN_MAX) == 0)
 		c7_dconf_i_set(C7_DCONF_STSSCN_MAX, 10);
 	    for (int i = 0; i < defc; i++)
@@ -218,7 +218,7 @@ c7_dconf_def_t *c7_dconf_load(const char *name, int *defc)
 void __c7_dconf_init(void)
 {
     c7_dconf_i_set(C7_DCONF_ECHO, get_i("C7_DCONF_ECHO", C7_LOG_INF));
-    c7_dconf_i_set(C7_DCONF_MLOG, get_i("C7_DCONF_MLOG", C7_LOG_BRF));
+    c7_dconf_i_set(C7_DCONF_MLOG, get_i("C7_DCONF_MLOG", C7_LOG_DTL));
     c7_dconf_i_set(C7_DCONF_PREF, get_i("C7_DCONF_PREF", 0));
     c7_dconf_i_set(C7_DCONF_STSSCN_MAX, get_i("C7_DCONF_STSSCN_MAX", 10));
 }

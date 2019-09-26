@@ -115,9 +115,10 @@ static c7_thread_local c7_status_stack_t status_stack = {
 
 static c7_thread_local c7_status_stack_t *status_stack_p;
 
-static void init_thread(void)
+static c7_bool_t init_thread(void)
 {
     status_stack_p = &status_stack;
+    return C7_TRUE;
 }
 
 #define get_status_stack_p()	status_stack_p

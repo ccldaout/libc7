@@ -45,12 +45,13 @@ struct c7_coroutine_t_ {
 static c7_thread_local struct c7_coroutine_t_ MainRoutine;
 static c7_thread_local c7_coroutine_t Self;
 
-static void init_thread(void)
+static c7_bool_t init_thread(void)
 {
     if (Self == NULL) {
 	Self = &MainRoutine;
 	Self->yield_from = Self;
     }
+    return C7_TRUE;
 }
 
 c7_coroutine_t c7_coroutine_self(void)

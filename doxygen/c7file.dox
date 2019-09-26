@@ -24,58 +24,61 @@ const char *c7_path_name(const char *path);
  */
 const char *c7_path_suffix(const char *file);
 
-/** 特殊ファイルのパス名を決定する [作成用]
+/** パス名に含まれるチルド表記(~/xxx, ~username/xxx)を変換する。
  *
- * @param sbp 決定したパス名を設定するC7文字列。NULLの場合は c7_str_new_sg() で確保される。
- * @param dir_envname_op ディレクトリを指定する環境変数名。NULLを指定した場合は "C7_ROOT_DIR" が渡されたものとし扱われる。
- * @param name ファイル名。suffix で指定するサフィクス文字列を含んでいてもよい。
- * @param suffix サフィクス文字列。先頭文字が '.\ ' であることを仮定する。
- * @return sbp が戻される。NULL が指定されていた場合は c7_str_new_sg() の結果が戻される。いずれの場合も決定したパス名が戻される。
+ * @param sbp 変換後のパス名を格納するC7文字列。NULLを指定した場合は c7_str_new_sg() で確保する。
+ * @param path パス名。
+ * @return sbp (NULLを指定した場合は c7_str_new_sg()の結果)を戻す。
  *
- * この関数は、rcファイルや confファイルといった特殊なファイルのパス名を決定する。
- * 特にそのようなファイルをプログラムで新規に作成するケースを想定している。
- * 既存の特殊ファイルの名前を決める場合は、c7_file_special_find() を使用する。
- *
- * パス名は以下の手順で決められる。
- * 1. name の後尾が suffix  と一致しなければ、name に suffix を追加したものを name として扱う。
- * 2. name に '/' が含まれていれば、そのままパス名となる。
- * 3. 以下の手順でディレクトリを決定する。
- *    a. dir_envname_op が NULL でなく、それが環境変数として定義されていて、その環境変数の値が書き込み可能なディレクトリの場合。
- *    b. もしくは、C7_ROOT_DIR が環境変数として定義されていて、その環境変数の値が書き込み可能なディレクトリの場合。
- *    c. もしくは、"${HOME}/.c7" が書き込み可能なディレクトリの場合。
- * 4. 3.でディレクトリが決まれば、そのディレクトリと name を結合したものをパス名とする。
- * 5. 3.でディレクトリが決まれなければ "${HOME}/." と name を結合したものをパス名とする(隠しファイル名となることに注意)。
+ * bash や ksh 等で用いられるチルド表記を評価し変換する。
+ * ユーザ名なしの "~"の場合は、まず HOME 環境変数を参照し、これがホームディレクトリとして不適切と認識された場合は、
+ * 現在の /etc/passwd から実効UIDに一致するユーザのホームディレクトリを取得する。
+ * "~ユーザ名" の形式の場合は /etc/passwd から "ユーザ名" に一致するユーザのホームディレクトリを取得する。
+ * どちらの場合でも、/etc/passwd からユーザ情報を得られない場合は変換は行わない。
  */
-c7_str_t *c7_file_special_path(c7_str_t *sbp,
-			       const char *dir_envname_op,
-			       const char *name,
-			       const char *suffix);	// include '.'
+c7_str_t *c7_path_untildize(c7_str_t *sbp,
+			    const char *path);
 
-/** 特殊ファイルのパス名を決定する [参照・更新用]
+/** パス名に含まれる "/./" や "/../" を変換して排除する。
  *
- * @param sbp 決定したパス名を設定するC7文字列。NULLの場合は c7_str_new_sg() で確保される。
- * @param dir_envname_op ディレクトリを指定する環境変数名。NULLを指定した場合は "C7_ROOT_DIR" が渡されたものとし扱われる。
- * @param name ファイル名。suffix で指定するサフィクス文字列を含んでいてもよい。
- * @param suffix サフィクス文字列。先頭文字が '.\ ' であることを仮定する。
- * @return sbp が戻される。NULL が指定されていた場合は c7_str_new_sg() の結果が戻される。いずれの場合も決定したパス名が戻される。
+ * @param sbp 変換後のパス名を格納するC7文字列。NULLを指定した場合は c7_str_new_sg() で確保する。
+ * @param path パス名。
+ * @return sbp (NULLを指定した場合は c7_str_new_sg()の結果)を戻す。
+ *             処理中にエラーが発生した場合 sbp にはエラーフラグが立つ。
  *
- * この関数は、rcファイルや confファイルといった特殊なファイルのパス名を決定する。
- * 特にそのようなファイルが既に存在している場合を想定している。
- *
- * パス名は以下の手順で決められる。
- * 1. name の後尾が suffix  と一致しなければ、name に suffix を追加したものを name として扱う。
- * 2. name に '/' が含まれていれば、そのままパス名となる。
- * 2. name に '/' が含まれていれば、それを sbp にコピーして関数から戻る。
- * 3. 以下の手順でファイルを決定する。
- *    a. dir_envname_op が NULL でなく、それが環境変数として定義されていて、その環境変数と name を結合したものが存在する場合。
- *    b. もしくは、C7_ROOT_DIR が環境変数として定義されていて、その環境変数の値と name を結合したものが存在する場合。
- *    c. もしくは、"${HOME}/.c7" と name を結合したものが存在する場合。
- * 4. 3.でファイルが決まれなければ "${HOME}/." と name を結合したものをパス名とする。この場合は、ファイルの存在チェックはされない。
+ * @remark path が絶対パスでない場合、この関数のあとで絶対パス化すると、"/../" が多すぎた場合に期待した結果にはならない。
+ *        path を絶対パス化しておくことが望ましい。
  */
-c7_str_t *c7_file_special_find(c7_str_t *sbp,
-			       const char *dir_envname_op,
-			       const char *name,
-			       const char *suffix);	// include '.'
+c7_str_t *c7_path_ortho(c7_str_t *sbp, char *path);
+
+/** パス名を "/./" や "/../" を含まない絶対パスへ変換する。
+ *
+ * @param sbp 変換後のパス名を格納するC7文字列。NULLを指定した場合は c7_str_new_sg() で確保する。
+ * @param path パス名。
+ * @param base_op 代替ディレクトリ。NULLを指定した場合は c7_path_getcwd() の結果を base_op とする。
+ * @param untildize path や base_op に含まれるチルド表記の変換の可否を指定する。
+ * @return sbp (NULLを指定した場合は c7_str_new_sg()の結果)を戻す。
+ *             処理中にエラーが発生した場合 sbp にはエラーフラグが立つ。
+ *
+ * base_op 引数と c7_path_getcwd(), c7_path_untidize() を駆使して path を絶対パス化し、
+ * c7_path_ortho() を通して "/./" や "/../" を含まない綺麗のパス文字列に整形する。
+ */
+c7_str_t *c7_path_abs(c7_str_t *sbp,
+		      const char *path,
+		      const char *base_op,
+		      c7_bool_t untildize);
+
+/** パスがディレクトリかどうかをチェックする。
+ */
+c7_bool_t c7_path_isdir(const char *path);
+
+/** 現在ディレクトリを取得する。
+ *
+ * @param sbp ディレクトリを格納するC7文字列。NULLを指定した場合は c7_str_new_sg() で確保する。
+ * @return sbp (NULLを指定した場合は c7_str_new_sg()の結果)を戻す。
+ *             処理中にエラーが発生した場合 sbp にはエラーフラグが立つ。
+ */
+c7_str_t *c7_path_getcwd(c7_str_t *sbp);
 
 /** ファイルを検索リストやデフォルトサフィクスの情報に基づいて検索する。
  *
@@ -84,7 +87,8 @@ c7_str_t *c7_file_special_find(c7_str_t *sbp,
  * @param pathlistv 検索パス文字列のNULL終端の配列。各 pathlistv[i] に対して c7_streval_env()
  *                  で環境変数の参照を評価し、その結果を PATH 環境変数同様 ':' で分割したものを
  *                  検索対象のディレクトリとする。
- * @param suffix name が '.' を含まない場合に追加されるサフィクス文字列。先頭文字が '.' であることを仮定する。
+ * @param default_suffix name が '.' を含まない場合に追加されるサフィクス文字列。
+ *			 先頭文字が '.' であることを仮定する。
  * @return 存在するファイルが見つかれば C7_TRUE を戻し、そうでなれば C7_FALSE を戻す。
  *
  * 1. name が '.' を含まなければ name に default_suffix を追加したものを name として扱う。
@@ -95,10 +99,47 @@ c7_str_t *c7_file_special_find(c7_str_t *sbp,
  *    パス名(ディレクトリ名＋name)を sbp に設定し、C7_TRUE を戻す。
  * 4. ファイルが見つからなければ C7_FALSE を戻す。
  */
-c7_bool_t c7_file_search(c7_str_t *sbp,
+c7_bool_t c7_path_search(c7_str_t *sbp,
 			 const char *name,
 			 const char **pathlistv,
-			 const char *suffix);
+			 const char *default_suffix);
+
+/** 特殊ファイルのパス名を決定する。
+ *
+ * @param sbp 決定したパス名を設定するC7文字列。NULLの場合は c7_str_new_sg() で確保される。
+ * @param envname_op ディレクトリを指定する環境変数名。NULLを指定した場合は "C7_ROOT_DIR" が渡されたものとし扱われる。
+ * @param name ファイル名。suffix で指定するサフィクス文字列を含んでいてもよい。
+ * @param suffix サフィクス文字列。先頭文字が '.\ ' であることを仮定する。
+ * @param produce 真であれば新規作成を可能とする。真偽によるファイル名の決定ロジックが異なる。
+ * @return sbp が戻される。NULL が指定されていた場合は c7_str_new_sg() の結果が戻される。いずれの場合も決定したパス名が戻される。
+ *
+ * この関数は、rcファイルや confファイルといった特殊なファイルのパス名を決定する。
+ *
+ * produceが真の場合、パス名は以下の手順で決められる。
+ * 1. name の後尾が suffix  と一致しなければ、name に suffix を追加したものを name として扱う。
+ * 2. name に '/' が含まれていれば、そのままパス名とする。
+ * 3. 下記の順で適したディレクトリを見付ける。
+ *    a. envname_op が NULL でなく、それが環境変数として定義されていて、その環境変数の値が書き込み可能なディレクトリの場合。
+ *    b. C7_ROOT_DIR が環境変数として定義されていて、その環境変数の値が書き込み可能なディレクトリの場合。
+ *    c. "${HOME}/.c7" が書き込み可能なディレクトリの場合。
+ * 4. 3.でディレクトリが決まれば、そのディレクトリと name を結合したものをパス名とする。
+ * 5. 3.でディレクトリが決まれなければ "${HOME}/." と name を結合したものをパス名とする(隠しファイル名となることに注意)。
+ *
+ * produceが偽の場合、パス名は以下の手順で決められる。
+ * 1. name の後尾が suffix  と一致しなければ、name に suffix を追加したものを name として扱う。
+ * 2. name に '/' が含まれていれば、そのままパス名となる。
+ * 3. 下記の順でパスの存在チェックを行い、存在したものがパス名とる。
+ *    a. envname_op が NULL でなく、それが環境変数として定義されていて、その環境変数と name を結合したもの。
+ *    b. C7_ROOT_DIR が環境変数として定義されていて、その環境変数の値と name を結合したもの。
+ *    c. "${HOME}/.c7" と name を結合したもの。
+ * 4. 3.でファイルが決まれなければ "${HOME}/." と name を結合したものをパス名とする。この場合は、ファイルの存在チェックはされない。
+ */
+c7_str_t *c7_path_c7spec(c7_str_t *sbp,
+			 const char *envname_op,
+			 const char *name,
+			 const char *suffix,
+			 c7_bool_t produce);
+
 //@}
 
 

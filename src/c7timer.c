@@ -18,13 +18,6 @@
 #include <c7app.h>
 
 
-#define _MUTEX_INIT(mp)		(void)pthread_mutex_init(mp, NULL)
-#define _MUTEX_PUSH		C7_THREAD_GUARD_ENTER
-#define _MUTEX_LOCK(mp)		c7_thread_lock(mp)
-#define _MUTEX_UNLOCK(mp)	c7_thread_unlock(mp)
-#define _MUTEX_POP		C7_THREAD_GUARD_EXIT
-#define _MUTEX_FREE(mp)		(void)pthread_mutex_destroy(mp);
-
 typedef struct _alarm_t {
     c7_ll_link_t __ll;
     c7_alarm_t id;
@@ -44,7 +37,7 @@ c7_timer_t c7_timer_init(void)
 {
     c7_timer_t timer;
     if ((timer = c7_malloc(sizeof(*timer))) != NULL) {
-	_MUTEX_INIT(&timer->mutex);
+	c7_thread_mutex_init(&timer->mutex, NULL);
 	c7_ll_init(&timer->waits);
 	c7_ll_init(&timer->frees);
     }
@@ -58,11 +51,11 @@ c7_alarm_t c7_timer_alarm_on(c7_timer_t timer,
 {
     _alarm_t *alarm, *cur;
 
-    _MUTEX_LOCK(&timer->mutex);
+    c7_thread_lock(&timer->mutex);
 
     if (C7_LL_IS_EMPTY(&timer->frees)) {
 	if ((alarm = c7_malloc(sizeof(*alarm))) == NULL) {
-	    _MUTEX_UNLOCK(&timer->mutex);
+	    c7_thread_unlock(&timer->mutex);
 	    return C7_TIMER_INV_ALARM;
 	}
     } else {
@@ -86,7 +79,7 @@ c7_alarm_t c7_timer_alarm_on(c7_timer_t timer,
     else
 	C7_LL_PUTTAIL(&timer->waits, alarm);
 
-    _MUTEX_UNLOCK(&timer->mutex);
+    c7_thread_unlock(&timer->mutex);
 
     return alarm->id;
 }
@@ -94,7 +87,7 @@ c7_alarm_t c7_timer_alarm_on(c7_timer_t timer,
 void c7_timer_alarm_off(c7_timer_t timer, c7_alarm_t alarm_id)
 {
     _alarm_t *alarm;
-    _MUTEX_LOCK(&timer->mutex);
+    c7_thread_lock(&timer->mutex);
     C7_LL_FOREACH(&timer->waits, alarm) {
 	if (alarm->id == alarm_id)
 	    break;
@@ -103,7 +96,7 @@ void c7_timer_alarm_off(c7_timer_t timer, c7_alarm_t alarm_id)
 	C7_LL_UNLINK(alarm);
 	C7_LL_PUTTAIL(&timer->frees, alarm);
     }
-    _MUTEX_UNLOCK(&timer->mutex);
+    c7_thread_unlock(&timer->mutex);
 }
 
 void c7_timer_call(c7_timer_t timer)
@@ -111,7 +104,7 @@ void c7_timer_call(c7_timer_t timer)
     _alarm_t *alarm, wake;
     int64_t tv_us = c7_time_us();
 
-    _MUTEX_LOCK(&timer->mutex);
+    c7_thread_lock(&timer->mutex);
 
     C7_LL_FOREACH(&timer->waits, alarm) {
 	if (tv_us < alarm->tv_us)
@@ -123,21 +116,21 @@ void c7_timer_call(c7_timer_t timer)
 	alarm->__arg = NULL;
 	C7_LL_PUTTAIL(&timer->frees, alarm);
 
-	_MUTEX_UNLOCK(&timer->mutex);
+	c7_thread_unlock(&timer->mutex);
 	wake.on_alarm(wake.__arg);
-	_MUTEX_LOCK(&timer->mutex);
+	c7_thread_lock(&timer->mutex);
 
 	tv_us = c7_time_us();
     }
 
-    _MUTEX_UNLOCK(&timer->mutex);
+    c7_thread_unlock(&timer->mutex);
 }
 
 int c7_timer_get_delay_us(c7_timer_t timer)
 {
     int delay_us;
 
-    _MUTEX_LOCK(&timer->mutex);
+    c7_thread_lock(&timer->mutex);
 
     if (C7_LL_IS_EMPTY(&timer->waits))
 	delay_us = -1;
@@ -150,7 +143,7 @@ int c7_timer_get_delay_us(c7_timer_t timer)
 	    delay_us = alarm->tv_us - now_us;
     }
 
-    _MUTEX_UNLOCK(&timer->mutex);
+    c7_thread_unlock(&timer->mutex);
     return delay_us;
 }
 
@@ -158,7 +151,7 @@ int c7_timer_get_delay_ms(c7_timer_t timer)
 {
     int delay_ms;
 
-    _MUTEX_LOCK(&timer->mutex);
+    c7_thread_lock(&timer->mutex);
 
     if (C7_LL_IS_EMPTY(&timer->waits))
 	delay_ms = -1;
@@ -173,14 +166,14 @@ int c7_timer_get_delay_ms(c7_timer_t timer)
 	}
     }
 
-    _MUTEX_UNLOCK(&timer->mutex);
+    c7_thread_unlock(&timer->mutex);
     return delay_ms;
 }
 
 void c7_timer_free(c7_timer_t timer)
 {
     _alarm_t *alarm;
-    _MUTEX_FREE(&timer->mutex);
+    (void)pthread_mutex_destroy(&timer->mutex);
     C7_LL_FOREACH(&timer->waits, alarm) {
 	(void)memset(alarm, 0, sizeof(*alarm));
 	free(alarm);

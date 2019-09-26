@@ -91,6 +91,14 @@ void c7_mpool_unref(void *addr);
  */
 void c7_mpool_put(void *addr);
 
+/** メモリプールの取得機能を禁止する。
+ *
+ * @param mp メモリプール。
+ *
+ * この関数が呼ばれたあとは、プールの有無にかかわらず c7_mpool_get() の呼び出しは失敗するようになる。
+ */
+void c7_mpool_close(c7_mpool_t mp);
+
 /** メモリプールで確保したメモリを全て解放し、メモリプール自体も解放する。
  *
  * @param mp メモリプール。

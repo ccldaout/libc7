@@ -8,6 +8,14 @@
 
 /// @name 排他制御と条件変数の代替関数
 //@{
+/** c7_thread_unlock と mutex を pthread_cleanup_push() するマクロ。
+ */
+#define C7_THREAD_UNLOCK_PUSH(mutex)
+
+/** C7_THREAD_UNLOCK_PUSH() と対で使用し、pthread_cleanup_pop(0) を呼び出すマクロ。
+ */
+#define C7_THREAD_UNLOCK_POP()
+
 /** pthread_cleanup_push() と pthread_mutex_lock() の組み合わせを簡便に記述するためのマクロ。\n
  * mp には pthread_mutex_t のポインタを指定する。
  */
@@ -132,7 +140,7 @@ typedef struct c7_thread_t_ *c7_thread_t;
  * c7_thread_register_iniend() で登録しておくのが望ましい。
  */
 typedef struct c7_thread_iniend_t_ {
-    void (*init)(void);			///< C7スレッド起動時に呼ばれる。
+    c7_bool_t (*init)(void);		///< C7スレッド起動時に呼ばれる。
     void (*deinit)(void);		///< C7スレッド終了時に呼ばれる。
 } c7_thread_iniend_t;
 
@@ -167,8 +175,10 @@ void c7_thread_register_iniend(c7_thread_iniend_t *iniend);	// iniend must be po
  *
  * 直接 pthread_create() 使った場合や、他のライブラリで起動したスレッドで、
  * libc7 の機能を使うために呼びだす。この関数は c7_thread_register_iniend() で登録した順番に init() を呼び出す。
+ * 登録してある全ての init() が成功すればこの関数は C7_TRUE を戻す。いずれかの init() が失敗すれば、成功した init() 
+ * に対応する deinit() を呼び出したうえで C7_FALSE を戻す。
  */
-void c7_thread_call_init(void);
+c7_bool_t c7_thread_call_init(void);
 
 /** c7_thread_register_iniend() で登録されている deinit コールバックを呼び出す。\n
  * これは、C7スレッドで<B>ない場合のみ</B>使用できる。
@@ -577,6 +587,55 @@ uint64_t c7_thread_mask_wait(c7_thread_mask_t msk, uint64_t expect, uint64_t cle
  * ビットマスク同期オブジェクトで待機しているスレッドがあった場合の動作は予測不可能である。
  */
 void c7_thread_mask_free(c7_thread_mask_t msk);
+//@}
+
+
+/// @name スレッドのランデブー(待ち合わせ)機能
+//@{
+/** ランデブーオブジェクト。
+ *
+ * 指定した数のスレッドが揃うまで待機する機能を提供する。
+ */
+typedef struct c7_thread_randezvous_t_ *c7_thread_randezvous_t;
+
+/** ランデブーオブジェクトを生成する。
+ *
+ * @param n_entry 待ち合わせするスレッド数。
+ * @return 成功すれば ランデブーオブジェクトを戻し、失敗すれば NULL を戻す。
+ */
+c7_thread_randezvous_t c7_thread_randezvous_init(int n_entry);
+
+/** ランデブーオブジェクトに指定数のスレッドが到達するまで待機する。
+ *
+ * @param rndv ランデブーオブジェクト。
+ * @param tmo_us 非負(≧0)ならマイクロ秒単位のタイムアウト値とする。
+ * @return タイムアウトまでの間にスレッドが揃えば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。
+ *	   タイムアウトした場合、errno には ETIMEDOUT が設定される。
+ */
+c7_bool_t c7_thread_randezvous_wait(c7_thread_randezvous_t rndv, int tmo_us);
+
+/** ランデブーオブジェクトでの待ち合わせを中止する。
+ *
+ * @param rndv ランデブーオブジェクト。
+ *
+ * スレッドの待ち合わせを中止する。既に待機中であったものはエラーとして待機が解除される。
+ * 以降、c7_thread_randezvous_reset() が呼ばれるまでは、c7_thread_randezvous_wait() の呼び出しは即失敗となる。
+ */
+void c7_thread_randezvous_abort(c7_thread_randezvous_t rndv);
+
+/** ランデブーオブジェクトでの待ち合わせを再開する。
+ *
+ * @param rndv ランデブーオブジェクト。
+ */
+void c7_thread_randezvous_reset(c7_thread_randezvous_t rndv);
+
+/** ランデブーオブジェクトを破棄する。
+ *
+ * @param rndv ランデブーオブジェクト。
+ *
+ * ランデブーオブジェクトで待機しているスレッドがあった場合の動作は予測不可能である。
+ */
+void c7_thread_randezvous_free(c7_thread_randezvous_t rndv);
 //@}
 
 

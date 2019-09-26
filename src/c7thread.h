@@ -23,6 +23,11 @@ extern "C" {
                   alternative mutax and condition functions
 ----------------------------------------------------------------------------*/
 
+#define C7_THREAD_UNLOCK_PUSH(mp)	\
+    pthread_cleanup_push((void (*)(void*))(c7_thread_unlock), mp)
+
+#define C7_THREAD_UNLOCK_POP()	pthread_cleanup_pop(0)
+
 #define C7_THREAD_GUARD_ENTER(mp)					\
     pthread_cleanup_push((void (*)(void*))(c7_thread_unlock), mp);	\
     c7_thread_lock(mp)
@@ -93,7 +98,7 @@ typedef struct c7_thread_t_ *c7_thread_t;
 
 typedef struct c7_thread_iniend_t_ {
     c7_ll_link_t __link;
-    void (*init)(void);
+    c7_bool_t (*init)(void);
     void (*deinit)(void);
 } c7_thread_iniend_t;
 
@@ -107,7 +112,7 @@ typedef enum c7_thread_end_t_ {
 } c7_thread_end_t;
 
 void c7_thread_register_iniend(c7_thread_iniend_t *iniend);	// iniend must be point persistent memory
-void c7_thread_call_init(void);		// API for thread created by except c7thread
+c7_bool_t c7_thread_call_init(void);	// API for thread created by except c7thread
 void c7_thread_call_deinit(void);	// API for thread created by except c7thread
 
 c7_thread_t c7_thread_new(void (*target)(void *thread_arg),
@@ -154,10 +159,10 @@ int c7_thread_counter_value(c7_thread_counter_t ct);
 c7_bool_t c7_thread_counter_is(c7_thread_counter_t ct, int count);
 #define c7_thread_counter_up(c)		c7_thread_counter_move(c, 1)
 #define c7_thread_counter_down(c)	c7_thread_counter_move(c, -1)
-c7_bool_t c7_thread_counter_down_if(c7_thread_counter_t ct, volatile int tmo_us);
+c7_bool_t c7_thread_counter_down_if(c7_thread_counter_t ct, int tmo_us);
 void c7_thread_counter_move(c7_thread_counter_t ct, int delta);
 void c7_thread_counter_set(c7_thread_counter_t ct, int count);
-c7_bool_t c7_thread_counter_wait(c7_thread_counter_t ct, int expect, volatile int tmo_us);
+c7_bool_t c7_thread_counter_wait(c7_thread_counter_t ct, int expect, int tmo_us);
 void c7_thread_counter_free(c7_thread_counter_t ct);
 
 
@@ -190,8 +195,20 @@ uint64_t c7_thread_mask_value(c7_thread_mask_t m);
 #define c7_thread_mask_on(m,s)		c7_thread_mask_change(m, s, 0)
 #define c7_thread_mask_off(m,c)		c7_thread_mask_change(m, 0, c)
 void c7_thread_mask_change(c7_thread_mask_t m, uint64_t set, uint64_t clear);
-uint64_t c7_thread_mask_wait(c7_thread_mask_t m, uint64_t expect, uint64_t clear, volatile int tmo_us);
+uint64_t c7_thread_mask_wait(c7_thread_mask_t m, uint64_t expect, uint64_t clear, int tmo_us);
 void c7_thread_mask_free(c7_thread_mask_t m);
+
+
+/*----------------------------------------------------------------------------
+                              randezvous threads
+----------------------------------------------------------------------------*/
+
+typedef struct c7_thread_randezvous_t_ *c7_thread_randezvous_t;
+c7_thread_randezvous_t c7_thread_randezvous_init(int n_entry);
+c7_bool_t c7_thread_randezvous_wait(c7_thread_randezvous_t rndv, int tmo_us);
+void c7_thread_randezvous_abort(c7_thread_randezvous_t rndv);
+void c7_thread_randezvous_reset(c7_thread_randezvous_t rndv);
+void c7_thread_randezvous_free(c7_thread_randezvous_t rndv);
 
 
 /*----------------------------------------------------------------------------
@@ -223,7 +240,7 @@ c7_thread_vpipe_t c7_thread_vpipe_init(ptrdiff_t linkoff);
 void *c7_thread_vpipe_reset(c7_thread_vpipe_t vpipe);
 void *c7_thread_vpipe_reset_and_put(c7_thread_vpipe_t vpipe, void *data);
 c7_bool_t c7_thread_vpipe_put(c7_thread_vpipe_t vpipe, void *data);
-void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, volatile int tmo_us);
+void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, int tmo_us);
 void c7_thread_vpipe_free(c7_thread_vpipe_t vpipe);
 
 

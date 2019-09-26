@@ -60,6 +60,10 @@ c7_mlog_t c7_mlog_open_w(const char *name,
 
 void *c7_mlog_hdraddr(c7_mlog_t log, size_t *hdrsize_b_op);
 
+int c7_mlog_thread_name_size(c7_mlog_t g);
+
+int c7_mlog_source_name_size(c7_mlog_t g);
+
 const char *c7_mlog_hint(c7_mlog_t log);
 
 c7_bool_t c7_mlog_mutex(c7_mlog_t g, pthread_mutex_t *mutex_op);

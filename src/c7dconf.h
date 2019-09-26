@@ -20,7 +20,7 @@ extern "C" {
 #define C7_DCONF_DIR_ENV		"C7_DCONF_DIR"
 
 #define C7_DCONF_USER_INDEX_BASE	(0)
-#define C7_DCONF_USER_INDEX_LIM		(48)	// not include 48
+#define C7_DCONF_USER_INDEX_LIM		(90)	// not include 90
 
 typedef enum c7_dconf_type_t_ {
     C7_DCONF_TYPE_None,
@@ -42,8 +42,7 @@ typedef struct c7_dconf_def_t_ {
     
 
 enum {
-    C7_DCONF_base = C7_DCONF_USER_INDEX_LIM - 1,
-    C7_DCONF_ECHO,
+    C7_DCONF_ECHO = C7_DCONF_USER_INDEX_LIM,
     C7_DCONF_MLOG,
     C7_DCONF_PREF,
     C7_DCONF_STSSCN_MAX,

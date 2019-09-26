@@ -15,6 +15,7 @@ extern "C" {
 
 
 #include <c7status.h>
+#include <pwd.h>
 
 
 #define c7_init(pn, f)		c7_app_init((pn), (f))
@@ -74,6 +75,10 @@ void c7_app_daemon(int maxdesc, const char *wdir, const char *new_stderr, mode_t
 c7_time_t c7_app_time_us(void);
 
 c7_time_t c7_app_sleep_us(int64_t time_us);
+
+struct passwd *c7_app_getpwnam_x(const char *name);
+
+struct passwd *c7_app_getpwuid_x(uid_t uid);
 
 
 #if defined(__cplusplus)

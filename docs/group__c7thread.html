@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r1.1.0</span>
+   &#160;<span id="projectnumber">r2.0</span>
    </div>
   </td>
  </tr>
@@ -107,6 +107,14 @@ Data Structures</h2></td></tr>
 <tr class="memitem:ga1f658f7266cf1395f6ae96d014f45fd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga1f658f7266cf1395f6ae96d014f45fd9">c7_thread_wait</a> (pthread_cond_t *cond, pthread_mutex_t *mutex, const struct timespec *limit_time_op)</td></tr>
 <tr class="memdesc:ga1f658f7266cf1395f6ae96d014f45fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cond_wait() / pthread_cond_timedwait() の代替。  <a href="#ga1f658f7266cf1395f6ae96d014f45fd9">More...</a><br /></td></tr>
 <tr class="separator:ga1f658f7266cf1395f6ae96d014f45fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab57d216c6b0bb41abff78104673fab30"><td class="memItemLeft" align="right" valign="top"><a id="gab57d216c6b0bb41abff78104673fab30"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gab57d216c6b0bb41abff78104673fab30">C7_THREAD_UNLOCK_PUSH</a>(mutex)</td></tr>
+<tr class="memdesc:gab57d216c6b0bb41abff78104673fab30"><td class="mdescLeft">&#160;</td><td class="mdescRight">c7_thread_unlock と mutex を pthread_cleanup_push() するマクロ。 <br /></td></tr>
+<tr class="separator:gab57d216c6b0bb41abff78104673fab30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga978ec732d21a7a0e0430103747d7a7bf"><td class="memItemLeft" align="right" valign="top"><a id="ga978ec732d21a7a0e0430103747d7a7bf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga978ec732d21a7a0e0430103747d7a7bf">C7_THREAD_UNLOCK_POP</a>()</td></tr>
+<tr class="memdesc:ga978ec732d21a7a0e0430103747d7a7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7thread.html#gab57d216c6b0bb41abff78104673fab30" title="c7_thread_unlock と mutex を pthread_cleanup_push() するマクロ。">C7_THREAD_UNLOCK_PUSH()</a> と対で使用し、pthread_cleanup_pop(0) を呼び出すマクロ。 <br /></td></tr>
+<tr class="separator:ga978ec732d21a7a0e0430103747d7a7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70791944c7b9ae48831bbde2188e3f07"><td class="memItemLeft" align="right" valign="top"><a id="ga70791944c7b9ae48831bbde2188e3f07"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga70791944c7b9ae48831bbde2188e3f07">C7_THREAD_GUARD_ENTER</a>(mp)</td></tr>
 <tr class="memdesc:ga70791944c7b9ae48831bbde2188e3f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">pthread_cleanup_push() と pthread_mutex_lock() の組み合わせを簡便に記述するためのマクロ。<br />
@@ -164,10 +172,10 @@ mp には pthread_mutex_t のポインタを指定する。 <br /></td></tr>
 <tr class="memitem:ga18b34862cbef8e06c80efbf09a0d9112"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112">c7_thread_register_iniend</a> (<a class="el" href="structc7__thread__iniend__t.html">c7_thread_iniend_t</a> *iniend)</td></tr>
 <tr class="memdesc:ga18b34862cbef8e06c80efbf09a0d9112"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7スレッドの生成時と解放時のコールバックを登録する。  <a href="#ga18b34862cbef8e06c80efbf09a0d9112">More...</a><br /></td></tr>
 <tr class="separator:ga18b34862cbef8e06c80efbf09a0d9112"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga621cf5e22f7dbbb3b379796cbc99226a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga621cf5e22f7dbbb3b379796cbc99226a">c7_thread_call_init</a> (void)</td></tr>
-<tr class="memdesc:ga621cf5e22f7dbbb3b379796cbc99226a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112" title="C7スレッドの生成時と解放時のコールバックを登録する。">c7_thread_register_iniend()</a> で登録されている init コールバックを呼び出す。<br />
-これは、C7スレッドで<b>ない場合のみ</b>使用できる。  <a href="#ga621cf5e22f7dbbb3b379796cbc99226a">More...</a><br /></td></tr>
-<tr class="separator:ga621cf5e22f7dbbb3b379796cbc99226a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab5072a5fe2388ccdfc663d07b554098a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gab5072a5fe2388ccdfc663d07b554098a">c7_thread_call_init</a> (void)</td></tr>
+<tr class="memdesc:gab5072a5fe2388ccdfc663d07b554098a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112" title="C7スレッドの生成時と解放時のコールバックを登録する。">c7_thread_register_iniend()</a> で登録されている init コールバックを呼び出す。<br />
+これは、C7スレッドで<b>ない場合のみ</b>使用できる。  <a href="#gab5072a5fe2388ccdfc663d07b554098a">More...</a><br /></td></tr>
+<tr class="separator:gab5072a5fe2388ccdfc663d07b554098a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadc8a52db46f545eb8b1cc6bb78869a84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gadc8a52db46f545eb8b1cc6bb78869a84">c7_thread_call_deinit</a> (void)</td></tr>
 <tr class="memdesc:gadc8a52db46f545eb8b1cc6bb78869a84"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112" title="C7スレッドの生成時と解放時のコールバックを登録する。">c7_thread_register_iniend()</a> で登録されている deinit コールバックを呼び出す。<br />
 これは、C7スレッドで<b>ない場合のみ</b>使用できる。  <a href="#gadc8a52db46f545eb8b1cc6bb78869a84">More...</a><br /></td></tr>
@@ -322,6 +330,27 @@ mp には pthread_mutex_t のポインタを指定する。 <br /></td></tr>
 <tr class="separator:gac2a4e859a174ae93fb573a0df6f2bf4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+スレッドのランデブー(待ち合わせ)機能</h2></td></tr>
+<tr class="memitem:ga3e2165a9c58550763aaf886a074e3214"><td class="memItemLeft" align="right" valign="top">typedef struct c7_thread_randezvous_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a></td></tr>
+<tr class="memdesc:ga3e2165a9c58550763aaf886a074e3214"><td class="mdescLeft">&#160;</td><td class="mdescRight">ランデブーオブジェクト。  <a href="#ga3e2165a9c58550763aaf886a074e3214">More...</a><br /></td></tr>
+<tr class="separator:ga3e2165a9c58550763aaf886a074e3214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5f31006838213b820cd854bf679f5fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa5f31006838213b820cd854bf679f5fc">c7_thread_randezvous_init</a> (int n_entry)</td></tr>
+<tr class="memdesc:gaa5f31006838213b820cd854bf679f5fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ランデブーオブジェクトを生成する。  <a href="#gaa5f31006838213b820cd854bf679f5fc">More...</a><br /></td></tr>
+<tr class="separator:gaa5f31006838213b820cd854bf679f5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa658ee1095d9a7398c10f1c63392b340"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#gaa658ee1095d9a7398c10f1c63392b340">c7_thread_randezvous_wait</a> (<a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a> rndv, int tmo_us)</td></tr>
+<tr class="memdesc:gaa658ee1095d9a7398c10f1c63392b340"><td class="mdescLeft">&#160;</td><td class="mdescRight">ランデブーオブジェクトに指定数のスレッドが到達するまで待機する。  <a href="#gaa658ee1095d9a7398c10f1c63392b340">More...</a><br /></td></tr>
+<tr class="separator:gaa658ee1095d9a7398c10f1c63392b340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a8618e811664d3bba55bbeb61a4e276"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga7a8618e811664d3bba55bbeb61a4e276">c7_thread_randezvous_abort</a> (<a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a> rndv)</td></tr>
+<tr class="memdesc:ga7a8618e811664d3bba55bbeb61a4e276"><td class="mdescLeft">&#160;</td><td class="mdescRight">ランデブーオブジェクトでの待ち合わせを中止する。  <a href="#ga7a8618e811664d3bba55bbeb61a4e276">More...</a><br /></td></tr>
+<tr class="separator:ga7a8618e811664d3bba55bbeb61a4e276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0d877e534cee758c6cc4f9298b3f200b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga0d877e534cee758c6cc4f9298b3f200b">c7_thread_randezvous_reset</a> (<a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a> rndv)</td></tr>
+<tr class="memdesc:ga0d877e534cee758c6cc4f9298b3f200b"><td class="mdescLeft">&#160;</td><td class="mdescRight">ランデブーオブジェクトでの待ち合わせを再開する。  <a href="#ga0d877e534cee758c6cc4f9298b3f200b">More...</a><br /></td></tr>
+<tr class="separator:ga0d877e534cee758c6cc4f9298b3f200b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2dfd4782394fe4d00a8833f603e9ba02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga2dfd4782394fe4d00a8833f603e9ba02">c7_thread_randezvous_free</a> (<a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a> rndv)</td></tr>
+<tr class="memdesc:ga2dfd4782394fe4d00a8833f603e9ba02"><td class="mdescLeft">&#160;</td><td class="mdescRight">ランデブーオブジェクトを破棄する。  <a href="#ga2dfd4782394fe4d00a8833f603e9ba02">More...</a><br /></td></tr>
+<tr class="separator:ga2dfd4782394fe4d00a8833f603e9ba02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 スレッド間固定長パイプ (配列使用のエントリ数固定型)</h2></td></tr>
 <tr class="memitem:ga1f1747cf77d2dba798d5e4a77882c5e7"><td class="memItemLeft" align="right" valign="top"><a id="ga1f1747cf77d2dba798d5e4a77882c5e7"></a>
 typedef struct c7_thread_fpipe_t_ *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7thread.html#ga1f1747cf77d2dba798d5e4a77882c5e7">c7_thread_fpipe_t</a></td></tr>
@@ -463,6 +492,23 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 
 <p>ビットマスク同期オブジェクト。 </p>
 <p>符号無し整数のビットマスクに基づく同期機構を提供する。 排他制御(pthread_mutex_t)や条件変数(pthread_cond_t)を用いるが、初期化以外で、正しい使い方をしている lock/unlock/notify/wait について戻り値をチェックしない。 そのため、c7hook 機構を用いて、これらの関数でエラーした場合に処理を記述しておくのが良いだろう。 </p>
+
+</div>
+</div>
+<a id="ga3e2165a9c58550763aaf886a074e3214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3e2165a9c58550763aaf886a074e3214">&#9670;&nbsp;</a></span>c7_thread_randezvous_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct c7_thread_randezvous_t_* <a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ランデブーオブジェクト。 </p>
+<p>指定した数のスレッドが揃うまで待機する機能を提供する。 </p>
 
 </div>
 </div>
@@ -766,14 +812,14 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 
 </div>
 </div>
-<a id="ga621cf5e22f7dbbb3b379796cbc99226a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga621cf5e22f7dbbb3b379796cbc99226a">&#9670;&nbsp;</a></span>c7_thread_call_init()</h2>
+<a id="gab5072a5fe2388ccdfc663d07b554098a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab5072a5fe2388ccdfc663d07b554098a">&#9670;&nbsp;</a></span>c7_thread_call_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void c7_thread_call_init </td>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_call_init </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -784,7 +830,7 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 
 <p><a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112" title="C7スレッドの生成時と解放時のコールバックを登録する。">c7_thread_register_iniend()</a> で登録されている init コールバックを呼び出す。<br />
 これは、C7スレッドで<b>ない場合のみ</b>使用できる。 </p>
-<p>直接 pthread_create() 使った場合や、他のライブラリで起動したスレッドで、 libc7 の機能を使うために呼びだす。この関数は <a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112" title="C7スレッドの生成時と解放時のコールバックを登録する。">c7_thread_register_iniend()</a> で登録した順番に init() を呼び出す。 </p>
+<p>直接 pthread_create() 使った場合や、他のライブラリで起動したスレッドで、 libc7 の機能を使うために呼びだす。この関数は <a class="el" href="group__c7thread.html#ga18b34862cbef8e06c80efbf09a0d9112" title="C7スレッドの生成時と解放時のコールバックを登録する。">c7_thread_register_iniend()</a> で登録した順番に init() を呼び出す。 登録してある全ての init() が成功すればこの関数は C7_TRUE を戻す。いずれかの init() が失敗すれば、成功した init() に対応する deinit() を呼び出したうえで C7_FALSE を戻す。 </p>
 
 </div>
 </div>
@@ -984,7 +1030,7 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>スレッドの起動に成功すれば C7_TRUE を、失敗すれば C7_FALSE を戻す。</dd></dl>
 <p>pthread のスレッドを起動して target() を実行する。 この関数で初めて pthread_create が呼ばれ、OS上のスレッドが生成される。</p>
-<p>pthread_create が成功すると、 生成されたスレッドで <a class="el" href="group__c7thread.html#ga621cf5e22f7dbbb3b379796cbc99226a" title="c7_thread_register_iniend() で登録されている init コールバックを呼び出す。 これは、C7スレッドでない場合のみ使用できる。">c7_thread_call_init()</a> で登録された初期化用コールバックを呼び出し、 その後 target() を呼び出す。 </p>
+<p>pthread_create が成功すると、 生成されたスレッドで <a class="el" href="group__c7thread.html#gab5072a5fe2388ccdfc663d07b554098a" title="c7_thread_register_iniend() で登録されている init コールバックを呼び出す。 これは、C7スレッドでない場合のみ使用できる。">c7_thread_call_init()</a> で登録された初期化用コールバックを呼び出し、 その後 target() を呼び出す。 </p>
 
 </div>
 </div>
@@ -2141,6 +2187,151 @@ typedef struct c7_thread_vpipe_link_t_&#160;</td><td class="memItemRight" valign
   </dd>
 </dl>
 <p>ビットマスク同期オブジェクトで待機しているスレッドがあった場合の動作は予測不可能である。 </p>
+
+</div>
+</div>
+<a id="gaa5f31006838213b820cd854bf679f5fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa5f31006838213b820cd854bf679f5fc">&#9670;&nbsp;</a></span>c7_thread_randezvous_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a> c7_thread_randezvous_init </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_entry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ランデブーオブジェクトを生成する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n_entry</td><td>待ち合わせするスレッド数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>成功すれば ランデブーオブジェクトを戻し、失敗すれば NULL を戻す。 </dd></dl>
+
+</div>
+</div>
+<a id="gaa658ee1095d9a7398c10f1c63392b340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa658ee1095d9a7398c10f1c63392b340">&#9670;&nbsp;</a></span>c7_thread_randezvous_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7types.html#ga32dffe853a91b70665fd4c3b18a9d288">c7_bool_t</a> c7_thread_randezvous_wait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a>&#160;</td>
+          <td class="paramname"><em>rndv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tmo_us</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ランデブーオブジェクトに指定数のスレッドが到達するまで待機する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rndv</td><td>ランデブーオブジェクト。 </td></tr>
+    <tr><td class="paramname">tmo_us</td><td>非負(≧0)ならマイクロ秒単位のタイムアウト値とする。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>タイムアウトまでの間にスレッドが揃えば C7_TRUE を戻し、そうでなければ C7_FALSE を戻す。 タイムアウトした場合、errno には ETIMEDOUT が設定される。 </dd></dl>
+
+</div>
+</div>
+<a id="ga7a8618e811664d3bba55bbeb61a4e276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7a8618e811664d3bba55bbeb61a4e276">&#9670;&nbsp;</a></span>c7_thread_randezvous_abort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_randezvous_abort </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a>&#160;</td>
+          <td class="paramname"><em>rndv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ランデブーオブジェクトでの待ち合わせを中止する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rndv</td><td>ランデブーオブジェクト。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>スレッドの待ち合わせを中止する。既に待機中であったものはエラーとして待機が解除される。 以降、c7_thread_randezvous_reset() が呼ばれるまでは、c7_thread_randezvous_wait() の呼び出しは即失敗となる。 </p>
+
+</div>
+</div>
+<a id="ga0d877e534cee758c6cc4f9298b3f200b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0d877e534cee758c6cc4f9298b3f200b">&#9670;&nbsp;</a></span>c7_thread_randezvous_reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_randezvous_reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a>&#160;</td>
+          <td class="paramname"><em>rndv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ランデブーオブジェクトでの待ち合わせを再開する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rndv</td><td>ランデブーオブジェクト。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga2dfd4782394fe4d00a8833f603e9ba02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2dfd4782394fe4d00a8833f603e9ba02">&#9670;&nbsp;</a></span>c7_thread_randezvous_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_thread_randezvous_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7thread.html#ga3e2165a9c58550763aaf886a074e3214">c7_thread_randezvous_t</a>&#160;</td>
+          <td class="paramname"><em>rndv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ランデブーオブジェクトを破棄する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rndv</td><td>ランデブーオブジェクト。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>ランデブーオブジェクトで待機しているスレッドがあった場合の動作は予測不可能である。 </p>
 
 </div>
 </div>

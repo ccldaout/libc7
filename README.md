@@ -1,9 +1,37 @@
-# libc7 r1.1.0
+# libc7 r2.0.0
 
 C言語によるプログラミングの基本要素を集めたライブラリです。
 ターゲットのC規格は C99 です。
 
 ## 変更履歴
+
+### r2.0.0
+
+#### c7app
+
+- c7_app_getpwnam_x/c7_app_getpwuid_x を追加。
+
+#### c7file
+
+- c7file, c7path ファイル名処理関数の追加と整理。
+
+#### c7memory
+
+- メモリグループ外で確保したメモリオブジェクトのグループ管理機能。
+- c7_sg_push/c7_sg_pop の仕様を変更。
+
+#### c7mpool
+
+- c7_mpool_close を追加。close 後の get は常に即失敗する。
+
+#### c7string
+
+- c7文字列の補助機能を追加。
+
+#### c7thread
+
+- 複数スレッドの待合せ機能の追加。
+- pthread_cleanup_push に関する致命的な問題を修正。
 
 ### r1.1.0
 

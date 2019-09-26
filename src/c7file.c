@@ -25,6 +25,7 @@
 
 
 /*----------------------------------------------------------------------------
+                              fgets for c7_str_t
 ----------------------------------------------------------------------------*/
 
 char *c7_fgets(c7_str_t *sbp, FILE *fp)
@@ -411,142 +412,6 @@ c7_bool_t c7_file_inherit_owner(const char *path)
 }
 
 
-
-/*----------------------------------------------------------------------------
-                                  sarch file
-----------------------------------------------------------------------------*/
-
-static const char *file_search(const char *name,
-			       const char **pathlistv)
-{
-    c7_str_t *paths = c7_str_new_sg();
-    c7_str_t *path = c7_str_new_sg();
-
-    for (; *pathlistv; pathlistv++) {
-	c7_str_reuse(paths);
-	if (C7_STR_ERR(c7_streval_env(paths, *pathlistv)))
-	    continue;
-	char *p = c7_strbuf(paths);
-	char *context;
-	if ((p = strtok_r(p, ":", &context)) != NULL) {
-	    do {
-		c7_str_reuse(path);
-		(void)c7_sprintf(path, "%s/%s", p, name);
-		if (access(c7_strbuf(path), F_OK) == C7_SYSOK) {
-		    return c7_strbuf(path);
-		}
-	    } while ((p = strtok_r(NULL, ":", &context)) != NULL);
-	}
-    }
-    return NULL;
-}
-
-c7_bool_t c7_file_search(c7_str_t *sbp,
-			 const char *name,
-			 const char **pathlistv,
-			 const char *default_suffix)
-{	
-    c7_sg_push();
-    c7_status_clear();
-    c7_str_t *fn = c7_strcpy(NULL, name);
-    if (strchr(name, '.') == NULL) {
-	(void)c7_strcpy(fn, default_suffix);
-	name = c7_strbuf(fn);
-    }
-    const char *path;
-    if (strchr(name, '/') != NULL)
-	path = (access(name, F_OK) == C7_SYSOK) ? name : NULL;
-    else
-	path  = file_search(name, pathlistv);
-    if (path != NULL)
-	(void)c7_strcpy(sbp, path);
-    else
-	c7_status_add(0, ": cannot find '%s'\n", name);
-    c7_sg_pop();
-
-    return (path != NULL);
-}
-
-
-/*----------------------------------------------------------------------------
-                               c7 special file
-----------------------------------------------------------------------------*/
-
-static c7_bool_t validdir(const char *path)
-{
-    struct stat st;
-    return (stat(path, &st) == C7_SYSOK &&
-	    S_ISDIR(st.st_mode) &&
-	    access(path, W_OK) == C7_SYSOK);
-}
-
-c7_str_t *c7_file_special_path(c7_str_t *sbp,
-			       const char *envname_op,
-			       const char *name, const char *suffix)
-{
-    if (c7strmatch_tail(name, suffix, (void *)NULL) != -1)
-	suffix = "";
-
-    if (strchr(name, '/') != NULL)
-	return c7_strcpy(c7_strcpy(sbp, name), suffix);
-
-    const char *s;
-    if (envname_op != NULL && (s = getenv(envname_op)) != NULL) {
-	if (validdir(s))
-	    return c7_sprintf(sbp, "%s/%s%s", s, name, suffix);
-    }
-
-    envname_op = "C7_ROOT_DIR";
-    if (envname_op != NULL && (s = getenv(envname_op)) != NULL) {
-	if (validdir(s))
-	    return c7_sprintf(sbp, "%s/%s%s", s, name, suffix);
-    }
-
-    const char *home = c7getenv_x("HOME", "");
-    sbp = c7_sprintf(sbp, "%s/.c7", home);
-    if (validdir(c7_strbuf(sbp)))
-	return c7_sprintf(sbp, "/%s%s", name, suffix);
-    c7_str_reuse(sbp);
-
-    return c7_sprintf(sbp, "%s/.%s%s", home, name, suffix);
-}
-
-c7_str_t *c7_file_special_find(c7_str_t *sbp,
-			       const char *envname_op,
-			       const char *name, const char *suffix)
-{
-    if (c7strmatch_tail(name, suffix, (void *)NULL) != -1)
-	suffix = "";
-
-    if (strchr(name, '/') != NULL)
-	return c7_strcpy(c7_strcpy(sbp, name), suffix);
-
-    const char *s;
-    if (envname_op != NULL && (s = getenv(envname_op)) != NULL) {
-	sbp = c7_sprintf(sbp, "%s/%s%s", s, name, suffix);
-	if (access(c7_strbuf(sbp), F_OK) == C7_SYSOK)
-	    return sbp;
-	c7_str_reuse(sbp);
-    }
-
-    envname_op = "C7_ROOT_DIR";
-    if (envname_op != NULL && (s = getenv(envname_op)) != NULL) {
-	sbp = c7_sprintf(sbp, "%s/%s%s", s, name, suffix);
-	if (access(c7_strbuf(sbp), F_OK) == C7_SYSOK)
-	    return sbp;
-	c7_str_reuse(sbp);
-    }
-
-    const char *home = c7getenv_x("HOME", "");
-    sbp = c7_sprintf(sbp, "%s/.c7/%s%s", home, name, suffix);
-    if (access(c7_strbuf(sbp), F_OK) == C7_SYSOK)
-	return sbp;
-    c7_str_reuse(sbp);
-
-    return c7_sprintf(sbp, "%s/.%s%s", home, name, suffix);
-}
-
-
 /*----------------------------------------------------------------------------
                                recursive mkdir
 ----------------------------------------------------------------------------*/
@@ -593,4 +458,31 @@ c7_bool_t c7_file_mkdir(const char *path, mode_t mode, uid_t uid, gid_t gid)
     (void)strcpy(buf, path);
     _mkdir_prm_t prm = { .mode = mode, .uid = uid, .gid = gid, .path = buf };
     return stepmkdir((buf[0] == '/') ? &buf[1] : buf, &prm);
+}
+
+
+/*----------------------------------------------------------------------------
+                              for compatibility
+----------------------------------------------------------------------------*/
+
+c7_bool_t (c7_file_search)(c7_str_t *sbp,
+			   const char *name,
+			   const char **pathlistv,
+			   const char *default_suffix)
+{
+    return c7_path_search(sbp, name, pathlistv, default_suffix);
+}
+
+c7_str_t *(c7_file_special_path)(c7_str_t *sbp,
+				 const char *envname_op,
+				 const char *name, const char *suffix)
+{
+    return c7_path_c7spec(sbp, envname_op, name, suffix, C7_TRUE);
+}
+
+c7_str_t *(c7_file_special_find)(c7_str_t *sbp,
+			       const char *envname_op,
+			       const char *name, const char *suffix)
+{
+    return c7_path_c7spec(sbp, envname_op, name, suffix, C7_FALSE);
 }

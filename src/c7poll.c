@@ -448,20 +448,24 @@ static c7_bool_t poll_free(_poller_t *poller)
 
 static c7_bool_t poll_cntl_append(_poller_t *poller, const _cntl_t *cntl)
 {
-    C7_THREAD_GUARD_ENTER(&poller->mutex);
+    c7_thread_lock(&poller->mutex);
     if (c7_deque_append(poller->cntls, (void *)cntl, 1) == NULL) {
 	c7_thread_unlock(&poller->mutex);
 	return C7_FALSE;
     }
     if (c7_deque_count(poller->cntls) == 1) {
 	char ch = 0;
-	if (write(poller->cntl_pipe[1], &ch, 1) != 1) {
+	ssize_t w;
+	C7_THREAD_UNLOCK_PUSH(&poller->mutex);
+	w = write(poller->cntl_pipe[1], &ch, 1);
+	C7_THREAD_UNLOCK_POP();
+	if (w != 1) {
 	    c7_status_add(errno, "poll_cntl_append: write error\n");
 	    c7_thread_unlock(&poller->mutex);
 	    return C7_FALSE;
 	}
     }
-    C7_THREAD_GUARD_EXIT(&poller->mutex);
+    c7_thread_unlock(&poller->mutex);
     return C7_TRUE;
 }
 
@@ -471,12 +475,12 @@ static c7_bool_t poll_cntl_append(_poller_t *poller, const _cntl_t *cntl)
 static _poll_sts_t _poll_cntl_action(_poller_t *poller)
 {
     char ch;
-    _cntl_t *cp;
-    c7_bool_t opc_stop = C7_FALSE;
-    c7_bool_t opc_recal = C7_FALSE;
-
-    C7_THREAD_GUARD_ENTER(&poller->mutex);
-    if (read(poller->cntl_pipe[0], &ch, 1) != 1) {
+    ssize_t r;
+    c7_thread_lock(&poller->mutex);
+    C7_THREAD_UNLOCK_PUSH(&poller->mutex);
+    r = read(poller->cntl_pipe[0], &ch, 1);
+    C7_THREAD_UNLOCK_POP();
+    if (r != 1) {
 	c7_status_add(errno = EIO, "_poll_cntl_action: read error\n");
 	c7_thread_unlock(&poller->mutex);
 	return _POLL_STS_FATAL;
@@ -487,7 +491,11 @@ static _poll_sts_t _poll_cntl_action(_poller_t *poller)
 	return _POLL_STS_FATAL;
     }
     c7_deque_reset(poller->cntls);
-    C7_THREAD_GUARD_EXIT(&poller->mutex);
+    c7_thread_unlock(&poller->mutex);
+
+    _cntl_t *cp;
+    c7_bool_t opc_stop = C7_FALSE;
+    c7_bool_t opc_recal = C7_FALSE;
 
     c7_deque_foreach(poller->cntls_copied, cp) {
 	switch (cp->opc) {
@@ -683,18 +691,16 @@ c7_bool_t c7_poll_register(c7_poll_t pl,
 			   void *__arg)
 {
     _fd_attr_t *fda;
-    c7_bool_t status;
-
+    c7_bool_t status = C7_FALSE;
     C7_THREAD_GUARD_ENTER(&pl->glock);
     if ((fda = c7_parray_new(pl->fdv, desc)) == NULL) {
-	c7_thread_unlock(&pl->glock);
 	c7_status_add(0, ": c7_poll_register: desc: %d\n", desc);
-	return C7_FALSE;
+    } else {
+	fda->evmask = evmask;
+	fda->on_event = on_event;
+	fda->__arg = __arg;
+	status = poll_register(pl->poller, desc, evmask);
     }
-    fda->evmask = evmask;
-    fda->on_event = on_event;
-    fda->__arg = __arg;
-    status = poll_register(pl->poller, desc, evmask);
     C7_THREAD_GUARD_EXIT(&pl->glock);
     return status;
 }
@@ -702,33 +708,29 @@ c7_bool_t c7_poll_register(c7_poll_t pl,
 c7_bool_t c7_poll_modify(c7_poll_t pl, int desc,  uint32_t evmask)
 {
     _fd_attr_t *fda;
-    c7_bool_t status;
-
+    c7_bool_t status = C7_FALSE;
     C7_THREAD_GUARD_ENTER(&pl->glock);
     if ((fda = c7_parray_get(pl->fdv, desc)) == NULL) {
-	c7_thread_unlock(&pl->glock);
 	c7_status_add(0, ": c7_poll_modify: desc: %d\n", desc);
-	return C7_FALSE;
+    } else {
+	fda->evmask = evmask;
+	status = poll_modify(pl->poller, desc, evmask);
     }
-    fda->evmask = evmask;
-    status = poll_modify(pl->poller, desc, evmask);
     C7_THREAD_GUARD_EXIT(&pl->glock);
     return status;
 }
 
 c7_bool_t c7_poll_unregister(c7_poll_t pl, int desc)
 {
-    c7_bool_t status;
-
+    c7_bool_t status = C7_FALSE;
     C7_THREAD_GUARD_ENTER(&pl->glock);
     if (!c7_parray_check(pl->fdv, desc)) {
-	c7_thread_unlock(&pl->glock);
 	c7_status_add(errno = EINVAL,
 			": c7_poll_unregister: desc: %d\n", desc);
-	return C7_FALSE;
+    } else {
+	c7_parray_free(pl->fdv, desc);
+	status = poll_unregister(pl->poller, desc);
     }
-    c7_parray_free(pl->fdv, desc);
-    status = poll_unregister(pl->poller, desc);
     C7_THREAD_GUARD_EXIT(&pl->glock);
     return status;
 }
@@ -736,17 +738,15 @@ c7_bool_t c7_poll_unregister(c7_poll_t pl, int desc)
 c7_bool_t c7_poll_pause(c7_poll_t pl, int desc)
 {
     _fd_attr_t *fda = NULL;
-    c7_bool_t status;
-
+    c7_bool_t status = C7_FALSE;
     C7_THREAD_GUARD_ENTER(&pl->glock);
     if ((fda = c7_parray_get(pl->fdv, desc)) == NULL) {
-	c7_thread_unlock(&pl->glock);
 	c7_status_add(0, ": c7_poll_pause: desc: %d\n", desc);
-	return C7_FALSE;
+    } else {
+	fda->evmask_saved = fda->evmask;
+	fda->evmask = 0;
+	status = poll_modify(pl->poller, desc, fda->evmask);
     }
-    fda->evmask_saved = fda->evmask;
-    fda->evmask = 0;
-    status = poll_modify(pl->poller, desc, fda->evmask);
     C7_THREAD_GUARD_EXIT(&pl->glock);
     return status;
 }
@@ -754,16 +754,14 @@ c7_bool_t c7_poll_pause(c7_poll_t pl, int desc)
 c7_bool_t c7_poll_resume(c7_poll_t pl, int desc)
 {
     _fd_attr_t *fda = NULL;
-    c7_bool_t status;
-
+    c7_bool_t status = C7_FALSE;
     C7_THREAD_GUARD_ENTER(&pl->glock);
     if ((fda = c7_parray_get(pl->fdv, desc)) == NULL) {
-	c7_thread_unlock(&pl->glock);
 	c7_status_add(0, ": c7_poll_resume: desc: %d\n", desc);
-	return C7_FALSE;
+    } else {
+	fda->evmask = fda->evmask_saved;
+	status = poll_modify(pl->poller, desc, fda->evmask);
     }
-    fda->evmask = fda->evmask_saved;
-    status = poll_modify(pl->poller, desc, fda->evmask);
     C7_THREAD_GUARD_EXIT(&pl->glock);
     return status;
 }
@@ -783,26 +781,22 @@ c7_alarm_t c7_poll_alarm_on(c7_poll_t pl,
 					     void *__arg),
 			    void *__arg)
 {
-    c7_alarm_t alarm;
+    c7_alarm_t alarm = C7_TIMER_INV_ALARM;
 
     C7_THREAD_GUARD_ENTER(&pl->glock);
     _alarm_arg_t *arg = c7_mpool_get(pl->alarm_arg_pool);
-    if (arg == NULL) {
-	c7_thread_unlock(&pl->glock);
-	return C7_TIMER_INV_ALARM;
-    }
-
-    arg->on_alarm = on_alarm;
-    arg->poller = pl;
-    arg->__arg = __arg;
-
-    int64_t tv_us = c7_time_us() + delay_ms * 1000;
-    alarm = c7_timer_alarm_on(pl->timer, tv_us, _call_on_alarm, arg);
-    if (alarm != C7_TIMER_INV_ALARM) {
-	_cntl_t cntl = { .opc=_CNTL_OPC_RECALTMO };
-	if (!poll_cntl_append(pl->poller, &cntl)) {
-	    c7_poll_alarm_off(pl, alarm);
-	    alarm = C7_TIMER_INV_ALARM;
+    if (arg != NULL) {
+	arg->on_alarm = on_alarm;
+	arg->poller = pl;
+	arg->__arg = __arg;
+	int64_t tv_us = c7_time_us() + delay_ms * 1000;
+	alarm = c7_timer_alarm_on(pl->timer, tv_us, _call_on_alarm, arg);
+	if (alarm != C7_TIMER_INV_ALARM) {
+	    _cntl_t cntl = { .opc=_CNTL_OPC_RECALTMO };
+	    if (!poll_cntl_append(pl->poller, &cntl)) {
+		c7_poll_alarm_off(pl, alarm);
+		alarm = C7_TIMER_INV_ALARM;
+	    }
 	}
     }
     C7_THREAD_GUARD_EXIT(&pl->glock);

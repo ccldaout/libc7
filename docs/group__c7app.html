@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r1.1.0</span>
+   &#160;<span id="projectnumber">r2.0</span>
    </div>
   </td>
  </tr>
@@ -126,6 +126,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gab7eaf09a57d16471ec90467b372c38a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7types.html#ga96c2ceb3c14d78749990504fa9d8d373">c7_time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7app.html#gab7eaf09a57d16471ec90467b372c38a0">c7_sleep_us</a> (int64_t time_us)</td></tr>
 <tr class="memdesc:gab7eaf09a57d16471ec90467b372c38a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">マイクロ秒のスリープ。  <a href="#gab7eaf09a57d16471ec90467b372c38a0">More...</a><br /></td></tr>
 <tr class="separator:gab7eaf09a57d16471ec90467b372c38a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4aaf87f766c6be832a8e90398307ec23"><td class="memItemLeft" align="right" valign="top">struct passwd *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7app.html#ga4aaf87f766c6be832a8e90398307ec23">c7_app_getpwnam_x</a> (const char *name)</td></tr>
+<tr class="memdesc:ga4aaf87f766c6be832a8e90398307ec23"><td class="mdescLeft">&#160;</td><td class="mdescRight">ユーザ名からユーザ情報を得る。  <a href="#ga4aaf87f766c6be832a8e90398307ec23">More...</a><br /></td></tr>
+<tr class="separator:ga4aaf87f766c6be832a8e90398307ec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d3132be408454063f26406da8712eab"><td class="memItemLeft" align="right" valign="top">struct passwd *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7app.html#ga7d3132be408454063f26406da8712eab">c7_app_getpwuid_x</a> (uid_t uid)</td></tr>
+<tr class="memdesc:ga7d3132be408454063f26406da8712eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">ユーザIDからユーザ情報を得る。  <a href="#ga7d3132be408454063f26406da8712eab">More...</a><br /></td></tr>
+<tr class="separator:ga7d3132be408454063f26406da8712eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>アプリケーションで使う小規模な機能の寄せ集め。 </p>
@@ -672,6 +678,50 @@ Functions</h2></td></tr>
 
 <p>マイクロ秒のスリープ。 </p>
 <p>time_us で指定したマイクロ秒の間 sleep する。 指定時間スリープしたら 0 を、シグナルにより割込まれたら残り時間をマイクロ描画単位で、 エラーが発生した場合は (c7_time_t)(-1)を戻す。 </p>
+
+</div>
+</div>
+<a id="ga4aaf87f766c6be832a8e90398307ec23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4aaf87f766c6be832a8e90398307ec23">&#9670;&nbsp;</a></span>c7_app_getpwnam_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct passwd* c7_app_getpwnam_x </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ユーザ名からユーザ情報を得る。 </p>
+<p>/etc/passwd からユーザ名が name に一致するユーザ情報を検索し返却する。 該当する情報が無いかエラーが発生した場合は NULL を戻す。</p>
+<dl class="section remark"><dt>Remarks</dt><dd>見つかった場合に返却されるアドレスは呼び出し側が解放しなければならない。 </dd></dl>
+
+</div>
+</div>
+<a id="ga7d3132be408454063f26406da8712eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7d3132be408454063f26406da8712eab">&#9670;&nbsp;</a></span>c7_app_getpwuid_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct passwd* c7_app_getpwuid_x </td>
+          <td>(</td>
+          <td class="paramtype">uid_t&#160;</td>
+          <td class="paramname"><em>uid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ユーザIDからユーザ情報を得る。 </p>
+<p>/etc/passwd からユーザIDが uid に一致するユーザ情報を検索し返却する。 該当する情報が無いかエラーが発生した場合は NULL を戻す。</p>
+<dl class="section remark"><dt>Remarks</dt><dd>見つかった場合に返却されるアドレスは呼び出し側が解放しなければならない。 </dd></dl>
 
 </div>
 </div>

@@ -302,3 +302,55 @@ c7_time_t c7_app_sleep_us(int64_t time_us)
 	time_us = 0;
     return time_us;
 }
+
+struct passwd *c7_app_getpwnam_x(const char *name)
+{
+    struct passwd *pwd = NULL;
+    int bufsize = 0;
+    for (;;) {
+	bufsize += 128;
+	pwd = c7_realloc(pwd, sizeof(*pwd) + bufsize);
+	if (pwd == NULL)
+	    return NULL;
+	struct passwd *result;
+	int err = getpwnam_r(name, pwd, (void *)(pwd + 1), bufsize, &result);
+	if (err == 0 && result != NULL) {
+	    return pwd;
+	}
+	if (err == 0 && result == NULL) {
+	    c7_status_add(errno = ENOENT, "getpwnam_r: no entry '%s'\n", name);
+	    return NULL;
+	}
+	if (err != ERANGE) {
+	    c7_status_add(errno = err, "getpwnam_r: failure\n");
+	    return NULL;
+	}
+	// Not enough buffer space, retry with extended buffer.
+    }
+}
+
+struct passwd *c7_app_getpwuid_x(uid_t uid)
+{
+    struct passwd *pwd = NULL;
+    int bufsize = 0;
+    for (;;) {
+	bufsize += 128;
+	pwd = c7_realloc(pwd, sizeof(*pwd) + bufsize);
+	if (pwd == NULL)
+	    return NULL;
+	struct passwd *result;
+	int err = getpwuid_r(uid, pwd, (void *)(pwd + 1), bufsize, &result);
+	if (err == 0 && result != NULL) {
+	    return pwd;
+	}
+	if (err == 0 && result == NULL) {
+	    c7_status_add(errno = ENOENT, "getpwuid_r: no entry uid:%u\n", uid);
+	    return NULL;
+	}
+	if (err != ERANGE) {
+	    c7_status_add(errno = err, "getpwuid_r: failure\n");
+	    return NULL;
+	}
+	// Not enough buffer space, retry with extended buffer.
+    }
+}

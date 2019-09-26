@@ -73,8 +73,6 @@ extern "C" {
 	(_o) = v__;				\
     } while (0)
 
-# endif
-
 #elif defined(__SUNPRO_C) && defined(__x86_64) && defined(C7_CONFIG_SOL_IL)
 
 /*

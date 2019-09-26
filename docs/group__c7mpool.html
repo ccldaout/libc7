@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r1.1.0</span>
+   &#160;<span id="projectnumber">r2.0</span>
    </div>
   </td>
  </tr>
@@ -108,6 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#gad3f0638b61efb7fb10ec879bdcc02e5b">c7_mpool_put</a> (void *addr)</td></tr>
 <tr class="memdesc:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリユニットの参照カウントを減らす。  <a href="#gad3f0638b61efb7fb10ec879bdcc02e5b">More...</a><br /></td></tr>
 <tr class="separator:gad3f0638b61efb7fb10ec879bdcc02e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0563925346cebeabefd5c12f345604bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga0563925346cebeabefd5c12f345604bb">c7_mpool_close</a> (<a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a> mp)</td></tr>
+<tr class="memdesc:ga0563925346cebeabefd5c12f345604bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプールの取得機能を禁止する。  <a href="#ga0563925346cebeabefd5c12f345604bb">More...</a><br /></td></tr>
+<tr class="separator:ga0563925346cebeabefd5c12f345604bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7mpool.html#ga5779470e8fa6c6c5ac3ba0357e9525c9">c7_mpool_free</a> (<a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a> mp)</td></tr>
 <tr class="memdesc:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプールで確保したメモリを全て解放し、メモリプール自体も解放する。  <a href="#ga5779470e8fa6c6c5ac3ba0357e9525c9">More...</a><br /></td></tr>
 <tr class="separator:ga5779470e8fa6c6c5ac3ba0357e9525c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -349,6 +352,33 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>メモリユニットの参照カウントを減らす。 減らした結果 0 になればメモリユニットはプールへ戻される。この時、on_put で指定した関数が呼ばれる。 </p>
+
+</div>
+</div>
+<a id="ga0563925346cebeabefd5c12f345604bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0563925346cebeabefd5c12f345604bb">&#9670;&nbsp;</a></span>c7_mpool_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void c7_mpool_close </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7mpool.html#gae442a1aa2df25d2914e8996be2df221c">c7_mpool_t</a>&#160;</td>
+          <td class="paramname"><em>mp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリプールの取得機能を禁止する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mp</td><td>メモリプール。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>この関数が呼ばれたあとは、プールの有無にかかわらず <a class="el" href="group__c7mpool.html#ga9ac0562c631e5ca2d96c7c0ef362edb1" title="メモリプールからメモリユニットを取得する。">c7_mpool_get()</a> の呼び出しは失敗するようになる。 </p>
 
 </div>
 </div>

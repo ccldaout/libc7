@@ -17,11 +17,14 @@
 #include <c7app.h>
 
 
+#define _TIDC_MAX	32
+
 typedef struct prm_t_ {
     c7_args_t print_ap;
     size_t maxlines;
     size_t order_min, order_max;
-    size_t tid_min, tid_max;	// thread id
+    size_t tidv[_TIDC_MAX];	// thread id list
+    int tidc;
     c7_time_t time_us_min, time_us_max;
     uint32_t level_max;		// C7_LOG_xxx
     uint32_t category_mask;
@@ -30,6 +33,8 @@ typedef struct prm_t_ {
     c7_bool_t pr_loglevel;
     char *md_format;		// minidata format
     char *tm_format;
+    c7_bool_t pr_sn;
+    c7_bool_t pr_tn;
     int tn_width;		// max width of thread name
     int sn_width;		// width of source name
     int sl_width;		// width of source line
@@ -69,10 +74,18 @@ static c7_bool_t option_minidata(c7_args_t ap, const c7_args_params_t *params, v
 static c7_bool_t option_thread_name(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
 {
     prm_t *prm = __uctx;
-    if (params->prmc == 0)
-	prm->tn_width = 16;
-    else
+    prm->pr_tn = C7_TRUE;
+    if (params->prmc > 0)
 	prm->tn_width = params->prmv[0].u.i;
+    return C7_TRUE;
+}
+
+static c7_bool_t option_source_name(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+{
+    prm_t *prm = __uctx;
+    prm->pr_sn = C7_TRUE;
+    if (params->prmc > 0)
+	prm->sn_width = params->prmv[0].u.i;
     return C7_TRUE;
 }
 
@@ -109,12 +122,22 @@ static c7_args_optdef_t PrintOptions[] = {
 	.long_opt = "thread",
 	.short_opt = "t",
 	.optrepr = "print thread name",
-	.prmrepr = "width of thread name [default: 16]",
+	.prmrepr = "width of thread name",
 	.prmword = "WIDTH",
 	.prmtype = C7_ARGS_T_INT,
 	.prmc_min = 0,
 	.prmc_max = 1,
 	.handler = option_thread_name },
+    {
+	.long_opt = "source",
+	.short_opt = "s",
+	.optrepr = "print source name and line number",
+	.prmrepr = "width of source name",
+	.prmword = "WIDTH",
+	.prmtype = C7_ARGS_T_INT,
+	.prmc_min = 0,
+	.prmc_max = 1,
+	.handler = option_source_name },
     {
 	.long_opt = "date",
 	.short_opt = "D",
@@ -156,14 +179,12 @@ static c7_bool_t option_category_list(c7_args_t ap, const c7_args_params_t *para
     return C7_TRUE;
 }
 
-static c7_bool_t option_thread_range(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+static c7_bool_t option_thread_list(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
 {
     prm_t *prm = __uctx;
-    prm->tid_min = params->prmv[0].u.i;
-    if (params->prmc == 2)
-	prm->tid_max = params->prmv[1].u.i;
-    else
-	prm->tid_max = prm->tid_min;
+    prm->tidc = params->prmc;
+    for (int i = 0; i < params->prmc; i++)
+	prm->tidv[i] = params->prmv[i].u.i;
     return C7_TRUE;
 }
 
@@ -255,8 +276,8 @@ static c7_args_optdef_t CommonOptions[] = {
 	.prmword = "THREAD_ID",
 	.prmtype = C7_ARGS_T_INT,
 	.prmc_min = 1,
-	.prmc_max = 1,
-	.handler = option_thread_range },
+	.prmc_max = _TIDC_MAX,
+	.handler = option_thread_list },
     {
 	.long_opt = "order",
 	.short_opt = "s",
@@ -292,14 +313,9 @@ static prm_t parse_args(char **argv)
 {
     prm_t prm = {
 	.maxlines = -1UL,
-	.order_min = 0,
 	.order_max = -1UL,
-	.time_us_min = 0,
 	.time_us_max = (-1UL)/2,
-	.tid_min = 0,
-	.tid_max = -1UL,
 	.level_max = C7_LOG_BRF,
-	.sn_width = 12,
 	.sl_width = 3,
     };
 
@@ -358,14 +374,20 @@ static char *strtime_us(c7_time_t tv_us, const char *tm_format)
 static c7_bool_t choice(const c7_mlog_info_t *info, void *__param)
 {
     prm_t *prm = __param;
+    if (prm->tidc > 0) {
+	int i;
+	for (i = 0; i < prm->tidc; i++)
+	    if (info->thread_id == prm->tidv[i])
+		break;
+	if (i == prm->tidc)
+	    return C7_FALSE;
+    }
     return (info->time_us >= prm->time_us_min &&
 	    info->time_us <= prm->time_us_max &&
 	    info->order >= prm->order_min &&
 	    info->order <= prm->order_max &&
 	    info->level <= prm->level_max &&
-	    ((1U << info->category) & prm->category_mask) != 0 &&
-	    info->thread_id >= prm->tid_min &&
-	    info->thread_id <= prm->tid_max);
+	    ((1U << info->category) & prm->category_mask) != 0);
 }
 
 static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__param)
@@ -449,6 +471,12 @@ int main(int argc, char **argv)
     c7_mlog_t g = c7_mlog_open_r(prm.logname);
     if (g == NULL)
 	c7exit_err(0, NULL);
+
+    if (prm.pr_tn && prm.tn_width == 0)
+	prm.tn_width = c7_mlog_thread_name_size(g);
+    if (prm.pr_sn && prm.sn_width == 0)
+	prm.sn_width = c7_mlog_source_name_size(g);
+
     if (!c7_mlog_scan(g,
 		      prm.maxlines, prm.order_min, prm.time_us_min,
 		      choice, printlog, &prm))

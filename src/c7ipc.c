@@ -347,7 +347,7 @@ c7_ipc_read_n(int desc, void *b, const ssize_t req_n, ssize_t *act_n)
 	    if (act_n)
 		*act_n = n;
 	    if (z == 0 && n == 0) {
-		c7_status_clear();
+		c7_status_reset(ECONNRESET, "read_n(req:%ld) -> 0 (maybe clsoed)\n", req_n);
 	    } else {
 		if (z == 0)
 		    errno = EIO;

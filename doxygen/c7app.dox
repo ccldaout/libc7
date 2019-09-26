@@ -142,5 +142,23 @@ c7_time_t c7_time_us(void);
  */
 c7_time_t c7_sleep_us(int64_t time_us);
 
+/** ユーザ名からユーザ情報を得る。
+ *
+ * /etc/passwd からユーザ名が name に一致するユーザ情報を検索し返却する。
+ * 該当する情報が無いかエラーが発生した場合は NULL を戻す。
+ *
+ * @remark 見つかった場合に返却されるアドレスは呼び出し側が解放しなければならない。
+ */
+struct passwd *c7_app_getpwnam_x(const char *name);
+
+/** ユーザIDからユーザ情報を得る。
+ *
+ * /etc/passwd からユーザIDが uid に一致するユーザ情報を検索し返却する。
+ * 該当する情報が無いかエラーが発生した場合は NULL を戻す。
+ *
+ * @remark 見つかった場合に返却されるアドレスは呼び出し側が解放しなければならない。
+ */
+struct passwd *c7_app_getpwuid_x(uid_t uid);
+
 
 //@}

@@ -32,6 +32,7 @@ void *c7_mpool_get(c7_mpool_t mp);
 void c7_mpool_ref(void *addr);
 #define c7_mpool_unref	c7_mpool_put
 void c7_mpool_put(void *addr);
+void c7_mpool_close(c7_mpool_t mp);
 void c7_mpool_free(c7_mpool_t mp);
 
 

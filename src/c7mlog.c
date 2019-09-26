@@ -24,7 +24,8 @@
 // 1: initial
 // 2: lnk data lnk -> lnk data thread_name lnk
 // 3: thread name, source name
-#define _REVISION	3
+// 4: record max length for thread name and source name
+#define _REVISION	4
 
 
 typedef uint32_t raddr_t;
@@ -111,6 +112,8 @@ typedef struct c7_mlog_hdr_t_ {	// ring-log header
     uint32_t logsize_b;		// ring buffer size
     uint32_t nextlnkaddr;	// ring addrress to next log_lnk_t
     char hint[64];
+    uint8_t max_tn_size;	// maximum length of thread name
+    uint8_t max_sn_size;	// maximum length of source name
 } _hdr_t;
 
 typedef struct c7_mlog_lnk_t_ {	// linkage data
@@ -229,10 +232,16 @@ static raddr_t setuplnk(c7_mlog_t g,
     raddr_t addr;
     
     // null character is not counted for *_size, but it's put to rbuf.
-    if (tn_size > 0)
+    if (tn_size > 0) {
+	if (g->hdr->max_tn_size < tn_size)
+	    g->hdr->max_tn_size = tn_size;
 	logsize += (tn_size + 1);
-    if (sn_size > 0)
+    }
+    if (sn_size > 0) {
+	if (g->hdr->max_sn_size < sn_size)
+	    g->hdr->max_sn_size = sn_size;
 	logsize += (sn_size + 1);
+    }
 
     // put lnk as a new terminator
     addr = prevlnkaddr + sizeof(lnk) + logsize;	// address of new terminator
@@ -646,6 +655,16 @@ void *c7_mlog_hdraddr(c7_mlog_t g, size_t *hdrsize_b_op)
     if (hdrsize_b_op != NULL)
 	*hdrsize_b_op = g->hdr->hdrsize_b;
     return (char *)g->hdr + _IHDRSIZE;
+}
+
+int c7_mlog_thread_name_size(c7_mlog_t g)
+{
+    return g->hdr->max_tn_size;
+}
+
+int c7_mlog_source_name_size(c7_mlog_t g)
+{
+    return g->hdr->max_sn_size;
 }
 
 const char *c7_mlog_hint(c7_mlog_t g)

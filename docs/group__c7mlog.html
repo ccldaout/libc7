@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r1.1.0</span>
+   &#160;<span id="projectnumber">r2.0</span>
    </div>
   </td>
  </tr>
@@ -336,7 +336,7 @@ minidata</td>
 <p>mlogを書き込みモードでオープンする。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>オープンする mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、 <a class="el" href="group__c7file.html#ga7cff6ce94d1b999eef932fc745b76748" title="特殊ファイルのパス名を決定する [作成用]">c7_file_special_path()</a> に渡されて実際のパス名への変換される。 </td></tr>
+    <tr><td class="paramname">name</td><td>オープンする mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、 c7_file_special_path() に渡されて実際のパス名への変換される。 </td></tr>
     <tr><td class="paramname">hdrsize_b</td><td>ヘッダー部分のアプリケーションで使用したい記録エリアのサイズ(bytes)。 この領域は <a class="el" href="group__c7mlog.html#ga767749dadbd65d9a04f63668b9354d78" title="mlogのアプリケーションエリアのアドレスを得る。">c7_mlog_hdraddr()</a> で得ることができる。 </td></tr>
     <tr><td class="paramname">logsize_b</td><td>ログ記録エリアのサイズ(bytes)。1KB未満や1GBを越えるとエラーとなる。 </td></tr>
     <tr><td class="paramname">hint_op</td><td>ヒント情報。null終端文字を入れて 64 バイト以下でなければならない。 現バージョンでは意味をもたないので NULL を指定すべき。 </td></tr>
@@ -345,7 +345,7 @@ minidata</td>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mlogファイルを正常にmmapできれば mlogオブジェクトを戻す。そうでなれば NULL を戻す。</dd></dl>
-<p><a class="el" href="group__c7file.html#ga7cff6ce94d1b999eef932fc745b76748" title="特殊ファイルのパス名を決定する [作成用]">c7_file_special_path()</a> でファイルをオープンし、必要なサイズまで ftruncate して mmap する。</p><ul>
+<p>c7_file_special_path() でファイルをオープンし、必要なサイズまで ftruncate して mmap する。</p><ul>
 <li>ファイルが既存だった場合、内部のフォーマットのリビジョン番号や hdrsize_b, logsize_b が ファイルのものと異っていた場合は新しい値でリセットされる。記録内容も空の状態にリセットされる。</li>
 <li>rootアカウントで動作している場合、ファイルの所有者はファイルのディレクトリの所有者に強制的に chown(2) される。 </li>
 </ul>
@@ -1024,7 +1024,7 @@ minidata</td>
 <p>mlogを読み込み用として初期化する。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>オープンする mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、 <a class="el" href="group__c7file.html#ga7cff6ce94d1b999eef932fc745b76748" title="特殊ファイルのパス名を決定する [作成用]">c7_file_special_path()</a> に渡されて実際のパス名への変換される。 </td></tr>
+    <tr><td class="paramname">name</td><td>オープンする mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、 c7_file_special_path() に渡されて実際のパス名への変換される。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -1151,7 +1151,7 @@ minidata</td>
 <p>mlogファイルの記録をクリアする。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>操作対象となる mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、 <a class="el" href="group__c7file.html#ga7cff6ce94d1b999eef932fc745b76748" title="特殊ファイルのパス名を決定する [作成用]">c7_file_special_path()</a> に渡されて実際のパス名への変換される。 </td></tr>
+    <tr><td class="paramname">name</td><td>操作対象となる mlog の名称。これは、環境変数名 "C7_MLOG_DIR"、サフィクス ".mlog" とともに、 c7_file_special_path() に渡されて実際のパス名への変換される。 </td></tr>
   </table>
   </dd>
 </dl>

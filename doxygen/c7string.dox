@@ -359,6 +359,12 @@ c7_str_t *c7_str_new_ma(void);
  */
 c7_str_t *c7_str_new_sg(void);
 
+/** C7文字列を c7_tg_malloc() で確保し、
+ * バッファを c7_tg_realloc() で確保するように初期化してC7文字列のポインタを戻す。
+ * メモリ確保に失敗した場合だけ C7_STR_None を戻す。
+ */
+c7_str_t *c7_str_new_tls(void);
+
 /** C7文字列を c7_mg_malloc() で確保し、
  * バッファを c7_mg_realloc() で確保するように初期化してC7文字列のポインタを戻す。
  * メモリ確保に失敗した場合だけ C7_STR_None を戻す。
@@ -368,8 +374,12 @@ c7_str_t *c7_str_new_mg(c7_mgroup_t mg);
 
 
 #define C7_STR_LEN(sbp)			///< c7_str_len() のマクロ版
+#define C7_STR_SIZE(sbp)		///< c7_str_size() のマクロ版
 #define C7_STR_CHAR(sbp, idx)		///< c7_str_char() のマクロ版
 #define C7_STR_CHAR_R(sbp, idx)		///< c7_str_char_r() のマクロ版
+#define C7_STR_SETCUR(sbp)		///< c7_str_setcur() のマクロ版
+#define C7_STR_SETERR(sbp)		///< c7_str_seterr() のマクロ版
+#define C7_STR_CLRERR(sbp)		///< c7_str_clearerr() のマクロ版
 #define C7_STR_ERR(sbp)			///< c7_str_err() のマクロ版
 #define C7_STR_OK(sbp)			///< c7_str_ok() のマクロ版
 #define C7_STR_REUSE(sbp)		///< c7_str_reuse() のマクロ版
@@ -484,6 +494,27 @@ c7_bool_t c7_str_ok(c7_str_t *sbp);
  * 追記位置よりも手前に強制的にヌル文字を書き込んだとしてもそれを考慮しない。
  */
 int c7_str_len(c7_str_t *sbp);
+
+/** 現在の文字列バッファの容量を戻す。
+ *
+ * C7文字列のバッファとして確保されているバイト数を戻す。
+ */
+int c7_str_size(c7_str_t *sbp);
+
+/** C7文字列の現在位置をバッファの内容に合わせる。
+ *
+ * C7文字列の現在位置(追記位置)をバッファ内の最初のヌル文字の位置にあわせる。
+ * これは、c7_strcpy() 等を使用せずに直接バッファを更新した場合に使用する。
+ */
+c7_str_t *c7_str_setcur(c7_str_t *sbp);
+
+/** C7文字列のエラーフラグを立てる。
+ */
+c7_str_t *c7_str_seterr(c7_str_t *sbp);
+
+/** C7文字列のエラーフラグを解除する。
+ */
+c7_str_t *c7_str_clearerr(c7_str_t *sbp);
 
 /** C7文字列の idx 番目の文字を戻す。
  *

@@ -133,13 +133,20 @@ c7_bool_t __c7_thread_wait(const char *file, int line,
     int ret;
 
     if (limit_time == NULL) {
-	if ((ret = pthread_cond_wait(cond, mutex)) != C7_SYSOK)
-	    __c7_hook_thread_error(file, line, C7_API_thread_wait, ret);
-	return (ret == C7_SYSOK);
+	C7_THREAD_UNLOCK_PUSH(mutex);
+	ret = pthread_cond_wait(cond, mutex);
+	C7_THREAD_UNLOCK_POP();
+	if (ret == C7_SYSOK)
+	    return C7_TRUE;
+	__c7_hook_thread_error(file, line, C7_API_thread_wait, ret);
+	return C7_FALSE;
     }
 
     for (;;) {
-	if ((ret = pthread_cond_timedwait(cond, mutex, limit_time)) == C7_SYSOK)
+	C7_THREAD_UNLOCK_PUSH(mutex);
+	ret = pthread_cond_timedwait(cond, mutex, limit_time);
+	C7_THREAD_UNLOCK_POP();
+	if (ret == C7_SYSOK)
 	    return C7_TRUE;
 	if (ret == EINTR)
 	    continue;
@@ -208,8 +215,9 @@ static uint64_t ThreadCounter;
 static c7_thread_local c7_thread_t Thread;
 
 typedef enum _thread_state_t {
-    _STATE_IDLE,		/* c7_thread_t is initalized but no pthread */
-    _STATE_RUNNING,		/* target function is running */
+    _STATE_IDLE,		// c7_thread_t is initalized but no pthread
+    _STATE_FAILED,		// failed to run
+    _STATE_RUNNING,		// target function is running
     _STATE_FINISHING,
     _STATE_FINISHED,
     _STATE_numof
@@ -237,15 +245,28 @@ void c7_thread_register_iniend(c7_thread_iniend_t *iniend)
     (void)pthread_mutex_unlock(&GlobalLock);
 }
 
-void c7_thread_call_init(void)
+c7_bool_t c7_thread_call_init(void)
 {
     c7_thread_iniend_t *iniend;
     C7_THREAD_GUARD_ENTER(&GlobalLock);
+
     C7_LL_FOREACH(&IniendList, iniend) {
-	if (iniend->init != NULL)
-	    iniend->init();
+	if (iniend->init != NULL) {
+	    if (!iniend->init())
+		break;
+	}
     }
+    if (iniend != NULL) {
+	iniend = C7_LL_PREV(iniend);
+	while (!C7_LL_IS_TERMINAL(&IniendList, iniend)) {
+	    if (iniend->deinit != NULL)
+		iniend->deinit();
+	    iniend = C7_LL_PREV(iniend);
+	}
+    }
+
     C7_THREAD_GUARD_EXIT(&GlobalLock);
+    return (iniend == NULL);
 }
 
 void c7_thread_call_deinit(void)
@@ -293,9 +314,16 @@ static void *thread(void *__arg)
 {
     c7_thread_t th = __arg;
     Thread = th;
+
+    c7_bool_t init = c7_thread_call_init();
+    c7_thread_lock(&th->mutex);
+    th->state = init ? _STATE_RUNNING : _STATE_FAILED;
+    c7_thread_notify_all(&th->cond);
+    c7_thread_unlock(&th->mutex);
+    if (!init)
+	return NULL;
+
     pthread_cleanup_push(finalize_thread, th);
-    c7_thread_call_init();
-    th->state = _STATE_RUNNING;
     th->target(th->__arg);
     th->endstatus = C7_THREAD_END_RETURN;
     pthread_cleanup_pop(1);
@@ -382,7 +410,15 @@ c7_bool_t c7_thread_start(c7_thread_t th)
 	c7_status_add(ret, "c7_thread_start error\n");
 	return C7_FALSE;
     }
-    return C7_TRUE;
+
+    c7_thread_lock(&th->mutex);
+    while (th->state != _STATE_RUNNING && th->state != _STATE_FAILED)
+	(void)c7_thread_wait(&th->cond, &th->mutex, NULL);
+    c7_thread_unlock(&th->mutex);
+
+    if (th->state == _STATE_FAILED)
+	c7_status_add(EFAULT, "Som per-thread initializer failed.\n");
+    return (th->state == _STATE_RUNNING);
 }
 
 c7_thread_t c7_thread_run(void (*target)(void *),
@@ -404,8 +440,7 @@ c7_thread_t c7_thread_run(void (*target)(void *),
 	} else
 	    c7_status_add(0, "cannot set stacksize: name:%s, stk_kb:%1d\n",
 			  c7_thread_name(th), stksize_kb);
-	if (th != NULL)
-	    c7_thread_free(th);
+	c7_thread_free(th);
     } else
 	c7_status_add(0, "cannot create thread: name:%s\n", name ? name : "");
     return NULL;
@@ -446,20 +481,20 @@ c7_bool_t c7_thread_cancel(c7_thread_t th)
 }
 #endif
 
-c7_bool_t c7_thread_join(c7_thread_t th, volatile int tmo_us)
+c7_bool_t c7_thread_join(c7_thread_t th, int tmo_us)
 {
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    C7_THREAD_GUARD_ENTER(&th->mutex);
+    c7_thread_lock(&th->mutex);
     while (th->state != _STATE_FINISHED) {
 	if (!c7_thread_wait(&th->cond, &th->mutex, tmsp)) {
 	    c7_thread_unlock(&th->mutex);
-	    return C7_FALSE;		// timeout (ETIMEDOUT) or error
+	    return C7_FALSE;
 	}
     }
-    C7_THREAD_GUARD_EXIT(&th->mutex);
+    c7_thread_unlock(&th->mutex);
     return C7_TRUE;
 }
 
@@ -548,18 +583,18 @@ c7_bool_t c7_thread_r_mutex_init(c7_thread_r_mutex_t *r_mutex)
 
 c7_bool_t c7_thread_r_lock(c7_thread_r_mutex_t *r_mutex)
 {
-    C7_THREAD_GUARD_ENTER(&r_mutex->lock);
+    c7_thread_lock(&r_mutex->lock);
     if (r_mutex->owner != &__owner) {
 	while (r_mutex->owner != NULL) {
 	    if (!c7_thread_wait(&r_mutex->cond, &r_mutex->lock, NULL)) {
-		(void)c7_thread_unlock(&r_mutex->lock);
+		c7_thread_unlock(&r_mutex->lock);
 		return C7_FALSE;
 	    }
 	}
-	r_mutex->owner = &__owner;
     }
+    r_mutex->owner = &__owner;
     r_mutex->count++;
-    C7_THREAD_GUARD_EXIT(&r_mutex->lock);
+    c7_thread_unlock(&r_mutex->lock);
     return C7_TRUE;
 }
 
@@ -625,21 +660,21 @@ c7_bool_t c7_thread_counter_is(c7_thread_counter_t ct, int count)
     return v;
 }
 
-c7_bool_t c7_thread_counter_down_if(c7_thread_counter_t ct, volatile int tmo_us)
+c7_bool_t c7_thread_counter_down_if(c7_thread_counter_t ct, int tmo_us)
 {
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    C7_THREAD_GUARD_ENTER(&ct->mutex);
+    c7_thread_lock(&ct->mutex);
     while (ct->counter <= 0) {
 	if (!c7_thread_wait(&ct->cond, &ct->mutex, tmsp)) {
 	    c7_thread_unlock(&ct->mutex);
-	    return C7_FALSE;		// timeout (ETIMEDOUT) or error
+	    return  C7_FALSE;		// timeout (ETIMEDOUT) or error
 	}
     }
     ct->counter--;
-    C7_THREAD_GUARD_EXIT(&ct->mutex);
+    c7_thread_unlock(&ct->mutex);
     return C7_TRUE;
 }
 
@@ -659,20 +694,20 @@ void c7_thread_counter_set(c7_thread_counter_t ct, int count)
     c7_thread_unlock(&ct->mutex);
 }
 
-c7_bool_t c7_thread_counter_wait(c7_thread_counter_t ct, int expect, volatile int tmo_us)
+c7_bool_t c7_thread_counter_wait(c7_thread_counter_t ct, int expect, int tmo_us)
 {
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    C7_THREAD_GUARD_ENTER(&ct->mutex);
+    c7_thread_lock(&ct->mutex);
     while (ct->counter != expect) {
 	if (!c7_thread_wait(&ct->cond, &ct->mutex, tmsp)) {
 	    c7_thread_unlock(&ct->mutex);
 	    return C7_FALSE;		// timeout (ETIMEDOUT) or error
 	}
     }
-    C7_THREAD_GUARD_EXIT(&ct->mutex);
+    c7_thread_unlock(&ct->mutex);
     return C7_TRUE;
 }
 
@@ -729,22 +764,22 @@ void c7_thread_mask_change(c7_thread_mask_t m, uint64_t set, uint64_t clear)
     c7_thread_unlock(&m->mutex);
 }
 
-uint64_t c7_thread_mask_wait(c7_thread_mask_t m, uint64_t expect, uint64_t clear, volatile int tmo_us)
+uint64_t c7_thread_mask_wait(c7_thread_mask_t m, uint64_t expect, uint64_t clear, int tmo_us)
 {
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    C7_THREAD_GUARD_ENTER(&m->mutex);
+    c7_thread_lock(&m->mutex);
     while ((m->mask & expect) == 0) {
 	if (!c7_thread_wait(&m->cond, &m->mutex, tmsp)) {
 	    c7_thread_unlock(&m->mutex);
-	    return 0;			// timeout (ETIMEDOUT) or error
+	    return 0;
 	}
     }
     expect &= m->mask;
     m->mask &= (~clear);
-    C7_THREAD_GUARD_EXIT(&m->mutex);
+    c7_thread_unlock(&m->mutex);
     return expect;
 }
 
@@ -753,6 +788,99 @@ void c7_thread_mask_free(c7_thread_mask_t m)
     (void)pthread_cond_destroy(&m->cond);
     (void)pthread_mutex_destroy(&m->mutex);
     free(m);
+}
+
+
+/*----------------------------------------------------------------------------
+                              randezvous threads
+----------------------------------------------------------------------------*/
+
+struct c7_thread_randezvous_t_ {
+    pthread_mutex_t mutex;
+    pthread_cond_t cond;
+    uint64_t id;
+    int n_entry;
+    int waiting;
+};
+
+c7_thread_randezvous_t c7_thread_randezvous_init(int n_entry)
+{
+    if (n_entry < 2) {
+	c7_status_add(errno = EINVAL, "c7_thread_randezvous_init: n_entry:%d\n", n_entry);
+	return NULL;
+    }
+    c7_thread_randezvous_t rndv = c7_malloc(sizeof(*rndv));
+    if (rndv != NULL) {
+	if (c7_thread_mutex_init(&rndv->mutex, NULL)) {
+	    if (c7_thread_cond_init(&rndv->cond, NULL)) {
+		rndv->id = 0;
+		rndv->n_entry = n_entry;
+		rndv->waiting = 0;
+		return rndv;
+	    }
+	    (void)pthread_mutex_destroy(&rndv->mutex);
+	}
+	free(rndv);
+    }
+    return NULL;
+}
+
+c7_bool_t c7_thread_randezvous_wait(c7_thread_randezvous_t rndv, int tmo_us)
+{
+    struct timespec tmo_time, *tmsp = NULL;
+    if (tmo_us >= 0)
+	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
+
+    c7_bool_t ret = C7_TRUE;
+    c7_thread_lock(&rndv->mutex);
+    if (++rndv->waiting == rndv->n_entry) {
+	rndv->id++;
+	rndv->waiting = 0;
+	c7_thread_notify_all(&rndv->cond);
+    } else {
+	uint64_t cur_id = rndv->id;
+	while (rndv->n_entry > 0 && cur_id == rndv->id) {
+	    if (!c7_thread_wait(&rndv->cond, &rndv->mutex, tmsp)) {
+		ret = C7_FALSE;		// timeout (ETIMEDOUT) or error
+		break;
+	    }
+	}
+    }
+    if (rndv->n_entry < 0) {		// in aborting
+	c7_status_clear();
+	errno = 0;
+	ret = C7_FALSE;
+    }
+    c7_thread_unlock(&rndv->mutex);
+    return ret;
+}
+
+void c7_thread_randezvous_abort(c7_thread_randezvous_t rndv)
+{
+    c7_thread_lock(&rndv->mutex);
+    if (rndv->n_entry > 0) {
+	rndv->n_entry *= -1;
+	c7_thread_notify_all(&rndv->cond);
+    }
+    c7_thread_unlock(&rndv->mutex);
+}
+
+void c7_thread_randezvous_reset(c7_thread_randezvous_t rndv)
+{
+    c7_thread_lock(&rndv->mutex);
+    if (rndv->n_entry < 0) {
+	rndv->n_entry *= -1;
+    }
+    rndv->id++;
+    rndv->waiting = 0;
+    c7_thread_unlock(&rndv->mutex);
+}
+
+void c7_thread_randezvous_free(c7_thread_randezvous_t rndv)
+{
+    (void)pthread_cond_destroy(&rndv->cond);
+    (void)pthread_mutex_destroy(&rndv->mutex);
+    free(rndv);
 }
 
 
@@ -811,9 +939,9 @@ static c7_bool_t fpipe_resize(c7_thread_fpipe_t fpipe, int ent_count)
 c7_bool_t c7_thread_fpipe_resize(c7_thread_fpipe_t fpipe, int ent_count)
 {
     c7_bool_t ret;
-    C7_THREAD_GUARD_ENTER(&fpipe->mutex);
+    c7_thread_lock(&fpipe->mutex);
     ret = fpipe_resize(fpipe, ent_count);
-    C7_THREAD_GUARD_EXIT(&fpipe->mutex);
+    c7_thread_unlock(&fpipe->mutex);
     return ret;
 }
 
@@ -833,20 +961,20 @@ void c7_thread_fpipe_reset_and_put(c7_thread_fpipe_t fpipe, void *data)
     c7_thread_unlock(&fpipe->mutex);
 }
 
-c7_bool_t c7_thread_fpipe_put(c7_thread_fpipe_t fpipe, void *data, volatile int tmo_us)
+c7_bool_t c7_thread_fpipe_put(c7_thread_fpipe_t fpipe, void *data, int tmo_us)
 {
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    c7_bool_t ret = C7_TRUE;
-    C7_THREAD_GUARD_ENTER(&fpipe->mutex);
+    c7_thread_lock(&fpipe->mutex);
     while (fpipe->put_ptr - fpipe->get_ptr >= fpipe->size) {
 	if (!c7_thread_wait(&fpipe->cond, &fpipe->mutex, tmsp)) {
 	    c7_thread_unlock(&fpipe->mutex);
 	    return C7_FALSE;		// timeout (ETIMEDOUT) or error
 	}
     }
+    c7_bool_t ret = C7_TRUE;
     if (fpipe->put_ptr != fpipe->get_ptr &&
 	fpipe->buffer[(fpipe->put_ptr - 1) % fpipe->size] == NULL) {
 	c7_status_add(EINVAL, "c7_thread_fpipe_put: already EOF.\n");
@@ -856,38 +984,37 @@ c7_bool_t c7_thread_fpipe_put(c7_thread_fpipe_t fpipe, void *data, volatile int 
 	fpipe->put_ptr++;
 	c7_thread_notify_all(&fpipe->cond);
     }
-    C7_THREAD_GUARD_EXIT(&fpipe->mutex);
+    c7_thread_unlock(&fpipe->mutex);
     return ret;
 }
 
-void *c7_thread_fpipe_get(c7_thread_fpipe_t fpipe, volatile int tmo_us)
+void *c7_thread_fpipe_get(c7_thread_fpipe_t fpipe, int tmo_us)
 {
-    void *data;
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    C7_THREAD_GUARD_ENTER(&fpipe->mutex);
+    c7_thread_lock(&fpipe->mutex);
     while (fpipe->get_ptr >= fpipe->put_ptr) {
 	if (!c7_thread_wait(&fpipe->cond, &fpipe->mutex, tmsp)) {
 	    c7_thread_unlock(&fpipe->mutex);
-	    return NULL;		// timeout (ETIMEDOUT) or error
+	    return NULL;
 	}
     }
     if (fpipe->get_ptr >= fpipe->size) {
 	fpipe->get_ptr -= fpipe->size;
 	fpipe->put_ptr -= fpipe->size;
     }
+    void *data = NULL;
     if ((data = fpipe->buffer[fpipe->get_ptr]) != NULL) {
 	fpipe->get_ptr++;
-    }
-    c7_thread_notify_all(&fpipe->cond);
-    C7_THREAD_GUARD_EXIT(&fpipe->mutex);
-
-    if (data == NULL) {
+    } else {
 	c7_status_clear();
 	errno = 0;
     }
+    c7_thread_notify_all(&fpipe->cond);
+    c7_thread_unlock(&fpipe->mutex);
+
     return data;
 }
 
@@ -974,7 +1101,7 @@ c7_bool_t c7_thread_vpipe_put(c7_thread_vpipe_t vpipe, void *data)
 	link_of_data = &VpipeEOF;
 
     c7_bool_t ret = C7_TRUE;
-    C7_THREAD_GUARD_ENTER(&vpipe->mutex);
+    c7_thread_lock(&vpipe->mutex);
     if (vpipe->tail == &VpipeEOF) {
 	c7_status_add(EINVAL, "c7_thread_vpipe_put: already EOF.\n");
 	ret = C7_FALSE;
@@ -988,23 +1115,22 @@ c7_bool_t c7_thread_vpipe_put(c7_thread_vpipe_t vpipe, void *data)
 	}
 	c7_thread_notify_all(&vpipe->cond);
     }
-    C7_THREAD_GUARD_EXIT(&vpipe->mutex);
+    c7_thread_unlock(&vpipe->mutex);
     return ret;
 }
 
-void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, volatile int tmo_us)
+void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, int tmo_us)
 {
     struct timespec tmo_time, *tmsp = NULL;
     if (tmo_us >= 0)
 	*(tmsp = &tmo_time) = timespec_at_tmo(tmo_us, NULL);
 
-    c7_thread_vpipe_link_t *link_of_data;
-
-    C7_THREAD_GUARD_ENTER(&vpipe->mutex);
+    c7_thread_vpipe_link_t *link_of_data = NULL;
+    c7_thread_lock(&vpipe->mutex);
     while (vpipe->root == NULL) {
 	if (!c7_thread_wait(&vpipe->cond, &vpipe->mutex, tmsp)) {
 	    c7_thread_unlock(&vpipe->mutex);
-	    return NULL;		// timeout (ETIMEDOUT) or error
+	    return NULL;
 	}
     }
     if ((link_of_data = vpipe->root) != &VpipeEOF) {
@@ -1012,7 +1138,7 @@ void *c7_thread_vpipe_get(c7_thread_vpipe_t vpipe, volatile int tmo_us)
 	if (vpipe->root == NULL)
 	    vpipe->tail = NULL;
     }
-    C7_THREAD_GUARD_EXIT(&vpipe->mutex);
+    c7_thread_unlock(&vpipe->mutex);
     
     if (link_of_data == &VpipeEOF) {
 	c7_status_clear();

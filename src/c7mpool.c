@@ -28,6 +28,7 @@ typedef struct _mpool_ops_t {
     _hdr_t *(*get)(c7_mpool_t mp);
     void (*ref)(c7_mpool_t mp, _hdr_t *);
     void (*put)(c7_mpool_t mp, _hdr_t *);
+    void (*close)(c7_mpool_t mp);
     void (*fini)(c7_mpool_t mp);
 } _mpool_ops_t;
 
@@ -47,6 +48,7 @@ struct c7_mpool_t_ {
     int alccnt;	
     pthread_mutex_t mutex;
     pthread_cond_t cond;
+    c7_bool_t available;
 };
 
 
@@ -80,7 +82,9 @@ static c7_bool_t mpooladd(c7_mpool_t mp)
                                   operators
 ----------------------------------------------------------------------------*/
 
+//--------------------
 // standard operations
+//--------------------
 
 static c7_bool_t std_init(c7_mpool_t mp)
 {
@@ -90,7 +94,7 @@ static c7_bool_t std_init(c7_mpool_t mp)
 static _hdr_t *std_get(c7_mpool_t mp)
 {
     _hdr_t *hdr = NULL;
-    if (mp->frees != NULL || mpooladd(mp)) {
+    if (mp->available && (mp->frees != NULL || mpooladd(mp))) {
 	hdr = mp->frees;
 	mp->frees = hdr->link.next_free;
     }
@@ -113,16 +117,23 @@ static void std_put(c7_mpool_t mp, _hdr_t *hdr)
     }
 }
 
+static void std_close(c7_mpool_t mp)
+{
+    mp->available = C7_FALSE;
+}
+
 static void std_fini(c7_mpool_t mp)
 {
     ;
 }
 
 static const _mpool_ops_t std_ops = {
-    std_init, std_get, std_ref, std_put, std_fini
+    std_init, std_get, std_ref, std_put, std_close, std_fini
 };
 
+//----------------------------------------------------
 // multithread nowait - mpooladd is called if no mpool
+//----------------------------------------------------
 
 static c7_bool_t mtnowait_init(c7_mpool_t mp)
 {
@@ -151,16 +162,25 @@ static void mtnowait_put(c7_mpool_t mp, _hdr_t *hdr)
     c7_thread_unlock(&mp->mutex);
 }
 
+static void mtnowait_close(c7_mpool_t mp)
+{
+    c7_thread_lock(&mp->mutex);
+    std_close(mp);
+    c7_thread_unlock(&mp->mutex);
+}
+
 static void mtnowait_fini(c7_mpool_t mp)
 {
     (void)pthread_mutex_destroy(&mp->mutex);
 }
 
 static const _mpool_ops_t mtnowait_ops = {
-    mtnowait_init, mtnowait_get, mtnowait_ref, mtnowait_put, mtnowait_fini
+    mtnowait_init, mtnowait_get, mtnowait_ref, mtnowait_put, mtnowait_close, mtnowait_fini
  };
 
+//--------------------------------------------------------------------------------------
 // multithread wait - mpooladd is called at once on initializing and wait while no mpool
+//--------------------------------------------------------------------------------------
 
 static c7_bool_t mtwait_init(c7_mpool_t mp)
 {
@@ -175,13 +195,15 @@ static c7_bool_t mtwait_init(c7_mpool_t mp)
 static _hdr_t *mtwait_get(c7_mpool_t mp)
 {
     _hdr_t *hdr = NULL;
-    C7_THREAD_GUARD_ENTER(&mp->mutex);
-    while (mp->frees == NULL) {
+    c7_thread_lock(&mp->mutex);
+    while (mp->available && mp->frees == NULL) {
 	c7_thread_wait(&mp->cond, &mp->mutex, NULL);
     }
-    hdr = mp->frees;
-    mp->frees = hdr->link.next_free;
-    C7_THREAD_GUARD_EXIT(&mp->mutex);
+    if (mp->available) {
+	hdr = mp->frees;
+	mp->frees = hdr->link.next_free;
+    }
+    c7_thread_unlock(&mp->mutex);
     return hdr;
 }
 
@@ -193,6 +215,14 @@ static void mtwait_put(c7_mpool_t mp, _hdr_t *hdr)
     c7_thread_unlock(&mp->mutex);
 }
 
+static void mtwait_close(c7_mpool_t mp)
+{
+    c7_thread_lock(&mp->mutex);
+    std_close(mp);
+    c7_thread_notify_all(&mp->cond);
+    c7_thread_unlock(&mp->mutex);
+}
+
 static void mtwait_fini(c7_mpool_t mp)
 {
     (void)pthread_mutex_destroy(&mp->mutex);
@@ -200,7 +230,7 @@ static void mtwait_fini(c7_mpool_t mp)
 }
 
 static const _mpool_ops_t mtwait_ops = {
-    mtwait_init, mtwait_get, mtnowait_ref, mtwait_put, mtwait_fini
+    mtwait_init, mtwait_get, mtnowait_ref, mtwait_put, mtwait_close, mtwait_fini
 };
 
 
@@ -226,6 +256,7 @@ static c7_mpool_t mpool_init(const _mpool_ops_t *ops,
     mp->on_free = on_free;
     mp->frees = NULL;
     mp->chunks = NULL;
+    mp->available = C7_TRUE;
 
     if (ops->init(mp)) {
 	if (mpooladd(mp))
@@ -292,6 +323,11 @@ void c7_mpool_put(void *addr)
     _hdr_t *hdr = (_hdr_t *)addr - 1;
     c7_mpool_t mp = hdr->link.refpool;
     mp->ops->put(mp, hdr);
+}
+
+void c7_mpool_close(c7_mpool_t mp)
+{
+    mp->ops->close(mp);
 }
 
 void c7_mpool_free(c7_mpool_t mp)

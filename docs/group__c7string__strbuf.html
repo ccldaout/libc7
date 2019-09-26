@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libc7
-   &#160;<span id="projectnumber">r1.1.0</span>
+   &#160;<span id="projectnumber">r2.0</span>
    </div>
   </td>
  </tr>
@@ -78,6 +78,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga898ea7ffd49a15610d039f5e3d45ee33">C7_STR_LEN</a>(sbp)</td></tr>
 <tr class="memdesc:ga898ea7ffd49a15610d039f5e3d45ee33"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#ga4bed15aba3de26868225f31ba31c8921" title="現在の文字列の長さを戻す。">c7_str_len()</a> のマクロ版 <br /></td></tr>
 <tr class="separator:ga898ea7ffd49a15610d039f5e3d45ee33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace2693c70782492c0ed29cc0527f5d20"><td class="memItemLeft" align="right" valign="top"><a id="gace2693c70782492c0ed29cc0527f5d20"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#gace2693c70782492c0ed29cc0527f5d20">C7_STR_SIZE</a>(sbp)</td></tr>
+<tr class="memdesc:gace2693c70782492c0ed29cc0527f5d20"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#ga4789bb2f5ed14c845f37e6fc08d864f2" title="現在の文字列バッファの容量を戻す。">c7_str_size()</a> のマクロ版 <br /></td></tr>
+<tr class="separator:gace2693c70782492c0ed29cc0527f5d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5fac93613e2dd050fc12f77e7ff0ab1d"><td class="memItemLeft" align="right" valign="top"><a id="ga5fac93613e2dd050fc12f77e7ff0ab1d"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga5fac93613e2dd050fc12f77e7ff0ab1d">C7_STR_CHAR</a>(sbp,  idx)</td></tr>
 <tr class="memdesc:ga5fac93613e2dd050fc12f77e7ff0ab1d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#gaf6f0de789c08827e0264295385f8cf7d" title="C7文字列の idx 番目の文字を戻す。">c7_str_char()</a> のマクロ版 <br /></td></tr>
@@ -86,6 +90,18 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga0a3223109ac1423dede9f7e22a20a602">C7_STR_CHAR_R</a>(sbp,  idx)</td></tr>
 <tr class="memdesc:ga0a3223109ac1423dede9f7e22a20a602"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#gae4a4624b7b0df5139fc4390a3a904c60" title="C7文字列の c7_str_len(sbp)+r_idx 番目の文字を戻す。">c7_str_char_r()</a> のマクロ版 <br /></td></tr>
 <tr class="separator:ga0a3223109ac1423dede9f7e22a20a602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10ac85822d29c3a13da6cd92b80ad89e"><td class="memItemLeft" align="right" valign="top"><a id="ga10ac85822d29c3a13da6cd92b80ad89e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga10ac85822d29c3a13da6cd92b80ad89e">C7_STR_SETCUR</a>(sbp)</td></tr>
+<tr class="memdesc:ga10ac85822d29c3a13da6cd92b80ad89e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#ga7cbd2e7e8639f833299eac2ddc2bc500" title="C7文字列の現在位置をバッファの内容に合わせる。">c7_str_setcur()</a> のマクロ版 <br /></td></tr>
+<tr class="separator:ga10ac85822d29c3a13da6cd92b80ad89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18b0757ab8ef7aa52bb94a4a02991ed6"><td class="memItemLeft" align="right" valign="top"><a id="ga18b0757ab8ef7aa52bb94a4a02991ed6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga18b0757ab8ef7aa52bb94a4a02991ed6">C7_STR_SETERR</a>(sbp)</td></tr>
+<tr class="memdesc:ga18b0757ab8ef7aa52bb94a4a02991ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#ga615d3def1ccea41a56ceb2d78f95df62" title="C7文字列のエラーフラグを立てる。">c7_str_seterr()</a> のマクロ版 <br /></td></tr>
+<tr class="separator:ga18b0757ab8ef7aa52bb94a4a02991ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga979678ed71057429ab33ad9efd5dad15"><td class="memItemLeft" align="right" valign="top"><a id="ga979678ed71057429ab33ad9efd5dad15"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga979678ed71057429ab33ad9efd5dad15">C7_STR_CLRERR</a>(sbp)</td></tr>
+<tr class="memdesc:ga979678ed71057429ab33ad9efd5dad15"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#ga81200aed3c8f6e081923852f4829e264" title="C7文字列のエラーフラグを解除する。">c7_str_clearerr()</a> のマクロ版 <br /></td></tr>
+<tr class="separator:ga979678ed71057429ab33ad9efd5dad15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga19571201d93652db00cff14f8d4d8017"><td class="memItemLeft" align="right" valign="top"><a id="ga19571201d93652db00cff14f8d4d8017"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga19571201d93652db00cff14f8d4d8017">C7_STR_ERR</a>(sbp)</td></tr>
 <tr class="memdesc:ga19571201d93652db00cff14f8d4d8017"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__c7string__strbuf.html#gac929e573f6551f26e8a6fb1ebd05a960" title="C7文字列にエラーフラグが立っていれば C7_TRUE を戻し、それ以外は C7_FALSE を戻す。 C7_FALSE が戻る場合でも c7status によるエラー情報は記録されない。">c7_str_err()</a> のマクロ版 <br /></td></tr>
@@ -133,6 +149,10 @@ C7文字列(ポインタ宣言)の初期化子</h2></td></tr>
 <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1">c7_str_new_sg</a> (void)</td></tr>
 <tr class="memdesc:ga24cde018142087910bbc5c72c0e37dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列を <a class="el" href="group__c7memory.html#ga825abda9aa39142ed800bee13df1faa7" title="c7_mg_malloc(c7_sg_current_mg(), size) を呼び出す。">c7_sg_malloc()</a> で確保し、 バッファを <a class="el" href="group__c7memory.html#ga6909b86209fa26b464ed66de77b35bdb" title="c7_mg_realloc(c7_sg_current_mg(), u_addr, size) を呼び出す。">c7_sg_realloc()</a> で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_None を戻す。 <br /></td></tr>
 <tr class="separator:ga24cde018142087910bbc5c72c0e37dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5153ce67442c58ee64a10389cc0fc4b"><td class="memItemLeft" align="right" valign="top"><a id="gae5153ce67442c58ee64a10389cc0fc4b"></a>
+<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#gae5153ce67442c58ee64a10389cc0fc4b">c7_str_new_tls</a> (void)</td></tr>
+<tr class="memdesc:gae5153ce67442c58ee64a10389cc0fc4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列を <a class="el" href="group__c7memory.html#ga33c330037c6b92c83700dd8a8f027a62" title="c7_mg_malloc(c7_tg_thread_mg, size) を呼び出す。">c7_tg_malloc()</a> で確保し、 バッファを <a class="el" href="group__c7memory.html#ga78fa51bd51ffcfbd3674c50df683cfce" title="c7_mg_realloc(c7_tg_thread_mg, u_addr, size) を呼び出す。">c7_tg_realloc()</a> で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_None を戻す。 <br /></td></tr>
+<tr class="separator:gae5153ce67442c58ee64a10389cc0fc4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5b1b522508ad6d2b4ef5ca6102e25c41"><td class="memItemLeft" align="right" valign="top"><a id="ga5b1b522508ad6d2b4ef5ca6102e25c41"></a>
 <a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga5b1b522508ad6d2b4ef5ca6102e25c41">c7_str_new_mg</a> (<a class="el" href="group__c7memory.html#ga8dbd262c5860edef7b17371440d3a622">c7_mgroup_t</a> mg)</td></tr>
 <tr class="memdesc:ga5b1b522508ad6d2b4ef5ca6102e25c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列を <a class="el" href="group__c7memory.html#ga7e6ead1e3ee080a407f528110e9a350c" title="malloc のメモリグループ版。">c7_mg_malloc()</a> で確保し、 バッファを <a class="el" href="group__c7memory.html#ga74a882028d678b0277f35fa78126eb90" title="realloc のメモリグループ版。">c7_mg_realloc()</a> で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_None を戻す。 <br /></td></tr>
@@ -187,6 +207,20 @@ C7文字列の基本文字列操作</h2></td></tr>
 <tr class="memitem:ga4bed15aba3de26868225f31ba31c8921"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga4bed15aba3de26868225f31ba31c8921">c7_str_len</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
 <tr class="memdesc:ga4bed15aba3de26868225f31ba31c8921"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の文字列の長さを戻す。  <a href="#ga4bed15aba3de26868225f31ba31c8921">More...</a><br /></td></tr>
 <tr class="separator:ga4bed15aba3de26868225f31ba31c8921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4789bb2f5ed14c845f37e6fc08d864f2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga4789bb2f5ed14c845f37e6fc08d864f2">c7_str_size</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:ga4789bb2f5ed14c845f37e6fc08d864f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の文字列バッファの容量を戻す。  <a href="#ga4789bb2f5ed14c845f37e6fc08d864f2">More...</a><br /></td></tr>
+<tr class="separator:ga4789bb2f5ed14c845f37e6fc08d864f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7cbd2e7e8639f833299eac2ddc2bc500"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga7cbd2e7e8639f833299eac2ddc2bc500">c7_str_setcur</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:ga7cbd2e7e8639f833299eac2ddc2bc500"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列の現在位置をバッファの内容に合わせる。  <a href="#ga7cbd2e7e8639f833299eac2ddc2bc500">More...</a><br /></td></tr>
+<tr class="separator:ga7cbd2e7e8639f833299eac2ddc2bc500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga615d3def1ccea41a56ceb2d78f95df62"><td class="memItemLeft" align="right" valign="top"><a id="ga615d3def1ccea41a56ceb2d78f95df62"></a>
+<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga615d3def1ccea41a56ceb2d78f95df62">c7_str_seterr</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:ga615d3def1ccea41a56ceb2d78f95df62"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列のエラーフラグを立てる。 <br /></td></tr>
+<tr class="separator:ga615d3def1ccea41a56ceb2d78f95df62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81200aed3c8f6e081923852f4829e264"><td class="memItemLeft" align="right" valign="top"><a id="ga81200aed3c8f6e081923852f4829e264"></a>
+<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#ga81200aed3c8f6e081923852f4829e264">c7_str_clearerr</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp)</td></tr>
+<tr class="memdesc:ga81200aed3c8f6e081923852f4829e264"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列のエラーフラグを解除する。 <br /></td></tr>
+<tr class="separator:ga81200aed3c8f6e081923852f4829e264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf6f0de789c08827e0264295385f8cf7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__c7string__strbuf.html#gaf6f0de789c08827e0264295385f8cf7d">c7_str_char</a> (<a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *sbp, int idx)</td></tr>
 <tr class="memdesc:gaf6f0de789c08827e0264295385f8cf7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C7文字列の idx 番目の文字を戻す。  <a href="#gaf6f0de789c08827e0264295385f8cf7d">More...</a><br /></td></tr>
 <tr class="separator:gaf6f0de789c08827e0264295385f8cf7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -610,6 +644,48 @@ C7文字列の応用文字列操作</h2></td></tr>
 
 <p>現在の文字列の長さを戻す。 </p>
 <p>この長さは C標準文字列での長さ strlen(c7_strbuf(sbp)) とは異なるケースがある。 C7文字列の場合は追記位置とバッファ先頭とのオフセットであるため、 追記位置よりも手前に強制的にヌル文字を書き込んだとしてもそれを考慮しない。 </p>
+
+</div>
+</div>
+<a id="ga4789bb2f5ed14c845f37e6fc08d864f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4789bb2f5ed14c845f37e6fc08d864f2">&#9670;&nbsp;</a></span>c7_str_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int c7_str_size </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>現在の文字列バッファの容量を戻す。 </p>
+<p>C7文字列のバッファとして確保されているバイト数を戻す。 </p>
+
+</div>
+</div>
+<a id="ga7cbd2e7e8639f833299eac2ddc2bc500"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7cbd2e7e8639f833299eac2ddc2bc500">&#9670;&nbsp;</a></span>c7_str_setcur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a>* c7_str_setcur </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__c7string__strbuf.html#gaad0bbcb830057114f446d45e08ccf6f5">c7_str_t</a> *&#160;</td>
+          <td class="paramname"><em>sbp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C7文字列の現在位置をバッファの内容に合わせる。 </p>
+<p>C7文字列の現在位置(追記位置)をバッファ内の最初のヌル文字の位置にあわせる。 これは、c7_strcpy() 等を使用せずに直接バッファを更新した場合に使用する。 </p>
 
 </div>
 </div>
@@ -1493,7 +1569,7 @@ C7文字列の応用文字列操作</h2></td></tr>
 <li>vn 引数から始まる変数名の文字列を評価し、結果をC7文字列 sbp へ追加する。</li>
 <li>評価が成功の場合 vn から始まる文字列上、評価対象の終端とされるポインタを戻す。</li>
 <li>評価が失敗した場合は NULL ポインタを戻す。</li>
-<li>translator の呼び出し前後で <a class="el" href="group__c7memory.html#gae711ea17a571c63162ab8cef9affaeda" title="現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。">c7_sg_push()</a> と <a class="el" href="group__c7memory.html#gab12ae39f16b183b9f35e870bc4e5040b" title="現在のメモリグループを削除し、スタックからポップしたメモリグループを現在のメモリ グループとする。">c7_sg_pop()</a> が行われるため、 translator 中のテンポラリなメモリの確保には <a class="el" href="group__c7memory.html#ga825abda9aa39142ed800bee13df1faa7" title="c7_mg_malloc(c7_sg_current_mg(), size) を呼び出す。">c7_sg_malloc()</a> や <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> などを使用できる。 </li>
+<li>translator の呼び出し前後で <a class="el" href="group__c7memory.html#ga1319314e0e73c2b6485cd270223d7c29" title="現在のメモリグループをスタックへプッシュし、新しく作成したメモリグループを現在のメモリグループとする。">c7_sg_push()</a> と <a class="el" href="group__c7memory.html#ga27faebc8f6b75387e58703a19857a725" title="現在のメモリグループを削除し、スタックからポップしたメモリグループを現在のメモリグループとする。">c7_sg_pop()</a> が行われるため、 translator 中のテンポラリなメモリの確保には <a class="el" href="group__c7memory.html#ga825abda9aa39142ed800bee13df1faa7" title="c7_mg_malloc(c7_sg_current_mg(), size) を呼び出す。">c7_sg_malloc()</a> や <a class="el" href="group__c7string__strbuf.html#ga24cde018142087910bbc5c72c0e37dc1" title="C7文字列を c7_sg_malloc() で確保し、 バッファを c7_sg_realloc() で確保するように初期化してC7文字列のポインタを戻す。 メモリ確保に失敗した場合だけ C7_STR_N...">c7_str_new_sg()</a> などを使用できる。 </li>
 </ul>
 
 </div>

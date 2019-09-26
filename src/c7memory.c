@@ -85,12 +85,17 @@ void *(c7_realloc)(void *p, size_t n)
 # define __dbg(...)
 #endif
 
-
-#define _HDR_OFFSET	c7_align(sizeof(_mhead_t), C7_CONFIG_MEMALIGN)
+typedef struct _exobj_t_ {
+    c7_ll_link_t ll;
+    void *addr;
+    void (*callback)(void *addr);
+} _exobj_t;
 
 typedef struct _mhead_t {
     c7_ll_link_t ll;
 } _mhead_t;
+
+#define _HDR_OFFSET	c7_align(sizeof(_mhead_t), C7_CONFIG_MEMALIGN)
 
 const struct c7_mgroup_t_ __c7_mg_thread_dummy;
 c7_thread_local struct c7_mgroup_t_ __c7_mg_thread;
@@ -117,6 +122,38 @@ c7_mgroup_t __c7_mg_new(const char *file, int line)
 void c7_mg_init(c7_mgroup_t mg)
 {
     c7_ll_init(&mg->base);
+    c7_ll_init(&mg->base_ex);
+}
+
+void *__c7_mg_manage(const char *file, int line, c7_mgroup_t mg, void *obj, void (*freeobj)(void *))
+{
+    if (obj == NULL) {
+	c7_status_add(0, "Cannot manage NULL pointer.\n");
+	return NULL;
+    }
+    _exobj_t *ex = __c7_malloc(file, line, sizeof(*ex));
+    if (ex == NULL) {
+	c7_status_add(0, "Cannot allocate object management area.\n");
+	freeobj(obj);
+	return NULL;
+    }
+    ex->addr = obj;
+    ex->callback = freeobj;
+    C7_LL_PUTHEAD(&mg->base_ex, &ex->ll);
+    return obj;
+}
+
+c7_bool_t c7_mg_unmanage(c7_mgroup_t mg, void *obj)
+{
+    _exobj_t *ex;
+    C7_LL_FOREACH(&mg->base_ex, ex) {
+	if (ex->addr == obj) {
+	    C7_LL_UNLINK(ex);
+	    free(ex);
+	    return C7_TRUE;
+	}
+    }
+    return C7_FALSE;
 }
 
 void *__c7_mg_memdup(const char *file, int line, c7_mgroup_t mg, const void *addr, size_t size)
@@ -227,10 +264,15 @@ void c7_mg_free(c7_mgroup_t mg, void *u_addr)
 
 void c7_mg_freeall(c7_mgroup_t mg)
 {
-    void *mll;
     if (mg != NULL) {
 	if (mg == c7_tg_thread_mg)
 	    mg = &__c7_mg_thread;
+	_exobj_t *ex;
+	C7_LL_FOREACH(&mg->base_ex, ex) {
+	    ex->callback(ex->addr);
+	    free(ex);
+	}
+	void *mll;
 	C7_LL_FOREACH(&mg->base, mll) {
 	    _mhead_t *m = (void *)((char *)mll - offsetof(_mhead_t, ll));
 	    __dbg("mg_freeall: mg:%p %p\n", mg, m);
@@ -253,6 +295,11 @@ void c7_mg_destroy(c7_mgroup_t mg)
 c7_mgroup_t (c7_mg_new)(void)
 {
     return c7_mg_new();
+}
+
+void *(c7_mg_manage)(c7_mgroup_t mg, void *obj, void (*freeobj)(void *))
+{
+    return c7_mg_manage(mg, obj, freeobj);
 }
 
 void *(c7_mg_memdup)(c7_mgroup_t mg, const void *addr, size_t size)
@@ -279,6 +326,16 @@ void *(c7_mg_realloc)(c7_mgroup_t mg, void *u_addr, size_t size)
 /*----------------------------------------------------------------------------
                              thread memory group
 ----------------------------------------------------------------------------*/
+
+void *(c7_tg_manage)(void *obj, void (*freeobj)(void *))
+{
+    return c7_tg_manage(obj, freeobj);
+}
+
+c7_bool_t (c7_tg_unmanage)(void *obj)
+{
+    return c7_tg_unmanage(obj);
+}
 
 void *(c7_tg_memdup)(const void *addr, size_t size)
 {
@@ -320,57 +377,39 @@ void (c7_tg_freeall)(void)
                             Stackable memory group
 ----------------------------------------------------------------------------*/
 
-typedef struct _sg_stack_t_ {
-    struct _sg_stack_t_ *next;
-    c7_mgroup_t mg;
-} _sg_stack_t;
-
-static c7_thread_local struct c7_mgroup_t_ __c7_sg_top_mg;
-       c7_thread_local        c7_mgroup_t  __c7_sg_thread;
-static c7_thread_local _sg_stack_t *gc_stack;
+       c7_thread_local        c7_mgroup_t    __c7_sg_thread;
+static c7_thread_local      __c7_sg_stack_t  __c7_sg_stack_top;
+static c7_thread_local      __c7_sg_stack_t *__c7_sg_stack;
 
 static void sg_init_thread(void)
 {
-    __c7_sg_thread = &__c7_sg_top_mg;
-    c7_mg_init(__c7_sg_thread);
+    __c7_sg_push2(&__c7_sg_stack_top);
 }
 
 static void sg_deinit_thread(void)
 {
-    while (c7_sg_pop());
-}
-
-c7_bool_t __c7_sg_push(const char *file, int line)
-{
-    __dbg("sg_push\n");
-    _sg_stack_t *stk = __c7_malloc(file, line, sizeof(*stk));
-    if (stk != NULL) {
-	c7_mgroup_t nmg = __c7_mg_new(file, line);
-	if (nmg != NULL) {
-	    stk->next = gc_stack;
-	    stk->mg = __c7_sg_thread;
-	    gc_stack = stk;
-	    __c7_sg_thread = nmg;
-	    return C7_TRUE;
-	}
-	free(stk);
+    if (__c7_sg_thread != &__c7_sg_stack_top.mg) {
+	c7echo_err1(0, ": c7_sg_pop() is UNBALANCED.\n");
+    } else {
+	__c7_sg_pop2();
     }
-    return C7_FALSE;
 }
 
-c7_bool_t c7_sg_pop(void)
+void __c7_sg_push2(__c7_sg_stack_t *newstack)
 {
-    __dbg("sg_pop ...\n");
+    newstack->pushed = __c7_sg_stack;
+    __c7_sg_stack = newstack;
+    __c7_sg_thread = &__c7_sg_stack->mg;
+    c7_mg_init(__c7_sg_thread);
+}
+
+void __c7_sg_pop2(void)
+{
     c7_sg_freeall();
-    if (gc_stack == NULL)
-	return C7_FALSE;
-    c7_mg_destroy(__c7_sg_thread);
-    _sg_stack_t *stk = gc_stack;
-    __c7_sg_thread = stk->mg;
-    gc_stack = stk->next;
-    free(stk);
-    __dbg("sg_pop ... end\n");
-    return C7_TRUE;
+    if (__c7_sg_stack->pushed != NULL) {
+	__c7_sg_stack = __c7_sg_stack->pushed;
+	__c7_sg_thread = &__c7_sg_stack->mg;
+    }
 }
 
 c7_mgroup_t (c7_sg_current_mg)(void)
@@ -378,9 +417,14 @@ c7_mgroup_t (c7_sg_current_mg)(void)
     return c7_sg_current_mg();
 }
 
-c7_bool_t (c7_sg_push)(void)
+void *(c7_sg_manage)(void *obj, void (*freeobj)(void *))
 {
-    return c7_sg_push();
+    return c7_sg_manage(obj, freeobj);
+}
+
+c7_bool_t (c7_sg_unmanage)(void *obj)
+{
+    return c7_sg_unmanage(obj);
 }
 
 void *(c7_sg_memdup)(const void *addr, size_t size)
@@ -479,10 +523,11 @@ c7_vbuf_t (c7_vbuf_new_sg)(void)
                  library initializer / per-thread initializer
 ----------------------------------------------------------------------------*/
 
-static void init_thread(void)
+static c7_bool_t init_thread(void)
 {
     mg_init_thread();
     sg_init_thread();
+    return C7_TRUE;
 }
 
 static void deinit_thread(void)
