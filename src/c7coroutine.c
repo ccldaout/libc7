@@ -15,6 +15,7 @@
 #include <c7app.h>
 #if C7_CONFIG_UCONTEXT
 # include <ucontext.h>
+# include <signal.h>	// MINSIGSTKSZ
 #else
 # include <signal.h>
 # include <setjmp.h>

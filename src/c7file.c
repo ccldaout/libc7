@@ -19,11 +19,6 @@
 #include <c7status.h>
 
 
-#if !defined(MAP_VARIABLE)
-# define MAP_VARIABLE 0
-#endif
-
-
 /*----------------------------------------------------------------------------
                               fgets for c7_str_t
 ----------------------------------------------------------------------------*/
@@ -343,7 +338,7 @@ static void *dommap_fd(const char *path, int fd, int prot, size_t *sizep_io)
     }
 
     void *addr;
-    int mflag = MAP_FILE|MAP_VARIABLE|MAP_SHARED;
+    int mflag = MAP_SHARED;
     if ((addr = mmap(NULL, *sizep_io, prot, mflag, fd, 0)) == (void *)C7_SYSERR) {
 	c7_status_add(errno, ": c7_file_mmap*: mmap: <%s>, size: %ld\n",
 			path, *sizep_io);

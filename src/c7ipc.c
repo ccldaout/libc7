@@ -55,16 +55,15 @@ c7_bool_t c7_sockaddr_in(struct sockaddr_in *inaddr, const char *host, int port)
     if (host == 0 || host[0] == 0 || (host[0] == '*' && host[1] == 0))
 	ipaddr = htonl(INADDR_ANY);
     else {
-	struct hostent *hostent = gethostbyname(host);
-	if (hostent == 0) {
-	    c7_status_add(ENOENT, "gethostbyname: %s\n", hstrerror(h_errno));
+	struct addrinfo hints = { .ai_family = AF_INET };
+	struct addrinfo *result;
+	int err = getaddrinfo(host, NULL, &hints, &result);
+	if (err != C7_SYSOK) {
+	    c7_status_add(ENOENT, "getaddrinfo: %s\n", gai_strerror(err));
 	    return C7_FALSE;
 	}
-	if (hostent->h_addrtype != AF_INET) {
-	    c7_status_add(ENOENT, "gethostbyname: no IPv4 address\n");
-	    return C7_FALSE;
-	}
-	(void)memcpy(&ipaddr, hostent->h_addr, hostent->h_length);
+	ipaddr = ((struct sockaddr_in *)result->ai_addr)->sin_addr.s_addr;
+	freeaddrinfo(result);
     }
     return c7_sockaddr_in_ip(inaddr, ipaddr, port);
 }

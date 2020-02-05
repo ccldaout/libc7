@@ -30,8 +30,8 @@ extern "C" {
 #undef  _XOPEN_SOURCE
 #define _XOPEN_SOURCE 1
 
-#undef  _BSD_SOURCE
-#define _BSD_SOURCE 1
+#undef  _GNU_SOURCE
+#define _GNU_SOURCE 1
 
 #if defined(C7_USER_CONFIG_H)
 # define __C7_to_string___(x)	#x
