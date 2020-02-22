@@ -20,6 +20,8 @@
 #include <c7status.h>
 #include <c7thread.h>
 
+#define _ C7_UNUSED_INT
+
 
 static c7_thread_r_mutex_t __r_mutex = C7_THREAD_R_MUTEX_INITIALIZER;
 
@@ -104,7 +106,7 @@ static pid_t forkexec(const char *progname, char **argv,
 	}
     }
     errval = errno;
-    (void)write(chkpipe, &errval, 1);
+    _ = write(chkpipe, &errval, 1);
     _exit(EXIT_FAILURE);		// don't use exit to prevent unexpected fflush
     return C7_SYSERR;			// dummy return statement
 }
@@ -191,7 +193,7 @@ static int mvfd(int ofd, int limitfd)
 static void errquit(int err, int sock)
 {
     char b = err;
-    (void)write(sock, &b, 1);
+    _ = write(sock, &b, 1);
     exit(err ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
@@ -289,8 +291,8 @@ static c7_bool_t endfilter(c7_filter_t flt, int *stsp, int cmd)
     char b = cmd;
     if (write(flt->csock, &b, 1) != 1)		// ->(B) (write 'W' or 'K')
 	(void)kill(flt->pid, SIGKILL);
-    (void)read(flt->csock, &b, 1);		// (C)<- (wait 1st forked process terminate)
-    *stsp = c7_proc_wait(flt->pid);			// get status of 1st forked process
+    _ = read(flt->csock, &b, 1);		// (C)<- (wait 1st forked process terminate)
+    *stsp = c7_proc_wait(flt->pid);		// get status of 1st forked process
 
     (void)close(flt->csock);
     free(flt);

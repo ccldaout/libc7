@@ -18,6 +18,8 @@
 #include <c7signal.h>
 #include <c7status.h>
 
+#define _ C7_UNUSED_INT
+
 
 /*----------------------------------------------------------------------------
                               fgets for c7_str_t
@@ -76,7 +78,7 @@ static c7_bool_t fchstat_ref(int fd, const char *ref_path)
     if (stat(ref_path, &st) == C7_SYSOK) {
 	if (fchmod(fd, st.st_mode) == C7_SYSOK) {
 	    if (geteuid() == 0) {
-		(void)fchown(fd, st.st_uid, st.st_gid);
+		_ = fchown(fd, st.st_uid, st.st_gid);
 	    }
 	    return C7_TRUE;
 	}
@@ -421,7 +423,7 @@ typedef struct _mkdir_prm_t_ {
 static c7_bool_t mkdir_x(_mkdir_prm_t *prm)
 {
     if (mkdir(prm->path, prm->mode) == C7_SYSOK) {
-	(void)chown(prm->path, prm->uid, prm->gid);
+	_ = chown(prm->path, prm->uid, prm->gid);
 	return C7_TRUE;
     }
     if (errno == EEXIST)

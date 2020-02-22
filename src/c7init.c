@@ -11,6 +11,8 @@
 #include "_private.h"
 #include <pthread.h>
 
+int C7_UNUSED_INT;
+
 __attribute__((constructor))
 void __c7_init(void)
 {

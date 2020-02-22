@@ -48,6 +48,9 @@ typedef enum c7_bool_t_ {
 } c7_bool_t;
 #endif
 
+#define C7_UNUSED_INT	__c7_unused_int
+extern int C7_UNUSED_INT;
+
 #define C7_TIME_S_us	((c7_time_t)1000000)
 
 typedef int64_t c7_time_t;

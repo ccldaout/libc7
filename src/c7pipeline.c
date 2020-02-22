@@ -18,6 +18,8 @@
 #include <c7proc.h>
 #include <c7status.h>
 
+#define _ C7_UNUSED_INT
+
 
 /*----------------------------------------------------------------------------
 
@@ -139,9 +141,9 @@ c7_bool_t c7_pipeline_exec(c7_pipeline_t pl, int fd0, int fd1, int fd2)
 	    (void)close(0);
 	    (void)close(1);
 	    (void)close(2);
-	    (void)dup(p0);
-	    (void)dup(p1);
-	    (void)dup(fd2);
+	    _ = dup(p0);
+	    _ = dup(p1);
+	    _ = dup(fd2);
 	    (void)close(p0);
 	    (void)close(p1);
 	    (void)close(fd2);
