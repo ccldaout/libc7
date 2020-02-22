@@ -1,6 +1,9 @@
 /*
  * c7string.h
  *
+ * https://ccldaout.github.io/libc7/group__c7string__charp.html
+ * https://ccldaout.github.io/libc7/group__c7string__strbuf.html
+ *
  * Copyright (c) 2019 ccldaout@gmail.com
  *
  * This software is released under the MIT License.
