@@ -41,7 +41,9 @@ C7_LD_RPATH_OPT = -Wl,-rpath,
 
 C7_CLEAN_REMOVED += $(C7_OUT_TMPDIR)
 
-CFLAGS  = -std=c99 $(if $(C7_NOTHREAD),,-pthread) $(addprefix -I,$(C7_CC_IPATH)) -Werror -Wall
+CFLAGS  = -std=c99 $(if $(C7_NOTHREAD),,-pthread)
+CFLAGS += $(addprefix -I,$(C7_CC_IPATH))
+CFLAGS += -Wall $(if $(C7_WERROR),-Werror,)
 CFLAGS += -W$(CFLAGS_PROTO)strict-prototypes
 CFLAGS += $(CFLAGS_ADD)
 LDFLAGS = $(addprefix -L,$(C7_LD_LPATH)) $(addprefix $(C7_LD_RPATH_OPT),$(C7_LD_RPATH))
