@@ -401,6 +401,15 @@ void c7_thread_set_autofree(c7_thread_t th)
 
 c7_bool_t c7_thread_start(c7_thread_t th)
 {
+    c7_thread_lock(&th->mutex);
+
+    // [IMPORTANT]
+    //
+    // c7_thread_lock/c7_thread_unlock must be enclose pthread_create and
+    // if and while statements as followed, because `thread' function may
+    // run and finish before this function reach whilte statement in some
+    // case. In this case, while with c7_thread_wait is not breaked forever.
+    //
     int ret = pthread_create(&th->thread, &th->thread_attr, thread, th);
     if (ret != C7_SYSOK) {
 	// Don't free thread object th even so autofree is enabled,
@@ -408,12 +417,12 @@ c7_bool_t c7_thread_start(c7_thread_t th)
 	////if (th->autofree)
 	////    c7_thread_free(th);
 	c7_status_add(ret, "c7_thread_start error\n");
+	c7_thread_unlock(&th->mutex);
 	return C7_FALSE;
     }
-
-    c7_thread_lock(&th->mutex);
     while (th->state != _STATE_RUNNING && th->state != _STATE_FAILED)
 	(void)c7_thread_wait(&th->cond, &th->mutex, NULL);
+
     c7_thread_unlock(&th->mutex);
 
     if (th->state == _STATE_FAILED)
