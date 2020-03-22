@@ -401,6 +401,8 @@ void c7_thread_set_autofree(c7_thread_t th)
 
 c7_bool_t c7_thread_start(c7_thread_t th)
 {
+    _thread_state_t state;
+
     c7_thread_lock(&th->mutex);
 
     // [IMPORTANT]
@@ -420,14 +422,18 @@ c7_bool_t c7_thread_start(c7_thread_t th)
 	c7_thread_unlock(&th->mutex);
 	return C7_FALSE;
     }
-    while (th->state != _STATE_RUNNING && th->state != _STATE_FAILED)
+    // In some case, it is possible that thread started and alredy finished
+    // at checking state in while and so th->state maybe one of all _STATE_xxx
+    // except _STATE_IDLE.
+    while (th->state == _STATE_IDLE)
 	(void)c7_thread_wait(&th->cond, &th->mutex, NULL);
+    state = th->state;
 
     c7_thread_unlock(&th->mutex);
 
-    if (th->state == _STATE_FAILED)
+    if (state == _STATE_FAILED)
 	c7_status_add(EFAULT, "Som per-thread initializer failed.\n");
-    return (th->state == _STATE_RUNNING);
+    return (state != _STATE_FAILED);
 }
 
 c7_thread_t c7_thread_run(void (*target)(void *),
