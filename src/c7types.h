@@ -21,18 +21,18 @@ extern "C" {
 
 
 #if defined(__linux)
-# if defined(__x86_64)
+# include <stdint.h>
+# if defined(__LP64__)
 #   define __C7_CONFIG_LP64
-#   include <stdint.h>
 # endif
 #elif defined(__CYGWIN__)
 # if defined(__x86_64)
 #   define __C7_CONFIG_LP64
 # endif
 #elif defined(__sun)
+# include <inttypes.h>
 # if defined(__x86_64)
 #   define __C7_CONFIG_LP64
-#   include <inttypes.h>
 # endif
 #endif
 
