@@ -13,7 +13,8 @@ extern "C" {
 #endif
 
 
-#if __STDC_VERSION__ < 199901L
+#if ((defined(__cplusplus) && (__cplusplus < 201103L)) || \
+     (defined(__STDC_VERSION__) && (__STDC_VERSION__ < 199901L)))
 # error "libc7 require at least C99"
 #endif
 
