@@ -63,6 +63,44 @@ static void signal_monitor_thread(void *__nouse)
     }
 }
 
+static void start_if(void)
+{
+    static c7_bool_t initialized;
+    c7_bool_t init;
+
+    C7_THREAD_GUARD_ENTER(&SigMonitor.lock);
+    init = initialized;
+    initialized = C7_TRUE;
+    C7_THREAD_GUARD_EXIT(&SigMonitor.lock);
+    
+    if (init == C7_TRUE)
+	return;
+
+    c7_status_clear();
+
+    // All signals must be blocked at main thread for sigwait work well.
+#if !defined(__CYGWIN__)
+    sigset_t main_sigs;
+    (void)sigfillset(&main_sigs);
+    (void)sigprocmask(SIG_SETMASK, &main_sigs, NULL);
+#endif
+
+    (void)sigemptyset(&SigMonitor.block_sigs);
+    (void)sigemptyset(&SigMonitor.wait_sigs);
+    (void)sigemptyset(&SigMonitor.managed_sigs);
+
+    (void)sigaddset(&SigMonitor.block_sigs, _CNTL_SIG);
+    (void)sigaddset(&SigMonitor.wait_sigs, _CNTL_SIG);
+
+    c7_signal_register(SIGCHLD, NULL, c7_signal_SIGCHLD_callback);
+
+    SigMonitor.reload = c7_thread_event_init();
+    SigMonitor.th = c7_thread_run(signal_monitor_thread, NULL, NULL,
+				  "signal_monitor", 0);
+    if (SigMonitor.th == NULL)
+	c7abort_err(0, ": [FATAL] cannot run signal monitor thread\n");
+}
+
 
 static void (*register_callback(int sig1,
 				const sigset_t *sigmask_on_call,
@@ -108,6 +146,7 @@ void (*c7_signal_register(int sig1,
 			  const sigset_t *sigmask_on_call,
 			  void (*callback)(int sig)))(int)
 {
+    start_if();
     void (*o_func)(int);
     C7_THREAD_GUARD_ENTER(&SigMonitor.lock);
     o_func = register_callback(sig1, sigmask_on_call, callback);
@@ -179,6 +218,7 @@ static void update_sigmask(int how, const sigset_t *sigs, sigset_t *o_sigs)
 
 void c7_signal_sigmask(int how, const sigset_t *sigs, sigset_t *o_sigs)
 {
+    start_if();
     C7_THREAD_GUARD_ENTER(&SigMonitor.lock);
     update_sigmask(how, sigs, o_sigs);
     C7_THREAD_GUARD_EXIT(&SigMonitor.lock);
@@ -201,27 +241,5 @@ sigset_t c7_signal_sigblock(void)
 
 void __c7_signal_init(void)
 {
-    c7_status_clear();
-
-    // All signals must be blocked at main thread for sigwait work well.
-#if !defined(__CYGWIN__)
-    sigset_t main_sigs;
-    (void)sigfillset(&main_sigs);
-    (void)sigprocmask(SIG_SETMASK, &main_sigs, NULL);
-#endif
-
-    (void)sigemptyset(&SigMonitor.block_sigs);
-    (void)sigemptyset(&SigMonitor.wait_sigs);
-    (void)sigemptyset(&SigMonitor.managed_sigs);
-
-    (void)sigaddset(&SigMonitor.block_sigs, _CNTL_SIG);
-    (void)sigaddset(&SigMonitor.wait_sigs, _CNTL_SIG);
-
-    c7_signal_register(SIGCHLD, NULL, c7_signal_SIGCHLD_callback);
-
-    SigMonitor.reload = c7_thread_event_init();
-    SigMonitor.th = c7_thread_run(signal_monitor_thread, NULL, NULL,
-				  "signal_monitor", 0);
-    if (SigMonitor.th == NULL)
-	c7abort_err(0, ": [FATAL] cannot run signal monitor thread\n");
+    // do nothing
 }
