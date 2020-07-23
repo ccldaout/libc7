@@ -309,8 +309,7 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
 	    src_name += (sn_size - _SN_MAX);
 	    sn_size = _SN_MAX;
 	}
-	(void)c7strbcpy_x(g->snbuf, src_name, sfx);
-	src_name = g->snbuf;
+	// DON'T setup snbuf here, because thread-unsafe.
     }
 
     // check size to be written
@@ -329,8 +328,10 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
     addr = rbuf_put(&g->rb, addr, logsize_b, logaddr);		// log data
     if (tn_size > 0)
 	addr = rbuf_put(&g->rb, addr, tn_size+1, th_name);	// include null character
-    if (sn_size > 0)
-	addr = rbuf_put(&g->rb, addr, sn_size+1, src_name);	// include null character
+    if (sn_size > 0) {
+	(void)c7strbcpy_x(g->snbuf, src_name, src_name + sn_size);
+	addr = rbuf_put(&g->rb, addr, sn_size+1, g->snbuf);	// include null character
+    }
     g->hdr->nextlnkaddr %= g->hdr->logsize_b;
 
     if (g->lock != NULL)
