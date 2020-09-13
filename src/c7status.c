@@ -198,9 +198,10 @@ void __c7_status_add_va(const char *file, int line,
     iov[0].iov_base = &sts;
     iov[0].iov_len = sizeof(sts);
 
+    int n = 1024;
+    char buff[n];
+
     if (fmt != NULL) {
-	int n = 1024;
-	char buff[n];
 	int rn = vsnprintf(buff, n, fmt, ap);
 	if (rn >= n)
 	    rn = n - 1;
