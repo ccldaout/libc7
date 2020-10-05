@@ -642,11 +642,11 @@ static void __C7_QSORT_ST_MAIN(C7_ELM_TYPE *left, C7_ELM_TYPE *right)
 		*p++ = *q;
 		*q-- = tmp;
 	    }
-	} while (p < q);
+	} while (p <= q);
 
 	if (stack_idx == __C7_NUMOF(stack)) {
-	    __C7_HSORT_ST(left, (q - left) + 1);
-	    __C7_HSORT_ST(p,    (right - p) + 1);
+	    __C7_HSORT_ST(left, p - left);
+	    __C7_HSORT_ST(p,   (right + 1) - p);
 	    stack_idx--;
 	    left = stack[stack_idx].left;
 	    right = stack[stack_idx].right;
@@ -654,7 +654,7 @@ static void __C7_QSORT_ST_MAIN(C7_ELM_TYPE *left, C7_ELM_TYPE *right)
 	    stack[stack_idx].left = p;
 	    stack[stack_idx].right = right;
 	    stack_idx++;
-	    right = q;
+	    right = p - 1;
 	}
     }
 }
@@ -733,31 +733,27 @@ static void *__C7_QSORT_MT_MAIN(void *__C7_qs)
 	    *p++ = *q;
 	    *q-- = tmp;
 	}
-    } while (p < q);
+    } while (p <= q);
 
-    if (qs->left < (void *)q) {
+    if (qs->left < (void *)(p - 1)) {
 	qs1.left = qs->left;
-	qs1.right = q;
+	qs1.right = p - 1;
 	qs1.level = qs->level - 1;
 	if (pthread_create(&qs1.thread, 0, __C7_QSORT_MT_MAIN, &qs1) != 0) {
 	    __C7_QSORT_ST_MAIN(qs1.left, qs1.right);
-	    q = qs->left;	/* skip pthread_join */
+	    qs1.left = NULL;		/* skip pthread_join */
 	}
+    } else {
+	qs1.left = NULL;
     }
     if ((void *)p < qs->right) {
 	qs2.left = p;
 	qs2.right = qs->right;
 	qs2.level = qs->level - 1;
-	if (pthread_create(&qs2.thread, 0, __C7_QSORT_MT_MAIN, &qs2) != 0) {
-	    __C7_QSORT_ST_MAIN(qs2.left, qs2.right);
-	    p = qs->right;	/* skip pthread_join */
-	}
+	__C7_QSORT_MT_MAIN(&qs2);
     }
-    if (qs->left < (void *)q) {
+    if (qs1.left != NULL) {
 	(void)pthread_join(qs1.thread, 0);
-    }
-    if ((void *)p < qs->right) {
-	(void)pthread_join(qs2.thread, 0);
     }
 
     return 0;
