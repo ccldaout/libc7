@@ -107,7 +107,7 @@ static pid_t forkexec(const char *progname, char **argv,
     }
     errval = errno;
     _ = write(chkpipe, &errval, 1);
-    _exit(EXIT_FAILURE);		// don't use exit to prevent unexpected fflush
+    _exit(EXIT_FAILURE);		// don't use exit to prevent unexpected side-effects
     return C7_SYSERR;			// dummy return statement
 }
 
@@ -194,7 +194,8 @@ static void errquit(int err, int sock)
 {
     char b = err;
     _ = write(sock, &b, 1);
-    exit(err ? EXIT_FAILURE : EXIT_SUCCESS);
+    // don't use exit to prevent unexpected side-effects
+    _exit(err ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
 static pid_t genfilter(int fd0, int fd1, int cs[], char **av)
@@ -267,7 +268,8 @@ static pid_t genfilter(int fd0, int fd1, int cs[], char **av)
 	    (void)signal(-s, SIG_DFL);
 	    (void)kill(getpid(), -s);
 	}
-	exit(s);				// ->(C)
+	// don't use exit to prevent unexpected side-effects
+	_exit(s);				// ->(C)
     } else if (pid == C7_SYSERR)
 	errquit(errno, 4);			// ->(A) (2nd fork failed, read -> 1)
 
