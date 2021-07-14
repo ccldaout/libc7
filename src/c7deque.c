@@ -235,9 +235,10 @@ void *c7_deque_insert(c7_deque_t dq, size_t index, void *item, size_t count)
     }
 
     /* insert items to rigth side of index */
+    char *org_tail = dq->tail;
     dq->tail += z;	// _tail must be updated prior to call c7_deque_nth
     char *shifted = c7_deque_nth(dq, index + count);
-    (void)memmove(shifted, insert, z);
+    (void)memmove(shifted, insert, org_tail - insert);
     (void)memmove(insert, item, z);
     return insert;
 }
