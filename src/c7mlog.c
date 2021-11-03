@@ -25,7 +25,8 @@
 // 2: lnk data lnk -> lnk data thread_name lnk
 // 3: thread name, source name
 // 4: record max length for thread name and source name
-#define _REVISION	4
+// 5: new linkage format & enable inter process lock
+#define _REVISION	5
 
 
 typedef uint32_t raddr_t;
@@ -95,31 +96,29 @@ static raddr_t rbuf_put(_rbuf_t *rb, raddr_t addr, raddr_t size, const void *__u
 ----------------------------------------------------------------------------*/
 
 #define _IHDRSIZE		c7_align(sizeof(_hdr_t), 16)
-#define _LNK_CONTROL_CHOICE	(1U << 0)
-
-// mlog flags
-#define _MLOG_MUTEX		(1U << 28)
-#define _MLOG_MUTEX_INTERNAL	(1U << 29)
-#define _MLOG_ADVLOCK		(1U << 31)
+#define _REC_CONTROL_CHOICE	(1U << 0)
 
 #define _TN_MAX			(63)	// tn_size:6
 #define _SN_MAX			(63)	// sn_size:6
 
-typedef struct c7_mlog_hdr_t_ {	// ring-log header
+// file header
+typedef struct c7_mlog_hdr_t_ {
     uint32_t rev;
+    volatile uint32_t lock;
+    raddr_t nextaddr;
+    raddr_t logsize_b;		// ring buffer size
     uint32_t cnt;
     uint32_t hdrsize_b;		// user header size
-    uint32_t logsize_b;		// ring buffer size
-    uint32_t nextlnkaddr;	// ring addrress to next log_lnk_t
-    char hint[64];
     uint8_t max_tn_size;	// maximum length of thread name
     uint8_t max_sn_size;	// maximum length of source name
+    char hint[64];
 } _hdr_t;
 
-typedef struct c7_mlog_lnk_t_ {	// linkage data
-    // prevlnkoff must be head of _lnk_t (cf. comment of calling rbuf_put in setuplnk())
-    uint32_t prevlnkoff;	// offset to previous record
-    uint32_t nextlnkoff;	// offset to next record
+// record header
+typedef struct c7_mlog_rec_t_ {
+    // [CAUTION] size member must be located at first member
+    raddr_t size;		// record size (rec_t + log data + names + raddr_t)
+    uint32_t order;		// record serial number
     c7_time_t time_us;		// time stamp in micro sec.
     uint64_t minidata;		// mini data (out of libc7)
     uint64_t level   :  3;	// log level 0..7
@@ -129,23 +128,19 @@ typedef struct c7_mlog_lnk_t_ {	// linkage data
     uint64_t src_line: 14;	// source line
     uint64_t control :  6;	// (internal control flags)
     uint64_t __rsv1  : 24;
+    uint32_t pid;		// process id
     uint32_t th_id;		// thread id
-    uint32_t order;		// record serial number
-    uint32_t size;		// record size (data + xxx name)
-    uint32_t __rsv2;
-} _lnk_t;
+    uint32_t br_order;		// ~order
+} _rec_t;
 
 struct c7_mlog_t_ {
     _rbuf_t rb;
     _hdr_t *hdr;
     char *path;
-    char snbuf[_SN_MAX + 1];
     size_t mmapsize_b;
     size_t maxdsize_b;
     uint32_t flags;
-    void *lock;
-    void (*locker)(void *lock);
-    void (*unlocker)(void *lock);
+    uint32_t pid;
 };
 
 
@@ -156,12 +151,14 @@ struct c7_mlog_t_ {
 static char *mlogpath_x(const char *name, c7_bool_t exists)
 {
     c7_str_t sb = C7_STR_INIT_MA();
-    if (exists)
+    if (exists) {
 	(void)c7_file_special_find(&sb, C7_MLOG_DIR_ENV, name, ".mlog");
-    else
+    } else {
 	(void)c7_file_special_path(&sb, C7_MLOG_DIR_ENV, name, ".mlog");
-    if (C7_STR_ERR(&sb))
+    }
+    if (C7_STR_ERR(&sb)) {
 	return NULL;
+    }
     return c7_str_release(&sb);
 }
 
@@ -172,11 +169,12 @@ static c7_mlog_t mlog_new(const char *path, size_t hdrsize_b, size_t logsize_b)
 	c7_status_add(EINVAL, ": invalid logsize_b: %ld\n", logsize_b);
 	return NULL;
     }
-    if ((g = c7_calloc(sizeof(*g), 1)) == NULL)
+    if ((g = c7_calloc(sizeof(*g), 1)) == NULL) {
 	return NULL;
+    }
     g->path = NULL;
     g->mmapsize_b = _IHDRSIZE + hdrsize_b + logsize_b;
-    g->maxdsize_b = logsize_b - 2*sizeof(_lnk_t);
+    g->maxdsize_b = logsize_b - sizeof(_rec_t)- sizeof(raddr_t);
     if ((g->hdr = c7_file_mmap_rw(path, &g->mmapsize_b, C7_TRUE)) == NULL) {
 	free(g);
 	return NULL;
@@ -189,8 +187,9 @@ c7_mlog_t c7_mlog_open_w(const char *name, size_t hdrsize_b, size_t logsize_b,
 			 const char *hint_op, uint32_t flags)
 {
     char *path = mlogpath_x(name, C7_FALSE);
-    if (path == NULL)
+    if (path == NULL) {
 	return NULL;
+    }
     c7_mlog_t g = mlog_new(path, hdrsize_b, logsize_b);
     if (g == NULL) {
 	free(path);
@@ -199,80 +198,60 @@ c7_mlog_t c7_mlog_open_w(const char *name, size_t hdrsize_b, size_t logsize_b,
 
     g->path = path;
     g->flags = flags;
-    g->lock = NULL;
-    g->locker = NULL;
-    g->unlocker = NULL;
+    g->pid = getpid();
 
     if (g->hdr->hdrsize_b != hdrsize_b ||
 	g->hdr->logsize_b != logsize_b ||
 	g->hdr->rev != _REVISION) {
 	(void)memset(g->hdr, 0, g->mmapsize_b);
-	g->hdr->rev = _REVISION;
+	g->hdr->rev       = _REVISION;
 	g->hdr->hdrsize_b = hdrsize_b;
 	g->hdr->logsize_b = logsize_b;
-	if (hint_op != NULL)
+	if (hint_op != NULL) {
 	    (void)strncat(g->hdr->hint, hint_op, sizeof(g->hdr->hint) - 1);
+	}
     }
 
-    if (g->hdr->cnt == 0 && g->hdr->nextlnkaddr == 0) {
-	_lnk_t lnk = {0};
-	lnk.prevlnkoff = g->hdr->logsize_b * 2;
-	(void)rbuf_put(&g->rb, 0, sizeof(lnk), &lnk);
+    if (g->hdr->cnt == 0 && g->hdr->nextaddr == 0) {
+	raddr_t addr = 0;
+	g->hdr->cnt = 0;
+	g->hdr->nextaddr = rbuf_put(&g->rb, 0, sizeof(addr), &addr);
     }
     return g;
 }
 
-static raddr_t setuplnk(c7_mlog_t g,
-			size_t logsize, size_t tn_size, size_t sn_size, int src_line,
-			c7_time_t time_us, uint32_t level, uint32_t category,
-			uint64_t minidata)
+static _rec_t make_rechdr(c7_mlog_t g,
+			  size_t logsize, size_t tn_size, size_t sn_size, int src_line,
+			  c7_time_t time_us, uint32_t level, uint32_t category,
+			  uint64_t minidata)
 {
-    _lnk_t lnk;
-    raddr_t const prevlnkaddr = g->hdr->nextlnkaddr;
-    raddr_t addr;
+    _rec_t rec;
     
     // null character is not counted for *_size, but it's put to rbuf.
     if (tn_size > 0) {
-	if (g->hdr->max_tn_size < tn_size)
-	    g->hdr->max_tn_size = tn_size;
 	logsize += (tn_size + 1);
     }
     if (sn_size > 0) {
-	if (g->hdr->max_sn_size < sn_size)
-	    g->hdr->max_sn_size = sn_size;
 	logsize += (sn_size + 1);
     }
+    logsize += sizeof(raddr_t);
+    logsize += sizeof(_rec_t);
 
-    // put lnk as a new terminator
-    addr = prevlnkaddr + sizeof(lnk) + logsize;	// address of new terminator
-    lnk.prevlnkoff = addr - prevlnkaddr;
-    lnk.nextlnkoff = 0;				// it mean 'terminator'
-    lnk.order = 0;
-    lnk.control = 0;
-    (void)rbuf_put(&g->rb, addr, sizeof(lnk), &lnk);
-    g->hdr->nextlnkaddr = addr;
-    
-    // update previous terminator as lnk of last data
-    lnk.nextlnkoff = g->hdr->nextlnkaddr - prevlnkaddr;
-    lnk.time_us = time_us;
-    lnk.order = ++g->hdr->cnt;
-    lnk.size = logsize;
-    lnk.th_id = c7_thread_id(NULL);
-    lnk.tn_size = tn_size;
-    lnk.sn_size = sn_size;
-    lnk.src_line = src_line;
-    lnk.minidata = minidata;
-    lnk.level = level;
-    lnk.category = category;
-    lnk.control = 0;
-    // next rbuf_put re-write tail part of a lnk to KEEP prevlnkaddr.
-    // this is depend on prevlnkaddr located at head of lnk.
-    (void)rbuf_put(&g->rb,
-		   prevlnkaddr + sizeof(lnk.prevlnkoff),
-		   sizeof(lnk) - sizeof(lnk.prevlnkoff),
-		   (char *)&lnk + sizeof(lnk.prevlnkoff));
+    rec.size = logsize;
+    rec.time_us = time_us;
+    // rec.order is assigned later
+    rec.pid = g->pid;
+    rec.th_id = c7_thread_id(NULL);
+    rec.tn_size = tn_size;
+    rec.sn_size = sn_size;
+    rec.src_line = src_line;
+    rec.minidata = minidata;
+    rec.level = level;
+    rec.category = category;
+    rec.control = 0;
+    // rec.br_order is assigned later
 
-    return prevlnkaddr + sizeof(lnk);	// address of data
+    return rec;
 }
 
 c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
@@ -280,17 +259,20 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
 		      const char *src_name, int src_line,
 		      const void *logaddr, size_t logsize_b)
 {
-    if (level > c7_dconf_i(C7_DCONF_MLOG))
+    if (level > c7_dconf_i(C7_DCONF_MLOG)) {
 	return C7_TRUE;
+    }
 
     // log data size
-    if (logsize_b == -1UL)
+    if (logsize_b == -1UL) {
 	logsize_b = strlen(logaddr) + 1;	// logaddr point to string
+    }
 
     // thread name size
     const char *th_name = NULL;
-    if ((g->flags & C7_MLOG_F_THREAD_NAME) != 0)
+    if ((g->flags & C7_MLOG_F_THREAD_NAME) != 0) {
 	th_name = c7_thread_name(NULL);
+    }
     size_t tn_size = th_name ? strlen(th_name) : 0;
     if (tn_size > _TN_MAX) {
 	th_name += (tn_size - _TN_MAX);
@@ -309,33 +291,53 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
 	    src_name += (sn_size - _SN_MAX);
 	    sn_size = _SN_MAX;
 	}
-	// DON'T setup snbuf here, because thread-unsafe.
     }
 
     // check size to be written
-    if ((logsize_b + tn_size + sn_size + 2) > g->maxdsize_b)
+    if ((logsize_b + tn_size + sn_size + 2) > g->maxdsize_b) {
 	return C7_FALSE;				// data size too large
-
-    if (time_us == C7_MLOG_AUTO_TIME)
-	time_us = c7_time_us();
-
-    if (g->lock != NULL)
-	g->locker(g->lock);
-
-    // write data (log, [thread name], [source name])
-    raddr_t addr = setuplnk(g, logsize_b, tn_size, sn_size, src_line,
-			    time_us, level, category, minidata);
-    addr = rbuf_put(&g->rb, addr, logsize_b, logaddr);		// log data
-    if (tn_size > 0)
-	addr = rbuf_put(&g->rb, addr, tn_size+1, th_name);	// include null character
-    if (sn_size > 0) {
-	(void)c7strbcpy_x(g->snbuf, src_name, src_name + sn_size);
-	addr = rbuf_put(&g->rb, addr, sn_size+1, g->snbuf);	// include null character
     }
-    g->hdr->nextlnkaddr %= g->hdr->logsize_b;
 
-    if (g->lock != NULL)
-	g->unlocker(g->lock);
+    if (time_us == C7_MLOG_AUTO_TIME) {
+	time_us = c7_time_us();
+    }
+
+    // build record header adn calculate size of whole record.
+    _rec_t rechdr = make_rechdr(g, logsize_b, tn_size, sn_size, src_line,
+				time_us, level, category, minidata);
+
+    // [CRITICAL SECTION] update record pointer (g->hdr->nextaddr) and counter (g->hdr->cnt)
+    _hdr_t * const gh = g->hdr;
+    if ((g->flags & C7_MLOG_F_SPINLOCK) != 0) {
+	while (__sync_lock_test_and_set(&gh->lock, 1) == 1);
+    }
+    rechdr.order    = ++(gh->cnt);
+    rechdr.br_order = ~rechdr.order;
+    raddr_t addr = gh->nextaddr;
+    gh->nextaddr += rechdr.size;
+    gh->nextaddr %= gh->logsize_b;
+    if (g->hdr->max_tn_size < tn_size) {
+	g->hdr->max_tn_size = tn_size;
+    }
+    if (g->hdr->max_sn_size < sn_size) {
+	g->hdr->max_sn_size = sn_size;
+    }
+    if ((g->flags & C7_MLOG_F_SPINLOCK) != 0) {
+	__sync_lock_release(&gh->lock);
+    }
+
+    // write whole record: log data -> thread_name -> source name	// (A) cf.(B)
+    addr = rbuf_put(&g->rb, addr, sizeof(rechdr), &rechdr);		// record header
+    addr = rbuf_put(&g->rb, addr, logsize_b, logaddr);			// log data
+    if (tn_size > 0) {
+	addr = rbuf_put(&g->rb, addr, tn_size+1, th_name);		// +1: null character
+    }
+    if (sn_size > 0) {
+	char ch = 0;
+	addr = rbuf_put(&g->rb, addr, sn_size, src_name);		// exclude suffix
+	addr = rbuf_put(&g->rb, addr, 1, &ch);
+    }
+    rbuf_put(&g->rb, addr, sizeof(rechdr.size), &rechdr.size);		// put size data to tail
 
     return C7_TRUE;
 }
@@ -396,19 +398,23 @@ c7_bool_t c7_mlog_vpfx_status(c7_mlog_t log, c7_time_t time_us,
 			      const char *src_name, int src_line,
 			      const char *format, va_list ap)
 {
-    if (time_us == C7_MLOG_AUTO_TIME)
+    if (time_us == C7_MLOG_AUTO_TIME) {
 	time_us = c7_time_us();
+    }
 
     _putstatus_t prm = {
 	.sb = C7_STR_INIT_MA(), .log = log, .time_us = time_us, .category = category
     };
-    if (include_old)
+    if (include_old) {
 	c7_status_scan(putstatus, &prm);
-    if (status != 0)
+    }
+    if (status != 0) {
 	putstatus(src_name, src_line, status, NULL, &prm);
-    if (format != NULL)
+    }
+    if (format != NULL) {
 	(void)c7_mlog_vpfx(log, time_us, C7_LOG_ERR, category, minidata,
 			   src_name, src_line, format, ap);
+    }
     c7_str_free(&prm.sb);
     return C7_TRUE;
 }
@@ -430,67 +436,24 @@ c7_bool_t c7_mlog_pfx_status(c7_mlog_t log, c7_time_t time_us,
 
 
 /*----------------------------------------------------------------------------
-                                  write lock
+                   write lock (obsolete: for comptibility)
 ----------------------------------------------------------------------------*/
-
-static void mutex_locker(void *lock)
-{
-    c7_thread_lock(lock);
-}
-
-static void mutex_unlocker(void *lock)
-{
-    c7_thread_unlock(lock);
-}
 
 c7_bool_t c7_mlog_mutex(c7_mlog_t g, pthread_mutex_t *mutex_op)
 {
-    if (g->lock != NULL) {
-	c7_status_add(EINVAL, ": lock is already used\n");
-	return C7_FALSE;
-    }
-    if (mutex_op == NULL) {
-	if ((mutex_op = c7_malloc(sizeof(*mutex_op))) == NULL)
-	    return C7_FALSE;
-	g->flags |= _MLOG_MUTEX_INTERNAL;
-	(void)pthread_mutex_init(mutex_op, NULL);
-    }
-    g->flags |= _MLOG_MUTEX;
-    g->lock = mutex_op;
-    g->locker = mutex_locker;
-    g->unlocker = mutex_unlocker;
+    g->flags |= C7_MLOG_F_SPINLOCK;
     return C7_TRUE;
-}
-
-static void adv_locker(void *lock)
-{
-    if (!c7_fd_advlock((int)(long)lock, C7_TRUE))
-	c7echo_err(0, 0);
-}
-
-static void adv_unlocker(void *lock)
-{
-    if (!c7_fd_advlock((int)(long)lock, C7_FALSE))
-	c7echo_err(0, 0);
 }
 
 c7_bool_t c7_mlog_advlock(c7_mlog_t g)
 {
-    int fd = open(g->path, O_RDWR);
-    if (fd == C7_SYSERR) {
-	c7_status_add(errno, ": open failed: %s\n", g->path);
-	return C7_FALSE;
-    }
-    g->flags |= _MLOG_ADVLOCK;
-    g->lock = (void *)(long)fd;
-    g->locker = adv_locker;
-    g->unlocker = adv_unlocker;
+    g->flags |= C7_MLOG_F_SPINLOCK;
     return C7_TRUE;
 }
 
 c7_bool_t c7_mlog_has_lock(c7_mlog_t g)
 {
-    return (g->lock != NULL);
+    return ((g->flags & C7_MLOG_F_SPINLOCK) != 0);
 }
 
 
@@ -501,8 +464,9 @@ c7_bool_t c7_mlog_has_lock(c7_mlog_t g)
 c7_mlog_t c7_mlog_open_r(const char *name)
 {
     c7_mlog_t g;
-    if ((g = c7_calloc(sizeof(*g), 1)) == NULL)
+    if ((g = c7_calloc(sizeof(*g), 1)) == NULL) {
 	return NULL;
+    }
     if ((g->path = mlogpath_x(name, C7_TRUE)) == NULL) {
 	free(g);
 	return NULL;
@@ -524,87 +488,117 @@ static c7_bool_t default_choice(const c7_mlog_info_t *info, void *__param)
     return C7_TRUE;
 }
 
-static void copyattr(c7_mlog_info_t *info, const _lnk_t *lnk, const char *data)
+static c7_mlog_info_t make_info(const _rec_t *rec, const char *data)
 {
-    info->thread_name = "";
-    info->thread_id = lnk->th_id;
-    info->source_name = "";
-    info->source_line = lnk->src_line;
-    info->order = lnk->order;
-    info->size_b = lnk->size;
-    if (lnk->sn_size > 0) {
-	info->size_b -= (lnk->sn_size + 1);
-	info->source_name = data + info->size_b;
+    c7_mlog_info_t info;
+
+    info.thread_id   = rec->th_id;
+    info.source_line = rec->src_line;
+    info.order       = rec->order;
+    info.size_b      = rec->size;
+    info.time_us     = rec->time_us;
+    info.level       = rec->level;
+    info.category    = rec->category;
+    info.minidata    = rec->minidata;
+    info.pid         = rec->pid;
+
+    // (B) cf.(A)
+
+    if (rec->sn_size > 0) {
+	info.size_b -= (rec->sn_size + 1);
+	info.source_name = data + info.size_b;
+    } else {
+	info.source_name = "";
     }
-    if (lnk->tn_size > 0) {
-	info->size_b -= (lnk->tn_size + 1);
-	info->thread_name = data + info->size_b;
+
+    if (rec->tn_size > 0) {
+	info.size_b -= (rec->tn_size + 1);
+	info.thread_name = data + info.size_b;
+    } else {
+	info.thread_name = "";
     }
-    info->time_us = lnk->time_us;
-    info->level = lnk->level;
-    info->category = lnk->category;
-    info->minidata = lnk->minidata;
+
+    return info;
 }
 
 __attribute__((unused))
-static void dumplnk(c7_mlog_t g, raddr_t addr, const _lnk_t *lnk)
+static void dumprec(c7_mlog_t g, raddr_t addr, const _rec_t *rec)
 {
-    c7echo("%10d: order: %d, prevoff: %d (prevaddr: %d), nextoff: %d (nextaddr: %d), size_b: %d\n"
-	   "          : control: %d, time_us: %ld, minidata: %ld, level: %d, category: %d, th_id: %ld\n",
+    c7echo("%10d: order:%d, (~br_order:%d) size_b:%d, time_us:%ld\n"
+	   "          : minidata:%ld, level:%d, category:%d, control:0x%x, pid:%d, th_id:%d\n",
 	   addr % g->hdr->logsize_b,
-	   lnk->order,
-	   lnk->prevlnkoff, (addr - lnk->prevlnkoff) % g->hdr->logsize_b,
-	   lnk->nextlnkoff, (addr + lnk->nextlnkoff) % g->hdr->logsize_b,
-	   lnk->size,
-	   lnk->control,
-	   lnk->time_us,
-	   lnk->minidata,
-	   lnk->level,
-	   lnk->category,
-	   lnk->th_id);
+	   rec->order,
+	   ~rec->br_order,
+	   rec->size,
+	   rec->time_us,
+	   rec->minidata,
+	   rec->level,
+	   rec->category,
+	   rec->control,
+	   rec->pid,
+	   rec->th_id);
 }
 
 static raddr_t findorigin(c7_mlog_t g,
 			  c7_vbuf_t vbuf,
+			  raddr_t ret_addr,
 			  size_t maxcount,
 			  uint32_t order_min,
 			  c7_time_t time_us_min,
 			  c7_bool_t (*choice)(const c7_mlog_info_t *info, void *__param),
 			  void *__param)
 {
-    raddr_t rewindsize = sizeof(_lnk_t);
-    raddr_t lnkaddr = g->hdr->nextlnkaddr + g->hdr->logsize_b * 2;
-    _lnk_t lnk;
+    const raddr_t brk_addr = ret_addr - g->hdr->logsize_b;
+    _rec_t rec;
+    uint32_t prev_order = 0;
     
-    rbuf_get(&g->rb, lnkaddr, sizeof(lnk), &lnk);
-    rewindsize += lnk.prevlnkoff;
-    lnkaddr -= lnk.prevlnkoff;
-
-    for (;;) {
-	rbuf_get(&g->rb, lnkaddr, sizeof(lnk), &lnk);
-	rewindsize += lnk.prevlnkoff;
-	void *data = c7_vbuf_get(vbuf, lnk.size);
-	if (data == NULL)
-	    c7exit_err(0, NULL);
-	rbuf_get(&g->rb, lnkaddr + sizeof(lnk), lnk.size, data);
-	c7_mlog_info_t info;
-	copyattr(&info, &lnk, data);
-	if (lnk.nextlnkoff != 0 && (*choice)(&info, __param)) {
-	    lnk.control |= _LNK_CONTROL_CHOICE;
-	    (void)rbuf_put(&g->rb, lnkaddr, sizeof(lnk), &lnk);
-	    if (--maxcount == 0)
-		break;
-	}
-	if (lnk.order < order_min || lnk.time_us < time_us_min)
-	    break;
-	if (rewindsize > g->hdr->logsize_b)
-	    break;
-	if (lnk.prevlnkoff <= 0)
-	    break;			// might be broken
-	lnkaddr -= lnk.prevlnkoff;
+    if (maxcount == 0) {
+	maxcount = g->hdr->cnt;
+    } else if (maxcount > g->hdr->cnt) {
+	maxcount = g->hdr->cnt;
     }
 
-    return lnkaddr;
+    for (;;) {
+	raddr_t size;
+	rbuf_get(&g->rb, ret_addr - sizeof(size), sizeof(size), &size);
+	const raddr_t addr = ret_addr - size;
+
+	if (size == 0 || addr < brk_addr) {
+	    break;
+	}
+	rbuf_get(&g->rb, addr, sizeof(rec), &rec);
+	if (rec.size != size || rec.order != ~rec.br_order) {
+	    break;
+	}
+	if (rec.order + 1 != prev_order && prev_order != 0) {
+	    break;
+	}
+
+	void *data = c7_vbuf_get(vbuf, rec.size - sizeof(rec));
+	if (data == NULL) {
+	    c7exit_err(0, NULL);
+	}
+	rbuf_get(&g->rb, addr + sizeof(rec), rec.size - sizeof(rec), data);
+	c7_mlog_info_t info = make_info(&rec, data);
+
+	rec.control &= ~_REC_CONTROL_CHOICE;		// clear choiced flag previously stored
+	if ((*choice)(&info, __param)) {
+	    rec.control |= _REC_CONTROL_CHOICE;
+	    maxcount--;
+	}
+	rbuf_put(&g->rb, addr, sizeof(rec), &rec);	// store rec.control
+
+	if (maxcount == 0 ||
+	    rec.order < order_min ||
+	    rec.time_us < time_us_min) {
+	    break;
+	}
+
+	ret_addr = addr;
+	prev_order = rec.order;
+    }
+
+    return ret_addr;
 }
 
 c7_bool_t c7_mlog_scan(c7_mlog_t g,
@@ -616,30 +610,31 @@ c7_bool_t c7_mlog_scan(c7_mlog_t g,
 		       void *__param)
 {
     c7_vbuf_t vbuf;
-    if ((vbuf = c7_vbuf_new_std()) == NULL)
+    if ((vbuf = c7_vbuf_new_std()) == NULL) {
 	return C7_FALSE;
+    }
 
-    raddr_t addr = findorigin(g, vbuf,
+    const raddr_t ret_addr = g->hdr->nextaddr + g->hdr->logsize_b * 2;
+    raddr_t addr = findorigin(g, vbuf, ret_addr,
 			      maxcount, order_min, time_us_min,
 			      choice ? choice : default_choice, __param);
 
-    for (;;) {
-	_lnk_t lnk;
-	rbuf_get(&g->rb, addr, sizeof(lnk), &lnk);
-	if (lnk.nextlnkoff == 0)		// terminator
-	    break;
-	addr += sizeof(lnk);			// data address
-	if ((lnk.control & _LNK_CONTROL_CHOICE) != 0) {
-	    void *data = c7_vbuf_get(vbuf, lnk.size);
+    while (addr < ret_addr) {
+	_rec_t rec;
+	rbuf_get(&g->rb, addr, sizeof(rec), &rec);
+	addr     += sizeof(rec);			// data address
+	rec.size -= sizeof(rec);			// data (log, names) size
+	if ((rec.control & _REC_CONTROL_CHOICE) != 0) {
+	    void *data = c7_vbuf_get(vbuf, rec.size);
 	    if (data != NULL) {
-		rbuf_get(&g->rb, addr, lnk.size, data);
-		c7_mlog_info_t info;
-		copyattr(&info, &lnk, data);
-		if (!(*access)(&info, data, __param))
+		rbuf_get(&g->rb, addr, rec.size, data);
+		c7_mlog_info_t info = make_info(&rec, data);
+		if (!(*access)(&info, data, __param)) {
 		    break;
+		}
 	    }
 	}
-	addr += lnk.size;			// next lnk address
+	addr += rec.size;				// next address
     }
 
     c7_vbuf_free(vbuf);
@@ -653,8 +648,9 @@ c7_bool_t c7_mlog_scan(c7_mlog_t g,
 
 void *c7_mlog_hdraddr(c7_mlog_t g, size_t *hdrsize_b_op)
 {
-    if (hdrsize_b_op != NULL)
+    if (hdrsize_b_op != NULL) {
 	*hdrsize_b_op = g->hdr->hdrsize_b;
+    }
     return (char *)g->hdr + _IHDRSIZE;
 }
 
@@ -676,8 +672,9 @@ const char *c7_mlog_hint(c7_mlog_t g)
 c7_bool_t c7_mlog_clear(const char *name)
 {
     char *path = mlogpath_x(name, C7_TRUE);
-    if (path == NULL)
+    if (path == NULL) {
 	return C7_FALSE;
+    }
     _hdr_t hdr;
     if (c7_file_read(path, &hdr, sizeof(hdr)) != 0) {
 	free(path);
@@ -685,14 +682,13 @@ c7_bool_t c7_mlog_clear(const char *name)
     }
     c7_mlog_t g = mlog_new(path, hdr.hdrsize_b, hdr.logsize_b);
     free(path);
-    if (g == NULL)
+    if (g == NULL) {
 	return C7_FALSE;
+    }
 
+    raddr_t addr = 0;
     g->hdr->cnt = 0;
-    g->hdr->nextlnkaddr = 0;
-    _lnk_t lnk = {0};
-    lnk.prevlnkoff = g->hdr->logsize_b * 2;
-    (void)rbuf_put(&g->rb, 0, sizeof(lnk), &lnk);
+    g->hdr->nextaddr = rbuf_put(&g->rb, 0, sizeof(addr), &addr);
 
     c7_mlog_close(g);
     return C7_TRUE;
@@ -700,16 +696,11 @@ c7_bool_t c7_mlog_clear(const char *name)
 
 void c7_mlog_close(c7_mlog_t g)
 {
-    if ((g->flags & _MLOG_MUTEX_INTERNAL) != 0) {
-	pthread_mutex_destroy(g->lock);
-	free(g->lock);
-    } else if ((g->flags & _MLOG_ADVLOCK) != 0) {
-	(void)close((int)(long)g->lock);
-    }
-    if (g->mmapsize_b != 0)
+    if (g->mmapsize_b != 0) {
 	c7_file_munmap(g->hdr, g->mmapsize_b);
-    else
+    } else {
 	free(g->hdr);		// cf. c7_mlog_open_r
+    }
     free(g->path);
     free(g);
 }

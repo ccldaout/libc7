@@ -18,6 +18,7 @@
 
 
 #define _TIDC_MAX	32
+#define _PIDC_MAX	32
 
 typedef struct prm_t_ {
     c7_args_t print_ap;
@@ -25,12 +26,15 @@ typedef struct prm_t_ {
     size_t order_min, order_max;
     size_t tidv[_TIDC_MAX];	// thread id list
     int tidc;
+    size_t pidv[_PIDC_MAX];	// pid list
+    int pidc;
     c7_time_t time_us_min, time_us_max;
     uint32_t level_max;		// C7_LOG_xxx
     uint32_t category_mask;
     const char *logname;
     c7_bool_t pr_category;
     c7_bool_t pr_loglevel;
+    c7_bool_t pr_pid;
     char *md_format;		// minidata format
     char *tm_format;
     c7_bool_t pr_sn;
@@ -57,6 +61,13 @@ static c7_bool_t option_loglevel(c7_args_t ap, const c7_args_params_t *params, v
 {
     prm_t *prm = __uctx;
     prm->pr_loglevel = C7_TRUE;
+    return C7_TRUE;
+}
+
+static c7_bool_t option_pid(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+{
+    prm_t *prm = __uctx;
+    prm->pr_pid = C7_TRUE;
     return C7_TRUE;
 }
 
@@ -108,6 +119,10 @@ static c7_args_optdef_t PrintOptions[] = {
 	.short_opt = "g",
 	.optrepr = "print log level",
 	.handler = option_loglevel },
+    {
+	.short_opt = "p",
+	.optrepr = "print pid",
+	.handler = option_pid },
     {
 	.long_opt = "mini",
 	.short_opt = "m",
@@ -176,6 +191,15 @@ static c7_bool_t option_category_list(c7_args_t ap, const c7_args_params_t *para
     prm_t *prm = __uctx;
     for (int i = 0; i < params->prmc; i++)
 	prm->category_mask |= (1U << params->prmv[i].u.i);
+    return C7_TRUE;
+}
+
+static c7_bool_t option_pid_list(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+{
+    prm_t *prm = __uctx;
+    prm->pidc = params->prmc;
+    for (int i = 0; i < params->prmc; i++)
+	prm->pidv[i] = params->prmv[i].u.i;
     return C7_TRUE;
 }
 
@@ -268,6 +292,16 @@ static c7_args_optdef_t CommonOptions[] = {
 	.prmc_min = 1,
 	.prmc_max = -1,
 	.handler = option_category_list },
+    {
+	.long_opt = "pid",
+	.short_opt = "p",
+	.optrepr = "print only specified pid",
+	.prmrepr = "pid",
+	.prmword = "PID",
+	.prmtype = C7_ARGS_T_INT,
+	.prmc_min = 1,
+	.prmc_max = _PIDC_MAX,
+	.handler = option_pid_list },
     {
 	.long_opt = "thread",
 	.short_opt = "t",
@@ -382,6 +416,14 @@ static c7_bool_t choice(const c7_mlog_info_t *info, void *__param)
 	if (i == prm->tidc)
 	    return C7_FALSE;
     }
+    if (prm->pidc > 0) {
+	int i;
+	for (i = 0; i < prm->pidc; i++)
+	    if (info->thread_id == prm->pidv[i])
+		break;
+	if (i == prm->pidc)
+	    return C7_FALSE;
+    }
     return (info->time_us >= prm->time_us_min &&
 	    info->time_us <= prm->time_us_max &&
 	    info->order >= prm->order_min &&
@@ -407,7 +449,8 @@ static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__para
 	c7_sprintf(&sb, " %*s", prm->tn_width, &info->thread_name[n]);
     } else
 	c7_sprintf(&sb, " @%02x", info->thread_id);
-
+    if (prm->pr_pid)
+	c7_sprintf(&sb, "@%06d", info->pid);
     if (prm->sn_width > 0) {
 	if (info->source_name[0] != 0) {
 	    int n = strlen(info->source_name);

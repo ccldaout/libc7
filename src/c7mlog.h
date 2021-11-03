@@ -36,7 +36,7 @@ extern "C" {
 // flags of c7_mlog_open_w()
 #define C7_MLOG_F_THREAD_NAME	(1U << 0)	// record thread name
 #define C7_MLOG_F_SOURCE_NAME	(1U << 1)	// record source name
-
+#define C7_MLOG_F_SPINLOCK	(1U << 2)	// use spinlock
 
 typedef struct c7_mlog_info_t_ {
     const char *thread_name;
@@ -49,6 +49,7 @@ typedef struct c7_mlog_info_t_ {
     uint32_t level;
     uint32_t category;
     uint64_t minidata;
+    pid_t pid;
 } c7_mlog_info_t;
 
 typedef struct c7_mlog_t_ *c7_mlog_t;
