@@ -504,6 +504,9 @@ static c7_mlog_info_t make_info(const _rec_t *rec, const char *data)
 
     // (B) cf.(A)
 
+    info.size_b -= sizeof(*rec);
+    info.size_b -= sizeof(raddr_t);
+
     if (rec->sn_size > 0) {
 	info.size_b -= (rec->sn_size + 1);
 	info.source_name = data + info.size_b;
@@ -622,19 +625,19 @@ c7_bool_t c7_mlog_scan(c7_mlog_t g,
     while (addr < ret_addr) {
 	_rec_t rec;
 	rbuf_get(&g->rb, addr, sizeof(rec), &rec);
-	addr     += sizeof(rec);			// data address
-	rec.size -= sizeof(rec);			// data (log, names) size
+	addr += sizeof(rec);				// data address
+	size_t data_size = rec.size - sizeof(rec);	// data (log, names) size
 	if ((rec.control & _REC_CONTROL_CHOICE) != 0) {
-	    void *data = c7_vbuf_get(vbuf, rec.size);
+	    void *data = c7_vbuf_get(vbuf, data_size);
 	    if (data != NULL) {
-		rbuf_get(&g->rb, addr, rec.size, data);
+		rbuf_get(&g->rb, addr, data_size, data);
 		c7_mlog_info_t info = make_info(&rec, data);
 		if (!(*access)(&info, data, __param)) {
 		    break;
 		}
 	    }
 	}
-	addr += rec.size;				// next address
+	addr += data_size;				// next address
     }
 
     c7_vbuf_free(vbuf);

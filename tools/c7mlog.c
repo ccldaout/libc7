@@ -450,7 +450,7 @@ static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__para
     } else
 	c7_sprintf(&sb, " @%02x", info->thread_id);
     if (prm->pr_pid)
-	c7_sprintf(&sb, "@%06d", info->pid);
+	c7_sprintf(&sb, "/%06d", info->pid);
     if (prm->sn_width > 0) {
 	if (info->source_name[0] != 0) {
 	    int n = strlen(info->source_name);
