@@ -8,6 +8,7 @@
  */
 #include "_config.h"
 
+
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -26,7 +27,8 @@
 // 3: thread name, source name
 // 4: record max length for thread name and source name
 // 5: new linkage format & enable inter process lock
-#define _REVISION	5
+// 6: lock free, no max_{tn|sn}_size
+#define _REVISION	(6)
 
 
 typedef uint32_t raddr_t;
@@ -96,6 +98,8 @@ static raddr_t rbuf_put(_rbuf_t *rb, raddr_t addr, raddr_t size, const void *__u
 ----------------------------------------------------------------------------*/
 
 #define _IHDRSIZE		c7_align(sizeof(_hdr_t), 16)
+
+// _rec_t internal control flags (6bits)
 #define _REC_CONTROL_CHOICE	(1U << 0)
 
 #define _TN_MAX			(63)	// tn_size:6
@@ -104,21 +108,17 @@ static raddr_t rbuf_put(_rbuf_t *rb, raddr_t addr, raddr_t size, const void *__u
 // file header
 typedef struct c7_mlog_hdr_t_ {
     uint32_t rev;
-    volatile uint32_t lock;
-    raddr_t nextaddr;
+    volatile raddr_t nextaddr;
+    volatile uint32_t cnt;
     raddr_t logsize_b;		// ring buffer size
-    uint32_t cnt;
     uint32_t hdrsize_b;		// user header size
-    uint8_t max_tn_size;	// maximum length of thread name
-    uint8_t max_sn_size;	// maximum length of source name
     char hint[64];
 } _hdr_t;
 
 // record header
 typedef struct c7_mlog_rec_t_ {
-    // [CAUTION] size member must be located at first member
     raddr_t size;		// record size (rec_t + log data + names + raddr_t)
-    uint32_t order;		// record serial number
+    uint32_t order;		// (weak )record order
     c7_time_t time_us;		// time stamp in micro sec.
     uint64_t minidata;		// mini data (out of libc7)
     uint64_t level   :  3;	// log level 0..7
@@ -138,9 +138,10 @@ struct c7_mlog_t_ {
     _hdr_t *hdr;
     char *path;
     size_t mmapsize_b;
-    size_t maxdsize_b;
     uint32_t flags;
     uint32_t pid;
+    int max_sn_size;
+    int max_tn_size;
 };
 
 
@@ -174,7 +175,6 @@ static c7_mlog_t mlog_new(const char *path, size_t hdrsize_b, size_t logsize_b)
     }
     g->path = NULL;
     g->mmapsize_b = _IHDRSIZE + hdrsize_b + logsize_b;
-    g->maxdsize_b = logsize_b - sizeof(_rec_t)- sizeof(raddr_t);
     if ((g->hdr = c7_file_mmap_rw(path, &g->mmapsize_b, C7_TRUE)) == NULL) {
 	free(g);
 	return NULL;
@@ -238,8 +238,8 @@ static _rec_t make_rechdr(c7_mlog_t g,
     logsize += sizeof(_rec_t);
 
     rec.size = logsize;
-    rec.time_us = time_us;
     // rec.order is assigned later
+    rec.time_us = time_us;
     rec.pid = g->pid;
     rec.th_id = c7_thread_id(NULL);
     rec.tn_size = tn_size;
@@ -293,38 +293,33 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
 	}
     }
 
-    // check size to be written
-    if ((logsize_b + tn_size + sn_size + 2) > g->maxdsize_b) {
-	return C7_FALSE;				// data size too large
-    }
-
     if (time_us == C7_MLOG_AUTO_TIME) {
 	time_us = c7_time_us();
     }
+
+    _hdr_t * const hdr_ = g->hdr;
 
     // build record header adn calculate size of whole record.
     _rec_t rechdr = make_rechdr(g, logsize_b, tn_size, sn_size, src_line,
 				time_us, level, category, minidata);
 
-    // [CRITICAL SECTION] update record pointer (g->hdr->nextaddr) and counter (g->hdr->cnt)
-    _hdr_t * const gh = g->hdr;
-    if ((g->flags & C7_MLOG_F_SPINLOCK) != 0) {
-	while (__sync_lock_test_and_set(&gh->lock, 1) == 1);
+    // check size to be written
+    if (rechdr.size > (hdr_->logsize_b + 32)) {		// (C) ensure rechdr.size < hdr_->logsize_b
+	return C7_FALSE;				// data size too large
     }
-    rechdr.order    = ++(gh->cnt);
+
+    // lock-free operation: get address of out record and update hdr_->nextaddr.
+    raddr_t addr, next;
+    do {
+	addr = hdr_->nextaddr;
+	next = (addr + rechdr.size) % hdr_->logsize_b;
+	// addr != next is ensured by above check (C)
+    } while (__sync_val_compare_and_swap(&hdr_->nextaddr, addr, next) != addr);
+
+    // lock-free operation: update record sequence number.
+    //                    : next rechdr.order is not strict, but we accept it.
+    rechdr.order = __sync_add_and_fetch(&hdr_->cnt, 1);
     rechdr.br_order = ~rechdr.order;
-    raddr_t addr = gh->nextaddr;
-    gh->nextaddr += rechdr.size;
-    gh->nextaddr %= gh->logsize_b;
-    if (g->hdr->max_tn_size < tn_size) {
-	g->hdr->max_tn_size = tn_size;
-    }
-    if (g->hdr->max_sn_size < sn_size) {
-	g->hdr->max_sn_size = sn_size;
-    }
-    if ((g->flags & C7_MLOG_F_SPINLOCK) != 0) {
-	__sync_lock_release(&gh->lock);
-    }
 
     // write whole record: log data -> thread_name -> source name	// (A) cf.(B)
     addr = rbuf_put(&g->rb, addr, sizeof(rechdr), &rechdr);		// record header
@@ -441,19 +436,17 @@ c7_bool_t c7_mlog_pfx_status(c7_mlog_t log, c7_time_t time_us,
 
 c7_bool_t c7_mlog_mutex(c7_mlog_t g, pthread_mutex_t *mutex_op)
 {
-    g->flags |= C7_MLOG_F_SPINLOCK;
     return C7_TRUE;
 }
 
 c7_bool_t c7_mlog_advlock(c7_mlog_t g)
 {
-    g->flags |= C7_MLOG_F_SPINLOCK;
     return C7_TRUE;
 }
 
 c7_bool_t c7_mlog_has_lock(c7_mlog_t g)
 {
-    return ((g->flags & C7_MLOG_F_SPINLOCK) != 0);
+    return C7_TRUE;
 }
 
 
@@ -494,7 +487,7 @@ static c7_mlog_info_t make_info(const _rec_t *rec, const char *data)
 
     info.thread_id   = rec->th_id;
     info.source_line = rec->src_line;
-    info.order       = rec->order;
+    info.weak_order  = rec->order;
     info.size_b      = rec->size;
     info.time_us     = rec->time_us;
     info.level       = rec->level;
@@ -553,7 +546,6 @@ static raddr_t findorigin(c7_mlog_t g,
 {
     const raddr_t brk_addr = ret_addr - g->hdr->logsize_b;
     _rec_t rec;
-    uint32_t prev_order = 0;
     
     if (maxcount == 0) {
 	maxcount = g->hdr->cnt;
@@ -573,8 +565,12 @@ static raddr_t findorigin(c7_mlog_t g,
 	if (rec.size != size || rec.order != ~rec.br_order) {
 	    break;
 	}
-	if (rec.order + 1 != prev_order && prev_order != 0) {
-	    break;
+
+	if (g->max_sn_size < rec.sn_size) {
+	    g->max_sn_size = rec.sn_size;
+	}
+	if (g->max_tn_size < rec.tn_size) {
+	    g->max_tn_size = rec.tn_size;
 	}
 
 	void *data = c7_vbuf_get(vbuf, rec.size - sizeof(rec));
@@ -598,7 +594,6 @@ static raddr_t findorigin(c7_mlog_t g,
 	}
 
 	ret_addr = addr;
-	prev_order = rec.order;
     }
 
     return ret_addr;
@@ -659,12 +654,12 @@ void *c7_mlog_hdraddr(c7_mlog_t g, size_t *hdrsize_b_op)
 
 int c7_mlog_thread_name_size(c7_mlog_t g)
 {
-    return g->hdr->max_tn_size;
+    return g->max_tn_size;
 }
 
 int c7_mlog_source_name_size(c7_mlog_t g)
 {
-    return g->hdr->max_sn_size;
+    return g->max_sn_size;
 }
 
 const char *c7_mlog_hint(c7_mlog_t g)

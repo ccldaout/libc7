@@ -36,14 +36,14 @@ extern "C" {
 // flags of c7_mlog_open_w()
 #define C7_MLOG_F_THREAD_NAME	(1U << 0)	// record thread name
 #define C7_MLOG_F_SOURCE_NAME	(1U << 1)	// record source name
-#define C7_MLOG_F_SPINLOCK	(1U << 2)	// use spinlock
+#define C7_MLOG_F_SPINLOCK	(1U << 2)	// (DON'T EFFECT)
 
 typedef struct c7_mlog_info_t_ {
     const char *thread_name;
     uint64_t thread_id;
     const char *source_name;
     int source_line;
-    uint32_t order;		// record serial number
+    uint32_t weak_order;	// record serial number (NOT STRICT)
     int32_t size_b;		// record size
     c7_time_t time_us;		// time stamp in micro sec.
     uint32_t level;

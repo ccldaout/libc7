@@ -21,6 +21,7 @@
 #define _PIDC_MAX	32
 
 typedef struct prm_t_ {
+    c7_mlog_t mlog;
     c7_args_t print_ap;
     size_t maxlines;
     size_t order_min, order_max;
@@ -426,8 +427,8 @@ static c7_bool_t choice(const c7_mlog_info_t *info, void *__param)
     }
     return (info->time_us >= prm->time_us_min &&
 	    info->time_us <= prm->time_us_max &&
-	    info->order >= prm->order_min &&
-	    info->order <= prm->order_max &&
+	    info->weak_order >= prm->order_min &&
+	    info->weak_order <= prm->order_max &&
 	    info->level <= prm->level_max &&
 	    ((1U << info->category) & prm->category_mask) != 0);
 }
@@ -437,20 +438,29 @@ static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__para
     static c7_str_t sb = C7_STR_INIT_MA();
     prm_t *prm = __param;
 
+    if (prm->pr_tn && prm->tn_width == 0) {
+	prm->tn_width = c7_mlog_thread_name_size(prm->mlog);
+    }
+    if (prm->pr_sn && prm->sn_width == 0) {
+	prm->sn_width = c7_mlog_source_name_size(prm->mlog);
+    }
+
     // make prefix
     c7_str_reuse(&sb);
     c7_sprintf(&sb, "%4d %s", 
-	       info->order,
+	       info->weak_order,
 	       strtime_us(info->time_us, prm->tm_format));
 
     if (prm->tn_width > 0) {
 	int n = strlen(info->thread_name);
 	n = (n <= prm->tn_width) ? 0 : (n - prm->tn_width);
 	c7_sprintf(&sb, " %*s", prm->tn_width, &info->thread_name[n]);
-    } else
+    } else {
 	c7_sprintf(&sb, " @%02x", info->thread_id);
-    if (prm->pr_pid)
+    }
+    if (prm->pr_pid) {
 	c7_sprintf(&sb, "/%06d", info->pid);
+    }
     if (prm->sn_width > 0) {
 	if (info->source_name[0] != 0) {
 	    int n = strlen(info->source_name);
@@ -463,16 +473,19 @@ static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__para
 	}
     }
 
-    if (prm->pr_category && prm->pr_loglevel)
+    if (prm->pr_category && prm->pr_loglevel) {
 	c7_sprintf(&sb, " [%2d:%1d]", info->category, info->level);
-    else if (prm->pr_category)
+    } else if (prm->pr_category) {
 	c7_sprintf(&sb, " [%2d]", info->category);
-    else if (prm->pr_loglevel)
+    } else if (prm->pr_loglevel) {
 	c7_sprintf(&sb, " [%1d]", info->level);
-    c7_stradd(&sb, ' ');
+    } else {
+	c7_stradd(&sb, ' ');
+    }
 
-   if (prm->md_format)
+    if (prm->md_format) {
 	c7_sprintf(&sb, prm->md_format, info->minidata);
+    }
 
     c7_strcpy(&sb, ": ");
 
@@ -482,8 +495,9 @@ static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__para
 	(void)printf("%s%.*s", c7_strbuf(&sb), (int)(p-s+1), s);
 	s = p + 1;
     }
-    if (*s != 0)
+    if (*s != 0) {
 	(void)printf("%s%s\n", c7_strbuf(&sb), s);
+    }
 
     return C7_TRUE;
 }
@@ -515,10 +529,7 @@ int main(int argc, char **argv)
     if (g == NULL)
 	c7exit_err(0, NULL);
 
-    if (prm.pr_tn && prm.tn_width == 0)
-	prm.tn_width = c7_mlog_thread_name_size(g);
-    if (prm.pr_sn && prm.sn_width == 0)
-	prm.sn_width = c7_mlog_source_name_size(g);
+    prm.mlog = g;
 
     if (!c7_mlog_scan(g,
 		      prm.maxlines, prm.order_min, prm.time_us_min,
