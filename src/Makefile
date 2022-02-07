@@ -11,7 +11,7 @@
 C7_TARGET_BASE = libc7
 C7_VER_MAJOR = 2
 C7_VER_MINOR = 1
-C7_VER_PATCH = 1
+C7_VER_PATCH = 2
 C7_CC_IPATH = .
 
 include ../Makefile.common

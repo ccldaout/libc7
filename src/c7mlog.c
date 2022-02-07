@@ -552,6 +552,7 @@ static raddr_t findorigin(c7_mlog_t g,
     } else if (maxcount > g->hdr->cnt) {
 	maxcount = g->hdr->cnt;
     }
+    maxcount++;
 
     for (;;) {
 	raddr_t size;
