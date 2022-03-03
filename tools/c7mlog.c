@@ -420,7 +420,7 @@ static c7_bool_t choice(const c7_mlog_info_t *info, void *__param)
     if (prm->pidc > 0) {
 	int i;
 	for (i = 0; i < prm->pidc; i++)
-	    if (info->thread_id == prm->pidv[i])
+	    if (info->pid == prm->pidv[i])
 		break;
 	if (i == prm->pidc)
 	    return C7_FALSE;
