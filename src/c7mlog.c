@@ -304,7 +304,7 @@ c7_bool_t c7_mlog_put(c7_mlog_t g, c7_time_t time_us,
 				time_us, level, category, minidata);
 
     // check size to be written
-    if (rechdr.size > (hdr_->logsize_b + 32)) {		// (C) ensure rechdr.size < hdr_->logsize_b
+    if ((rechdr.size + 32) > hdr_->logsize_b) {		// (C) ensure rechdr.size < hdr_->logsize_b
 	return C7_FALSE;				// data size too large
     }
 
