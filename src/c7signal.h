@@ -19,8 +19,6 @@ extern "C" {
 #include <signal.h>
 
 
-extern pthread_mutex_t c7_signal_glock;
-
 void (*c7_signal_register(int sig,
 			  const sigset_t *sigmask_on_call,
 			  void (*callback)(int sig)))(int);

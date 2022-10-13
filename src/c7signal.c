@@ -6,6 +6,8 @@
  * This software is released under the MIT License.
  * http://opensource.org/licenses/mit-license.php
  */
+
+
 #include "_config.h"
 
 #include <unistd.h>
@@ -17,227 +19,223 @@
 #include "_private.h"
 
 
-#define _CNTL_SIG	SIGCHLD	// signal for restarting sgiwait
-
-typedef struct _callback_t_ {
-    void (*func)(int sig);
-    sigset_t sigmask;
-} _callback_t;
-
-static struct {
+static struct sigman_t {
     pthread_mutex_t lock;
-    _callback_t callback[NSIG];
+    sigset_t blocked_mask;
+    sigset_t user_mask;
+    void (*handlers[NSIG])(int);
     c7_thread_t th;
-    c7_thread_event_t reload;
-    sigset_t block_sigs;	// signals to be blocked just before sigwait
-    sigset_t wait_sigs;		// signals to be passed to sigwait
-    sigset_t managed_sigs;	// all registered signals
-} SigMonitor = { PTHREAD_MUTEX_INITIALIZER };
+} sigm_ = { PTHREAD_MUTEX_INITIALIZER };
+    
 
-pthread_mutex_t c7_signal_glock = PTHREAD_MUTEX_INITIALIZER;
+static void _sigm_default(int sig)
+{
+    sigset_t mask;
+    (void)sigemptyset(&mask);
+    (void)sigaddset(&mask, sig);
+    (void)pthread_sigmask(SIG_UNBLOCK, &mask, NULL);
+    (void)kill(getpid(), sig);
+}
 
-static void c7_signal_SIGCHLD_callback(int sig1)
+static void _sigm_sigset_em(sigset_t *mask)
+{
+    int sigs[] = { SIGSEGV, SIGBUS, SIGILL, SIGBUS, SIGABRT };
+    for (size_t i = 0; i < c7_numberof(sigs); i++) {
+	sigdelset(mask, sigs[i]);
+    }
+}
+
+static void _sigm_sigset_on(sigset_t *mask, const sigset_t *on)
+{
+    for (int i = 0; i < NSIG; i++) {
+	if (sigismember(on, i)) {
+	    sigaddset(mask, i);
+	}
+    }
+}
+
+static void _sigm_sigset_off(sigset_t *mask, const sigset_t *off)
+{
+    for (int i = 0; i < NSIG; i++) {
+	if (sigismember(off, i)) {
+	    sigdelset(mask, i);
+	}
+    }
+}
+
+static void _sigm_check_blocked(void)
+{
+    for (int i = 0; i < NSIG; i++) {
+	if (sigismember(&sigm_.blocked_mask, i) && !sigismember(&sigm_.user_mask, i)) {
+	    (void)kill(getpid(), i);
+	    sigdelset(&sigm_.blocked_mask, i);
+	}
+    }
+}
+
+static void _sigm_monitor(void *__unuse)
+{
+    sigset_t wait_mask;
+    (void)sigfillset(&wait_mask);
+    _sigm_sigset_em(&wait_mask);
+
+    for (;;) {
+	int sig;
+	if (sigwait(&wait_mask, &sig) == C7_SYSOK) {
+	    void (*handler)(int) = NULL;
+	    C7_THREAD_GUARD_ENTER(&sigm_.lock);
+	    if (sigismember(&sigm_.user_mask, sig)) {
+		sigaddset(&sigm_.blocked_mask, sig);
+	    } else {
+		handler = sigm_.handlers[sig];
+	    }
+	    C7_THREAD_GUARD_EXIT(&sigm_.lock);
+	    if (handler != NULL) {
+		handler(sig);
+	    }
+	} else {
+	    //c7error(c7result_err(errno, "sigwait() failed"));
+	}
+    }
+}
+
+static void sigm_init(void)
+{
+    for (size_t i = 0; i < c7_numberof(sigm_.handlers); i++) {
+	sigm_.handlers[i] = _sigm_default;
+    }
+    (void)sigemptyset(&sigm_.user_mask);
+    (void)sigemptyset(&sigm_.blocked_mask);
+
+    sigset_t wait_mask;
+    (void)sigfillset(&wait_mask);
+    _sigm_sigset_em(&wait_mask);
+    (void)sigprocmask(SIG_SETMASK, &wait_mask, NULL);
+
+    sigm_.th = c7_thread_run(_sigm_monitor, NULL, NULL, "signal_monitor", 0);
+    if (sigm_.th == NULL) {
+	c7abort_err(0, ": [FATAL] cannot run signal monitor thread\n");
+    }
+}
+
+static void (*sigm_register(int sig, void (*new_handler)(int)))(int)
+{
+    void (*old)(int) = sigm_.handlers[sig];
+    if (new_handler == SIG_IGN) {
+	(void)signal(sig, new_handler);
+    } else {
+	if (new_handler == SIG_DFL) {
+	    new_handler = _sigm_default;
+	}
+    }
+    sigm_.handlers[sig] = new_handler;
+    if (old == _sigm_default) {
+	old = SIG_DFL;
+    }
+    return old;
+}
+
+static sigset_t sigm_block(const sigset_t *mask)
+{
+    sigset_t old_mask;
+    C7_THREAD_GUARD_ENTER(&sigm_.lock);
+    old_mask = sigm_.user_mask;
+    _sigm_sigset_on(&sigm_.user_mask, mask);
+    C7_THREAD_GUARD_EXIT(&sigm_.lock);
+    return old_mask;
+}
+
+static sigset_t sigm_unblock(const sigset_t *mask)
+{
+    sigset_t old_mask;
+    C7_THREAD_GUARD_ENTER(&sigm_.lock);
+    old_mask = sigm_.user_mask;
+    _sigm_sigset_off(&sigm_.user_mask, mask);
+    _sigm_check_blocked();
+    C7_THREAD_GUARD_EXIT(&sigm_.lock);
+    return old_mask;
+}
+
+static sigset_t sigm_setmask(const sigset_t *mask)
+{
+    sigset_t old_mask;
+    C7_THREAD_GUARD_ENTER(&sigm_.lock);
+    old_mask = sigm_.user_mask;
+    sigm_.user_mask = *mask;
+    _sigm_check_blocked();
+    C7_THREAD_GUARD_EXIT(&sigm_.lock);
+    return old_mask;
+}
+
+
+/*----------------------------------------------------------------------------
+----------------------------------------------------------------------------*/
+
+static volatile int once_flag;
+
+static void handle_SIGCHLD(int sig1)
 {
     c7_cleaner_waitprocs();
 }
 
-static void signal_monitor_thread(void *__nouse)
+static void reset_once_flag(void)
 {
-    for (;;) {
-	int sig1;
-	(void)pthread_sigmask(SIG_SETMASK, &SigMonitor.block_sigs, NULL);
-	c7_thread_event_set(SigMonitor.reload);
-	if (sigwait(&SigMonitor.wait_sigs, &sig1) == C7_SYSOK) {
-	    _callback_t *cb = &SigMonitor.callback[sig1 - 1];
-	    if (cb->func == NULL)
-		continue;
-	    sigset_t o_sigmask;
-	    (void)pthread_sigmask(SIG_BLOCK, &cb->sigmask, &o_sigmask);
-	    C7_THREAD_GUARD_ENTER(&c7_signal_glock);
-	    c7_status_clear();
-	    cb->func(sig1);
-	    c7_status_clear();
-	    C7_THREAD_GUARD_EXIT(&c7_signal_glock);
-	    (void)pthread_sigmask(SIG_SETMASK, &o_sigmask, NULL);
-	}
-    }
+    __sync_lock_release(&once_flag);
 }
 
-static void start_if(void)
+static void call_init_once(void)
 {
-    static c7_bool_t initialized;
-    c7_bool_t init;
-
-    C7_THREAD_GUARD_ENTER(&SigMonitor.lock);
-    init = initialized;
-    initialized = C7_TRUE;
-    C7_THREAD_GUARD_EXIT(&SigMonitor.lock);
-    
-    if (init == C7_TRUE)
-	return;
-
-    c7_status_clear();
-
-    // All signals must be blocked at main thread for sigwait work well.
-#if !defined(__CYGWIN__)
-    sigset_t main_sigs;
-    (void)sigfillset(&main_sigs);
-    (void)sigprocmask(SIG_SETMASK, &main_sigs, NULL);
-#endif
-
-    (void)sigemptyset(&SigMonitor.block_sigs);
-    (void)sigemptyset(&SigMonitor.wait_sigs);
-    (void)sigemptyset(&SigMonitor.managed_sigs);
-
-    (void)sigaddset(&SigMonitor.block_sigs, _CNTL_SIG);
-    (void)sigaddset(&SigMonitor.wait_sigs, _CNTL_SIG);
-
-    c7_signal_register(SIGCHLD, NULL, c7_signal_SIGCHLD_callback);
-
-    SigMonitor.reload = c7_thread_event_init();
-    SigMonitor.th = c7_thread_run(signal_monitor_thread, NULL, NULL,
-				  "signal_monitor", 0);
-    if (SigMonitor.th == NULL)
-	c7abort_err(0, ": [FATAL] cannot run signal monitor thread\n");
-}
-
-
-static void (*register_callback(int sig1,
-				const sigset_t *sigmask_on_call,
-				void (*callback)(int sig)))(int)
-{
-    if (sig1 < 1 || NSIG < sig1)
-	c7abort_err(EINVAL, ": [FATAL] c7_signal_register: sig:%1d is over NSIG:%d\n",
-		    sig1, NSIG);
-
-    _callback_t *cb = &SigMonitor.callback[sig1 - 1];
-    void (*o_callback)(int) = cb->func;
-    cb->func = callback;
-    if (sigmask_on_call != NULL)
-	cb->sigmask = *sigmask_on_call;
-    else
-	(void)sigemptyset(&cb->sigmask);
-    (void)sigaddset(&cb->sigmask, sig1);
-
-    if (callback == SIG_IGN || callback == SIG_DFL) {
-	(void)signal(sig1, callback);
-	(void)sigdelset(&SigMonitor.block_sigs, sig1);
-	(void)sigdelset(&SigMonitor.wait_sigs, sig1);
-	(void)sigdelset(&SigMonitor.managed_sigs, sig1);
-    } else {
-	(void)sigaddset(&SigMonitor.block_sigs, sig1);
-	(void)sigaddset(&SigMonitor.wait_sigs, sig1);
-	(void)sigaddset(&SigMonitor.managed_sigs, sig1);
+    if (__sync_lock_test_and_set(&once_flag, 1) == 0) {
+	sigm_init();
+	sigm_register(SIGCHLD, handle_SIGCHLD);
+	pthread_atfork(NULL, NULL, reset_once_flag);
     }
-
-    if (SigMonitor.th != NULL) {
-	// dummy signal to reload SigMonitor.*_sigs
-	(void)c7_thread_kill(SigMonitor.th, _CNTL_SIG);
-	c7_thread_event_wait(SigMonitor.reload, -1);
-    }
-#if defined(__CYGWIN__)
-    (void)sigprocmask(SIG_BLOCK, &SigMonitor.wait_sigs, NULL);
-#endif
-
-    return o_callback;
 }
 
 void (*c7_signal_register(int sig1,
-			  const sigset_t *sigmask_on_call,
+			  const sigset_t *sigmask_on_call__unused,
 			  void (*callback)(int sig)))(int)
 {
-    start_if();
-    void (*o_func)(int);
-    C7_THREAD_GUARD_ENTER(&SigMonitor.lock);
-    o_func = register_callback(sig1, sigmask_on_call, callback);
-    C7_THREAD_GUARD_EXIT(&SigMonitor.lock);
-    return o_func;
-}
-
-
-static void update_sigmask(int how, const sigset_t *sigs, sigset_t *o_sigs)
-{
-    if (o_sigs != NULL)
-	*o_sigs = SigMonitor.block_sigs;
-
-    if (how == SIG_BLOCK) {
-	for (int sig0 = 0; sig0 < NSIG; sig0++) {
-	    int sig1 = sig0 + 1;
-	    if (sig1 == _CNTL_SIG)
-		continue;
-	    if (sigismember(sigs, sig1)) {
-		sigaddset(&SigMonitor.block_sigs, sig1);
-		sigdelset(&SigMonitor.wait_sigs, sig1);
-	    }
-	}
-    } else if (how == SIG_UNBLOCK) {
-	for (int sig0 = 0; sig0 < NSIG; sig0++) {
-	    int sig1 = sig0 + 1;
-	    if (sig1 == _CNTL_SIG)
-		continue;
-	    if (sigismember(sigs, sig1)) {
-		if (sigismember(&SigMonitor.managed_sigs, sig1)) {
-		    sigaddset(&SigMonitor.block_sigs, sig1);
-		    sigaddset(&SigMonitor.wait_sigs, sig1);
-		} else {
-		    sigdelset(&SigMonitor.block_sigs, sig1);
-		    //sigdelset(&SigMonitor.wait_sigs, sig1);
-		}
-	    }
-	}
-    } else if (how == SIG_SETMASK) {
-	for (int sig0 = 0; sig0 < NSIG; sig0++) {
-	    int sig1 = sig0 + 1;
-	    if (sig1 == _CNTL_SIG)
-		continue;
-	    if (sigismember(sigs, sig1)) {
-		sigaddset(&SigMonitor.block_sigs, sig1);
-		if (sigismember(&SigMonitor.managed_sigs, sig1)) {
-		    sigaddset(&SigMonitor.wait_sigs, sig1);
-		} else {
-		    //sigdelset(&SigMonitor.wait_sigs, sig1);
-		}
-	    } else {
-		if (sigismember(&SigMonitor.managed_sigs, sig1)) {
-		    sigaddset(&SigMonitor.block_sigs, sig1);
-		    sigaddset(&SigMonitor.wait_sigs, sig1);
-		} else {
-		    sigdelset(&SigMonitor.block_sigs, sig1);
-		    //sigaddset(&SigMonitor.wait_sigs, sig1);
-		}
-	    }
-	}
-    }
-
-    if (SigMonitor.th != NULL) {
-	// dummy signal to reload SigMonitor.*_sigs
-	(void)c7_thread_kill(SigMonitor.th, _CNTL_SIG);
-	c7_thread_event_wait(SigMonitor.reload, -1);
-    }
+    call_init_once();
+    return sigm_register(sig1, callback);
 }
 
 void c7_signal_sigmask(int how, const sigset_t *sigs, sigset_t *o_sigs)
 {
-    start_if();
-    C7_THREAD_GUARD_ENTER(&SigMonitor.lock);
-    update_sigmask(how, sigs, o_sigs);
-    C7_THREAD_GUARD_EXIT(&SigMonitor.lock);
-}
+    call_init_once();
 
+    if (o_sigs == NULL) {
+	sigset_t o_default;
+	o_sigs = &o_default;
+    }
+
+    switch (how) {
+    case SIG_SETMASK:
+	*o_sigs = sigm_setmask(sigs);
+	break;
+    case SIG_UNBLOCK:
+	*o_sigs = sigm_unblock(sigs);
+	break;
+    default:
+	*o_sigs = sigm_block(sigs);
+	break;
+    }
+}
 
 sigset_t c7_signal_sigblock(void)
 {
-    sigset_t n_set, o_set;
+    call_init_once();
+
     const int sigs[] = {
 	SIGINT, SIGTERM, SIGHUP, SIGABRT, SIGQUIT, SIGTSTP, SIGUSR1, SIGUSR2, SIGWINCH
     };
+    sigset_t n_set;
     (void)sigemptyset(&n_set);
-    for (int i = 0; i < c7_numberof(sigs); i++)
+    for (int i = 0; i < c7_numberof(sigs); i++) {
 	(void)sigaddset(&n_set, sigs[i]);
-    c7_signal_sigmask(SIG_BLOCK, &n_set, &o_set);
-    return o_set;
+    }
+    return sigm_block(&n_set);
 }
-
 
 void __c7_signal_init(void)
 {
