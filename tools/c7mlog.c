@@ -83,6 +83,16 @@ static c7_bool_t option_minidata(c7_args_t ap, const c7_args_params_t *params, v
     return (prm->md_format != NULL);
 }
 
+static c7_bool_t option_thread_id(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
+{
+    prm_t *prm = __uctx;
+    if (params->prmc > 0)
+	prm->tn_width = params->prmv[0].u.i;
+    else
+	prm->tn_width = 0;
+    return C7_TRUE;
+}
+
 static c7_bool_t option_thread_name(c7_args_t ap, const c7_args_params_t *params, void *__uctx)
 {
     prm_t *prm = __uctx;
@@ -135,8 +145,18 @@ static c7_args_optdef_t PrintOptions[] = {
 	.prmc_max = 1,
 	.handler = option_minidata },
     {
-	.long_opt = "thread",
+	.long_opt = "thread-id",
 	.short_opt = "t",
+	.optrepr = "print thread id",
+	.prmrepr = "width of thread id",
+	.prmword = "WIDTH",
+	.prmtype = C7_ARGS_T_INT,
+	.prmc_min = 0,
+	.prmc_max = 1,
+	.handler = option_thread_id },
+    {
+	.long_opt = "thread",
+	.short_opt = "T",
 	.optrepr = "print thread name",
 	.prmrepr = "width of thread name",
 	.prmword = "WIDTH",
@@ -352,6 +372,7 @@ static prm_t parse_args(char **argv)
 	.time_us_max = (-1UL)/2,
 	.level_max = C7_LOG_BRF,
 	.sl_width = 3,
+	.tn_width = 3,
     };
 
     c7_args_t c_ap = c7_args_init();
@@ -451,12 +472,19 @@ static c7_bool_t printlog(const c7_mlog_info_t *info, void *__data, void *__para
 	       info->weak_order,
 	       strtime_us(info->time_us, prm->tm_format));
 
-    if (prm->tn_width > 0) {
+    if (prm->pr_tn) {
 	int n = strlen(info->thread_name);
 	n = (n <= prm->tn_width) ? 0 : (n - prm->tn_width);
 	c7_sprintf(&sb, " %*s", prm->tn_width, &info->thread_name[n]);
-    } else {
-	c7_sprintf(&sb, " @%02x", info->thread_id);
+    } else if (prm->tn_width > 0) {
+	uint64_t tmax = (1UL << (prm->tn_width * 4));
+	if (info->thread_id < tmax) {
+	    c7_sprintf(&sb, " @%0*x", prm->tn_width, info->thread_id);
+	} else {
+	    tmax >>= 4;
+	    tmax--;
+	    c7_sprintf(&sb, " @*%0*x", prm->tn_width-1, (tmax & info->thread_id));
+	}
     }
     if (prm->pr_pid) {
 	c7_sprintf(&sb, "/%06d", info->pid);

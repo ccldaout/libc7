@@ -54,7 +54,9 @@ struct c7_mpool_t_ {
 
 static c7_bool_t mpooladd(c7_mpool_t mp)
 {
-    size_t alz = sizeof(_chunk_t) + mp->elmsize * mp->alccnt;
+    size_t elz = mp->elmsize;
+    size_t alc = mp->alccnt;
+    size_t alz = sizeof(_chunk_t) + elz * alc;
     _chunk_t * const chunk = c7_calloc(alz, 1);
     if (chunk == NULL)
 	return C7_FALSE;
