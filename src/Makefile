@@ -8,7 +8,7 @@
 #
 
 
-C7_TARGET_BASE = libc7
+C7_TARGET_BASE = libc7$(C7_TARGET_DBGSFX)
 C7_CC_IPATH = .
 
 include ../Makefile.version

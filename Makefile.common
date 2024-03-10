@@ -32,6 +32,10 @@ C7_TMP_ROOT   ?= $(C7_OUT_ROOT)/tmp
 C7_OUT_TMPDIR ?= $(C7_TMP_ROOT)/$(C7_TARGET_BASE)$(C7_DBGSFX).$(C7_VER_MAJOR)
 C7_OUT_OBJDIR ?= $(C7_OUT_TMPDIR)/obj
 
+ifneq "$(C7_RTLD_LIBDIR_REL)" ""
+  C7_RTLD_LIBDIR ?= '$$(ORIGIN)'/$(C7_RTLD_LIBDIR_REL)
+endif
+
 C7_DIRS = $(sort $(C7_OUT_BINDIR) $(C7_OUT_INCDIR) $(C7_OUT_LIBDIR) $(C7_OUT_PY2DIR) $(C7_OUT_OBJDIR))
 
 C7_CC_IPATH += $(C7_OUT_INCDIR)
@@ -50,13 +54,15 @@ LDFLAGS = $(addprefix -L,$(C7_LD_LPATH)) $(addprefix $(C7_LD_RPATH_OPT),$(C7_LD_
 LDLIBS = $(if $(C7_NOLIBC7),,-lc7) $(if $(C7_NOTHREAD),,-lpthread)
 
 ifeq "$(wildcard DEBUG)" ""
-  CFLAGS += -O3
+  C7_ECHO_BEG="\x1b[32m"
+  C7_ECHO_END="\x1b[0m"
+  CFLAGS   += -O3
 else
   C7_ECHO_BEG="\x1b[33m"
   C7_ECHO_END="\x1b[0m"
   C7_DBGSFX = .g
-  CFLAGS += -g2 -O0
-  LDFLAGS += -g
+  CFLAGS   += -g2 -O0
+  LDFLAGS  += -g
 endif
 
 ifneq "$(wildcard ../uconfig.h)" ""
@@ -64,7 +70,7 @@ ifneq "$(wildcard ../uconfig.h)" ""
 endif
 
 ifeq (,$(findstring s,$(MAKEFLAGS)))
-  C7_ECHO = echo -e
+  C7_ECHO = /bin/echo -e
 else
   C7_ECHO = :
 endif
@@ -98,13 +104,12 @@ debug:
 
 .PHONY: nodebug
 nodebug:
-	@rmdir DEBUG
+	@rm -fr DEBUG
 	@make --no-print-directory
 
 .PHONY: init
-init: $(C7_DIRS)
-$(C7_DIRS):
-	mkdir -p $@
+init:
+	mkdir -p $(C7_DIRS)
 
 .PHONY: clean
 clean:
