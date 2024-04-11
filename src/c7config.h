@@ -13,6 +13,9 @@ extern "C" {
 #endif
 
 
+#include <_c7version.h>
+
+
 #if ((defined(__cplusplus) && (__cplusplus < 201103L)) || \
      (defined(__STDC_VERSION__) && (__STDC_VERSION__ < 199901L)))
 # error "libc7 require at least C99"
