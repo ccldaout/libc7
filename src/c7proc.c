@@ -285,8 +285,8 @@ static pid_t genfilter(int fd0, int fd1, int cs[], char **av)
 
 static c7_bool_t endfilter(c7_filter_t flt, int *stsp, int cmd)
 {
+    int __status;
     if (stsp == NULL) {
-	int __status;
 	stsp = &__status;
     }
 

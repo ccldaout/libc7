@@ -359,8 +359,9 @@ static void *dommap(const char *path, size_t *sizep_io, int oflag, int prot)
     }
     if ((oflag & O_CREAT) != 0)
 	c7_file_inherit_owner(path);
+
+    size_t __mapsize = 0;
     if (sizep_io == NULL) {
-	size_t __mapsize = 0;
 	sizep_io = &__mapsize;
     }
     void *addr = dommap_fd(path, fd, prot, sizep_io);

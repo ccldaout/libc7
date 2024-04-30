@@ -204,8 +204,8 @@ void c7_signal_sigmask(int how, const sigset_t *sigs, sigset_t *o_sigs)
 {
     call_init_once();
 
+    sigset_t o_default;
     if (o_sigs == NULL) {
-	sigset_t o_default;
 	o_sigs = &o_default;
     }
 
