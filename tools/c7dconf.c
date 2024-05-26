@@ -48,10 +48,10 @@ static void showdconf(int dc, c7_dconf_def_t * const def)
     for (int i = 0; i < dc; i++) {
 	c7_dconf_def_t *d = &def[i];
 	if (d->type == C7_DCONF_TYPE_I64) {
-	    (void)printf("[%2d] %-*s : %15ld ... %s\n",
+	    (void)printf("[%3d] %-*s : %15ld ... %s\n",
 			 d->index, id_maxlen, d->ident, c7_dconf_i(d->index), d->descrip);
 	} else {
-	    (void)printf("[%2d] %-*s : %15g ... %s\n",
+	    (void)printf("[%3d] %-*s : %15g ... %s\n",
 			 d->index, id_maxlen, d->ident, c7_dconf_r(d->index), d->descrip);
 	}
     }
@@ -104,6 +104,11 @@ static void setvalues(int dc, c7_dconf_def_t * const def, char **argv)
 	    if (*p != 0)
 		exiterr(": integer is required for IDENT(INDEX) '%s'\n", *argv);
 	    c7_dconf_i_set(d->index, v);
+	    if (d->index == C7_DCONF_MLOG_obsolete) {
+		c7_dconf_i_set(C7_DCONF_MLOG, v);
+	    } else if (d->index == C7_DCONF_MLOG) {
+		c7_dconf_i_set(C7_DCONF_MLOG_obsolete, v);
+	    }
 	} else {
 	    char *p;
 	    double v = strtod(*argv, &p);

@@ -16,8 +16,8 @@
 #include <c7app.h>
 
 
-#define _INDEX_LIM	(100)	// C7_DCONF_USER_INDEX_LIM..99: libc7 area
-#define _VERSION	(2)	// _INDEX_LIM:100, C7_DCONF_USER_INDEX_LIM:90
+#define _INDEX_LIM	C7_DCONF_INDEX_LIM
+#define _VERSION	C7_DCONF_VERSION
 
 typedef struct _dconf_t {
     int32_t version;

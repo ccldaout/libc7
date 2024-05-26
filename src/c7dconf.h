@@ -23,6 +23,9 @@ extern "C" {
 
 #define C7_DCONF_USER_INDEX_BASE	(0)
 #define C7_DCONF_USER_INDEX_LIM		(90)	// not include 90
+#define C7_DCONF_MLOG_BASE		(100)
+#define C7_DCONF_INDEX_LIM		(150)	// C7_DCONF_USER_INDEX_LIM..149: libc7 area
+#define C7_DCONF_VERSION		(3)	// C7_INDEX_LIM:150
 
 typedef enum c7_dconf_type_t_ {
     C7_DCONF_TYPE_None,
@@ -45,9 +48,42 @@ typedef struct c7_dconf_def_t_ {
 
 enum {
     C7_DCONF_ECHO = C7_DCONF_USER_INDEX_LIM,
-    C7_DCONF_MLOG,
+    C7_DCONF_MLOG_obsolete,
     C7_DCONF_PREF,
     C7_DCONF_STSSCN_MAX,
+    // all 32 indexes between C7_DCONF_MLOG and C7_DCONF_MLOG_LIBC7 are for mlog
+    C7_DCONF_MLOG = C7_DCONF_MLOG_BASE,
+    C7_DCONF_MLOG_1,
+    C7_DCONF_MLOG_2,
+    C7_DCONF_MLOG_3,
+    C7_DCONF_MLOG_4,
+    C7_DCONF_MLOG_5,
+    C7_DCONF_MLOG_6,
+    C7_DCONF_MLOG_7,
+    C7_DCONF_MLOG_8,
+    C7_DCONF_MLOG_9,
+    C7_DCONF_MLOG_10,
+    C7_DCONF_MLOG_11,
+    C7_DCONF_MLOG_12,
+    C7_DCONF_MLOG_13,
+    C7_DCONF_MLOG_14,
+    C7_DCONF_MLOG_15,
+    C7_DCONF_MLOG_16,
+    C7_DCONF_MLOG_17,
+    C7_DCONF_MLOG_18,
+    C7_DCONF_MLOG_19,
+    C7_DCONF_MLOG_20,
+    C7_DCONF_MLOG_21,
+    C7_DCONF_MLOG_22,
+    C7_DCONF_MLOG_23,
+    C7_DCONF_MLOG_24,
+    C7_DCONF_MLOG_25,
+    C7_DCONF_MLOG_26,
+    C7_DCONF_MLOG_27,
+    C7_DCONF_MLOG_28,
+    C7_DCONF_MLOG_29,
+    C7_DCONF_MLOG_30,
+    C7_DCONF_MLOG_LIBC7 = C7_DCONF_MLOG + 31,
     C7_DCONF_numof
 };
 
