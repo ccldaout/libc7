@@ -65,6 +65,22 @@ ssize_t __c7_deque_foreach_next(c7_deque_t dq, ssize_t i, void **vp, ssize_t *id
     return i + 1;
 }
 
+ssize_t __c7_deque_foreach_r_next(c7_deque_t dq, ssize_t i, void **vp, ssize_t *idxp)
+{
+    ssize_t n = c7_deque_count(dq);
+    if (0 <= i && i < n) {
+	ssize_t idx = n - i - 1;
+	*vp = (void *)(dq->head + (dq->item_size * idx));
+	if (idxp != NULL)
+	    *idxp = idx;
+    } else {
+	*vp = NULL;
+	if (idxp != NULL)
+	    *idxp = -1;
+    }
+    return i + 1;
+}
+
 ssize_t c7_deque_index(const c7_deque_t dq, void *item)
 {
     const char * const ip = item;
@@ -76,7 +92,7 @@ ssize_t c7_deque_index(const c7_deque_t dq, void *item)
 
 ssize_t c7_deque_count(const c7_deque_t dq)
 {
-    return c7_deque_index(dq, dq->tail);
+    return (dq->tail - dq->head) / dq->item_size;
 }
 
 void *c7_deque_nth(const c7_deque_t dq, ssize_t idx)
