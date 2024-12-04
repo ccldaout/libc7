@@ -150,7 +150,7 @@ static c7_bool_t check_hdr(_hdr_t *hdr, size_t size_b)
     for (int i = 0; i < _PART_CNT; i++) {
 	reqsize_b += hdr->part[i].size_b;
     }
-    return (reqsize_b < size_b);
+    return (reqsize_b <= size_b);
 }
 
 static void setup_rbufs(c7_mlog_t g, _hdr_t *hdr)
