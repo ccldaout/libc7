@@ -499,8 +499,10 @@ void *c7_vbuf_get(c7_vbuf_t vbuf,  size_t n)
 
 void c7_vbuf_free(c7_vbuf_t vbuf)
 {
-    c7_mg_free(vbuf->mg, vbuf->addr);
-    c7_mg_free(vbuf->mg, vbuf);
+    if (vbuf != NULL) {
+	c7_mg_free(vbuf->mg, vbuf->addr);
+	c7_mg_free(vbuf->mg, vbuf);
+    }
 }
 
 c7_vbuf_t (c7_vbuf_new_std)(void)

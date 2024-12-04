@@ -124,6 +124,7 @@ typedef struct __C7_HEAP_BASE_TAG {
 #define c7_heap_reset(b)	((b)->_n = 0)
 
 
+__attribute__((unused))
 static void __C7_HEAP_SHIFT_UP(C7_ELM_TYPE * const array, size_t idx)
 {
      C7_ELM_TYPE target = array[idx];
@@ -138,6 +139,7 @@ static void __C7_HEAP_SHIFT_UP(C7_ELM_TYPE * const array, size_t idx)
     array[idx] = target;
 }
 
+__attribute__((unused))
 static void __C7_HEAP_SHIFT_DOWN(C7_ELM_TYPE * const array, size_t idx, const size_t n)
 {
     C7_ELM_TYPE target = array[idx];
@@ -158,6 +160,7 @@ static void __C7_HEAP_SHIFT_DOWN(C7_ELM_TYPE * const array, size_t idx, const si
     array[idx] = target;
 }
 
+__attribute__((unused))
 static void __C7_HEAP_ADD(__C7_HEAP_BASE_TYPE *base, C7_ELM_TYPE *elm)
 {
     base->_a[base->_n] = *elm;
@@ -165,6 +168,7 @@ static void __C7_HEAP_ADD(__C7_HEAP_BASE_TYPE *base, C7_ELM_TYPE *elm)
     base->_n++;
 }
 
+__attribute__((unused))
 static void __C7_HEAP_REMOVE(__C7_HEAP_BASE_TYPE *base, size_t idx)
 {
     base->_a[idx] = base->_a[base->_n - 1];
@@ -175,6 +179,7 @@ static void __C7_HEAP_REMOVE(__C7_HEAP_BASE_TYPE *base, size_t idx)
     }
 }
 
+__attribute__((unused))
 static int __C7_HEAP_VERIFY(__C7_HEAP_BASE_TYPE *base)
 {
     size_t i;
